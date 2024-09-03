@@ -1,0 +1,35 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>考勤查询 </view>
+    </view>
+</view>
+<view class="Grid-sku" style="background-color:#33A1C9;color:white;margin-top:5rem;height:3rem;">
+    <view class="sp" style="width:25%;margin-top: 18px;margin-left: 15px;">
+        <text class=""> ID </text>
+    </view>
+    <view class="sp " style="width:40%;margin-top: 15px;">
+        <text class=""> 姓名 </text>
+    </view>
+    <view class="Grid-cellp sp" style="width:35%;margin-top: 15px;">
+        <text>在线状态</text>
+    </view>
+</view>
+<view class=" action solid-bottom " wx:for="{{rest}}" wx:key="id">
+    <view class="Grid-sku" style="height:3rem;background-color:#e3eef7;margin-top:3px;">
+        <view class="Grid-cellp sp" style="width:25%;margin-top: 15px;margin-left: 15px;">
+            <text>{{item.USERID}}</text>
+        </view>
+        <view class="Grid-cellp sp" style="width:40%;margin-top: 12px;">
+            <text>{{item.XF_NAME}}</text>
+        </view>
+        <view class="Grid-cellp sp" style="width:35%;margin-top: 12px;" wx:if="{{item.PSTATE=='离线'}}">
+            <image src="/images/red.png" style="width: 13px;height:13px;"></image>
+            <text style="margin-left: 5px;">{{item.PSTATE}}</text>
+        </view>
+        <view class="Grid-cellp sp" style="width:35%;margin-top: 12px;" wx:else>
+            <image src="/images/green.png" style="width: 13px;height:13px;"></image>
+            <text style="margin-left: 5px;">{{item.PSTATE}}</text>
+        </view>
+    </view>
+</view>

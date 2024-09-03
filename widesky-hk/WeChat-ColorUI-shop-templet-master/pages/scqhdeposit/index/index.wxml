@@ -1,0 +1,117 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>商城未取货订单查询 </navigator>
+    </view>
+</view>
+<view style="overflow-x: hidden;">
+    <view class="cu-form-group" style="padding-top: 80px;">
+        <view class="title icon-title text-orange">员工ID：</view>
+        <input bindinput="getygid" class="radius" name="xf_staffcode" placeholder="请输入跟进员工科传账号" value="{{xf_staffcode}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">商城单号：</view>
+        <input bindinput="getdocno" class="radius" name="xf_docno" placeholder="请输入微信商城单号" value="{{xf_docno}}"></input>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询商城未取货订单</button>
+    </view>
+    <view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="margin-top: 1rem;" wx:for="{{replu}}" wx:key="index">
+        <view class="canui-order-item bg-white">
+            <view class="head-title-box" style="margin: 0px 0px 0px 20px;">
+                <view style="height: 10px;"></view>
+                <text class="icon-shop"></text>
+                <text style="margin-left: 5px;">广天藏品</text>
+            </view>
+            <view catchtap="selectsku" data-XF_PLU="{{shopItem.XF_PLU}}" wx:for="{{item.shop}}" wx:for-item="shopItem" wx:key="index">
+                <view class="Grid-sku" style="border-radius:8px;background-color:white;margin:5px 0px 5px 0px;">
+                    <view style="margin-left:10px;margin-top:15px;height:100px;width:100px;">
+                        <image mode="widthFix" src="{{scimgurl}}{{shopItem.XF_PLU}}/{{shopItem.IMAGESSL}}" style="border-radius: 5px;"></image>
+                    </view>
+                    <view style="margin-left:15px;width:70%;margin-top:10px;">
+                        <view>
+                            <text>{{shopItem.XF_DESCI}}</text>
+                        </view>
+                        <view>
+                            <text>编号：{{shopItem.XF_PLU}}</text>
+                        </view>
+                        <view style="display: flex;width:100%;">
+                            <view style="color:rgb(195,167,105);margin-top:8px;width:30%;margin-left:3px;">
+                                <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);">{{shopItem.XF_PRICE}}</text>
+                            </view>
+                            <view style="width: 70%;margin-top:2px;text-align: right;margin-right: 8px;">
+                                <view class="cu-btn" style="background-color:rgb(243, 244, 246);height: 25px;width:10%;font-size: 12px;">X</view>
+                                <view class="cu-btn" style="background-color:rgb(243, 244, 246);height: 25px;margin-left: 3px;margin-top:5px;width:10%;">{{shopItem.XF_QTY}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 共 <text style="font-weight: 700;color:rgb(195,167,105);">{{item.SUMQTY}}</text> 件商品 </view>
+                    <view class="action"> 小计： <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.SUMPRICE}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 已付定金： </view>
+                    <view class="action">
+                        <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.PAY_AMTSOLD}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 尚欠金额： </view>
+                    <view class="action">
+                        <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.SUMSQPRICE}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 商城单号： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:blue;">{{item.XF_DOCNO}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 科传单号： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:red;">{{item.KCXF_DOCNO}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 会员名称： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:rgb(195,167,105);">{{item.VIPNAME}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 分享员工： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:rgb(195,167,105);">{{item.XF_NAME}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="cu-list menu bg-white solid-bottom canui-selet">
+            <view class="cu-item">
+                <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+                    <button bindtap="fs" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: rgb(195,167,105);border:1px solid;width:90%;color:white;">
+                        <text class="icon-my"> 发送此订单给客户定金取货</text>
+                    </button>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view style="height: 8rem;"></view>
+</view>

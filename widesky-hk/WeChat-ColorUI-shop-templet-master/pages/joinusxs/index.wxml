@@ -1,0 +1,42 @@
+<block wx:for="{{resultdt}}" wx:key="id">
+    <swiper autoplay="true" circular="true" class="square-dot bg-white " duration="500" indicatorDots="true" interval="5000" style="height: {{swiperHeight}};">
+        <swiper-item>
+            <image bindload="computeImgHeight" mode="widthFix" src="{{pict}}{{item.IMAGES}}" style="width: 100%;"></image>
+        </swiper-item>
+    </swiper>
+    <view bindtap="goback" class="canui-head-box" style="top:{{StatusBar}}px;">
+        <view class="icon-back"></view>
+    </view>
+    <view class="bg-white canui-goods-box" style="padding-top:30rpx;">
+        <text class=" text-red text-xl  icon-cart">总配额： {{item.AMOUNT}}</text>
+        <text class=" text-red text-xl gp icon-cart"> 剩余配额：{{item.STOCK}}</text>
+    </view>
+    <form bindsubmit="checkitem" data-plu="{{item.XF_PLU}}" data-qty="{{item.QTY}}" data-store="{{item.STORE}}">
+        <view class="bg-white canui-goods-box canui-xzwz text-black">货号：{{item.XF_PLU}} 品名：{{item.XF_DESCI}}</view>
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange up ">店铺编号：<text class=" gp ">{{item.STORE}}{{item.STORENAME}}</text>
+            </view>
+        </view>
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange ">抢订数量：<text class="gp ">{{item.QTY}}</text>
+            </view>
+        </view>
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange ">销售单号：</view>
+            <input bindinput="getdnumber" class="radius up" name="dnumber" placeholder="请输入销售单号验证" value="{{dnumber}}"></input>
+        </view>
+        <view class="cu-form-group" style="height:19rem;">
+            <view class="title text-orange">单据照：</view>
+            <view class="" style="margin-top:10px;margin-left:2rem;">
+                <image id="imgurl" mode="aspectFill" src="{{imglist}}" style="height:250px;width:250px;"></image>
+                <view style="margin:5px 5px 5px 5px;">
+                    <button bindtap="ChooseImage" class="cu-btn round icon-add" style="margin:5px 5px 5px 5px;height:2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:95%"> 上传销售单</button>
+                </view>
+            </view>
+        </view>
+        <view class="cu-form-group lg" style="height:8rem;padding-bottom: 3rem;padding-top: 2rem;">
+            <button class="cu-btn canui-color-gradual shadow-blur round lg" formType="submit" hidden="{{show}}" style="margin-left:5rem;">
+                <text class="icon-check "></text> 提交验证</button>
+        </view>
+    </form>
+</block>

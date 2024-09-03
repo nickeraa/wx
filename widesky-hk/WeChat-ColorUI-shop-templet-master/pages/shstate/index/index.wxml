@@ -1,0 +1,84 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>考勤查询 </view>
+    </view>
+</view>
+<view class="Grid-sku" style="background-color:#33A1C9;color:white;margin-top:5rem;height:3rem;">
+    <view class="sp" style="width:25%;margin-top: 18px;margin-left: 15px;">
+        <text class=""> ID </text>
+    </view>
+    <view class="sp " style="width:30%;margin-top: 15px;">
+        <text class=""> 姓名 </text>
+    </view>
+    <view class="Grid-cellp sp" style="width:30%;margin-top: 15px;">
+        <text>在线状态</text>
+    </view>
+    <view class="Grid-cellp sp" style="width:25%;margin-top: 15px;">
+        <text>实时查询</text>
+    </view>
+</view>
+<view class=" action solid-bottom " wx:for="{{rest}}" wx:key="id">
+    <form bindsubmit="selectmap" data-id="{{item.ID}}" data-location="{{item.LOCATION}}" data-userid="{{item.USERID}}">
+        <view class="Grid-sku" style="height:3rem;background-color:#e3eef7;margin-top:3px;" wx:if="{{item.PSTATE=='失联状态'}}">
+            <view class="Grid-cellp sp" style="width:20%;margin-top: 15px;margin-left: 15px;">
+                <text>{{item.USERID}}</text>
+            </view>
+            <view class="Grid-cellp sp" style="width:30%;margin-top: 12px;">
+                <text>{{item.XF_NAME}}</text>
+            </view>
+            <view class="Grid-cellp sp" style="width:30%;margin-top: 12px;">
+                <image src="/images/red.png" style="width: 13px;height:13px;"></image>
+                <text style="margin-left: 5px;color: red;">{{item.PSTATE}}</text>
+            </view>
+            <view class="Grid-cellp sp" style="width:25%;margin-top: 10px;">
+                <button bindtap="selectmap" class="cu-btn  shadow-blur round" disabled="true" style="background-image:linear-gradient(45deg, #ff9700, #ed1c24);color:white;">查询</button>
+            </view>
+        </view>
+        <view class="Grid-sku" style="height:3rem;background-color:#e3eef7;margin-top:3px;" wx:if="{{item.PSTATE=='签退状态'}}">
+            <view class="Grid-cellp sp" style="width:20%;margin-top: 15px;margin-left: 15px;">
+                <text>{{item.USERID}}</text>
+            </view>
+            <view class="Grid-cellp sp" style="width:30%;margin-top: 12px;">
+                <text>{{item.XF_NAME}}</text>
+            </view>
+            <view class="Grid-cellp sp" style="width:30%;margin-top: 12px;">
+                <image src="/images/red.png" style="width: 13px;height:13px;"></image>
+                <text style="margin-left: 5px;color: red;">{{item.PSTATE}}</text>
+            </view>
+            <view class="Grid-cellp sp" style="width:25%;margin-top: 10px;">
+                <button bindtap="selectmap" class="cu-btn  shadow-blur round" disabled="true" style="background-image:linear-gradient(45deg, #ff9700, #ed1c24);color:white;">查询</button>
+            </view>
+        </view>
+        <view class="Grid-sku" style="height:3rem;background-color:#e3eef7;margin-top:3px;" wx:if="{{item.PSTATE=='在线离岗'}}">
+            <view class="Grid-cellp sp" style="width:20%;margin-top: 15px;margin-left: 15px;">
+                <text>{{item.USERID}}</text>
+            </view>
+            <view class="Grid-cellp sp" style="width:30%;margin-top: 12px;">
+                <text>{{item.XF_NAME}}</text>
+            </view>
+            <view class="Grid-cellp sp" style="width:30%;margin-top: 12px;">
+                <image src="/images/green.png" style="width: 13px;height:13px;"></image>
+                <text style="margin-left: 5px;color: blue;">{{item.PSTATE}}</text>
+            </view>
+            <view class="Grid-cellp sp" style="width:25%;margin-top: 10px;">
+                <button class="cu-btn  shadow-blur round" formType="submit" style="background-image:linear-gradient(45deg, #ff9700, #ed1c24);color:white;">查询</button>
+            </view>
+        </view>
+        <view class="Grid-sku" style="height:3rem;background-color:#e3eef7;margin-top:3px;" wx:if="{{item.PSTATE=='在线在岗'}}">
+            <view class="Grid-cellp sp" style="width:20%;margin-top: 15px;margin-left: 15px;">
+                <text>{{item.USERID}}</text>
+            </view>
+            <view class="Grid-cellp sp" style="width:30%;margin-top: 12px;">
+                <text>{{item.XF_NAME}}</text>
+            </view>
+            <view class="Grid-cellp sp" style="width:30%;margin-top: 12px;">
+                <image src="/images/green.png" style="width: 13px;height:13px;"></image>
+                <text style="margin-left: 5px;color: green;">{{item.PSTATE}}</text>
+            </view>
+            <view class="Grid-cellp sp" style="width:25%;margin-top: 10px;">
+                <button class="cu-btn  shadow-blur round" formType="submit" style="background-image:linear-gradient(45deg, #ff9700, #ed1c24);color:white;">查询</button>
+            </view>
+        </view>
+    </form>
+</view>

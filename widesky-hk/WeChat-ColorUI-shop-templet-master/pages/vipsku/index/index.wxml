@@ -1,0 +1,64 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>查询客户 </view>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;">
+    <view style="height:6rem;background-color:white;"></view>
+    <view class="cu-form-group">
+        <view class="title cuIcon-title text-orange">查询方式：</view>
+        <radio-group bindchange="radioChange" class="radio-group dp">
+            <label class="radio dp">
+                <radio class="round red" value="0"></radio>按项目查询 </label>
+            <label class="radio dp">
+                <radio class="round red" value="1"></radio>按货号查询 </label>
+        </radio-group>
+    </view>
+    <view class="cu-form-group" hidden="{{check}}">
+        <view class="title icon-title text-orange">选择系列：</view>
+        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="ITEMNAME" style="margin-left:1rem;margin-top:3px;" value="{{picker2[index2].ITEMNAME}}">
+            <view class="picker dp ">
+                <text>{{index2?picker2[index2].ITEMNAME:'请选择查询系列'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+    <view class="cu-form-group" hidden="{{check1}}" style="height:5rem;margin-left:-1rem;">
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">输入货号：</view>
+            <input bindinput="getxf_plu" class="radius dp" name="xf_plu" placeholder="请输入精准货号" value="{{xf_plu}}"></input>
+        </view>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询浏览客户</button>
+    </view>
+    <view bindtap="saleslist" data-XF_VIPCODE="{{item.XF_VIPCODE}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+        <view class="Grid-sku  " style="height:3.2rem;">
+            <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;">
+                <text class=""> {{item.XF_VIPCODE}} </text>
+            </view>
+            <view class="stp" style="width:15%;">
+                <text>{{item.XF_SURNAME}}</text>
+            </view>
+            <view class="stp" style="width:20%;">
+                <text>{{item.GRADE}}</text>
+            </view>
+            <view class="stp" style="width:40%;">
+                <text>{{item.XF_STORES}}</text>
+            </view>
+        </view>
+        <view class="Grid-sku action solid-bottom " style="height:3.2rem;">
+            <view class="stp" style="margin-left:1rem;width:25%;">
+                <text>{{item.XF_USERNAME}}</text>
+            </view>
+            <view class="stp" style="width:25%;">
+                <text>{{item.XF_BONUS}}积分</text>
+            </view>
+            <view class="stp" style="width:50%;margin-top: 10px;">
+                <text>{{item.XF_ISSUEDATE}}</text>
+            </view>
+        </view>
+        <view style="height:3px;background-color:white;"></view>
+    </view>
+</view>

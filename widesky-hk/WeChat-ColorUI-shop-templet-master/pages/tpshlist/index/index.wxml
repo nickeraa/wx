@@ -1,0 +1,74 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>特批信息 </navigator>
+    </view>
+</view>
+<view style="background-color:white;height:6rem;"></view>
+<view style="overflow-x: hidden;">
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">申请店铺：</view>
+        <text style="color:#808080;margin:auto;"> {{store}}{{storename}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">申请人：</view>
+        <text style="color:#808080;margin:auto;"> {{xf_name}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">货品编号：</view>
+        <text style="color:#808080;margin:auto;">{{xf_plu}}</text>
+    </view>
+    <view class="cu-form-group" style="height:6rem;">
+        <view class="title icon-title text-orange">货品名称：</view>
+        <text style="color:#808080;margin-left:1rem;"> {{xf_desci}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">售价：</view>
+        <text style="color:#808080;margin:auto;"> {{salesprice}}元</text>
+    </view>
+    <view class="cu-form-group" wx:if="{{vipprice}}">
+        <view class="title icon-title text-orange">会员价：</view>
+        <text style="color:#808080;margin:auto;"> {{vipprice}}元</text>
+    </view>
+    <view class="cu-form-group" wx:else>
+        <view class="title icon-title text-orange">会员价：</view>
+        <text style="color:#808080;margin:auto;"> 无</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">总配额：</view>
+        <text style="color:#808080;margin:auto;"> {{amount}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">剩余配额：</view>
+        <text style="color:#808080;margin:auto;"> {{stock}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">申请配额：</view>
+        <text style="color:#808080;margin:auto;"> {{qty}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">申请延时（小时）：</view>
+        <text style="color:#808080;margin:auto;"> {{ontimess}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">审批状态：</view>
+        <text style="color:#808080;margin:auto;"> {{pzstate}}</text>
+    </view>
+    <view class="cu-form-group" style="height:20rem;">
+        <view style="margin:20px 20px 20px 20px;">
+            <image id="imgurl" mode="aspectFill" src="{{imgurls}}" style="height:300px;width:300px;"></image>
+        </view>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">申请原因：</view>
+        <textarea class="input" name="remark" value="{{remark}}"></textarea>
+    </view>
+    <view class="cu-form-group" hidden="{{tags}}">
+        <view class="title icon-title text-orange">驳回原因：</view>
+        <textarea bindinput="bindTextAreaBlur" class="input" focus="{{focus}}" name="bhtext" placeholder="必须输入驳回原因" value="{{bhtext}}"></textarea>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;">
+        <button bindtap="shtp" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:40%">同意</button>
+        <button bindtap="bhtp" class="cu-btn round " style="margin:5px 5px 5px 15px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:40%">驳回</button>
+    </view>
+</view>

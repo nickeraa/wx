@@ -1,0 +1,64 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="goback" class="action canui-head-title">
+            <text class="icon-back"></text> 绑定企业微信客户会员卡 </view>
+    </view>
+</view>
+<view class="box bgcolor">
+    <view style="padding-top:50px;display:flex;width:100%;">
+        <view style="width:20%;margin:10px 0px 0px 25px;">
+            <text style="font-size:18px;">{{username}}</text>
+        </view>
+        <view style="width:40%;">
+            <image src="http://widesky.work/HKback/bgimg/bg.jpg" style="width:3rem;height:3rem;margin-left:3rem;"></image>
+        </view>
+        <view style="width:40%;margin:10px 0px 0px 10px;">
+            <text style="font-size:18px;">{{vipname}}~</text>
+        </view>
+    </view>
+    <form bindsubmit="checkvip">
+        <view class="cu-form-group" style="margin-top:2rem;">
+            <view class="title icon-title text-orange up">会员卡号：</view>
+            <input bindinput="getvipcode" class="radius up" name="vipcode" placeholder="请输入科传系统会员卡号绑定" value="{{vipcode}}"></input>
+        </view>
+        <view class="cu-form-group action sp">
+            <text class="cu-btn bg-green shadow">第一步</text>
+            <button class="cu-btn canui-color-gradual shadow-blur round lg sp" disabled="{{hidden}}" formType="submit">
+                <text class="icon-check">验证会员卡</text>
+            </button>
+        </view>
+    </form>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员姓名：</view>
+        <text class="radius up textcolor" name="vipname">{{kcvipname}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员等级：</view>
+        <text class="radius up textcolor" name="dj">{{grade}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">归属导购：</view>
+        <text class="radius up textcolor" name="users">{{ygname}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">所在店铺：</view>
+        <text class="radius up textcolor" name="stores">{{stores}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">开卡日期：</view>
+        <text class="radius up textcolor" name="kkdate">{{kkdate}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员积分：</view>
+        <text class="radius up textcolor" name="points">{{points}}</text>
+    </view>
+    <view class="cu-form-group sp">
+        <text class="cu-btn bg-green shadow">第二步</text>
+        <button bindtap="bdvip" class="cu-btn canui-color-gradual shadow-blur round lg sp" disabled="{{hidden}}">
+            <text class="icon-location"></text> 绑定会员卡</button>
+    </view>
+    <view class="cu-form-group sp" style="margin-top:2rem;">
+        <button bindtap="selectvip" class="cu-btn canui-color-gradual shadow-blur round lg sp" style="width:95%;">
+            <text class="icon-search"></text> 查询会员购买记录</button>
+    </view>
+</view>

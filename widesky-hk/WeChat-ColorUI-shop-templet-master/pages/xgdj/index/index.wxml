@@ -1,0 +1,30 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>修改预付定金 </navigator>
+    </view>
+</view>
+<view style="overflow-x: hidden;">
+    <view class="cu-form-group" style="padding-top: 60px;">
+        <view class="title icon-title text-orange">商品货号：</view>
+        <input bindinput="getsnumber" class="radius" name="snumber" placeholder="请输入商品货号" value="{{snumber}}"></input>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询货品预付定金</button>
+    </view>
+    <view hidden="{{view}}">
+        <view class="cu-form-group" style="padding-top: 10px;">
+            <view class="title icon-title text-orange">货品描述：</view> {{xf_desci}} </view>
+        <view class="cu-form-group" style="padding-top: 10px;">
+            <view class="title icon-title text-orange">货品价格：</view> {{xf_price}} </view>
+        <view class="cu-form-group" style="padding-top: 10px;">
+            <view class="title icon-title text-orange">预付定金金额：</view> {{ydprice}} </view>
+        <view class="cu-form-group" style="padding-top: 10px;">
+            <view class="title icon-title text-orange">修改预付金额：</view>
+            <input bindinput="getydprice" class="radius" placeholder="预付金额不能低于会员价30%" value="{{newydprice}}"></input>
+        </view>
+        <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+            <button bindtap="update" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">确认修改</button>
+        </view>
+    </view>
+</view>

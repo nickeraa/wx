@@ -1,0 +1,95 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>查询项目明细 </view>
+    </view>
+</view>
+<view style="height:6rem;background-color:white;"></view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">选择项目：</view>
+    <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="ITEMNAME" style="margin-left:1rem;margin-top:3px;" value="{{picker2[index2].ITEMNAME}}">
+        <view class="picker dp ">
+            <text>{{index2?picker2[index2].ITEMNAME:'请选择查询项目'}}</text>
+            <text class="cuIcon-triangledownfill"></text>
+        </view>
+    </picker>
+</view>
+<view class="page" style="margin-top:5px;background-color:white;">
+    <view class="picker_group " style="margin-left:-40px;">
+        <view class="title icon-title text-orange up" style="font-size:15px;">查询日期：</view>
+        <picker bindchange="bindDateChange" end="{{date2}}" mode="date" value="{{date}}">
+            <view class="picker"> {{date}} </view>
+        </picker> 至 <picker bindchange="bindDateChange2" end="2050-01-01" mode="date" start="{{date}}" value="{{date2}}">
+            <view class="picker"> {{date2}} </view>
+        </picker>
+    </view>
+</view>
+<view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+    <button bindtap="search" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询数据</button>
+</view>
+<view hidden="{{flag}}">
+    <view style="font-size:14px;" wx:for="{{replu}}" wx:key="id">
+        <view class="Grid-sku" style="color:#00868B;padding-top:3rem;">
+            <view style="margin-left:1rem;width:15%;">
+                <text> 总配额 </text>
+            </view>
+            <view style="width:20%;">
+                <text>客订数量</text>
+            </view>
+            <view style="width:25%;">
+                <text>客订金额</text>
+            </view>
+            <view style="width:20%;">
+                <text>销售数量</text>
+            </view>
+            <view style="width:30%;">
+                <text>销售金额</text>
+            </view>
+        </view>
+        <view class="Grid-sku" style="color:red;padding-top:1rem;">
+            <view style="margin-left:1rem;width:15%;margin-top:15px;">
+                <text> {{item.AMOUNT}} </text>
+            </view>
+            <view style="width:20%;margin-top:15px;">
+                <text class=""> {{item.ORDERQTY}} </text>
+            </view>
+            <view style="width:25%;margin-top:15px;">
+                <text class=""> {{item.DAMT}} </text>
+            </view>
+            <view style="width:20%;margin-top:15px;">
+                <text class=""> {{item.QTYSOLD}} </text>
+            </view>
+            <view style="width:30%;margin-top:15px;">
+                <text class=""> {{item.SAMT}} </text>
+            </view>
+        </view>
+        <view class="Grid-sku" style="color:#00868B;padding-top:1.5rem;">
+            <view style="width:25%;margin-left: 1rem;">
+                <text>总定售数量</text>
+            </view>
+            <view style="width:30%;">
+                <text>总定售金额</text>
+            </view>
+            <view style="width:20%;">
+                <text>可售数量</text>
+            </view>
+            <view style="width:30%;">
+                <text>可售金额</text>
+            </view>
+        </view>
+        <view class="Grid-sku" style="color:red;padding-top:1rem;">
+            <view style="width:25%;margin-top:15px;margin-left: 1rem;">
+                <text class=""> {{item.ZNUM}} </text>
+            </view>
+            <view style="width:30%;margin-top:15px;">
+                <text class=""> {{item.ZAMT}} </text>
+            </view>
+            <view style="width:20%;margin-top:15px;">
+                <text class=""> {{item.LASTNUM}} </text>
+            </view>
+            <view style="width:30%;margin-top:15px;">
+                <text class=""> {{item.CAMT}} </text>
+            </view>
+        </view>
+    </view>
+</view>

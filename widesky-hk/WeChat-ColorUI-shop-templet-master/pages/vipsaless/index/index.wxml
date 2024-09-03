@@ -1,0 +1,121 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>查询客户购买历史 </navigator>
+    </view>
+</view>
+<view style="background-color:white">
+    <view style="height:5rem;background-color:white;"></view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员卡号：</view>
+        <text bindtap="copyBtn" class="radius up textcolor" data-vipcode="{{vipcode}}" name="vipcode" selectable="true">{{vipcode}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员姓名：</view>
+        <text class="radius up textcolor" name="dj">{{vipname}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员等级：</view>
+        <text class="radius up textcolor" name="users">{{grade}}</text>
+    </view>
+    <view class="page" style="margin-top:5px;background-color:white;">
+        <view class="picker_group " style="margin-left:-20px;">
+            <view class="title icon-title text-orange up" style="font-size:18px;">查询日期：</view>
+            <picker bindchange="bindDateChange" end="{{date2}}" mode="date" value="{{date}}">
+                <view class="picker"> {{date}} </view>
+            </picker> 至 <picker bindchange="bindDateChange2" end="2050-01-01" mode="date" start="{{date}}" value="{{date2}}">
+                <view class="picker"> {{date2}} </view>
+            </picker>
+        </view>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">选择类目：</view>
+        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="XF_DESCI" style="margin-left:-0.2rem;margin-top:-7px;" value="{{picker2[index2].XF_DESCI}}">
+            <view class="picker dp" style="width:100%;">
+                <text>{{index2?picker2[index2].XF_DESCI:'请选择查询类目，默认查询所有'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+    <view class="cu-form-group" style="height:5rem;margin-left:-1rem;">
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">输入货号：</view>
+            <input bindinput="getsnumber" class="radius dp" name="sexf_plu" placeholder="输入货号精准查询" value="{{sexf_plu}}"></input>
+        </view>
+    </view>
+    <view class="cu-form-group sp" style="margin-top:1rem;">
+        <button bindtap="selectvip" class="cu-btn canui-color-gradual shadow-blur round lg sp" style="width:95%;">
+            <text class="icon-search"></text> 查询会员购买记录</button>
+    </view>
+</view>
+<view style="background-color:white;height:0.5rem;"></view>
+<view class="canui-order-item bg-white" hidden="{{rv}}">
+    <view class="head-title-box" style="height:2rem;">
+        <text class="icon-shop" style="margin-left:1rem;"></text>
+        <text calss="sp" style="margin-left:3px;">消费记录</text>
+        <text class="icon-right"></text>
+        <text style="color:red;">消费{{amtsold}}元</text>
+        <view class="head-title-box sp solid-bottom "></view>
+    </view>
+</view>
+<view style="background-color:#E0EEEE;margin-top:5px;" wx:for="{{replu}}" wx:key="id">
+    <view class="Grid-sku" style="height:2rem;">
+        <view class="Grid-cellp stp " style="margin-left:1rem;">
+            <text class=""> {{item.xf_storecode}} </text>
+        </view>
+        <view class="Grid-pcellp stp">
+            <text>{{item.xf_plu}}</text>
+        </view>
+        <view class="Grid-scellp stp" style="margin-top: 5px;">
+            <text>{{item.xf_desci}}</text>
+        </view>
+    </view>
+    <view class="Grid-sku action solid-bottom " style="height:2rem;margin-top:2px;">
+        <view class="stp" style="width:10%;margin-left:1rem;">
+            <text>{{item.qty}}套</text>
+        </view>
+        <view class="stp" style="width:15%;">
+            <text>{{item.xf_amtsold}}元</text>
+        </view>
+        <view class="stp" style="width:15%;">
+            <text>{{item.xf_name}}</text>
+        </view>
+        <view class="stp" style="width:25%;margin-top: 10px;">
+            <text>{{subData(item.xf_txdate)}}</text>
+        </view>
+        <button bindtap="bijiao" class="cu-btn canui-color-gradual shadow-blur" data-id="{{item.id}}" style="width:27%;margin-left: -20px;height: 1.8rem;">
+            <text class="icon-search"></text> 比较售价</button>
+    </view>
+    <view style="height:2px;"></view>
+</view>
+<view style="background-color:#E0EEEE;margin-top:5px;" wx:for="{{rejob}}" wx:key="id">
+    <view class="Grid-sku" style="height:2rem;">
+        <view class="Grid-cellp stp " style="margin-left:1rem;">
+            <text class=""> {{item.XF_STORECODE}} </text>
+        </view>
+        <view class="Grid-pcellp stp">
+            <text>{{item.XF_PLU}}</text>
+        </view>
+        <view class="Grid-scellp stp" style="margin-top: 3px;">
+            <text>{{item.XF_DESCI}}</text>
+        </view>
+    </view>
+    <view class="Grid-sku action solid-bottom " style="height:2rem;margin-top:2px;">
+        <view class="stp" style="width:10%;margin-left:1rem;">
+            <text>{{item.XF_QTYSOLD}}套</text>
+        </view>
+        <view class="stp" style="width:15%;">
+            <text>{{item.XF_AMTSOLDS}}元</text>
+        </view>
+        <view class="stp" style="width:15%;">
+            <text>{{item.XF_NAME}}</text>
+        </view>
+        <view class="stp" style="width:25%;margin-top: 10px;">
+            <text>{{subData(item.XF_TXDATE)}}</text>
+        </view>
+        <button bindtap="bijiao" class="cu-btn canui-color-gradual shadow-blur" data-xf_amtsold="{{item.XF_AMTSOLD}}" data-xf_plu="{{item.XF_PLU}}" style="width:27%;margin-left: -20px;height: 1.8rem;">
+            <text class="icon-search"></text> 比较售价</button>
+    </view>
+    <view style="height:2px;"></view>
+</view>
+<view style="height:5rem;"></view>

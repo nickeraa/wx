@@ -1,0 +1,70 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>客户信息 </view>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;background-color: white;">
+    <view class="cu-form-group" style="padding-top: 8rem;height:8rem;">
+        <radio-group bindchange="radioChange" class="radio-group dp">
+            <label class="radio dp">
+                <radio class="round red" value="0"></radio>按卡号查询 </label>
+            <label class="radio dp">
+                <radio class="round red" value="1"></radio>按姓名查询 </label>
+            <label class="radio dp">
+                <radio class="round red" value="2"></radio>按手机号查询 </label>
+        </radio-group>
+    </view>
+    <view class="cu-form-group" hidden="{{check}}" style="height:5rem;margin-left:-1rem;margin-top: 2rem;">
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">输入客户卡号：</view>
+            <input bindinput="getvipcode" class="radius dp" name="vipcode" placeholder="请输入客户卡号精准查询" value="{{vipcode}}"></input>
+        </view>
+    </view>
+    <view class="cu-form-group" hidden="{{check1}}" style="height:5rem;margin-left:-1rem;margin-top: 2rem;">
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">输入客户姓名：</view>
+            <input bindinput="getvipname" class="radius dp" name="vipname" placeholder="请输入客户姓名模糊查询" value="{{vipname}}"></input>
+        </view>
+    </view>
+    <view class="cu-form-group" hidden="{{check2}}" style="height:5rem;margin-left:-1rem;margin-top: 2rem;">
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">输入手机号：</view>
+            <input bindinput="getvipphone" class="radius dp" name="vipphone" placeholder="请输入手机全号查询" value="{{vipphone}}"></input>
+        </view>
+    </view>
+    <view style="width:100%;margin:30px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询会员信息</button>
+    </view>
+    <view bindtap="saleslist" data-XF_VIPCODE="{{item.XF_VIPCODE}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+        <view class="Grid-sku  " style="height:2.2rem;">
+            <view class="stp" style="margin-left:1rem;width:25%;margin-top: 11px;">
+                <text class=""> {{item.XF_VIPCODE}} </text>
+            </view>
+            <view class="stp" style="width:15%;">
+                <text>{{item.XF_SURNAME}}</text>
+            </view>
+            <view class="stp" style="width:20%;">
+                <text>{{item.GRADE}}</text>
+            </view>
+            <view class="stp" style="width:50%;">
+                <text>{{item.XF_STORES}}</text>
+            </view>
+        </view>
+        <view class="Grid-sku action solid-bottom " style="height:2.2rem;">
+            <view class="stp" style="margin-left:1rem;width:30%;">
+                <text>{{item.XF_USERNAME}}</text>
+            </view>
+            <view class="stp" style="width:30%;">
+                <text>{{item.XF_BONUS}}积分</text>
+            </view>
+            <view class="stp" style="width:10%;">
+                <text>{{item.XF_ADDRESS1}}</text>
+            </view>
+            <view class="stp" style="width:30%;margin: 11px;">
+                <text>{{subData(item.XF_ISSUEDATE)}}</text>
+            </view>
+        </view>
+        <view style="height:3px;background-color:white;"></view>
+    </view>
+</view>

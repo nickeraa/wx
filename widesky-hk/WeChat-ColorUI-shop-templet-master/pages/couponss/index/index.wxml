@@ -1,0 +1,72 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>校验用户 </navigator>
+    </view>
+</view>
+<view class="box bgcolor">
+    <view style="height:2rem;background-color:white;"></view>
+    <form bindsubmit="checkphone">
+        <view class="cu-form-group action sp">
+            <button class="cu-btn bg-green shadow">第一步</button>
+        </view>
+        <form bindsubmit="checkuser">
+            <view class="cu-form-group">
+                <view class="title icon-title text-orange up">登陆ID</view>
+                <input bindinput="getuserid" class="radius up" name="userid" placeholder="请填写科传系统登陆ID" value="{{userid}}"></input>
+            </view>
+            <view class="cu-form-group">
+                <view class="title icon-title text-orange">登陆密码</view>
+                <input password bindinput="getpassword" class="radius" name="password" placeholder="请填写科传系统登陆密码" value="{{password}}"></input>
+            </view>
+            <view class="cu-form-group">
+                <view class="title icon-title text-orange ">注意事项<text class="text-green gp ">{{warning}}</text>
+                </view>
+            </view>
+            <view class="cu-form-group sp">
+                <button class="cu-btn canui-color-gradual shadow-blur round lg sp" formType="submit">
+                    <text class="icon-check"></text> 验证用户</button>
+            </view>
+        </form>
+        <view class="cu-form-group action sp">
+            <button class="cu-btn bg-green shadow">第二步</button>
+        </view>
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">手机号码</view>
+            <input bindinput="getPhoneValue" class="radius" name="phone" placeholder="手机号接收公司短讯" type="number" value="{{phone}}"></input>
+            <button bindtap="getVerificationCode" class="cu-btn bg-green shadow" disabled="{{disabled}}">{{codename}}</button>
+        </view>
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">验证码</view>
+            <input bindinput="getCodeValue" class="radius" name="input" placeholder="请输入手机验证码" type="number" value="{{code}}"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange ">注意事项<text class="text-green gp ">{{phonets}}</text>
+            </view>
+        </view>
+        <view class="cu-form-group sp">
+            <button class="cu-btn canui-color-gradual shadow-blur round lg sp" formType="submit">
+                <text class="icon-check"></text>确认提交</button>
+        </view>
+    </form>
+    <view class="cu-form-group action sp">
+        <button class="cu-btn bg-green shadow">第三步</button>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange ">注意事项<text class="text-green gp ">{{bindts}}</text>
+        </view>
+    </view>
+    <view class="cu-form-group sp">
+        <button bindtap="checkuserph" class="cu-btn canui-color-gradual shadow-blur round lg sp">
+            <text class="icon-check"></text>绑定登录ID与手机</button>
+    </view>
+    <view class="cu-form-group sp" hidden="{{hidden}}">
+        <view class="cu-form-group action sp">
+            <button class="cu-btn bg-green shadow">第四步</button>
+        </view>
+        <view class="cu-form-group sp">
+            <button bindgetuserinfo="bingGetUserInfo" class="cu-btn canui-color-gradual shadow-blur round lg sp" openType="getUserInfo">
+                <text class="icon-check"></text>绑定微信自动登录</button>
+        </view>
+    </view>
+</view>

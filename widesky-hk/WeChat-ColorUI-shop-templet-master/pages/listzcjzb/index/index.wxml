@@ -1,0 +1,70 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>入仓进仓 </navigator>
+    </view>
+</view>
+<view style="background-color:white;height:2rem;"></view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">登记店铺：</view>
+    <text decode="{{true}}" style="color:#808080;margin:auto;"> {{store}}&nbsp;&nbsp;{{storename}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange up">货品编号：</view>
+    <text style="color:#808080;margin:auto;"> {{xf_plu}}</text>
+</view>
+<view class="cu-form-group" style="height:90px;">
+    <view class="title icon-title text-orange">货品名称：</view>
+    <text style="color:#808080;">{{xf_name}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">货品售价：</view>
+    <text style="color:#808080;margin:auto;"> {{xf_price}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange up">货品数量：</view>
+    <text style="color:#808080;margin:auto;"> {{qty}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">客户卡号：</view>
+    <text style="color:#808080;margin:auto;"> {{vipcode}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">客户名称：</view>
+    <text style="color:#808080;margin:auto;"> {{vipname}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">销售单号：</view>
+    <text style="color:#808080;margin:auto;"> {{snumber}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange ">跟进员工：</view>
+    <text style="color:#808080;margin:auto;"> {{susername}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange ">所属区管：</view>
+    <text style="color:#808080;margin:auto;"> {{qguser}}</text>
+</view>
+<view class="cu-form-group" style="height:18rem;">
+    <view class="title cuIcon-title text-orange">出店照：</view>
+    <view class="" style="margin-top:10px;margin-left:2rem;">
+        <image id="imgurl" mode="aspectFill" src="{{zcimg}}" style="height:250px;width:250px;"></image>
+    </view>
+</view>
+<view class="cu-form-group" style="height:6rem;">
+    <view class="title icon-title text-orange ">转仓单号：</view>
+    <text style="color:#808080;margin:auto;"> {{zcnumber}}</text>
+</view>
+<view class="cu-form-group" style="height:18rem;">
+    <view class="title cuIcon-title text-orange">进仓照：</view>
+    <view class="" style="margin-top:10px;margin-left:2rem;">
+        <image id="imgurl" mode="aspectFill" src="{{imglist}}" style="height:250px;width:250px;"></image>
+        <view style="margin:5px 5px 5px 5px;">
+            <button bindtap="ChooseImage" class="cu-btn round cuIcon-add" style="margin:5px 5px 5px 5px;height:2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:95%"> 上传入仓照片</button>
+        </view>
+    </view>
+</view>
+<view class="cu-form-group sp">
+    <button bindtap="checkinput" class="cu-btn canui-color-gradual shadow-blur round lg sp">
+        <text class="icon-check"></text> 确认入仓</button>
+</view>

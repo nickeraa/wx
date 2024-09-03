@@ -1,0 +1,55 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>新会员卡信息 </view>
+    </view>
+</view>
+<view class="cu-form-group" style="padding-top: 6rem;">
+    <view class="title icon-title text-orange">输入会员姓名：</view>
+    <input bindinput="getvipname" class="radius dp" name="vipname" placeholder="请输入会员姓名" value="{{vipname}}"></input>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">选择会员性别：</view>
+    <radio-group bindchange="radioChange" class="radio-group dp">
+        <label class="radio dp">
+            <radio class="round red" value="M"></radio>男 </label>
+        <label class="radio dp">
+            <radio class="round red" value="F"></radio>女 </label>
+    </radio-group>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">目测客户年龄：</view>
+    <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="LCCODE" value="{{picker2[index2].XF_STORECODE}}">
+        <view class="picker dp ">
+            <text>{{index2?picker2[index2].LCCODE:'请选择客户年龄'}}</text>
+            <text class="cuIcon-triangledownfill"></text>
+        </view>
+    </picker>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">选择会员店铺：</view>
+    <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="LCCODE" value="{{picker2[index2].XF_STORECODE}}">
+        <view class="picker dp ">
+            <text>{{index2?picker2[index2].LCCODE:'请选择所属店铺'}}</text>
+            <text class="cuIcon-triangledownfill"></text>
+        </view>
+    </picker>
+</view>
+<view class="cu-form-group" style="margin-top: 20px;">
+    <view class="title icon-title text-orange">输入跟进员工ID：</view>
+    <input bindinput="getstaff" class="radius dp" name="staffcode" placeholder="请输入员工ID" value="{{staffcode}}"></input>
+    <view bindtap="check" style="margin:10px 10px 10px 5px;">
+        <text class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 确认</text>
+    </view>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange up">员工姓名：</view>
+    <text class="text-grey">{{xf_name}}</text>
+</view>
+<view class="cu-form-group" style="padding-top: 1rem;">
+    <view class="title icon-title text-orange">输入会员地址：</view>
+    <input bindinput="getvipaddr" class="radius dp" name="vipaddr" placeholder="不提供则不输入" value="{{vipaddr}}"></input>
+</view>
+<view bindtap="fx" style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 3rem;padding-top: 2rem;">
+    <text class="cu-btn round  bg-gradual-green" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 生成二维码</text>
+</view>

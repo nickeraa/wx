@@ -1,0 +1,30 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>浏览记录 </navigator>
+    </view>
+</view>
+<view style="padding-top: 6rem;padding-bottom: 6rem;">
+    <block wx:for="{{replu}}" wx:key="*this">
+        <view class=" solid-bottom" style="padding-top:5px;">
+            <view class="Item-top">
+                <text class="icon-my"></text>
+                <text class="sp">{{item.VIPCODE}} {{item.XF_SURNAME}}</text>
+                <text class="icon-right"></text>
+            </view>
+        </view>
+        <view class="Grid-sku solid-bottom " style="margin-top:10px;background-color: #E0EEEE;height:5.5rem;">
+            <view class="sku-sp" wx:if="{{item.TIMES>=20}}">
+                <text space="ensp">浏览：货号 {{item.XF_PLU}} {{item.XF_LONGDESC}}</text>
+                <text space="ensp" style="color:red;">  共：{{item.TIMES}} 秒</text>
+            </view>
+            <view class="sku-sp" wx:else>
+                <text space="ensp">浏览：货号 {{item.XF_PLU}} {{item.XF_LONGDESC}}</text>
+                <text space="ensp">  共： {{item.TIMES}} 秒</text>
+            </view>
+            <view class="" style="width:100%;margin-top: 1.5rem;font-weight: 700;">
+                <text space="ensp">{{item.ENTIME}}</text>
+            </view>
+        </view>
+    </block>
+</view>

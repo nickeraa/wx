@@ -1,0 +1,109 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="switchTab" url="/pages/jzb/index/index">
+            <text class="icon-back"></text>发货申请 </navigator>
+    </view>
+</view>
+<view style="height:6rem;background-color:white;"></view>
+<view style="overflow-x: hidden;">
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">申请单号：</view>
+        <text class="radius dp">{{wlnumber}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">库存地点：</view>
+        <radio-group bindchange="radioChange" class="radio-group dp">
+            <label class="radio dp">
+                <radio class="round red" value="0"></radio>货在店铺 </label>
+            <label class="radio dp">
+                <radio class="round red" value="1"></radio>货在仓库 </label>
+        </radio-group>
+    </view>
+</view>
+<view style="background-color:white;">
+    <view class="picker_group " style="height:6rem;">
+        <view class="title icon-title text-orange up">发货日期：</view>
+        <picker bindchange="bindDateChange" mode="date" value="{{date}}">
+            <view class="picker"> {{date}} </view>
+            <text style="font-size:12px;color:red;">每周一、三、五仓库司机送货，每天总量是2单</text>
+        </picker>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">货物形态：</view>
+        <radio-group bindchange="radioChange3" class="radio-group dp">
+            <label class="radio dp">
+                <radio class="round red" value="0"></radio>画框 </label>
+            <label class="radio dp">
+                <radio class="round red" value="1"></radio>卷轴 </label>
+            <label class="radio dp">
+                <radio class="round red" value="2"></radio>其它 </label>
+        </radio-group>
+    </view>
+    <view bindtap="selectmap" class="cu-form-group">
+        <view class="title icon-title text-orange">地图定位：</view>
+        <view class="icon-locationfill text-red"></view>
+        <input bindinput="getbprice" class="radius" name="mapName" placeholder="点击选择准确位置" value="{{mapName}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">是否电梯：</view>
+        <radio-group bindchange="radioChange4" class="radio-group dp">
+            <label class="radio dp">
+                <radio class="round red" value="0"></radio>电梯 </label>
+            <label class="radio dp">
+                <radio class="round red" value="1"></radio>楼梯 </label>
+        </radio-group>
+    </view>
+    <view style="margin:5px 5px 5px 5px;">
+        <button bindtap="dr" class="cu-btn round cuIcon-add" style="margin:5px 5px 5px 5px;height:2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:95%"> 查询商城客户收货地址</button>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">收货人：</view>
+        <input bindinput="getshname" class="radius" name="shname" placeholder="请输入收货人" value="{{shname}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">联系电话：</view>
+        <input bindinput="getshphone" class="radius" maxlength="11" name="shphone" placeholder="请输入联系电话" type="number" value="{{shphone}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">送货地址：</view>
+        <input bindinput="getshaddr" class="radius" name="shaddr" placeholder="请输入送货地址" value="{{shaddr}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">备注：</view>
+        <input bindinput="getnote" class="radius" name="note" placeholder="请输入备注信息(定金单送货不能顺丰物流)" value="{{note}}"></input>
+    </view>
+    <view class="cu-form-group" style="height:19rem;">
+        <view class="title text-orange">定金单：</view>
+        <view class="" style="margin-top:10px;margin-left:2rem;">
+            <image id="imgurl" mode="aspectFill" src="{{imglist}}" style="height:250px;width:250px;"></image>
+            <view style="margin:5px 5px 5px 5px;"></view>
+            <view style="margin:5px 5px 5px 5px;">
+                <button bindtap="ChooseImage" class="cu-btn round cuIcon-add" style="margin:5px 5px 5px 5px;height:2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:95%"> 上传定金单</button>
+            </view>
+        </view>
+    </view>
+    <view class="cu-form-group" style="height:19rem;margin-top:20px;">
+        <view class="title text-orange">货物照：</view>
+        <view class="" style="margin-top:20px;margin-left:2rem;">
+            <image id="imgurl" mode="aspectFill" src="{{imglisthw}}" style="height:250px;width:250px;"></image>
+            <view style="margin:5px 5px 5px 5px;">
+                <text style="color:red;font-size:12px;">货品在店铺的，请上传货物照片</text>
+            </view>
+            <view style="margin:5px 5px 5px 5px;">
+                <button bindtap="ChooseImagehw" class="cu-btn round cuIcon-add" style="margin:5px 5px 5px 5px;height:2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:95%"> 上传货物照</button>
+            </view>
+        </view>
+    </view>
+    <view class="cu-form-group" style="margin-top:20px;">
+        <view class="title icon-title  text-orange ">审核区管：</view>
+        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="LCCODE" value="{{picker2[index2].XF_STAFFCODE}}">
+            <view class="picker dp ">
+                <text>{{index2?picker2[index2].LCCODE:'请选择所属区管'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;">
+        <button bindtap="wlsq" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">确定</button>
+    </view>
+</view>

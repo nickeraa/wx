@@ -1,0 +1,54 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>特批审核 </navigator>
+    </view>
+</view>
+<view style="background-color:white;padding-top:120px;">
+    <view class="canui-order-item bg-white" style="padding-bottom:30px;">
+        <view class="head-title-box">
+            <text class="icon-shop" style="margin-left:1rem;"></text>
+            <text calss="sp" style="margin-left:3px;">特批申请信息审核</text>
+            <text class="icon-right"></text>
+        </view>
+    </view>
+    <view style="background-color:#E0EEEE;margin-top:2px;height:9rem;" wx:for="{{rejob}}" wx:key="id">
+        <view class="Grid-sku">
+            <view style="margin-left:1rem;width:40%; margin-top:15px;">
+                <text> {{item.STORE}} </text>
+                <text style="margin-left:5px;"> {{item.STORENAME}} </text>
+            </view>
+            <view style="width:20%; margin-top:15px;">
+                <text>{{item.XF_NAME}}</text>
+            </view>
+            <view style="width:40%; margin-top:15px;">
+                <text>{{item.ENTIME}}</text>
+            </view>
+        </view>
+        <view class="Grid-sku">
+            <view style="margin-left:1rem;width:30%; margin-top:15px;">
+                <text> {{item.XF_PLU}} </text>
+            </view>
+            <view style="width:70%; margin-top:12px;margin-left:10px;">
+                <text>{{item.XF_LONGDESC}}</text>
+            </view>
+        </view>
+        <view class="Grid-sku">
+            <view style="margin-left:1rem;width:30%; margin-top:15px;">
+                <text> 申请配额：{{item.QTY}} </text>
+            </view>
+            <view style="width:40%; margin-top:15px;">
+                <text>申请延时：{{item.ONTIMESS}}小时</text>
+            </view>
+            <view style="width:30%;margin-top:10px;" wx:if="{{item.TAG=='8'}}">
+                <button bindtap="sh" class="cu-btn icon-edit round  shadow " data-pnumber="{{item.PNUMBER}}" style="border-radius: 0.8rem;background-color: white;border:1px solid red;margin-left:10px;">审核</button>
+            </view>
+            <view style="width:30%;margin-top:15px;" wx:if="{{item.TAG=='6'}}">
+                <text>已取消审核</text>
+            </view>
+        </view>
+    </view>
+    <view hidden="{{flag}}">
+        <image src="/images/nodata.jpg" style="width:100%;height:606px;"></image>
+    </view>
+</view>

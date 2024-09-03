@@ -1,0 +1,45 @@
+<block wx:for="{{replu}}" wx:key="itemid">
+    <swiper autoplay="true" circular="true" class=" square-dot bg-white " duration="500" indicatorDots="true" interval="5000" style="height: {{swiperHeight}};">
+        <swiper-item wx:for="{{swiperlist}}" wx:key="*this">
+            <image bindload="computeImgHeight" bindtap="previewImage" data-src="{{item}}" mode="widthFix" src="{{item}}" style="width: 100%;"></image>
+        </swiper-item>
+    </swiper>
+    <view bindtap="back" class="canui-head-box" style="top:{{StatusBar}}px;">
+        <view class="icon-back"></view>
+    </view>
+    <view class="bg-white">
+        <view class="bg-white canui-goods-box" style="padding-top:40rpx;">
+            <text class=" text-red text-xl  icon-cart">总配额： {{item.AMOUNT}}</text>
+            <text class=" text-red text-xl gp icon-cart"> 剩余配额：{{item.STOCK}}</text>
+        </view>
+        <form bindsubmit="shuaxin" data-intime="{{item.INTIME}}" data-stock="{{item.STOCK}}">
+            <view class="bg-white canui-goods-box canui-xzwz text-black" style="margin-left:3px;margin-top:10px;">货号：{{item.XF_PLU}} 品名：{{item.XF_LONGDESC}}</view>
+            <view class="bg-white canui-goods-box canui-xzwz text-black" style="margin-left:-5px;display:flex;width:100%;margin-top:-5px;">
+                <view class="padding-sm text-price" style="width:40%;">售价：{{item.XF_ORGUPRICE}}元</view>
+                <view class="padding-sm  text-price" style="width:60%;" wx:if="{{item.VIPPRICE}}">会员价：{{item.VIPPRICE}}元</view>
+                <view class="padding-sm  text-price" style="width:60%;" wx:else>会员价：无</view>
+            </view>
+            <view class="cu-form-group" style="margin-top:-10px;">
+                <view class="title icon-title text-orange">店铺编号：</view>
+                <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="LCCODE" value="{{picker2[index2].XF_STORECODE}}">
+                    <view class="picker dp ">
+                        <text>{{index2?picker2[index2].LCCODE:'请选择所属店铺'}}</text>
+                        <text class="cuIcon-triangledownfill"></text>
+                    </view>
+                </picker>
+            </view>
+            <view class="cu-form-group">
+                <view class="title icon-title text-orange">抢订数量：</view>
+                <input bindinput="getqty" class="radius" name="qty" placeholder="必须填写抢订数量" type="number" value="{{qty}}"></input>
+            </view>
+            <view class=" bg-white canui-goods-box canui-xzwz ">
+                <text class=" bgpp">* 申请配额后{{item.ONTIME}}分钟内作客订有效！倒计时：<text class="text-green">{{countDownNum}}</text> 秒</text>
+            </view>
+            <view class="cu-form-group  lg cp  ">
+                <button class="cu-btn canui-color-gradual shadow-blur round lg" formType="submit" style="margin-left:5rem;margin-top:20px;">
+                    <text class="icon-check "></text> 立即抢订</button>
+            </view>
+            <view style="height:16rem;background-color:white;"></view>
+        </form>
+    </view>
+</block>

@@ -1,0 +1,48 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>发货管理 </navigator>
+    </view>
+</view>
+<view style="height:8rem;background-color:white;"></view>
+<view style="overflow-x: hidden;">
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">发货店铺：</view>
+        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="LCCODE" value="{{picker2[index2].XF_STORECODE}}">
+            <view class="picker dp ">
+                <text>{{index2?picker2[index2].LCCODE:'请选择所属店铺'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询发货申请单</button>
+    </view>
+    <view style="background-color:white;height:0.5rem;"></view>
+    <view class="canui-order-item bg-white">
+        <view class="head-title-box" style="height:2.2rem;">
+            <text class="icon-shop" style="margin-left:1rem;"></text>
+            <text calss="sp" style="margin-left:3px;">确认发货信息</text>
+            <text class="icon-right"></text>
+        </view>
+        <view hidden="{{view}}" style="background-color:#E0EEEE;height:5rem;" wx:for="{{rejob}}" wx:key="id">
+            <view class="Grid-sku">
+                <view class="" style="margin-left:1rem;width:50%;margin-top:15px;">
+                    <text class=""> {{item.WLNUMBER}} </text>
+                </view>
+                <view class="" style="width:50%;margin-top:15px;">
+                    <text>整单总价¥{{item.SUMPRICE}}元</text>
+                </view>
+            </view>
+            <view class="Grid-sku" style="height:1.5rem;margin-top:15px;">
+                <view class="" style="margin-left:1rem;width:50%;">
+                    <text class=""> {{item.PADDRESS}} </text>
+                </view>
+                <view class="" style="width:50%;margin-top:-8px;">
+                    <button bindtap="qznumber" class="cu-btn icon-edit round  shadow " data-wlnumber="{{item.WLNUMBER}}" style="background-color:#E0EEEE;margin-left:10px;">发货确认</button>
+                </view>
+            </view>
+            <view class="Grid-sku" style="height:1px;background-color:#cccccc;margin-top:15px;"></view>
+        </view>
+    </view>
+</view>

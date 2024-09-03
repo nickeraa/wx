@@ -1,0 +1,29 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>发货审核 </navigator>
+    </view>
+</view>
+<view style="background-color:white;padding-top:100px;">
+    <view class="canui-order-item bg-white" style="padding-bottom:30px;">
+        <view class="head-title-box">
+            <text class="icon-shop" style="margin-left:1rem;"></text>
+            <text calss="sp" style="margin-left:3px;">发货申请信息审核</text>
+            <text class="icon-right"></text>
+        </view>
+    </view>
+    <view style="background-color:#E0EEEE;margin-top:1px;" wx:for="{{rejob}}" wx:key="id">
+        <view class="Grid-sku">
+            <view style="margin-left:1rem;width:60%; margin-top:15px;">
+                <text> {{item.WLNUMBER}} </text>
+            </view>
+            <view style="width:30%; margin-top:15px;">
+                <text>整单总价¥{{item.SUMPRICE}}元</text>
+            </view>
+            <view style="width:30%;margin-top:13px;">
+                <button bindtap="qznumber" class="cu-btn icon-edit round  shadow " data-wlnumber="{{item.WLNUMBER}}" style="border-radius: 0.8rem;background-color: white;border:1px solid red;margin-left:10px;">发货审核</button>
+            </view>
+        </view>
+        <view class="Grid-sku" style="height:1px;background-color:#cccccc;margin-top:15px;"></view>
+    </view>
+</view>

@@ -1,0 +1,27 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="goback" class="action canui-head-title">
+            <text class="icon-back"></text>设置店铺 </view>
+    </view>
+</view>
+<view class="b1" hidden="{{flag}}" style="margin-top:3rem;">
+    <view class="t_w">
+        <view class="b2">
+            <view style="height:8rem;">
+                <view class="cu-form-group" style="margin-top:20px;">
+                    <view class="title cuIcon-title text-orange">设置店铺：</view>
+                    <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="LCCODE" value="{{picker2[index2].XF_STORECODE}}">
+                        <view class="picker dp ">
+                            <text>{{index2?picker2[index2].LCCODE:'请选择所属店铺'}}</text>
+                            <text class="cuIcon-triangledownfill"></text>
+                        </view>
+                    </picker>
+                </view>
+                <view class="cu-form-group" style="margin-top:1rem;"></view>
+            </view>
+            <view style="width:100%;margin:-50px 0px 20px 10px;height:3rem;">
+                <button bindtap="logins" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">登录</button>
+            </view>
+        </view>
+    </view>
+</view>

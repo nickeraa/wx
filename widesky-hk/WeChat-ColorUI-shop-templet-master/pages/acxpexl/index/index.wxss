@@ -1,0 +1,155 @@
+page {
+  background-color: #fff;
+  overflow-x: hidden;
+  padding-bottom: 20rpx;
+  padding-top: 50px;
+  width: 100%;
+}
+.canui-flex-car .text-grey {
+  color: #000;
+}
+.head-title {
+  margin: 0 auto;
+}
+.cu-custom .cu-bar {
+  padding-right: inherit;
+}
+.bg-gradual-green,
+.cu-custom .cu-bar {
+  background-image: linear-gradient(45deg, #ff9700, #ed1c24);
+}
+.bg-gradual-black {
+  background-image: linear-gradient(
+    hsla(0, 1%, 39%, 0.685),
+    hsla(0, 3%, 42%, 0.904)
+  );
+  color: #fff;
+}
+.line-green,
+.lines-green,
+.text-green {
+  color: #e45c5c;
+}
+.swiperitem {
+  background: #fff;
+  height: 55px;
+}
+.canui-video {
+  height: 425rpx;
+  width: 100%;
+}
+.nav-li,
+.nav-list {
+  padding: 0;
+  z-index: 0;
+}
+.canui-yx-url {
+  margin: 0 2% 30rpx !important;
+  width: 46% !important;
+}
+.canui-flex-car {
+  padding-top: 10px;
+}
+.canui-flex-car .cu-card > .cu-item {
+  margin: 0;
+  position: relative;
+}
+.canui-flex-car .cu-list.menu-avatar > .cu-item {
+  height: 100rpx;
+  padding-left: 15rpx;
+}
+.canui-flex-car .cu-card .cu-avatar {
+  bottom: 72rpx;
+  position: absolute;
+  right: 10px;
+}
+.canui-flex-car .shadow-warp {
+  box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.1);
+}
+.canui-flex-car .cu-list.menu > .cu-item .content {
+  font-size: 26rpx;
+}
+.canui-flex-car .text-sm {
+  font-size: 20rpx;
+}
+.canui-flex-car {
+  color: #000;
+}
+.canui-flex-car image {
+  height: 90px !important;
+}
+.canui-gps .justify-between {
+  padding: 0 10px;
+}
+.content .text-sm {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.canui-fixed {
+  bottom: 0;
+  z-index: 999999;
+}
+.canui-fixed,
+.cu-left {
+  position: fixed;
+  width: 100%;
+}
+.cu-left {
+  bottom: 10px;
+}
+.Grid-sku {
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+}
+.Item-top {
+  margin: 10px;
+}
+.sp {
+  margin: 0 5px;
+}
+.sku-sp {
+  display: block;
+  float: left;
+  font-size: 26rpx;
+  font-weight: 700;
+  margin: 0 10px;
+  padding: 0 10px;
+}
+.Grid-cell {
+  background-color: #efefef;
+  flex: 1;
+  margin: 5px;
+  text-align: center;
+  width: 30%;
+}
+.Grid-img {
+  flex: 0 0 25%;
+  margin: 5px 5px 2px;
+}
+.Grid-name {
+  flex: 0 0 70%;
+}
+.sp-num {
+  display: block;
+  font-size: 25rpx;
+  margin: 60px 5px 5px 10px;
+  padding: 0 10px;
+}
+.sp-font {
+  color: red;
+  font-size: 40rpx;
+  font-weight: 700;
+}
+.sp-buy {
+  background-color: red;
+  color: #fff;
+  display: block;
+  float: left;
+  font-size: 28rpx;
+  margin: -35px 10px 5px 148px;
+  padding: 0 10px;
+}

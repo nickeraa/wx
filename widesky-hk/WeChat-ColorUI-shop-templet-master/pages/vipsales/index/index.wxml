@@ -1,0 +1,85 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>查询客户购买历史 </navigator>
+    </view>
+</view>
+<view style="background-color:white">
+    <view style="height:5rem;background-color:white;"></view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员卡号：</view>
+        <text class="radius up textcolor" name="vipcode">{{vipcode}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员姓名：</view>
+        <text class="radius up textcolor" name="dj">{{vipname}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员等级：</view>
+        <text class="radius up textcolor" name="users">{{grade}}</text>
+    </view>
+    <view class="page" style="margin-top:5px;background-color:white;">
+        <view class="picker_group " style="margin-left:-20px;">
+            <view class="title icon-title text-orange up" style="font-size:18px;">查询日期：</view>
+            <picker bindchange="bindDateChange" end="{{date2}}" mode="date" value="{{date}}">
+                <view class="picker"> {{date}} </view>
+            </picker> 至 <picker bindchange="bindDateChange2" end="2050-01-01" mode="date" start="{{date}}" value="{{date2}}">
+                <view class="picker"> {{date2}} </view>
+            </picker>
+        </view>
+    </view>
+    <view class="cu-form-group sp" style="margin-top:2rem;">
+        <button bindtap="selectvip" class="cu-btn canui-color-gradual shadow-blur round lg sp" style="width:95%;">
+            <text class="icon-search"></text> 查询会员购买记录</button>
+    </view>
+</view>
+<view style="background-color:white;height:0.5rem;"></view>
+<view class="canui-order-item bg-white" hidden="{{rv}}">
+    <view class="head-title-box" style="height:2rem;">
+        <text class="icon-shop" style="margin-left:1rem;"></text>
+        <text calss="sp" style="margin-left:3px;">消费记录</text>
+        <text class="icon-right"></text>
+        <text style="color:red;">消费{{amtsold}}元</text>
+        <view class="head-title-box sp solid-bottom "></view>
+    </view>
+</view>
+<view style="background-color:#E0EEEE;margin-top:5px;" wx:for="{{rejob}}" wx:key="id">
+    <view class="Grid-sku  " style="height:3rem;">
+        <view class="Grid-cellp stp " style="margin-left:1rem;">
+            <text class=""> {{item.XF_STORECODE}} </text>
+        </view>
+        <view class="Grid-pcellp stp">
+            <text>{{item.XF_PLU}}</text>
+        </view>
+        <view class="Grid-scellp stp">
+            <text>{{item.XF_LONGDESC}}</text>
+        </view>
+    </view>
+    <view class="Grid-sku action solid-bottom " style="height:3rem;margin-top:2px;">
+        <view class="stp" style="width:10%;margin-left:1rem;">
+            <text>{{item.XF_QTYSOLD}}套</text>
+        </view>
+        <view class="stp" style="width:15%;">
+            <text>{{item.XF_AMTSOLD}}元</text>
+        </view>
+        <view class="stp" style="width:15%;">
+            <text>{{item.FONTPRICE}}元</text>
+        </view>
+        <view class="stp" style="width:15%;">
+            <text>{{item.XF_SELUPRICE}}元</text>
+        </view>
+        <view class="stp" style="width:20%;color:red;" wx:if="{{item.SORTPRICE>0}}">
+            <image mode="aspectFill" src="http://widesky.work/HKback/bgimg/red.png" style="height:15px;width:15px;"></image>
+            <text style="margin-left:3px;">{{item.SORTPRICE}}元</text>
+        </view>
+        <view class="stp" style="width:20%;color:green;" wx:elif="{{item.SORTPRICE<0}}">
+            <image mode="aspectFill" src="http://widesky.work/HKback/bgimg/green.png" style="height:15px;width:15px;"></image>
+            <text style="margin-left:3px;">{{item.SORTPRICE}}元</text>
+        </view>
+        <view class="stp" style="width:25%;">
+            <text>{{subData(item.XF_TXDATE)}}</text>
+        </view>
+    </view>
+    <view style="height:2px;"></view>
+</view>
+<view style="height:5rem;"></view>

@@ -1,0 +1,34 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>撤销发货 </navigator>
+    </view>
+</view>
+<view style="background-color:white;padding-top:100px;">
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">发货店铺：</view>
+        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="LCCODE" value="{{picker2[index2].XF_STORECODE}}">
+            <view class="picker dp ">
+                <text>{{index2?picker2[index2].LCCODE:'请选择所属店铺'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询发货单</button>
+    </view>
+    <view style="background-color:#E0EEEE;margin-top:1px;" wx:for="{{rejob}}" wx:key="id">
+        <view class="Grid-sku">
+            <view style="margin-left:1rem;width:40%; margin-top:15px;">
+                <text> {{item.WLNUMBER}} </text>
+            </view>
+            <view style="width:30%; margin-top:10px;margin-left:2.5rem;">
+                <text>整单总价¥{{item.SUMPRICE}}元</text>
+            </view>
+            <view style="width:30%;margin-top:13px;">
+                <button bindtap="qznumber" class="cu-btn icon-edit round  shadow " data-wlnumber="{{item.WLNUMBER}}" style="border-radius: 0.8rem;background-color: white;border:1px solid red;margin-left:5px;">撤销申请</button>
+            </view>
+        </view>
+        <view class="Grid-sku" style="height:1px;background-color:#cccccc;margin-top:15px;"></view>
+    </view>
+</view>

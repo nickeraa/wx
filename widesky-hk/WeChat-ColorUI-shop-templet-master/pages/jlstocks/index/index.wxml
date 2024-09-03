@@ -1,0 +1,84 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>发货信息 </navigator>
+    </view>
+</view>
+<view style="background-color:white;height:6rem;"></view>
+<view style="overflow-x: hidden;">
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">收货人：</view>
+        <text style="color:#808080;margin:auto;"> {{shname}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">联系电话：</view>
+        <text style="color:#808080;margin:auto;"> {{shphone}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">收货地址：</view>
+        <text style="color:#808080;margin:auto;">{{shaddr}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">物流方式：</view>
+        <text style="color:#808080;margin:auto;"> {{pwuliu}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">库存位置：</view>
+        <text style="color:#808080;margin:auto;"> {{paddress}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">申请店铺：</view>
+        <text style="color:#808080;margin:auto;"> {{store}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">是否包邮：</view>
+        <text style="color:#808080;margin:auto;">{{pyoufei}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">保价金额：</view>
+        <text style="color:#808080;margin:auto;">{{bprice}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">审批状态：</view>
+        <text style="color:#808080;margin:auto;"> {{pzstate}}</text>
+    </view>
+    <view class="cu-form-group" style="height:18rem;">
+        <view class="title cuIcon-title text-orange">单据照：</view>
+        <view class="" style="margin-top:10px;margin-left:2rem;">
+            <image id="imgurl" mode="aspectFill" src="{{imgurls}}" style="height:250px;width:250px;"></image>
+        </view>
+    </view>
+    <view class="canui-order-item bg-white">
+        <view style="background-color:white;height:0.5rem;"></view>
+        <view style="background-color:#E0EEEE;height:4rem;" wx:for="{{rejob}}" wx:key="id">
+            <view style="background-color:#E0EEEE;height:0.5rem;"></view>
+            <view class="Grid-sku action">
+                <view class="" style="margin-left:1rem;width:50%;">
+                    <text class=""> {{item.WLNUMBER}} </text>
+                </view>
+                <view class="" style="margin-left:-18px;width:20%;">
+                    <text>{{item.XF_PLU}}</text>
+                </view>
+                <view class="" style="margin-left:2px;width:10%;">
+                    <text>{{item.XF_QTY}}套</text>
+                </view>
+                <view class="" style="margin-left:-18px;width:20%;">
+                    <text>¥{{item.PRICE}}元</text>
+                </view>
+            </view>
+            <view style="background-color:#E0EEEE;height:0.5rem;"></view>
+            <view class="Grid-sku">
+                <view class="" style="margin-left:1rem;width:60%;">
+                    <text>{{item.XF_DESCI}}</text>
+                </view>
+                <view class="" style="width:40%;">
+                    <text>{{item.SQENTIME}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;">
+        <button bindtap="shfh" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:40%">同意</button>
+        <button bindtap="bhfh" class="cu-btn round " style="margin:5px 5px 5px 15px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:40%">驳回</button>
+    </view>
+</view>

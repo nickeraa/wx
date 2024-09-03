@@ -1,0 +1,26 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>区管登录 </navigator>
+    </view>
+</view>
+<view class="b1" hidden="{{flag}}" style="margin-top:3rem;">
+    <view class="t_w">
+        <view class="b2">
+            <view style="height:5rem;">
+                <view class="cu-form-group">
+                    <view class="title cuIcon-title text-orange">区管ID：</view>
+                    <input bindinput="getcomuseridValue" class="radius dp" name="comuserid" placeholder="请输入科传系统ID" type="text" value="{{comuserid}}"></input>
+                </view>
+                <view class="cu-form-group">
+                    <view class="title cuIcon-title text-orange">登录密码：</view>
+                    <input bindinput="getcompasswordValue" class="radius dp" name="compassword" type="password" value="{{compassword}}"></input>
+                </view>
+                <view class="cu-form-group"></view>
+            </view>
+            <view style="width:100%;margin:20px 0px 10px 10px;">
+                <button bindtap="cklogins" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">登录</button>
+            </view>
+        </view>
+    </view>
+</view>

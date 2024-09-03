@@ -1,0 +1,37 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>我的退货 </navigator>
+    </view>
+</view>
+<view class="UCenter-bg" style="padding-bottom:260px;">
+    <image class="gif-wave" mode="scaleToFill" src="{{bgimage}}wave.gif"></image>
+    <view style="margin-top:15rem;">
+        <image class="userinfo" src="/images/logo.png"></image>
+        <view style="margin:5px 0px 0px 30px;">{{username}}</view>
+    </view>
+</view>
+<view wx:for="{{resultdt}}" wx:key="id">
+    <view class=" solid-bottom">
+        <view class="Item-top">
+            <text class="icon-shop"></text>
+            <text class="sp">{{item.ITEMNAME}}</text>
+            <text class="icon-right"></text>
+        </view>
+    </view>
+    <view class="Grid-sku solid-bottom">
+        <view class="Grid-cell Grid-img">
+            <image mode="widthFix" src="{{bgimages}}{{item.IMAGES}}"></image>
+        </view>
+        <view class="">
+            <text class="sku-sp">店铺：{{item.STORE}} 货号：{{item.XF_PLU}}  {{item.XF_DESCI}} 配额状态：<text class="textcolor">{{item.STATE}}</text>
+            </text>
+            <text class="sp-num icon-shop ">已申请配额：<text class="sp-font">{{item.QTY}}</text>
+            </text>
+            <button bindtap="onplu" class="sp-buy" data-pnumber="{{item.PNUMBER}}"> 退货</button>
+        </view>
+    </view>
+</view>
+<view hidden="{{flag}}">
+    <image src="/images/nodata.jpg" style="width:100%;height:606px;"></image>
+</view>

@@ -1,0 +1,110 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text> 配额明细 </navigator>
+    </view>
+</view>
+<view class="box" style="top: {{CustomBar}}px;">
+    <view class="canui-card-order margin-top">
+        <view class="canui-order-item bg-white">
+            <view class="head-title-box" style="height:2rem;font-weight:900;font-size:16px;">
+                <text class="icon-shop"></text>
+                <text calss="">{{xf_plu}}</text>
+                <text class="icon-right"></text>
+                <text>{{xf_longdesc}}</text>
+            </view>
+            <view class="head-title-box" style="height:1rem;font-size:16px;margin-top:10px;">
+                <text wx:if="{{vipprice}}">会员价：{{vipprice}}元</text>
+                <text wx:else>会员价：无</text>
+                <text style="margin-left:15px;">总配额：{{amount}}</text>
+                <text style="margin-left:15px;">剩余配额：{{stock}}</text>
+            </view>
+            <view bindtap="sesku" style="margin:20px 0px 0px 0px;">
+                <text class="cu-btn round" style="margin:5px 5px 5px 5px;height:2rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%"> 查询店铺库存明细</text>
+            </view>
+            <view class="head-title-box" style="height:1rem;font-size:16px;margin-top:15px;">
+                <text style="color:blue;">提示：蓝色字体行表示正在占用配额</text>
+            </view>
+            <view class="Grid-sku" style="background-color:#33A1C9;color:white;margin-top:15px;">
+                <view class="sp" style="width:45%;">
+                    <text class=""> 店铺 </text>
+                </view>
+                <view class="sp " style="width:15%;margin-left:-10px;">
+                    <text class=""> 配额 </text>
+                </view>
+                <view class="Grid-cellp sp">
+                    <text>抢订人</text>
+                </view>
+                <view class="Grid-celltwo sp" style="width:25%;">
+                    <text>状态</text>
+                </view>
+                <view class="Grid-celltwo sp">
+                    <text>倒计时</text>
+                </view>
+            </view>
+            <view class=" action solid-bottom " wx:for="{{rest}}" wx:key="id">
+                <view class="Grid-sku" style="height:3rem;background-color:#e3eef7;margin-top:3px;">
+                    <view class="sp" style="width:45%;">
+                        <text>{{item.STORE}}{{item.STORENAME}}</text>
+                    </view>
+                    <view class=" sp" style="width:15%;">
+                        <text>{{item.QTY}}</text>
+                    </view>
+                    <view class="Grid-cellp sp">
+                        <text>{{item.XF_NAME}}</text>
+                    </view>
+                    <block wx:if="{{item.TAG=='1'}}">
+                        <view class="sp tp" style="width:30%;">
+                            <text class="text-green">{{item.PSTATE}}</text>
+                        </view>
+                        <view class=" sp " style="width:30%;"></view>
+                    </block>
+                    <block wx:elif="{{item.TAG=='2'}}">
+                        <view class="sp tp" style="width:30%;">
+                            <text class="text-red">{{item.PSTATE}}</text>
+                        </view>
+                        <view class=" sp " style="width:30%;"></view>
+                    </block>
+                    <block wx:elif="{{item.TAG=='3'}}">
+                        <view class="sp tp" style="width:30%;">
+                            <text class="text-red">{{item.PSTATE}}</text>
+                        </view>
+                        <view class=" sp " style="width:30%;"></view>
+                    </block>
+                    <block wx:elif="{{item.TAG=='7'}}">
+                        <view class="sp tp" style="width:30%;">
+                            <text class="text-red">{{item.PSTATE}}</text>
+                        </view>
+                        <view class=" sp " style="width:30%;"></view>
+                    </block>
+                    <block wx:elif="{{item.TAG=='8'}}">
+                        <view class="sp tp" style="width:30%;">
+                            <text style="color:blue;">{{item.PSTATE}}</text>
+                        </view>
+                        <view class=" sp " style="width:30%;"></view>
+                    </block>
+                    <block wx:elif="{{item.TAG=='6'}}">
+                        <view class="sp tp" style="width:30%;">
+                            <text class="text-red">{{item.PSTATE}}</text>
+                        </view>
+                        <view class=" sp " style="width:30%;"></view>
+                    </block>
+                    <block wx:elif="{{item.TAG=='5'}}">
+                        <view class="sp tp" style="width:30%;">
+                            <text class="text-red">{{item.PSTATE}}</text>
+                        </view>
+                        <view class=" sp " style="width:30%;"></view>
+                    </block>
+                    <block wx:else>
+                        <view class="sp tp" style="width:30%;">
+                            <text style="color:blue;">{{item.PSTATE}}</text>
+                        </view>
+                        <view class=" sp " style="width:30%;color:blue;">
+                            <text>{{item.SORTS}}分钟</text>
+                        </view>
+                    </block>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

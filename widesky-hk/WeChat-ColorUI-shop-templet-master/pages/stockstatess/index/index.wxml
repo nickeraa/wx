@@ -1,0 +1,68 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>状态信息 </navigator>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;">
+    <view style="height:6rem;background-color:white;"></view>
+    <view class="cu-form-group">
+        <view class="title cuIcon-title text-orange">查询方式：</view>
+        <radio-group bindchange="radioChange" class="radio-group dp">
+            <label class="radio dp">
+                <radio class="round red" value="0"></radio>按店铺查询 </label>
+            <label class="radio dp">
+                <radio class="round red" value="1"></radio>按跟进人查询 </label>
+        </radio-group>
+    </view>
+    <view class="cu-form-group" hidden="{{check}}" style="height:5rem;">
+        <view class="title icon-title text-orange">查询店铺：</view>
+        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="LCCODE" value="{{picker2[index2].XF_STORECODE}}">
+            <view class="picker dp ">
+                <text>{{index2?picker2[index2].LCCODE:'请选择店铺'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+    <view hidden="{{check1}}" style="height:5rem;">
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">输入跟进人ID：</view>
+            <input bindinput="getuserid" class="radius dp" name="userid" placeholder="" value="{{userid}}"></input>
+            <button bindtap="checkname" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:30%">读取名字</button>
+        </view>
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange ">跟进员工：</view>
+            <text style="color:#808080;margin:auto;"> {{susername}}</text>
+        </view>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询发货信息</button>
+    </view>
+    <view bindtap="listfh" data-wlnumber="{{item.WLNUMBER}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+        <view class="Grid-sku  " style="height:2rem;">
+            <view class="" style="margin-left:1rem;width:40%;margin-top:15px;">
+                <text>{{item.WLNUMBER}}</text>
+            </view>
+            <view class="" style="margin-left:25px;width:20%;margin-top:12px;">
+                <text class=""> {{item.PADDRESS}} </text>
+            </view>
+            <view class="" style="margin-left:5px;width:20%;margin-top:12px;">
+                <text class=""> {{item.PWULIU}} </text>
+            </view>
+        </view>
+        <view class="Grid-sku action solid-bottom " style="height:2rem;margin-top:20px;">
+            <view class="" style="margin-left:1rem;width:15%;">
+                <text>{{item.XF_NAME}}</text>
+            </view>
+            <view class="" style="margin-left:5px;width:10%;margin-top:3px;">
+                <text class=""> {{item.STORE}} </text>
+            </view>
+            <view class="" style="margin-left:15px;width:20%;margin-top:0px;">
+                <text class=""> {{item.SHNAME}} </text>
+            </view>
+            <view class="" style="margin-left:15px;width:30%;">
+                <text style="margin-left:10px;color:red;margin-top:6px;">{{item.PZSTATE}}</text>
+            </view>
+        </view>
+    </view>
+</view>

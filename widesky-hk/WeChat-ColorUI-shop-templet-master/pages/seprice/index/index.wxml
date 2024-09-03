@@ -1,0 +1,40 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>售价及库存查询 </navigator>
+    </view>
+</view>
+<view style="overflow-x: hidden;">
+    <view style="height:4rem;background-color:white;"></view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">货品名称或货号：</view>
+        <input bindinput="getsnumber" class="radius" name="snumber" placeholder="请输入名称或货号模糊查询" value="{{snumber}}"></input>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询货品</button>
+    </view>
+    <view class=" margin-top" hidden="{{view}}">
+        <view style="background-color:white;height:0.5rem;"></view>
+        <view class="canui-order-item bg-white">
+            <view class="head-title-box" style="height:2.2rem;">
+                <text class="icon-shop" style="margin-left:1rem;"></text>
+                <text calss="sp" style="margin-left:3px;">货品信息</text>
+                <text class="icon-right"></text>
+                <view class="head-title-box sp solid-bottom "></view>
+            </view>
+            <button bindtap="sesnumber" data-xf_plu="{{item.XF_PLU}}" id="{{item.XF_LONGDESC}}" style="background-color:#E0EEEE;font-size:14px;" wx:for="{{result}}" wx:key="id">
+                <view class="Grid-sku  " style="height:5rem;margin-top:6px;">
+                    <view style="margin-left:10px;width:20%;margin-top:10px;">
+                        <text class=""> {{item.XF_PLU}} </text>
+                    </view>
+                    <view style="margin-left:10px;width:60%;margin-top:10px;">
+                        <text>{{item.XF_LONGDESC}}</text>
+                    </view>
+                    <view style="margin-left:10px;width:20%;margin-top:10px;">
+                        <text>{{item.XF_SELUPRICE}}元</text>
+                    </view>
+                </view>
+            </button>
+        </view>
+    </view>
+</view>

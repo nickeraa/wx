@@ -1,0 +1,76 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>查询客户货品 </view>
+    </view>
+</view>
+<view class="cu-form-group" style="margin-top: 2rem;">
+    <view class="title icon-title text-orange">输入会员卡号：</view>
+    <input bindinput="getvipcode" class="radius dp" name="vipcode" placeholder="请输入会员卡号精准查询" value="{{vipcode}}"></input>
+</view>
+<view style="display: flex;width: 100%;margin-top: 1rem;">
+    <view bindtap="listvipcode" style="margin-left:8rem;width:20%;margin-top:5px;width:30%;">
+        <button class="cu-btn bg-gradual-green shadow-blur round">查询</button>
+    </view>
+    <view bindtap="listvip" style="margin-left:10px;margin-top:5px;width:50%;">
+        <button class="cu-btn  shadow-blur round" style="background-color: #03a9f4;color:white;">会员数据查询工具</button>
+    </view>
+</view>
+<view class="cu-form-group" style="padding-top: 20px;">
+    <view class="title icon-title text-orange up">会员姓名：</view>
+    <text class="text-grey">{{vipname}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange up">会员等级：</view>
+    <text class="text-grey">{{grade}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange up">会员店铺：</view>
+    <text class="text-grey">{{store}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange up">跟进员工：</view>
+    <text class="text-grey">{{xf_name}}</text>
+</view>
+<view bindtap="fx" style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 0.5rem;padding-top: 2rem;">
+    <text class="cu-btn round  bg-gradual-green" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 查询此客户的分享记录</text>
+</view>
+<view class=" solid-bottom" hidden="{{flag}}">
+    <view class="Item-top">
+        <checkbox bindtap="selectall" checked="{{select_all}}" class="checkbox"></checkbox>
+        <text style="margin-left: 5px;">全选</text>
+    </view>
+</view>
+<checkbox-group bindchange="checkboxChange" hidden="{{flag}}">
+    <view data-xf_plu="{{item.XF_PLU}}" style="background-color:#E0EEEE;margin-top:3px;" wx:for="{{replu}}" wx:key="id">
+        <view class="Grid-sku  " style="height:2.5rem;">
+            <checkbox checked="{{item.checked}}" class="checkbox" style="margin-left: 8px;margin-top: 6px;" value="{{item.XF_PLU}}"></checkbox>
+            <view class="" style="margin-left:1rem;width:20%;margin-top:15px;">
+                <text>{{item.XF_PLU}}</text>
+            </view>
+            <view class="" style="margin-left:15px;width:80%;margin-top:13px;">
+                <text class=""> {{item.XF_DESCI}} </text>
+            </view>
+        </view>
+        <view class="Grid-sku action solid-bottom " style="height:3rem;padding-bottom:8px;">
+            <view style="margin-left:10px;width:35%;margin-top:15px;" wx:if="{{item.XF_ORGUPRICE=='999999'}}">
+                <text class=""> 售价：未定价 </text>
+            </view>
+            <view style="margin-left:10px;width:35%;margin-top:15px;" wx:else>
+                <text class=""> 售价：{{item.XF_ORGUPRICE}}元 </text>
+            </view>
+            <view class="" style="margin-left:5px;width:35%;margin-top:15px;" wx:if="{{!item.VIPPRICE}}">
+                <text>会员价:无</text>
+            </view>
+            <view class="" style="margin-left:5px;width:35%;margin-top:15px;" wx:if="{{item.VIPPRICE}}">
+                <text>会员价:{{item.VIPPRICE}}元</text>
+            </view>
+            <view bindtap="listpe" data-xf_plu="{{item.XF_PLU}}" style="margin-left:15px;width:20%;margin-top:5px;">
+                <button class="cu-btn bg-gradual-green shadow-blur round">查询</button>
+            </view>
+        </view>
+    </view>
+</checkbox-group>
+<view bindtap="del" hidden="{{flag}}" style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 3rem;padding-top: 2rem;">
+    <text class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 撤回分享</text>
+</view>

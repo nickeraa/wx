@@ -1,0 +1,141 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>查询系列 </view>
+    </view>
+</view>
+<view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">选择系列：</view>
+        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="ITEMNAME" style="margin-left:1rem;margin-top:3px;" value="{{picker2[index2].ITEMNAME}}">
+            <view class="picker dp ">
+                <text>{{index2?picker2[index2].ITEMNAME:'请选择查询系列'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+        <view class="action" style="margin-left:1rem;">
+            <button bindtap="search" class="cu-btn bg-gradual-green shadow-blur round">查询</button>
+        </view>
+    </view>
+</view>
+<form bindsubmit="formSubmit">
+    <swiper autoplay="true" circular="true" class="screen-swiper square-dot shadow-warp bg-white" duration="500" indicatorDots="true" interval="5000" style="margin-top:20px;">
+        <swiper-item wx:for="{{resultdt}}" wx:key="itemid">
+            <image data-itemname="{{item.ITEMNAME}}" mode="aspectFit" src="{{banner}}{{item.BANNER}}" style="height: 650rpx; width: 1080rpx;"></image>
+        </swiper-item>
+    </swiper>
+</form>
+<view class="cu-bar bg-white search " style="top:20px;">
+    <view class="search-form round">
+        <text class="icon-search"></text>
+        <input bindinput="getsku" name="sku" placeholder="输入货品编码或名称，支持模糊查询" type="text" value="{{sku}}"></input>
+    </view>
+    <view class="action">
+        <button bindtap="searchsku" class="cu-btn bg-gradual-green shadow-blur round">搜索</button>
+    </view>
+</view>
+<view class=" solid-bottom" style="padding-top:50px;" wx:if="{{itemname==''}}"></view>
+<view class=" solid-bottom" hidden="{{flag}}" style="padding-top:20px;" wx:else>
+    <view class="Item-top">
+        <checkbox bindtap="selectall" checked="{{select_all}}" class="checkbox"></checkbox>
+        <text style="margin-left: 5px;">全选</text>
+        <text class="icon-shop" style="margin-left:10px;"></text>
+        <text class="sp">{{itemname}}</text>
+        <text class="icon-right"></text>
+    </view>
+</view>
+<checkbox-group bindchange="checkboxChange" hidden="{{flag}}">
+    <view data-xf_plu="{{item.XF_PLU}}" style="background-color:#E0EEEE;margin-top:3px;" wx:for="{{replu}}" wx:key="id">
+        <view class="Grid-sku  " style="height:2.5rem;">
+            <checkbox checked="{{item.checked}}" class="checkbox" style="margin-left: 8px;margin-top: 6px;" value="{{item.XF_PLU}}"></checkbox>
+            <view class="" style="margin-left:1rem;width:20%;margin-top:15px;">
+                <text>{{item.XF_PLU}}</text>
+            </view>
+            <view class="" style="margin-left:15px;width:80%;margin-top:13px;">
+                <text class=""> {{item.XF_LONGDESC}} </text>
+            </view>
+        </view>
+        <view class="Grid-sku action solid-bottom " style="height:4rem;padding-bottom:8px;">
+            <view style="margin-left:10px;width:35%;margin-top:15px;" wx:if="{{item.XF_ORGUPRICE=='999999'}}">
+                <text class=""> 售价：未定价 </text>
+            </view>
+            <view style="margin-left:10px;width:35%;margin-top:15px;" wx:else>
+                <text class=""> 售价：{{item.XF_ORGUPRICE}}</text>
+            </view>
+            <view class="" style="margin-left:0px;width:30%;margin-top:15px;" wx:if="{{!item.XF_VIPPRICE}}">
+                <text>会员价:无</text>
+            </view>
+            <view class="" style="margin-left:0px;width:35%;margin-top:15px;" wx:if="{{item.XF_VIPPRICE}}">
+                <text>会员价:{{item.XF_VIPPRICE}}</text>
+            </view>
+            <view class="" style="margin-left:10px;width:20%;margin-top:15px;" wx:if="{{item.STOCK==''}}">
+                <text>配额：</text>
+            </view>
+            <view class="" style="margin-left:10px;width:20%;margin-top:15px;" wx:if="{{item.STOCK=='0'}}">
+                <text class="text-red"> 配额：{{item.STOCK}} </text>
+            </view>
+            <view class="" style="margin-left:10px;width:20%;margin-top:15px;" wx:if="{{item.STOCK}}">
+                <text class="text-red"> 配额：{{item.STOCK}} </text>
+            </view>
+            <view class="" style="margin-left:10px;width:20%;margin-top:15px;">
+                <text class="text-red"> 库存：{{item.XF_QOH}} </text>
+            </view>
+            <view bindtap="listpe" data-xf_plu="{{item.XF_PLU}}" style="margin-left:0px;width:20%;margin-top:8px;">
+                <button class="cu-btn bg-gradual-green shadow-blur round">查询</button>
+            </view>
+        </view>
+    </view>
+</checkbox-group>
+<view class="action" hidden="{{flag}}">
+    <button bindtap="insku" class="cu-btn bg-gradual-green shadow-blur round " style="width: 90%;margin-left: 1rem;margin-top:1rem;">
+        <text class="icon-add">加入到分享包</text>
+    </button>
+</view>
+<view data-xf_plu="{{item.XF_PLU}}" hidden="{{flag}}" style="background-color:#E0EEEE;margin-top:10px;" wx:for="{{replus}}" wx:key="id">
+    <view class="Grid-sku" style="height:5rem;">
+        <view class="text-red" style="margin-left:1rem;width:20%;margin-top:15px;">
+            <text>{{item.XF_PLU}}</text>
+        </view>
+        <view class="text-red" style="margin-left:15px;width:60%;margin-top:13px;">
+            <text class=""> {{item.XF_LONGDESC}} </text>
+        </view>
+        <view bindtap="delsku" data-xf_plu="{{item.XF_PLU}}" style="margin-left:0px;width:30%;margin-top:8px;">
+            <button class="cu-btn bg-gradual-black shadow-blur round">
+                <text class="icon-delete">删除</text>
+            </button>
+        </view>
+    </view>
+</view>
+<view hidden="{{flag}}">
+    <view class="cu-form-group" style="margin-top: 2rem;">
+        <view class="title icon-title text-orange">输入会员卡号：</view>
+        <input bindinput="getvipcode" class="radius dp" name="vipcode" placeholder="请输入会员卡号精准查询" value="{{vipcode}}"></input>
+    </view>
+    <view style="display: flex;width: 100%;margin-top: 1rem;">
+        <view bindtap="listvipcode" style="margin-left:8rem;width:20%;margin-top:5px;width:30%;">
+            <button class="cu-btn bg-gradual-green shadow-blur round">查询</button>
+        </view>
+        <view bindtap="listvip" style="margin-left:10px;margin-top:5px;width:50%;">
+            <button class="cu-btn  shadow-blur round" style="background-color: #03a9f4;color:white;">会员数据查询工具</button>
+        </view>
+    </view>
+    <view class="cu-form-group" style="padding-top: 20px;">
+        <view class="title icon-title text-orange up">会员姓名：</view>
+        <text class="text-grey">{{vipname}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员等级：</view>
+        <text class="text-grey">{{grade}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员店铺：</view>
+        <text class="text-grey">{{store}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">跟进员工：</view>
+        <text class="text-grey">{{xf_name}}</text>
+    </view>
+    <view bindtap="fx" style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 3rem;padding-top: 2rem;">
+        <text class="cu-btn round  bg-gradual-green" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 分享货品给此客户</text>
+    </view>
+</view>

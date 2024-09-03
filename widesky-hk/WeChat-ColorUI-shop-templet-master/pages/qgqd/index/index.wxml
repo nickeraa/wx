@@ -1,0 +1,21 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>我的签到 </navigator>
+    </view>
+</view>
+<view class="UCenter-bg" style="padding-bottom:260px;">
+    <image class="gif-wave" mode="scaleToFill" src="{{bgimage}}wave.gif"></image>
+    <view style="margin-top:15rem;">
+        <image class="userinfo" src="/images/logo.png"></image>
+        <view style="margin:5px 0px 0px 30px;">{{username}}</view>
+    </view>
+</view>
+<view style="padding-top: 3rem;margin-left: 8rem;display: flex;width:100%;">
+    <view style="width:15%;">
+        <image src="/images/green.png" style="width:50px;height:50px;"></image>
+    </view>
+    <view style="width:50%;margin-top: 15px;">
+        <text style="margin:0px 0px 0px 20px;font-size: 18px;font-weight: 700;color:green;">已上线</text>
+    </view>
+</view>
