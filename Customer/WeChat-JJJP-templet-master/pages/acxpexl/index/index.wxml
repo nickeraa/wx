@@ -1,0 +1,126 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>修改客户归属 </view>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;">
+    <view style="height:5rem;background-color:white;"></view>
+    <view style="background-color: white;padding-bottom: 10px;">
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">查询店铺：</view>
+            <picker bindchange="bindPickerChange3" range="{{picker3}}" rangeKey="LCCODE" value="{{picker3[index3].XF_STORECODE}}">
+                <view class="picker dp ">
+                    <text>{{index3?picker3[index3].LCCODE:'请选择店铺'}}</text>
+                    <text class="cuIcon-triangledownfill"></text>
+                </view>
+            </picker>
+        </view>
+    </view>
+    <view class="cu-form-group">
+        <radio-group bindchange="radioChange" class="radio-group dp">
+            <label class="radio dp">
+                <radio checked="true" class="round red" value="0"></radio>客户有跟进员工 </label>
+            <label class="radio dp" style="margin-left: 2rem;">
+                <radio class="round red" value="1"></radio>客户没有跟进员工 </label>
+        </radio-group>
+    </view>
+    <view class="cu-form-group" hidden="{{check}}">
+        <view class="title icon-title text-orange">查询员工：</view>
+        <picker bindchange="bindPickerChange4" range="{{picker4}}" rangeKey="XF_NAME" value="{{picker4[index4].XF_STAFFCODE}}">
+            <view class="picker dp ">
+                <text>{{index4?picker4[index4].XF_NAME:'选择员工'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+    <view class="cu-form-group" style="width: 20rem;">
+        <view class="title icon-title text-orange">选择会员等级：</view>
+        <picker bindchange="bindPickerChange" range="{{array}}" value="{{index}}">
+            <view class="picker dp"> {{array[index]}} </view>
+        </picker>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="search" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询归属客户</button>
+    </view>
+    <view class="cu-bar bg-white search " style="top:10px;">
+        <view class="search-form round">
+            <text class="icon-search"></text>
+            <input bindinput="getvipcode" name="xf_vipcode" placeholder="输入本店精准的VIP卡号查询" type="text" value="{{xf_vipcode}}"></input>
+        </view>
+        <view class="action">
+            <button bindtap="searchvip" class="cu-btn bg-gradual-green shadow-blur round">搜索</button>
+        </view>
+    </view>
+    <view class=" solid-bottom" hidden="{{flag}}" style="padding-top:20px;">
+        <view class="Item-top">
+            <checkbox bindtap="selectall" checked="{{select_all}}" class="checkbox"></checkbox>
+            <text style="margin-left: 5px;">全选</text>
+            <text class="icon-shop" style="margin-left:10px;"></text>
+            <text class="sp">{{itemname}}</text>
+            <text class="icon-right"></text>
+        </view>
+    </view>
+    <checkbox-group bindchange="checkboxChange" hidden="{{flag}}">
+        <view data-xf_vipcode="{{item.XF_VIPCODE}}" style="background-color:#E0EEEE;margin-top:3px;" wx:for="{{replu}}" wx:key="id">
+            <view class="Grid-sku  " style="height:2.5rem;">
+                <checkbox checked="{{item.checked}}" class="checkbox" style="margin-left: 8px;margin-top: 6px;" value="{{item.XF_VIPCODE}}"></checkbox>
+                <view class="stp" style="margin-left:1rem;width:25%;margin-top: 12px;">
+                    <text class=""> {{item.XF_VIPCODE}} </text>
+                </view>
+                <view class="stp" style="width:30%;margin-top: 10px;margin-left: 10px;">
+                    <text>{{item.XF_SURNAME}}</text>
+                </view>
+                <view class="stp" style="width:30%;margin-top: 10px;">
+                    <text>{{item.GRADE}}</text>
+                </view>
+                <view class="stp" style="width:50%;margin-top: 10px;margin-right: 10px;">
+                    <text>{{item.XF_STORE}}</text>
+                </view>
+            </view>
+            <view class="Grid-sku action solid-bottom " style="height:2.2rem;">
+                <view class="stp" style="margin-left:1rem;width:30%;margin-top: 8px;">
+                    <text>{{item.XF_NAME}}</text>
+                </view>
+                <view class="stp" style="width:10%;margin-top: 8px;">
+                    <text>{{item.XF_ADDRESS1}}</text>
+                </view>
+                <view class="stp" style="width:30%;margin-top: 8px;">
+                    <text>{{item.AMTSOLD}}元</text>
+                </view>
+                <view class="stp" style="width:40%;margin-top: 10px;margin-left: -10px;">
+                    <text>{{subData(item.XF_JOINTDATE)}}</text>
+                </view>
+            </view>
+            <view style="height:3px;background-color:white;"></view>
+        </view>
+    </checkbox-group>
+    <view hidden="{{flags}}">
+        <view class="cu-form-group" style="margin-top: 20px;">
+            <view class="title icon-title text-orange">输入新跟进员工ID：</view>
+            <input bindinput="getstaff" class="radius dp" name="staffcode" placeholder="请输入员工ID" value="{{staffcode}}"></input>
+            <view bindtap="check" style="margin:10px 10px 10px 5px;">
+                <text class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 搜索</text>
+            </view>
+        </view>
+        <view class="cu-form-group" style="padding-bottom: 2rem;">
+            <view class="title icon-title text-orange up">员工姓名：</view>
+            <text class="text-grey">{{xf_newname}}</text>
+        </view>
+        <view style="width:100%;margin:20px 0px 50px 10px;height:3rem;">
+            <button bindtap="upvipyg" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:90%;">修改确认</button>
+        </view>
+    </view>
+</view>
+<wxs module="subData">
+module.exports = (function(val) {
+    if (val == undefined || val == '' || val == null) {
+        return
+    };
+    if (val.length > 10) {
+        return (val.substring(0, 10))
+    } else {
+        return (val)
+    }
+});
+</wxs>

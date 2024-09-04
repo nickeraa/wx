@@ -1,0 +1,20 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">云相册</view>
+    </view>
+</view>
+<view bindtap="back" class="cu-bar bg-white fixed" style="top:{{CustomBar}}px;">
+    <view style="margin:0px 10px 0px 20px;">
+        <text class="icon-back">
+            <text style="margin-left: 15px;">所有相册</text>
+        </text>
+    </view>
+</view>
+<view style="display: flex;width: 100%;flex-wrap: wrap;">
+    <view bindtap="listjpg" data-jpg="{{item}}" style="margin:15px 0px 15px 0px;" wx:for="{{replu}}" wx:key="*this">
+        <image mode="widthFix" src="/img/pay.png" style="border-radius: 5px;width: 50px;height: 50px;margin-left: 20px;"></image>
+        <view style="margin-left:20px;width:100%;margin-top: 5px;">
+            <text> {{item}} </text>
+        </view>
+    </view>
+</view>

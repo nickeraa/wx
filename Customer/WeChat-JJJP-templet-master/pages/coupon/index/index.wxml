@@ -1,0 +1,34 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>新增员工和指标 </view>
+    </view>
+</view>
+<view class="cu-form-group" style="margin-top: 5.6rem;">
+    <view class="title icon-title text-orange">选择店铺：</view>
+    <picker bindchange="bindPickerChange3" range="{{picker3}}" rangeKey="LCCODE" value="{{picker3[index3].XF_STORECODE}}">
+        <view class="picker dp ">
+            <text>{{index3?picker3[index3].LCCODE:'请选择店铺'}}</text>
+            <text class="cuIcon-triangledownfill"></text>
+        </view>
+    </picker>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">输入科传员工ID：</view>
+    <input bindinput="getstaff" class="radius dp" name="staffcode" placeholder="请输入员工ID" value="{{staffcode}}"></input>
+    <view bindtap="check" style="margin:10px 10px 10px 5px;">
+        <text class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 确认</text>
+    </view>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange up">员工姓名：</view>
+    <text class="text-grey">{{xf_name}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">指标数字：</view>
+    <input bindinput="getzb" class="dp" name="zb" placeholder="请输入员工指标，无指标输入0" type="number" value="{{zb}}"></input>
+</view>
+<view class="cu-form-group sp" style="padding-bottom: 5rem;padding-top: 2rem;">
+    <button bindtap="addyg" class="cu-btn canui-color-gradual shadow-blur round " style="margin-left:6rem;margin-top:1rem;">
+        <text class=""></text> 新增</button>
+</view>

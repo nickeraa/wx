@@ -1,0 +1,55 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>比较售价 </navigator>
+    </view>
+</view>
+<view class="Grid-sku" style="background-color:#33A1C9;color:white;height: 6rem;margin-top: 2rem;">
+    <view class="sp" style="width:20%;">
+        <text> 货号 </text>
+    </view>
+    <view class="sp " style="width:30%;margin-left: 5px;">
+        <text> 品名 </text>
+    </view>
+    <view class="Grid-cellp sp" style="width:10%;margin-left: 2rem;">
+        <text>成交单价</text>
+    </view>
+    <view class="Grid-celltwo sp" style="width:10%;margin-left: 2rem;">
+        <text>最新售价</text>
+    </view>
+    <view class="Grid-celltwo sp" style="width:30%;">
+        <text>涨跌价格</text>
+    </view>
+</view>
+<view class=" action solid-bottom " wx:for="{{rest}}" wx:key="id">
+    <view class="Grid-sku" style="height:8rem;background-color:#e3eef7;margin-top:3px;">
+        <view class="sp" style="width:20%;">
+            <text>{{item.XF_PLU}}</text>
+        </view>
+        <view class="sp" style="width:30%;">
+            <text>{{item.XF_DESCI}}</text>
+        </view>
+        <view class="sp" style="width:15%;">
+            <text>{{item.XF_AMTSOLD}}元</text>
+        </view>
+        <view class="sp" style="width:15%;">
+            <text>{{item.XF_SELPRICE}}元</text>
+        </view>
+        <view class="sp tp" style="width:20%;margin-top:2rem;" wx:if="{{item.XF_SELPRICE=='999,999'}}">
+            <text style="margin-left:3px;">最新未定价</text>
+        </view>
+        <block wx:else>
+            <view class="sp tp" style="width:20%;color:red;margin-top:2rem;" wx:if="{{item.PRICES>0}}">
+                <image mode="aspectFill" src="http://widesky.work/HKback/bgimg/red.png" style="height:15px;width:15px;"></image>
+                <text style="margin-left:3px;">{{item.PRICE}}元</text>
+            </view>
+            <view class="sp tp" style="width:20%;color:green;margin-top:2rem;" wx:if="{{item.PRICES<0}}">
+                <image mode="aspectFill" src="http://widesky.work/HKback/bgimg/green.png" style="height:15px;width:15px;"></image>
+                <text style="margin-left:3px;">{{item.PRICE}}元</text>
+            </view>
+            <view class="sp tp" style="width:20%;margin-top:2rem;" wx:if="{{item.PRICES==0}}">
+                <text class="text-black">{{item.PRICE}}元</text>
+            </view>
+        </block>
+    </view>
+</view>

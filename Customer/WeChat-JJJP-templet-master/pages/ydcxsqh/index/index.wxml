@@ -1,0 +1,60 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>预定取货查询 </navigator>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;">
+    <view class="canui-order-item bg-white" style="padding-top: 8rem;">
+        <view class="head-title-box" style="height:2rem;">
+            <text class="icon-shop" style="margin-left:1rem;"></text>
+            <text calss="sp" style="margin-left:3px;">员工：{{xf_staffcode}} {{xf_name}}</text>
+            <text class="icon-right"></text>
+            <text style="color:red;">预定取货金额：{{ygamt}}元</text>
+            <view class="head-title-box sp solid-bottom "></view>
+        </view>
+    </view>
+    <view style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+        <view class="Grid-sku" style="height:2.8rem;">
+            <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;" wx:if="{{item.XF_VIPCODE}}">
+                <text class=""> {{item.XF_VIPCODE}} </text>
+            </view>
+            <view class="stp" style="width:20%;" wx:if="{{item.XF_SURNAME}}">
+                <text>{{item.XF_SURNAME}}</text>
+            </view>
+            <view class="stp" style="width:20%;margin-top: 10px;">
+                <text>{{item.XF_PLU}}</text>
+            </view>
+            <view class="stp" style="width:50%;">
+                <text>{{item.XF_DESCI}}</text>
+            </view>
+        </view>
+        <view class="Grid-sku action solid-bottom " style="height:3rem;">
+            <view class="stp" style="margin-left:1rem;width:15%;margin-top: 10px;">
+                <text>{{item.XF_STORECODE}}</text>
+            </view>
+            <view class="stp" style="width:10%;margin-top: 8px;">
+                <text>{{item.XF_QTYSOLD}}套</text>
+            </view>
+            <view class="stp" style="width:30%;margin-top: 8px;">
+                <text>{{item.XF_AMTSOLD}}元</text>
+            </view>
+            <view class="stp" style="width:40%;margin-top: 10px;">
+                <text>{{subData(item.XF_TXDATE)}}</text>
+            </view>
+        </view>
+        <view style="height:3px;background-color:white;"></view>
+    </view>
+</view>
+<wxs module="subData">
+module.exports = (function(val) {
+    if (val == undefined || val == '' || val == null) {
+        return
+    };
+    if (val.length > 10) {
+        return (val.substring(0, 10))
+    } else {
+        return (val)
+    }
+});
+</wxs>

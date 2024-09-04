@@ -1,0 +1,64 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>查询销售毛利 </view>
+    </view>
+</view>
+<view style="background-color:white;padding-top: 6rem;">
+    <view class="page" style="margin-top:5px;background-color:white;">
+        <view class="picker_group " style="margin-left:-35px;">
+            <view class="title icon-title text-orange up" style="font-size:15px;">查询日期：</view>
+            <picker bindchange="bindDateChange" end="{{date2}}" mode="date" value="{{date}}">
+                <view class="picker"> {{date}} </view>
+            </picker> 至 <picker bindchange="bindDateChange2" end="2050-01-01" mode="date" start="{{date}}" value="{{date2}}">
+                <view class="picker"> {{date2}} </view>
+            </picker>
+        </view>
+    </view>
+    <view class="cu-form-group sp" style="margin-top:1rem;">
+        <button bindtap="secw" class="cu-btn canui-color-gradual shadow-blur round lg sp" style="width:95%;">
+            <text class="icon-search"></text> 查询销售毛利数据</button>
+    </view>
+    <view class="padding flex text-center text-grey bg-white shadow-warp" hidden="{{flag}}" style="padding-top: 1rem;">
+        <view class="flex flex-sub flex-direction solid-right">
+            <view class="text-xl text-blue">{{today_amt}}</view>
+            <view class="margin-top-sm">
+                <text class="icon-favorfill"></text> 销售金额</view>
+        </view>
+        <view class="flex flex-sub flex-direction">
+            <view class="text-xl text-yellow">{{today_cost}}</view>
+            <view class="margin-top-sm">
+                <text class="icon-fork"></text> 销售毛利率</view>
+        </view>
+        <view class="flex flex-sub flex-direction solid-right">
+            <view class="text-xl text-green">{{months_amt}}</view>
+            <view class="margin-top-sm">
+                <text class="icon-favorfill"></text>当月销售金额</view>
+        </view>
+        <view class="flex flex-sub flex-direction">
+            <view class="text-xl text-red">{{months_cost}}</view>
+            <view class="margin-top-sm">
+                <text class="icon-fork"></text> 当月销售毛利率</view>
+        </view>
+    </view>
+    <view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="background-color:white;margin-top: 30px;" wx:if="{{flag==false}}">
+        <view style="display: flex;width: 100%;font-size: 15px;">
+            <view style="width: 80%;margin:5px 10px 20px 30px;">
+                <text bindtap="copyBtn" selectable="true">{{message}}</text>
+            </view>
+        </view>
+    </view>
+    <view style="height:8rem;"></view>
+</view>
+<wxs module="subData">
+module.exports = (function(val) {
+    if (val == undefined || val == '' || val == null) {
+        return
+    };
+    if (val.length > 10) {
+        return (val.substring(0, 10))
+    } else {
+        return (val)
+    }
+});
+</wxs>

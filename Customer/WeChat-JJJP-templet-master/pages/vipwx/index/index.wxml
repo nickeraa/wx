@@ -1,0 +1,54 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>店铺客户微信查询 </navigator>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;">
+    <view style="height:7rem;background-color:white;"></view>
+    <view style="background-color: white;padding-bottom: 10px;">
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">查询店铺：</view>
+            <picker bindchange="bindPickerChange3" range="{{picker3}}" rangeKey="LCCODE" value="{{picker3[index3].XF_STORECODE}}">
+                <view class="picker dp ">
+                    <text>{{index3?picker3[index3].LCCODE:'请选择店铺'}}</text>
+                    <text class="cuIcon-triangledownfill"></text>
+                </view>
+            </picker>
+        </view>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询客户微信登记</button>
+    </view>
+    <view bindtap="newsaleslist" data-xf_staffcode="{{item.XF_DEFSALESMAN}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+        <view class="Grid-sku" style="height:2.5rem;">
+            <view class="stp" style="margin-left:2rem;width:10%;margin-top: 10px;">
+                <text class=""> {{item.XF_DEFSALESMAN}} </text>
+            </view>
+            <view class="stp" style="width:20%;">
+                <text>{{item.XF_NAME}}</text>
+            </view>
+            <view class="stp" style="width:30%;margin-left: -10px;">
+                <text>已加微信</text>
+                <text style="color:green;font-weight: 700;margin-left: 5px;">{{item.HASWX}}</text>
+            </view>
+            <view class="stp" style="width:30%;margin-left: -2px;">
+                <text>未加微信</text>
+                <text style="color:red;font-weight: 700;margin-left: 5px;">{{item.NOWX}}</text>
+            </view>
+        </view>
+        <view style="height:3px;background-color:white;"></view>
+    </view>
+</view>
+<wxs module="subData">
+module.exports = (function(val) {
+    if (val == undefined || val == '' || val == null) {
+        return
+    };
+    if (val.length > 10) {
+        return (val.substring(0, 10))
+    } else {
+        return (val)
+    }
+});
+</wxs>

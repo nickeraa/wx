@@ -1,0 +1,86 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title">SALES</view>
+    </view>
+</view>
+<view class="UCenter-bg">
+    <image class="gif-wave" mode="scaleToFill" src="{{bgimages}}wave.gif"></image>
+</view>
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="title icon-title text-orange"></text>
+        <text style="color:black;font-weight:bold;">业绩和指标查询</text>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="salesall" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{zyimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">全公司销售查询</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="cgs" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{gqimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">全公司C类货品销售查询</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="saleszb" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{rgimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">店铺销售额查询</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="upzb" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">区管修改员工和员工指标</text>
+        </view>
+    </view>
+</view>
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="title icon-title text-orange"></text>
+        <text style="color:black;font-weight:bold;">销售查询</text>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="sesku" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{zyimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">按货品查询销售员工</text>
+        </view>
+    </view>
+</view>
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="title icon-title text-orange"></text>
+        <text style="color:black;font-weight:bold;">财务查询</text>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="secw" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">查询财务数据</text>
+        </view>
+    </view>
+</view>

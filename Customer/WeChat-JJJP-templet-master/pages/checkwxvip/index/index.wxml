@@ -1,0 +1,34 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>未跟进客户登记查询 </navigator>
+    </view>
+</view>
+<view style="height: 8rem;background-color: white;"></view>
+<view class="canui-order-item bg-white" style="padding-bottom: 1rem;">
+    <view class="head-title-box" style="height:2rem;">
+        <text class="icon-shop" style="margin-left:1rem;"></text>
+        <text calss="sp" style="margin-left:3px;">全公司：</text>
+        <text class="icon-right"></text>
+    </view>
+</view>
+<view data-xf_vipcode="{{item.XF_VIPCODE}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+    <view class="Grid-sku" style="height:2.8rem;margin-top: 3px;">
+        <view class="stp" style="margin-left:2rem;width:10%;margin-top: 10px;" wx:if="{{item.XF_STORECODE}}">
+            <text class=""> {{item.XF_STORECODE}} </text>
+        </view>
+        <view class="stp" style="margin-left:2rem;width:10%;margin-top: 10px;" wx:else>
+            <text class=""></text>
+        </view>
+        <view class="stp" style="margin-left:1rem;width:20%;margin-top: 10px;">
+            <text class=""> {{item.XF_DEFSALESMAN}} </text>
+        </view>
+        <view class="stp" style="width:20%;">
+            <text>{{item.XF_NAME}}</text>
+        </view>
+        <view class="stp" style="width:30%;">
+            <text style="color: red;">{{item.SUMVIP}}</text>
+            <text>未跟进</text>
+        </view>
+    </view>
+</view>

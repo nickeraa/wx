@@ -1,0 +1,52 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>C类公司销售额 </view>
+    </view>
+</view>
+<view style="background-color:white;padding-top: 6rem;">
+    <view class="page" style="margin-top:5px;background-color:white;">
+        <view class="picker_group " style="margin-left:-35px;">
+            <view class="title icon-title text-orange up" style="font-size:15px;">查询日期：</view>
+            <picker bindchange="bindDateChange" end="{{date2}}" mode="date" value="{{date}}">
+                <view class="picker"> {{date}} </view>
+            </picker> 至 <picker bindchange="bindDateChange2" end="2050-01-01" mode="date" start="{{date}}" value="{{date2}}">
+                <view class="picker"> {{date2}} </view>
+            </picker>
+        </view>
+    </view>
+    <view class="cu-form-group sp" style="margin-top:1rem;">
+        <button bindtap="selectvip" class="cu-btn canui-color-gradual shadow-blur round lg sp" style="width:99%;">
+            <text class="icon-search"></text>
+            <text style="margin-left: 5px;">查询C类销售数据</text>
+        </button>
+    </view>
+    <view class="padding flex text-center text-grey bg-white shadow-warp" hidden="{{flag}}">
+        <view class="flex flex-sub flex-direction solid-right">
+            <view class="text-xxl text-blue">{{zamtsold}}</view>
+            <view class="margin-top-sm">
+                <text class="icon-favorfill"></text> 销售金额</view>
+        </view>
+    </view>
+    <view hidden="{{flag}}" style="display: flex;width: 100%;background-color: white;height:4rem;padding-top: 10px;align-items: center;justify-content: center;text-align: center;">
+        <button bindtap="ygxs" class="{{isChecked1?'is_checked':'normal'}}" data-title="0" hidden="{{flag}}" style="width:50%;font-size: 14px;height:2rem;border:1px solid #C3A769;margin: 18px 0px 0px 22px;align-items: center;justify-content: center;text-align: center;">
+            <text>店铺销售排名</text>
+        </button>
+    </view>
+    <view class="echarts2" wx:if="{{shows}}">
+        <ec-canvas canvasId="echarts2" ec="{{ec2}}" id="echarts2"></ec-canvas>
+    </view>
+    <view style="height:10rem;"></view>
+</view>
+<wxs module="subData">
+module.exports = (function(val) {
+    if (val == undefined || val == '' || val == null) {
+        return
+    };
+    if (val.length > 10) {
+        return (val.substring(0, 10))
+    } else {
+        return (val)
+    }
+});
+</wxs>

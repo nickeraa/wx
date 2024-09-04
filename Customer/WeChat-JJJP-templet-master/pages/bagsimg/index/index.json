@@ -1,0 +1,6 @@
+{
+    "pageOrientation": "auto",
+    "usingComponents": {
+        "ec-canvas": "/pages/ec-canvas/ec-canvas"
+    }
+}

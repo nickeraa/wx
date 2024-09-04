@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "ec-canvas": "/pages/ec-canvas/ec-canvas"
+    },
+    "enablePullDownRefresh": true,
+    "navigationBarTitleText": "动态"
+}

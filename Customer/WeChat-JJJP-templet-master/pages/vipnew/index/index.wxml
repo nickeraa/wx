@@ -1,0 +1,95 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>新客户查询 </navigator>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;">
+    <view style="height:7rem;background-color:white;"></view>
+    <view style="background-color: white;padding-bottom: 10px;">
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">查询店铺：</view>
+            <picker bindchange="bindPickerChange3" range="{{picker3}}" rangeKey="LCCODE" value="{{picker3[index3].XF_STORECODE}}">
+                <view class="picker dp ">
+                    <text>{{index3?picker3[index3].LCCODE:'请选择店铺'}}</text>
+                    <text class="cuIcon-triangledownfill"></text>
+                </view>
+            </picker>
+        </view>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">查询员工：</view>
+        <picker bindchange="bindPickerChange4" range="{{picker4}}" rangeKey="XF_NAME" value="{{picker4[index4].XF_STAFFCODE}}">
+            <view class="picker dp ">
+                <text>{{index4?picker4[index4].XF_NAME:'选择员工'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+    <view class="page" style="margin-top:5px;background-color:white;">
+        <view class="picker_group " style="margin-left:-35px;">
+            <view class="title icon-title text-orange up" style="font-size:15px;">开卡日期：</view>
+            <picker bindchange="bindDateChange" end="{{date2}}" mode="date" value="{{date}}">
+                <view class="picker"> {{date}} </view>
+            </picker> 至 <picker bindchange="bindDateChange2" end="2050-01-01" mode="date" start="{{date}}" value="{{date2}}">
+                <view class="picker"> {{date2}} </view>
+            </picker>
+        </view>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询开卡客户</button>
+    </view>
+    <view style="background-color:white;height:0.5rem;"></view>
+    <view class="canui-order-item bg-white" hidden="{{rv}}">
+        <view class="head-title-box" style="height:2rem;">
+            <text class="icon-shop" style="margin-left:1rem;"></text>
+            <text calss="sp" style="margin-left:3px;">总人数：</text>
+            <text class="icon-right"></text>
+            <text style="color:red;">{{countboy}}人</text>
+            <view class="head-title-box sp solid-bottom "></view>
+        </view>
+    </view>
+    <view bindtap="newsaleslist" data-xf_surname="{{item.XF_SURNAME}}" data-xf_vipcode="{{item.XF_VIPCODE}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+        <view class="Grid-sku" style="height:2.2rem;">
+            <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;">
+                <text class=""> {{item.XF_VIPCODE}} </text>
+            </view>
+            <view class="stp" style="width:30%;">
+                <text>{{item.XF_SURNAME}}</text>
+            </view>
+            <view class="stp" style="width:30%;">
+                <text>{{item.GRADE}}</text>
+            </view>
+            <view class="stp" style="width:50%;">
+                <text>{{item.XF_STORE}}</text>
+            </view>
+        </view>
+        <view class="Grid-sku action solid-bottom " style="height:2.8rem;">
+            <view class="stp" style="margin-left:1rem;width:40%;">
+                <text>{{item.XF_NAME}}</text>
+            </view>
+            <view class="stp" style="width:10%;margin-top: 12px;">
+                <text>{{item.XF_ADDRESS1}}</text>
+            </view>
+            <view class="stp" style="width:30%;margin-top: 8px;">
+                <text>{{item.AMTSOLD}}元</text>
+            </view>
+            <view class="stp" style="width:40%;margin-top: 10px;margin-left: -10px;">
+                <text>{{subData(item.XF_JOINTDATE)}}</text>
+            </view>
+        </view>
+        <view style="height:3px;background-color:white;"></view>
+    </view>
+</view>
+<wxs module="subData">
+module.exports = (function(val) {
+    if (val == undefined || val == '' || val == null) {
+        return
+    };
+    if (val.length > 10) {
+        return (val.substring(0, 10))
+    } else {
+        return (val)
+    }
+});
+</wxs>

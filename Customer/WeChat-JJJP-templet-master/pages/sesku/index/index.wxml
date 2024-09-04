@@ -1,0 +1,104 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>查询货品 </view>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;background-color: white;">
+    <view class="cu-form-group" style="height:5rem;margin-top: 7rem;">
+        <view class="title icon-title text-orange">输入名称：</view>
+        <input bindinput="getsnumber" class="radius dp" name="snumber" placeholder="输入品名或货号模糊查询" value="{{snumber}}"></input>
+        <view class="action">
+            <button bindtap="search" class="cu-btn bg-gradual-orange shadow-blur round" style="width:100%;">搜索</button>
+        </view>
+    </view>
+    <view hidden="{{view}}">
+        <view style="background-color:white;height:0.5rem;"></view>
+        <view class="canui-order-item bg-white">
+            <view class="head-title-box" style="height:2.2rem;">
+                <text class="icon-shop" style="margin-left:1rem;"></text>
+                <text calss="sp" style="margin-left:3px;">货品信息</text>
+                <text class="icon-right"></text>
+                <view class="head-title-box sp solid-bottom "></view>
+            </view>
+            <button bindtap="sesnumber" data-xf_desci="{{item.XF_DESCI}}" data-xf_plu="{{item.XF_PLU}}" style="background-color:#E0EEEE;font-size:14px;" wx:for="{{result}}" wx:key="id">
+                <view class="Grid-sku  " style="height:5rem;margin-top:6px;">
+                    <view style="margin-left:10px;width:20%;margin-top:10px;">
+                        <text class=""> {{item.XF_PLU}} </text>
+                    </view>
+                    <view style="margin-left:10px;width:60%;margin-top:10px;">
+                        <text>{{item.XF_LONGDESC}}</text>
+                    </view>
+                    <view style="margin-left:10px;width:20%;margin-top:10px;">
+                        <text>{{item.XF_SELUPRICE}}元</text>
+                    </view>
+                </view>
+            </button>
+        </view>
+    </view>
+    <view bindtap="newsaleslist" data-xf_surname="{{item.XF_SURNAME}}" data-xf_vipcode="{{item.XF_VIPCODE}}" hidden="{{flag}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+        <view class="Grid-sku" style="height:2.2rem;">
+            <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;">
+                <text class=""> {{item.XF_VIPCODE}} </text>
+            </view>
+            <view class="stp" style="width:15%;">
+                <text>{{item.XF_SURNAME}}</text>
+            </view>
+            <view class="stp" style="width:20%;">
+                <text>{{item.GRADE}}</text>
+            </view>
+            <view class="stp" style="width:45%;">
+                <text>{{item.XF_STORES}}</text>
+            </view>
+        </view>
+        <view class="Grid-sku action solid-bottom " style="height:3.2rem;">
+            <view class="stp" style="margin-left:1rem;width:40%;">
+                <text>{{item.XF_USERNAME}}</text>
+            </view>
+            <view class="stp" style="width:40%;">
+                <text>{{item.XF_BONUS}}积分</text>
+            </view>
+            <view class="stp" style="width:20%;">
+                <text>{{item.XF_ADDRESS1}}</text>
+            </view>
+            <view class="stp" style="width:30%;margin-top: 10px;">
+                <text>{{subData(item.XF_ISSUEDATE)}}</text>
+            </view>
+        </view>
+        <view style="height:3px;background-color:white;"></view>
+    </view>
+    <view bindtap="saleslist" data-xf_surname="{{item.xf_surname}}" data-xf_vipcode="{{item.xf_vipcode}}" hidden="{{flag}}" style="background-color:#E0EEEE;" wx:for="{{ret}}" wx:key="id">
+        <view class="Grid-sku" style="height:2.2rem;">
+            <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;">
+                <text class=""> {{item.xf_vipcode}} </text>
+            </view>
+            <view class="stp" style="width:15%;">
+                <text>{{item.xf_surname}}</text>
+            </view>
+            <view class="stp" style="width:20%;">
+                <text>{{item.grade}}</text>
+            </view>
+            <view class="stp" style="width:45%;">
+                <text>{{item.xf_stores}}</text>
+            </view>
+        </view>
+        <view class="Grid-sku action solid-bottom " style="height:2.2rem;">
+            <view class="stp" style="margin-left:1rem;width:30%;">
+                <text>{{item.xf_username}}</text>
+            </view>
+            <view class="stp" style="width:30%;">
+                <text>{{item.xf_bonus}}积分</text>
+            </view>
+            <view class="stp" style="width:20%;" wx:if="{{item.xf_address1}}">
+                <text>{{item.xf_address1}}</text>
+            </view>
+            <view class="stp" style="width:20%;" wx:else>
+                <text></text>
+            </view>
+            <view class="stp" style="width:30%;margin-top: 10px;">
+                <text>{{subData(item.xf_issuedate)}}</text>
+            </view>
+        </view>
+        <view style="height:3px;background-color:white;"></view>
+    </view>
+</view>

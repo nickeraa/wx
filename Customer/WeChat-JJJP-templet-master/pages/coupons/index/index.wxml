@@ -1,0 +1,22 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>修改员工指标 </view>
+    </view>
+</view>
+<view class="cu-form-group" style="margin-top: 6rem;">
+    <view class="title icon-title text-orange">选择店铺：</view>
+    <text class="text-grey">{{xf_name}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange up">员工姓名：</view>
+    <text class="text-grey">{{staffname}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">指标数字：</view>
+    <input bindinput="getzb" class="dp" name="yg_target" type="number" value="{{yg_target}}">{{yg_target}}</input>
+</view>
+<view class="cu-form-group sp" style="padding-bottom: 5rem;padding-top: 2rem;">
+    <button bindtap="upyg" class="cu-btn canui-color-gradual shadow-blur round " style="margin-left:6rem;margin-top:1rem;">
+        <text class=""></text>修改</button>
+</view>

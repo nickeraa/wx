@@ -1,0 +1,166 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title">VIP</view>
+    </view>
+</view>
+<view class="UCenter-bg">
+    <image class="gif-wave" mode="scaleToFill" src="{{bgimages}}wave.gif"></image>
+</view>
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="title icon-title text-orange"></text>
+        <text style="color:black;font-weight:bold;">会员消费记录查询</text>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="cxls" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{zyimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">查询消费历史</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="cxlb" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{rgimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">查询消费VIP（按类别）</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="cxhp" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{tzimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">查询消费VIP（按货品）</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="cxje" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{gqimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">查询消费VIP（按消费金额）</text>
+        </view>
+    </view>
+</view>
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="title icon-title text-orange"></text>
+        <text style="color:black;font-weight:bold;">会员卡管理</text>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="bcvip" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">员工补充登记会员资料</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="xgvip" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">区管修改客户归属员工</text>
+        </view>
+    </view>
+</view>
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="title icon-title text-orange"></text>
+        <text style="color:black;font-weight:bold;">会员统计查询</text>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="phone" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{rgimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">查询归属客户手机</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="hzvip" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{zyimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">店铺分类汇总查询</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="wxvip" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">客户微信添加登记</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="checkwx" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{tzimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">查看全公司客户微信添加登记</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="cxwx" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{gqimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">查询店铺客户微信添加登记</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="gxwx" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{zyimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">更新客户微信添加登记</text>
+        </view>
+    </view>
+</view>
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="title icon-title text-orange"></text>
+        <text style="color:black;font-weight:bold;">展会摄像管理</text>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="sezh" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">查看展会相册</text>
+        </view>
+    </view>
+</view>
+<view hidden="{{flag}}" style="margin-top:2rem;">
+    <button bindtap="delvip" class="cu-btn canui-color-gradual shadow-blur round lg sp" style="width:95%;">
+        <text class="icon-delete" style="margin:0px 5px 0px 0px;"></text> 一键删除</button>
+</view>

@@ -1,0 +1,90 @@
+{
+    "pages": [
+        "pages/home/index/index",
+        "pages/tjlogin/index",
+        "pages/listprice/index/index",
+        "pages/ygskus/index/index",
+        "pages/csalesall/index/index",
+        "pages/csalesstore/index/index",
+        "pages/ygedit/index/index",
+        "pages/bagsimg/index/index",
+        "pages/ydcxs/index/index",
+        "pages/djall/index/index",
+        "pages/bags/index/index",
+        "pages/djsales/index/index",
+        "pages/vipskussp/index/index",
+        "pages/ygcxs/index/index",
+        "pages/coupon/index/index",
+        "pages/coupons/index/index",
+        "pages/vipyds/index/index",
+        "pages/vipnews/index/index",
+        "pages/ygsku/index/index",
+        "pages/vipjjs/index/index",
+        "pages/vipbds/index/index",
+        "pages/sesku/index/index",
+        "pages/vipsku/index/index",
+        "pages/viphz/index/index",
+        "pages/bcacxpe/index/index",
+        "pages/saleszb/index/index",
+        "pages/sales/index/index",
+        "pages/deposit/index/index",
+        "pages/vipwx/index/index",
+        "pages/vipwxlist/index/index",
+        "pages/vipyd/index/index",
+        "pages/acxpexl/index/index",
+        "pages/acxpexls/index/index",
+        "pages/salescw/index/index",
+        "pages/salesall/index/index",
+        "pages/vipbd/index/index",
+        "pages/djallqh/index/index",
+        "pages/yddpsqh/index/index",
+        "pages/ydcxsqh/index/index",
+        "pages/wxvip/index/index",
+        "pages/checkwxvip/index/index",
+        "pages/djsalesqh/index/index",
+        "pages/vipjj/index/index",
+        "pages/vipnewlist/index/index",
+        "pages/vipnew/index/index",
+        "pages/cxphone/index/index",
+        "pages/vipskuvk/index/index",
+        "pages/vipsort/index/index",
+        "pages/vipskuss/index/index",
+        "pages/yddps/index/index",
+        "pages/vipss/index/index",
+        "pages/vipskuamt/index/index",
+        "pages/vipsaless/index/index"
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#39b54a",
+        "navigationBarTitleText": "vip",
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "white",
+        "backgroundTextStyle": "dark"
+    },
+    "tabBar": {
+        "color": "#aaaaaa",
+        "borderStyle": "white",
+        "backgroundColor": "#fff",
+        "selectedColor": "#F95A5F",
+        "list": [
+            {
+                "pagePath": "pages/home/index/index",
+                "text": "客户",
+                "iconPath": "img/about.png",
+                "selectedIconPath": "img/about_cur.png"
+            },
+            {
+                "pagePath": "pages/sales/index/index",
+                "text": "销售",
+                "iconPath": "img/component.png",
+                "selectedIconPath": "img/component_cur.png"
+            },
+            {
+                "pagePath": "pages/deposit/index/index",
+                "text": "订金",
+                "iconPath": "img/home.png",
+                "selectedIconPath": "img/home1.png"
+            }
+        ]
+    }
+}

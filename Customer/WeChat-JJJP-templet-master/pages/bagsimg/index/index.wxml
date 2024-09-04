@@ -1,0 +1,19 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">
+            <text>云相册</text>
+        </view>
+    </view>
+</view>
+<view bindtap="back" class="cu-bar bg-white fixed" style="top:{{CustomBar}}px;">
+    <view style="margin:0px 10px 0px 20px;">
+        <text class="icon-back">
+            <text style="margin-left: 15px;">{{img}}</text>
+        </text>
+    </view>
+</view>
+<view style="display: flex;width: 100%;flex-wrap: wrap;">
+    <view style="margin:-1px 0px 0px 0.5px;width:49%;" wx:for="{{replu}}" wx:key="*this">
+        <image bindtap="previewImage" data-src="{{item.OriginalPath}}" lazyLoad="true" mode="aspectFill" src="{{zhimgurl}}{{img}}/{{item.OriginalPath}}" style="border-radius: 5rpx;margin-left: 6rpx;width: 367rpx;height:367rpx;"></image>
+    </view>
+</view>

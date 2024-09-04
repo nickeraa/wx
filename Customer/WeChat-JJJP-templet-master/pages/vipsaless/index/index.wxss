@@ -1,0 +1,209 @@
+page {
+    padding-bottom: 20rpx;
+    padding-top: 50px;
+}
+
+.head-title {
+    margin: 0 auto;
+}
+
+.cu-custom .cu-bar {
+    padding-right: inherit;
+}
+
+.bg-gradual-green,.cu-custom .cu-bar {
+    background-image: linear-gradient(45deg,#ff9700,#ed1c24);
+}
+
+.line-green,.lines-green,.text-green {
+    color: #e45c5c;
+}
+
+.canui-color-gradual1 {
+    background-image: linear-gradient(45deg,#48ff00,#19afeb);
+    color: #fff;
+}
+
+.swiperitem {
+    background: #fff;
+    height: 55px;
+}
+
+.canui-video {
+    height: 425rpx;
+    width: 100%;
+}
+
+.nav-li,.nav-list {
+    padding: 0;
+    z-index: 0;
+}
+
+.canui-yx-url {
+    margin: 0 2% 30rpx!important;
+    width: 46%!important;
+}
+
+.canui-flex-car {
+    padding-top: 10px;
+}
+
+.canui-flex-car .cu-card>.cu-item {
+    margin: 0;
+    position: relative;
+}
+
+.canui-flex-car .cu-list.menu-avatar>.cu-item {
+    height: 100rpx;
+    padding-left: 15rpx;
+}
+
+.canui-flex-car .cu-card .cu-avatar {
+    bottom: 72rpx;
+    position: absolute;
+    right: 10px;
+}
+
+.canui-flex-car .shadow-warp {
+    box-shadow: 0 0 30rpx rgba(0,0,0,.1);
+}
+
+.canui-flex-car .cu-list.menu>.cu-item .content {
+    font-size: 26rpx;
+}
+
+.canui-flex-car .text-sm {
+    font-size: 20rpx;
+}
+
+.canui-flex-car .text-grey {
+    color: #000;
+}
+
+.canui-flex-car image {
+    height: 90px!important;
+}
+
+.canui-gps .justify-between {
+    padding: 0 10px;
+}
+
+.content .text-sm {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.canui-fixed {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 999999;
+}
+
+.sp {
+    height: 150rpx;
+}
+
+.bgcolor {
+    background: #fff;
+}
+
+.up {
+    text-transform: Uppercase;
+}
+
+.tp {
+    margin: 10px 5px 5px;
+}
+
+.textcolor {
+    color: #8b8686;
+}
+
+.picker_group {
+    align-items: center;
+    border-bottom: 1rpx solid #efefef;
+    color: #888;
+    display: flex;
+    font-size: 30rpx;
+    height: 85rpx;
+    justify-content: center;
+    line-height: 85rpx;
+}
+
+.picker_group picker {
+    border: 1rpx solid #64bff1;
+    border-radius: 30rpx;
+    color: #64bff1;
+    height: 55rpx;
+    line-height: 55rpx;
+    margin: 0 2%;
+    padding: 0 2%;
+}
+
+.Grid-sku {
+    display: flex;
+    width: 100%;
+}
+
+.Grid-cell {
+    margin: 5px;
+    width: 20%;
+}
+
+.sp {
+    margin: 5px;
+}
+
+.dp {
+    border-radius: 25px;
+    height: 40px;
+    margin-top: -2px;
+    width: 150px;
+}
+
+.cp,.dp {
+    background-color: #fff;
+}
+
+.Grid-celltwo {
+    float: right;
+    width: 25%;
+}
+
+.Grid-cellp {
+    width: 10%;
+}
+
+.Grid-pcellp {
+    width: 20%;
+}
+
+.Grid-scellp {
+    width: 70%;
+}
+
+.stp {
+    margin: 8px 5px 5px;
+}
+
+.radio {
+    padding: 5px;
+}
+
+.tp {
+    margin: 8px 5px 5px;
+}
+
+.sp-buy {
+    background-color: red;
+    color: #fff;
+    display: block;
+    float: right;
+    font-size: 28rpx;
+    margin: 15px 25px 10px 5px;
+    padding: 0 10px;
+}

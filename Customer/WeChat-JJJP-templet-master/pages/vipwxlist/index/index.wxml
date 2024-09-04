@@ -1,0 +1,39 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>客户微信查询 </navigator>
+    </view>
+</view>
+<view style="height: 8rem;background-color: #E0EEEE;"></view>
+<view style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+    <view class="Grid-sku" style="height:2.8rem;">
+        <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;">
+            <text class=""> {{item.XF_VIPCODE}} </text>
+        </view>
+        <view class="stp" style="width:30%;">
+            <text>{{item.XF_SURNAME}}</text>
+        </view>
+        <view class="stp" style="width:30%;">
+            <text>{{item.GRADE}}</text>
+        </view>
+        <view class="stp" style="width:30%;margin-top: 8px;" wx:if="{{item.TAGS=='未加微信'}}">
+            <text style="color:red;">{{item.TAGS}}</text>
+        </view>
+        <view class="stp" style="width:30%;margin-top: 8px;" wx:else>
+            <text style="color:green;">{{item.TAGS}}</text>
+        </view>
+    </view>
+    <view style="height:3px;background-color:white;"></view>
+</view>
+<wxs module="subData">
+module.exports = (function(val) {
+    if (val == undefined || val == '' || val == null) {
+        return
+    };
+    if (val.length > 10) {
+        return (val.substring(0, 10))
+    } else {
+        return (val)
+    }
+});
+</wxs>

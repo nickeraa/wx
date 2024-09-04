@@ -1,0 +1,33 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>客户跟进登记 </navigator>
+    </view>
+</view>
+<view style="height: 8rem;background-color: white;"></view>
+<view class="canui-order-item bg-white" style="padding-bottom: 1rem;">
+    <view class="head-title-box" style="height:2rem;">
+        <text class="icon-shop" style="margin-left:1rem;"></text>
+        <text calss="sp" style="margin-left:3px;">{{xf_name}}：</text>
+        <text class="icon-right"></text>
+        <button bindtap="shuaxin" class="cu-btn bg-gradual-green shadow-blur round">刷新数据</button>
+    </view>
+</view>
+<view bindtap="sevip" data-xf_vipcode="{{item.XF_VIPCODE}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+    <view class="Grid-sku" style="height:2.8rem;margin-top: 3px;">
+        <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;">
+            <text class=""> {{item.XF_VIPCODE}} </text>
+        </view>
+        <view class="stp" style="width:20%;margin-left: 0.5rem;">
+            <text>{{item.XF_SURNAME}}</text>
+        </view>
+        <view catchtap="catchTap" class="stp" style="width:70%;margin-left: -1rem;">
+            <radio-group bindchange="radioChange" class="radio-group dp" id="{{item.XF_VIPCODE}}">
+                <label class="radio dp">
+                    <radio checked="{{check}}" class="round red" value="0"></radio>已加微信 </label>
+                <label class="radio dp">
+                    <radio checked="{{check}}" class="round red" value="1"></radio>未加微信 </label>
+            </radio-group>
+        </view>
+    </view>
+</view>

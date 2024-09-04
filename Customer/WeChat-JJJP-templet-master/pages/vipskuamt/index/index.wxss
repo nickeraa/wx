@@ -1,0 +1,146 @@
+page {
+    padding-bottom: 170rpx;
+}
+
+.cu-custom {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.cu-custom .cu-bar {
+    background-image: linear-gradient(45deg,#ff9700,#ed1c24);
+    padding-right: inherit;
+}
+
+.box {
+    position: absolute;
+    top: 64px;
+    width: 100%;
+}
+
+.canui-card-order {
+    padding: 0 20rpx;
+}
+
+.canui-card-order .canui-order-item {
+    margin-bottom: 30rpx;
+    padding: 20rpx;
+    position: relative;
+}
+
+.head-title-box .icon-shop {
+    margin-right: 10rpx;
+}
+
+.head-title-box .icon-right {
+    margin-left: 5rpx;
+}
+
+.canui-order-item .cu-list.menu-avatar>.cu-item {
+    padding: 0 0 0 110rpx;
+}
+
+.canui-order-item .cu-list.menu-avatar>.cu-item>.cu-avatar {
+    left: 0rpx;
+}
+
+.canui-order-item .cu-list .cu-item .canui-xzwz {
+    -webkit-line-clamp: 2;
+}
+
+.canui-order-item .cu-list.menu>.cu-item .content {
+    font-size: 27rpx;
+    margin-right: 40rpx;
+}
+
+.canui-order-item .cu-list.menu-avatar>.cu-item .action {
+    margin-top: -10rpx;
+    text-align: right;
+}
+
+.canui-order-item .cu-list.menu>.cu-item .action .text-price {
+    font-size: 28rpx;
+}
+
+.canui-order-item .order-price-box {
+    font-size: 26rpx;
+    text-align: right;
+}
+
+.canui-order-item .order-btn-box .margin-tb-sm {
+    margin-bottom: 0;
+}
+
+.canui-order-item .order-btn-box .margin-tb-sm .cu-btn {
+    font-size: 24rpx;
+}
+
+.canui-order-item .order-btn-box .margin-tb-sm .cu-btn[class*="line"]::after {
+    border: 3rpx solid;
+}
+
+.canui-order-item .order-btn-box .margin-tb-sm .line-gray {
+    color: #666;
+}
+
+.canui-order-item .order-btn-box .margin-tb-sm+.margin-tb-sm {
+    margin-left: 10rpx;
+}
+
+.Grid-sku {
+    display: flex;
+    width: 100%;
+}
+
+.Grid-cell {
+    margin: 5px;
+    width: 20%;
+}
+
+.sp {
+    margin: 5px;
+}
+
+.cp {
+    background-color: #fff;
+}
+
+.Grid-celltwo {
+    float: right;
+    width: 25%;
+}
+
+.Grid-cellp {
+    width: 15%;
+}
+
+.Grid-pcellp {
+    width: 20%;
+}
+
+.Grid-scellp {
+    width: 40%;
+}
+
+.stp {
+    margin: 8px 5px 5px;
+}
+
+.radio {
+    padding: 5px;
+}
+
+.tp {
+    margin: 10px 5px 5px;
+}
+
+.sp-buy {
+    background-color: red;
+    color: #fff;
+    display: block;
+    float: right;
+    font-size: 28rpx;
+    margin: 15px 25px 10px 5px;
+    padding: 0 10px;
+}

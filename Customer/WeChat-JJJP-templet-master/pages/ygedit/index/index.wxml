@@ -1,0 +1,32 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>修改员工信息 </view>
+    </view>
+</view>
+<view class="head-title-box  " style="background-color: white;padding-top: 8rem;padding-bottom: 1.5rem;">
+    <text class="icon-shop" style="margin-left:1rem;"></text>
+    <text calss="sp" style="margin-left:3px;">员工和指标</text>
+    <text class="icon-right"></text>
+    <button bindtap="addyg" class="cu-btn  round" style="margin-left:5px;border-radius: 0.8rem;background-color: white;border:1px solid red;width:30%;">新增</button>
+    <view class="head-title-box sp solid-bottom "></view>
+</view>
+<view style="background-color:white;">
+    <view class="Grid-sku" style="height:3.5rem;background-color:#E0EEEE;margin-top: 3px;" wx:for="{{rejob}}" wx:key="id">
+        <view style="margin-left:1rem;width:40%;margin-top: 10px;">
+            <text class=""> {{item.XF_NAME}} </text>
+        </view>
+        <view style="width:30%;margin-top: 10px;">
+            <text>{{item.STAFFNAME}}</text>
+        </view>
+        <view style="width:20%;margin-top: 14px;">
+            <text>{{item.YG_TARGET}}</text>
+        </view>
+        <view style="margin:8px 0px 5px 8px;width:30%;">
+            <button bindtap="edityg" class="cu-btn icon-edit round  shadow " data-id="{{item.ID}}" style="background-color:#E0EEEE;">修改</button>
+        </view>
+        <view style="margin:8px 0px 5px 8px;width:30%;">
+            <button bindtap="delyg" class="cu-btn icon-delete round  shadow " data-id="{{item.ID}}" style="background-color:#E0EEEE;">删除</button>
+        </view>
+    </view>
+</view>

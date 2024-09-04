@@ -1,0 +1,54 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title">DEPOSIT</view>
+    </view>
+</view>
+<view class="UCenter-bg">
+    <image class="gif-wave" mode="scaleToFill" src="{{bgimages}}wave.gif"></image>
+</view>
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="title icon-title text-orange"></text>
+        <text style="color:black;font-weight:bold;">订金查询</text>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="djall" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{zyimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">全公司订金查询</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="djallqh" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">全公司订金取货查询</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="djdp" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{rgimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">店铺订金查询</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="djdpqh" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{gqimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">店铺订金取货查询</text>
+        </view>
+    </view>
+</view>
