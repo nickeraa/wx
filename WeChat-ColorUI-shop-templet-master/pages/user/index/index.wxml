@@ -1,0 +1,85 @@
+<view class="cu-custom bg-white" style="height:50px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">会员中心</view>
+    </view>
+</view>
+<view>
+    <image mode="widthFix" src="/img/bg.png" style="width: 400px;height:200px;"></image>
+</view>
+<view style=" justify-content: center;width:100%;display: flex;">
+    <view class="bgvip">
+        <text style="color:gray;font-weight: 400;width: 50%;margin-left: 20px;">广天藏品</text>
+        <text style="color:white;font-weight: 500;width:50%;">{{vip}}</text>
+        <text class="icon-right;" style="color:white;margin-top: 3px;margin-right: 20px;"></text>
+    </view>
+</view>
+<view class="bgtx">
+    <image src="{{tximg}}" style="width:50px;height:50px; border-radius: 25px;margin-left: 1rem;"></image>
+</view>
+<view class="bgtx" hidden="{{flag}}" style="margin-left: 7rem;">
+    <button bindgetphonenumber="onGetPhoneNumber" class="submitbtn icon-goodsfavor" openType="getPhoneNumber" style="border-radius:50px;border: 1px solid red;width:100%;">
+        <text style="margin-left: 5px;font-weight: 750;">领取会员卡</text>
+    </button>
+</view>
+<view class="bgtx" hidden="{{flags}}" style="margin-left: 3rem;color:white;font-weight: 800;width:70%;">
+    <text style="margin-left: 2rem;font-size: 16px;">
+    NO</text>
+    <text style="margin-top: 1.5rem;">.{{vipcode}} </text>
+    <view style="margin-top: -2rem;margin-left: 3rem;">
+        <image mode="widthFix" src="/img/logo1.png" style="width: 100px;"></image>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:6rem;background-color:white;margin-top:1rem;">
+    <view class="cu-list  grid col-{{gridCol}} {{gridBorder?'':'no-border'}}" style="width: 100%;margin-top: 20px;">
+        <view class="cu-item" style="margin-top: -15px;" wx:for="{{iconList}}" wx:key="icon">
+            <view bindtap="setype" class="icon-{{item.icon}}" data-name="{{item.name}}" style="font-size: 16px;">
+                <text style="font-size: 12px;color:black;">{{item.name}}</text>
+            </view>
+        </view>
+        <view class="view_qipao" style="width: 4.5%;margin-left: 5.6rem;margin-top: -4rem;" wx:if="{{sumdfk>0}}">
+            <text class="text_qipao">{{sumdfk}}</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:4rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="qh">
+        <view style="margin-left:1rem;">
+            <image src="/img/component.png" style="width:2.5rem;height:2.5rem;margin-top:1rem;margin-left: -4px;"></image>
+        </view>
+        <view style="margin-top:-2.2rem;margin-left:6rem;">
+            <text class="text-black">我的购物车</text>
+            <text class="icon-right" style="float: right;color:rgb(200, 200, 200);margin-right: 20px;margin-top: 3px;"></text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:4rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="mydj">
+        <view style="margin-left:1rem;">
+            <image src="/img/my.png" style="width:2.5rem;height:2.5rem;margin-top:1rem;margin-left: -4px;"></image>
+        </view>
+        <view style="margin-top:-2.2rem;margin-left:6rem;">
+            <text class="text-black">我的预定单</text>
+            <text class="icon-right" style="float: right;color:rgb(200, 200, 200);margin-right: 20px;margin-top: 3px;"></text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:4rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="scj" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="/img/home.png" style="width:2rem;height:2rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">我的收藏</text>
+            <text class="icon-right" style="float: right;color:rgb(200, 200, 200);margin-right: 20px;margin-top: 3px;"></text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:4rem;background-color:white;margin-top:0.5rem;">
+    <image src="/img/basics.png" style="width:2.5rem;height:2.5rem;margin-top:0.8rem;margin-left: 12px;"></image>
+    <button bindtap="address" style="margin-top:-2.5rem;margin-left:4.8rem;width:6rem;background-color: white;font-size: 14px;">
+        <text class="text-black">收货地址</text>
+    </button>
+    <view style="margin-top: -1.5rem;">
+        <text class="icon-right" style="float: right;color:rgb(200, 200, 200);margin-right: 20px;"></text>
+    </view>
+</view>

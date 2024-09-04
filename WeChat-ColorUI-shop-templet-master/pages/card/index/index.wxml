@@ -1,0 +1,33 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">会员卡</view>
+    </view>
+</view>
+<view style="background-color: white;margin-top: -3rem;">
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员卡号：</view>
+        <text class="text-grey">{{vipcode}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员姓名：</view>
+        <text class="text-grey">{{vipname}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员等级：</view>
+        <text class="text-grey">{{grade}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员店铺：</view>
+        <text class="text-grey">{{store}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">跟进员工：</view>
+        <text class="text-grey">{{xf_name}}</text>
+    </view>
+</view>
+<view bindtap="fx" style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 0px;padding-top: 2rem;">
+    <text class="cu-btn round" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: rgb(195, 167, 105);border:1px solid ;width:100%;font-size: 16px;"> 生成会员卡二维码</text>
+</view>
+<view bindtap="tc" style="margin:0px 10px 10px 5px;width:90%;">
+    <text class="cu-btn round" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: rgb(195, 167, 105);border:1px solid ;width:100%;font-size: 16px;"> 返回商城首页</text>
+</view>

@@ -1,0 +1,102 @@
+{
+  "pages": [
+    "pages/home/index/index",
+    "pages/reloginc/index",
+    "pages/reloginb/index",
+    "pages/relogin/index",
+    "pages/qyxyc/index",
+    "pages/ystk/index",
+    "pages/qyxy/index",
+    "pages/qyxyb/index",
+    "pages/homerm/index/index",
+    "pages/user/index/index",
+    "pages/addsh/index/index",
+    "pages/store/index/index",
+    "pages/editadd/index/index",
+    "pages/address/index/index",
+    "pages/scitem/index/index",
+    "pages/deposit/index/index",
+    "pages/deposityd/index/index",
+    "pages/dfdeposit/index/index",
+    "pages/mydj/index/index",
+    "pages/alldfk/index/index",
+    "pages/fkaddr/index/index",
+    "pages/fkcgdj/index/index",
+    "pages/dfdeposityd/index/index",
+    "pages/dfdepositydgwc/index/index",
+    "pages/fkdeposit/index/index",
+    "pages/fkdepositfx/index/index",
+    "pages/qhdeposit/index/index",
+    "pages/sendcard/index/index",
+    "pages/newcards/index/index",
+    "pages/fkcg/index/index",
+    "pages/wlstate/index/index",
+    "pages/ydshop/index",
+    "pages/qmjpg/index",
+    "pages/seprices/index/index",
+    "pages/depositgwc/index/index",
+    "pages/depositgwcyd/index/index",
+    "pages/bags/index/index",
+    "pages/acxpexl/index/index",
+    "pages/shopcgs/goods/index",
+    "pages/bagsyd/index/index",
+    "pages/card/index/index",
+    "pages/cards/index/index",
+    "pages/cardcode/index/index",
+    "pages/cardcodes/index/index",
+    "pages/shopcg/goods/index",
+    "pages/jhlogin/index/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#F95A5F",
+    "navigationBarTitleText": "shop",
+    "navigationStyle": "custom",
+    "pageOrientation": "auto",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#aaaaaa",
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "selectedColor": "#F95A5F",
+    "list": [
+      {
+        "pagePath": "pages/home/index/index",
+        "text": "我的推荐",
+        "iconPath": "img/basics.png",
+        "selectedIconPath": "img/basics_cur.png"
+      },
+      {
+        "pagePath": "pages/bags/index/index",
+        "text": "购物车",
+        "iconPath": "img/goodscar.png",
+        "selectedIconPath": "img/goodscar1.png"
+      },
+      {
+        "pagePath": "pages/bagsyd/index/index",
+        "text": "预定单",
+        "iconPath": "img/component.png",
+        "selectedIconPath": "img/component_cur.png"
+      },
+      {
+        "pagePath": "pages/user/index/index",
+        "text": "我的",
+        "iconPath": "img/about.png",
+        "selectedIconPath": "img/about_cur.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "requiredBackgroundModes": [
+    "location"
+  ],
+  "requiredPrivateInfos": [
+    "getLocation",
+    "chooseLocation",
+    "onLocationChange"
+  ]
+}

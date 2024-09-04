@@ -1,0 +1,37 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">
+            <text bindtap="back" class="icon-back" style="width: 20px;margin-left: -9rem;"></text>
+            <text style="font-size: 16px;font-weight: 800;color:black;margin-left: 7rem;">新增地址</text>
+        </view>
+    </view>
+</view>
+<view style="height: 3rem;background-color: white;"></view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">收货人</view>
+    <input bindinput="getshname" class="radius" name="shname" placeholder="   收货人姓名" value="{{shname}}"></input>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">手机号码</view>
+    <input bindinput="getshphone" class="radius" maxlength="11" name="shphone" placeholder="收货人手机号" type="number" value="{{shphone}}"></input>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">所在地区</view>
+    <input bindinput="getaddr1" class="radius" name="address1" placeholder="" value="{{address1}}"></input>
+    <text bindtap="selectmap" class="icon-locationfill text-gray" style="float: right;font-size: 13px;font-weight: 700;">定位</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">详细地址</view>
+    <textarea bindinput="getaddr2" class="input" name="address2" value="{{address2}}"></textarea>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">设为默认收货地址</view>
+    <view class="action">
+        <switch bindchange="SetShadow" class="sm"></switch>
+    </view>
+</view>
+<view class="bg-white canui-foor-fixed canui-submit-view " style="height: 5rem;display: flex;width: 100%;align-items: center;justify-content: center;">
+    <button bindtap="add" class="submitbtn" style="margin: 10px 0px 20px 0px;width:80%;height: 2.5rem;">
+        <text> 保存并使用</text>
+    </button>
+</view>

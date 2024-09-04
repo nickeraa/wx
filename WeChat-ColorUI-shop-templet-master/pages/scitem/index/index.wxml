@@ -1,0 +1,62 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">
+            <text bindtap="back" class="icon-back" style="width: 20px;margin-left: -9rem;"></text>
+            <text style="font-size: 16px;font-weight: 800;color:black;margin-left: 7rem;">我的收藏</text>
+        </view>
+    </view>
+</view>
+<view class="cu-bar bg-white fixed" style="top:{{CustomBar}}px;">
+    <image mode="widthFix" src="/img/logo.jpg"></image>
+</view>
+<view hidden="{{flag}}" style="text-align: center;padding-top: 18rem;">
+    <image src="/img/component_k.png" style="width: 50px;height: 50px;"></image>
+    <view style="padding-top: 1rem;">
+        <text>您的收藏还是空的哦~</text>
+    </view>
+</view>
+<view class="nav-list canui-flex-car" style="margin-top: 80px;">
+    <block wx:for="{{replu}}" wx:key="index">
+        <navigator class="nav-li canui-yx-url" url="/pages/shopcg/goods/index?xf_plu={{item.XF_PLU}}" wx:if="{{item.SALESTYPES=='0'}}">
+            <view class="flex-sub cu-card case shadow-warp bg-white ">
+                <view class="cu-item shadow">
+                    <view class="image">
+                        <image mode="widthFix" src="{{scimgurl}}{{item.XF_PLU}}/{{item.IMAGESSL}}" style="position: relative; left: 0rpx; top: -2rpx"></image>
+                    </view>
+                    <view class="cu-list menu menu-avatar">
+                        <view class="cu-item">
+                            <view class="content ">
+                                <view class="text-grey" style="font-weight: 700;height:3rem;">{{item.XF_DESCI}}</view>
+                                <view class="" style="display: flex;width:100%;">
+                                    <view style="width:80%;color:red;font-weight: 700;font-size: 15px;" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
+                                    <view style="width:80%;color:rgb(195,167,105);font-weight: 700;font-size: 15px;" wx:else> ¥{{item.XF_ORGUPRICE}}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </navigator>
+        <navigator class="nav-li canui-yx-url" url="/pages/ydshop/index?xf_plu={{item.XF_PLU}}" wx:else>
+            <view class="flex-sub cu-card case shadow-warp bg-white ">
+                <view class="cu-item shadow">
+                    <view class="image">
+                        <image mode="widthFix" src="{{scimgurl}}{{item.XF_PLU}}/{{item.IMAGESSL}}" style="position: relative; left: 0rpx; top: -2rpx"></image>
+                    </view>
+                    <view class="cu-list menu menu-avatar">
+                        <view class="cu-item">
+                            <view class="content ">
+                                <view class="text-grey" style="font-weight: 700;height:3rem;">{{item.XF_DESCI}}</view>
+                                <view class="" style="display: flex;width:100%;">
+                                    <view style="width:50%;color:red;font-weight: 700;font-size: 15px;" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
+                                    <view style="width:50%;color:rgb(195,167,105);font-weight: 700;font-size: 15px;" wx:else> ¥{{item.XF_ORGUPRICE}}</view>
+                                    <view class="container" style="height:30px;width:50%;background-image:linear-gradient(45deg, #ff9700, #ed1c24); color: white;border-radius: 10px;margin-top:-5px;display: flex;justify-content: center; align-items: center;">{{item.SALESTATE}}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </navigator>
+    </block>
+</view>

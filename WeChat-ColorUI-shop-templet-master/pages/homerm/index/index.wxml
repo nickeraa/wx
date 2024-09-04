@@ -1,0 +1,41 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">广天藏品</view>
+    </view>
+</view>
+<view class="bg-white" style="height:4rem;"></view>
+<form bindsubmit="formSubmit">
+    <swiper autoplay="true" circular="true" class="screen-swiper square-dot shadow-warp bg-white" duration="500" indicatorDots="true" interval="5000">
+        <swiper-item wx:for="{{resultdt}}" wx:key="index">
+            <image lazyLoad="true" mode="AspectFit " src="{{banner}}{{item.IMAGES}}"></image>
+        </swiper-item>
+    </swiper>
+</form>
+<view style="display: flex;width:100%;">
+    <image src="/img/hot.jpg" style="width: 40px;height: 40px;margin:10px 0px 0px 10px;"></image>
+    <view style="width:30%;margin-top: 25px;">
+        <text style="font-size: 14px;font-weight: 600;">热门展品</text>
+    </view>
+</view>
+<swiper autoplay="{{autoplay}}" bindchange="swiperChange" circular="{{circular}}" class="screen-swiper" duration="{{duration}}" interval="{{interval}}" style="height: {{swiperHeight}};padding-top: 10px;">
+    <swiper-item wx:for="{{swiperlist}}" wx:key="index">
+        <image bindload="computeImgHeight" bindtap="previewImage" class="" data-src="{{item}}" mode="widthFix" src="{{item}}"></image>
+    </swiper-item>
+</swiper>
+<view class="imageCount"> {{current+1}} / {{swiperlist.length}}
+</view>
+<view hidden="{{video}}" style="margin-left: 1.5rem;margin-top: 2rem;padding-bottom: 3rem;">
+    <video autoPauseIfNavigate autoPauseIfOpenNative controls enableDanmu showFullscreenBtn showPlayBtn bindended="bindended" bindpause="bindpause" id="myVideo" objectFit="fill" showCenterPlayBtn="{{false}}" src="{{scimgurl}}{{vurl}}" style="width:650rpx">
+        <cover-view bindtap="bindplay" class="video_cover" wx:if="{{isShow}}">
+            <cover-image mode="widthFix" src="{{videoCoverImg}}"></cover-image>
+            <cover-image class="video_play_icon" mode="widthFix" src="{{videoPlayIcon}}"></cover-image>
+            <cover-view class="video_bg_black">
+                <cover-view class="video_cover_txt">
+                    <cover-view>
+                        <cover-view class="video_txt">点击播放按钮，观看大师简介</cover-view>
+                    </cover-view>
+                </cover-view>
+            </cover-view>
+        </cover-view>
+    </video>
+</view>

@@ -1,0 +1,14 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>签名 </navigator>
+    </view>
+</view>
+<view class="canvas-btn flex-column-center">
+    <canvas bindtouchend="end" bindtouchmove="move" bindtouchstart="start" disableScroll="true" id="myCanvas" style="width: 730rpx; height: 400rpx;margin-left:5px;margin-top:6rem;border:1rpx solid #F34C00;border-radius: 8rpx;" type="2d"></canvas>
+    <view style="margin:10px 0px 0px 10px;font-size: 12px;color: #436EEE;">※ 温馨提示：签名须与身份证姓名保持一致（正楷字体）</view>
+    <view style="width:100%;margin:40px 0px 10px 10px;display: flex;">
+        <button bindtap="saveClick" class="cu-btn" style="margin: 5px 5px 5px 5px; height: 2rem; font-weight: 500; background-color: white; border: 1px solid #436EEE; width: 45%; position: relative; left: -10rpx; top: -31rpx">确定</button>
+        <button bindtap="clearClick" class="cu-btn" style="margin: 5px 5px 5px 5px; height: 2rem; font-weight: 500; background-color: white; border: 1px solid #436EEE; width: 45%; position: relative; left: -10rpx; top: -31rpx">重签</button>
+    </view>
+</view>

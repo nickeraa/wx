@@ -1,0 +1,125 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">
+            <text bindtap="back" class="icon-back" style="width: 20px;margin-left: -9rem;"></text>
+            <text style="font-size: 16px;font-weight: 800;color:black;margin-left: 7rem;">确认定单</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="margin-top: -2rem;">
+    <view class="canui-order-item bg-white">
+        <view class="head-title-box" style="margin: 0px 0px 0px 20px;">
+            <view style="height: 10px;"></view>
+            <text class="icon-shop"></text>
+            <text style="margin-left: 5px;">广天藏品</text>
+        </view>
+        <view catchtap="selectsku" data-XF_PLU="{{item.XF_PLU}}" wx:for="{{replu}}" wx:key="index">
+            <view class="Grid-sku" style="border-radius:8px;background-color:white;margin:5px 0px 5px 0px;">
+                <view style="margin-left:10px;margin-top:15px;height:100px;width:100px;">
+                    <image mode="widthFix" src="{{scimgurl}}{{item.XF_PLU}}/{{item.IMAGESSL}}" style="border-radius: 5px;"></image>
+                </view>
+                <view style="margin-left:15px;width:70%;margin-top:10px;">
+                    <view>
+                        <text>{{item.XF_DESCI}}</text>
+                    </view>
+                    <view>
+                        <text>编号：{{item.XF_PLU}}</text>
+                    </view>
+                    <block wx:if="{{item.XF_VIPPRICE}}">
+                        <view class="del" style="background-color: gray;height:1px;width: 3.5rem;"></view>
+                        <view style="color:red;margin:5px 0px 0px 75px;">会员实价</view>
+                    </block>
+                    <view style="color:red;margin:5px 0px 0px 75px;" wx:elif="{{item.XF_WZK}}">无折扣</view>
+                    <block wx:elif="{{item.XF_ZKPRICE}}">
+                        <view class="del" style="background-color: gray;height:1px;width: 3.5rem;"></view>
+                        <view style="color:red;margin:5px 0px 0px 75px;">会员折扣价</view>
+                    </block>
+                    <view style="display: flex;width:100%;">
+                        <view style="color:rgb(195,167,105);margin-top:8px;width:30%;">
+                            <text class="text-price"></text>
+                            <text style="font-weight: 700;margin-left: 5px;">{{item.XF_ORGUPRICE}}</text>
+                        </view>
+                        <view style="color:rgb(195,167,105);margin-top:8px;width:30%;margin-left:12px;">
+                            <block wx:if="{{item.XF_VIPPRICE}}">
+                                <text class="text-price"></text>
+                                <text style="font-weight: 700;margin-left: 5px;">{{item.XF_VIPPRICE}}</text>
+                            </block>
+                            <block wx:elif="{{!item.XF_WZK&&item.XF_ZKPRICE}}">
+                                <text class="text-price"></text>
+                                <text style="font-weight: 700;margin-left: 5px;">{{item.XF_ZKPRICE}}</text>
+                            </block>
+                        </view>
+                        <view style="width: 70%;margin-top:2px;text-align: right;margin-right: 8px;">
+                            <button catchtap="jian" class="cu-btn" data-index="{{index}}" data-title="{{item.XF_PLU}}" style="background-color:rgb(243, 244, 246);height: 25px;width:10%;">-</button>
+                            <button class="cu-btn" style="background-color:rgb(243, 244, 246);height: 25px;margin-left: 3px;margin-top:5px;width:10%;">{{qty}}</button>
+                            <button catchtap="jia" class="cu-btn" data-index="{{index}}" data-title="{{item.XF_PLU}}" style="background-color:rgb(243, 244, 246);height: 25px;margin-left: 3px;width:10%;">+</button>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="cu-list menu bg-white solid-bottom canui-selet">
+            <view class="cu-item">
+                <view class="content"> 共 <text class="text-red">{{qty}}</text> 件商品 </view>
+                <view class="action"> 小计： <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 800px;">{{sumrealprice}}</text>
+                    <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);" wx:if="{{!xiaoshu}}">.00</text>
+                </view>
+            </view>
+        </view>
+        <view class="cu-list menu bg-white solid-bottom canui-selet">
+            <view class="cu-item">
+                <view class="content"> 预付定金： </view>
+                <view class="action">
+                    <text class="text-price" style="font-size: 18px;color:red;font-weight: 800px;">{{sumydprice}}</text>
+                    <text style="font-size: 12px;font-weight: 700;color:red;" wx:if="{{!xiaoshu}}">.00</text>
+                </view>
+            </view>
+        </view>
+        <view class="cu-form-group bg-white canui-input">
+            <view>买家留言</view>
+            <input bindinput="getremark" class="radius" name="remark" placeholder="留言建议提前协商" style="font-size: 12px;margin: 5px 0px 0px 10px;"></input>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:4rem;background-color:white;margin-top:0.5rem;">
+    <view style="margin-left:1rem;">
+        <image src="/img/basics.png" style="width:2rem;height:2rem;margin-top:1rem;"></image>
+    </view>
+    <view style="margin-top:-2rem;margin-left:4rem;">
+        <text class="text-black ">优惠券</text>
+        <text class="icon-right" style="float: right;color:gray;margin-right: 20px;margin-top: 3px;"></text>
+        <text style="float: right;color:gray;margin-right: 5px;">暂无可用</text>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:4rem;background-color:white;margin-top:0.5rem;">
+    <view style="margin-left:1rem;">
+        <image src="/img/about.png" style="width:2rem;height:2rem;margin-top:1rem;"></image>
+    </view>
+    <view style="margin-top:-2rem;margin-left:4rem;" wx:if="{{grade}}">
+        <text class="text-black">会员卡</text>
+        <text class="icon-right" style="float: right;color:gray;margin-right: 20px;margin-top: 3px;"></text>
+        <text style="float: right;color: rgb(195, 167, 105);margin-top: -2px;font-weight: 700px;margin-right: 5px;">{{grade}}</text>
+    </view>
+    <view style="margin-top:-2rem;margin-left:4rem;" wx:else>
+        <text class="text-black">会员卡</text>
+        <text class="icon-right" style="float: right;color:gray;margin-right: 20px;margin-top: 3px;"></text>
+        <text style="float: right;margin-top: -2px;color:gray;font-weight: 700px;margin-right: 5px;">暂无会员卡</text>
+    </view>
+</view>
+<view style="height: 10rem;"></view>
+<view hidden="{{flags}}">
+    <view class="bg-white canui-foor-fixed canui-submit-view " style="height: 6rem;">
+        <view style="display: flex;width: 100%;margin-top: -10px;">
+            <view style="margin-left: 1rem;font-size: 16px;margin-top: 2rem;width: 70%;">
+                <text>应付定金：</text>
+                <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);">{{sumydprice}}</text>
+                <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);" wx:if="{{!xiaoshu}}">.00</text>
+            </view>
+            <view bindtap="payment" style="width: 45%;margin-top: 5px;">
+                <button class="submitbtn" style="margin: 20px 20px 20px 0px;">
+                    <text> 提交定单</text>
+                </button>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,70 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">
+            <text bindtap="back" class="icon-back" style="width: 20px;margin-left: -9rem;"></text>
+            <text style="font-size: 16px;font-weight: 800;color:black;margin-left: 7rem;">我的定单</text>
+        </view>
+    </view>
+</view>
+<view style="margin-top: -3rem;">
+    <view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="margin-top: 1rem;" wx:for="{{replu}}" wx:key="index">
+        <view class="canui-order-item bg-white">
+            <view class="head-title-box" style="margin: 0px 0px 0px 20px;">
+                <view style="height: 10px;"></view>
+                <text class="icon-shop"></text>
+                <text style="margin-left: 5px;">广天藏品</text>
+            </view>
+            <view wx:for="{{item.shop}}" wx:for-item="shopItem" wx:key="index">
+                <view class="Grid-sku" style="border-radius:8px;background-color:white;margin:5px 0px 5px 0px;">
+                    <view style="margin-left:10px;margin-top:15px;height:100px;width:100px;">
+                        <image mode="widthFix" src="{{scimgurl}}{{shopItem.XF_PLU}}/{{shopItem.IMAGESSL}}" style="border-radius: 5px;"></image>
+                    </view>
+                    <view style="margin-left:15px;width:70%;margin-top:10px;">
+                        <view>
+                            <text>{{shopItem.XF_DESCI}}</text>
+                        </view>
+                        <view>
+                            <text>编号：{{shopItem.XF_PLU}}</text>
+                        </view>
+                        <view style="display: flex;width:100%;">
+                            <view style="color:rgb(195,167,105);margin-top:8px;width:30%;margin-left:3px;">
+                                <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);">{{shopItem.XF_PRICE}}</text>
+                                <text style="font-size: 12px;color:rgb(195,167,105);">.00</text>
+                            </view>
+                            <view style="width: 70%;margin-top:2px;text-align: right;margin-right: 8px;">
+                                <view class="cu-btn" style="background-color:rgb(243, 244, 246);height: 25px;width:10%;font-size: 12px;">X</view>
+                                <view class="cu-btn" style="background-color:rgb(243, 244, 246);height: 25px;margin-left: 3px;margin-top:5px;width:10%;">{{shopItem.XF_QTY}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 共 <text style="font-weight: 700;color:rgb(195,167,105);">{{item.SUMQTY}}</text> 件商品 </view>
+                    <view class="action"> 小计： <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.SUMPRICE}}</text>
+                        <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);">.00</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 已付定金： </view>
+                    <view class="action">
+                        <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.XF_AMTSOLD}}</text>
+                        <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);">.00</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 定单状态： </view>
+                    <view class="action">
+                        <text style="font-size: 16px;color:red;font-weight: 600;">{{item.TAGS}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view style="height: 8rem;"></view>
+</view>

@@ -1,0 +1,113 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">广天藏品</view>
+    </view>
+</view>
+<view class="cu-bar bg-white fixed" style="top:{{CustomBar}}px;display: flex;width:100%;">
+    <view style="margin:0px 10px 0px 20px;width:20%;">
+        <text bindtap="back" class="icon-back" style="margin-top: 5px;width: 20px;"></text>
+    </view>
+    <view style="width:80%;align-items: center;justify-content: center;">
+        <text style="font-size: 16px;font-weight: 800;color:black;">{{xf_desci}}</text>
+    </view>
+</view>
+<view wx:for="{{replu}}" wx:key="id">
+    <swiper autoplay="{{autoplay}}" bindchange="swiperChange" circular="{{circular}}" class="screen-swiper" duration="{{duration}}" interval="{{interval}}" style="height: {{swiperHeight}};">
+        <swiper-item wx:for="{{swiperlist}}" wx:key="index">
+            <image bindload="computeImgHeight" bindtap="previewImage" class="" data-src="{{item}}" mode="widthFix" src="{{item}}" style="width: 100%;"></image>
+        </swiper-item>
+    </swiper>
+    <view class="imageCount"> {{current+1}} / {{swiperlist.length}} </view>
+    <view class="bg-white" style="overflow-x:hidden;">
+        <view class="bg-white canui-goods-box canui-xzwz text-black" style="margin-left:10px;margin-top:10px;">
+            <view style="height: 10px;"></view>
+            <text>品名：{{item.XF_DESCI}}</text>
+        </view>
+        <view class="bg-white canui-goods-box canui-xzwz text-black" style="width:100%;display: flex;margin-top:10px;">
+            <view class="padding-sm " style="width:50%;">
+                <text>货号：{{item.XF_PLU}}</text>
+            </view>
+            <view class="padding-sm " style="width:50%;">
+                <text>类别：{{item.SORTS}}</text>
+            </view>
+        </view>
+        <view class="bg-white canui-goods-box canui-xzwz text-black" style="display:flex;width:100%;margin-top:-5px;">
+            <view class="padding-sm " style="width:50%;" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">
+                <text>售价：</text>
+                <text style="font-size: 18px;color:rgb(195,167,105);"> 未定价</text>
+            </view>
+            <view class="padding-sm " style="width:50%;" wx:else>
+                <text>售价：</text>
+                <text style="font-size: 18px;color:rgb(195,167,105);">RMB {{item.XF_ORGUPRICE}}</text>
+            </view>
+            <view class="padding-sm  " style="width:50%;" wx:if="{{item.XF_VIPPRICE}}">
+                <text>会员价：</text>
+                <text style="font-size: 18px;color:rgb(195,167,105);">RMB {{item.XF_VIPPRICE}}</text>
+            </view>
+            <view class="padding-sm" style="width:50%;" wx:else>会员价：无</view>
+        </view>               <view style="margin:20px" wx:if="{{item.ZWIMAGES1}}">
+            <view wx:if="{{kzm=='mp4'}}">
+                <view style="margin-left: 5px;margin-top: 2rem;">
+                    <video autoPauseIfNavigate autoPauseIfOpenNative controls enableDanmu showFullscreenBtn showPlayBtn bindended="bindended" bindpause="bindpause" id="myVideo" objectFit="contain" showCenterPlayBtn="{{false}}" src="{{pict}}{{item.XF_PLU}}/{{item.ZWIMAGES1}}" style="width:{{'100%'}};height:{{videohight+'px'}}">
+                        <cover-view bindtap="bindplay" class="video_cover" wx:if="{{isShow}}">
+                            <cover-image mode="widthFix" src="{{pict}}{{item.XF_PLU}}/{{item.IMAGESSL}}"></cover-image>
+                            <cover-image class="video_play_icon" mode="widthFix" src="{{videoPlayIcon}}"></cover-image>
+                            <cover-view class="video_bg_black">
+                                <cover-view class="video_cover_txt">
+                                    <cover-view>
+                                        <cover-view class="video_txt" style="margin-top: 2rem;">点击播放按钮，观看作品简介</cover-view>
+                                    </cover-view>
+                                </cover-view>
+                            </cover-view>
+                        </cover-view>
+                    </video>
+                </view>
+            </view>
+            <view style="padding-top: 20px;padding-bottom: 20px;">
+                <text class="icon-search" style="color:red;"></text>
+                <text style="margin-left: 5px;">点击图片左右滑动，可放大观看高清图</text>
+            </view>
+            <view wx:if="{{kzm=='jpg'}}">
+                <image bindtap="previewImage1" class="imgs" mode="widthFix" src="{{pict}}{{item.XF_PLU}}/{{item.ZWIMAGES1}}" style="width:650rpx"></image>
+            </view>
+        </view>
+        <view class="imgs" style="margin:20px" wx:if="{{item.ZWIMAGES2}}">
+            <image bindtap="previewImage2" class="imgs" mode="widthFix" src="{{pict}}{{item.XF_PLU}}/{{item.ZWIMAGES2}}" style="width:650rpx"></image>
+        </view>
+        <view style="margin:20px;" wx:if="{{item.ZWIMAGES3}}">
+            <image bindtap="previewImage3" class="imgs" mode="widthFix" src="{{pict}}{{item.XF_PLU}}/{{item.ZWIMAGES3}}" style="width:650rpx"></image>
+        </view>
+        <view style="margin:20px;padding-bottom: 2rem;" wx:if="{{item.ZWIMAGES4}}">
+            <image bindtap="previewImage4" class="imgs" mode="widthFix" src="{{pict}}{{item.XF_PLU}}/{{item.ZWIMAGES4}}" style="width:650rpx"></image>
+        </view>
+    </view>
+    <view style="background-color: white;height: 3rem;margin-top: 7rem;"></view>
+    <view class="btns">
+        <view class="cu-list  grid col-{{gridCol}} {{gridBorder?'':'no-border'}}" style="width: 50%;margin-top: 5px;">
+            <view class="cu-item" style="margin-top: -15px;" wx:for="{{iconList}}" wx:key="icon">
+                <view catchtap="setype" class="icon-{{item.icon}} text-{{item.color}}" data-name="{{item.name}}" style="font-size: 16px;">
+                    <text style="font-size: 12px;color:{{item.color}}">{{item.name}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="view_qipao" style="width: 4.5%;margin-left: -2.2rem;margin-top: 4px;" wx:if="{{n>0}}">
+            <text class="text_qipao">{{n}}</text>
+        </view>
+        <view style="width:60%;margin-top: 5px;" wx:if="{{vipcode||wxuserid}}">
+            <button bindtap="gwjs" class="submitbtn" style="margin-top: 10px;">
+                <text> 立即预定</text>
+            </button>
+            <button bindtap="gw" class="submitbtns" style="margin-top: 10px;">
+                <text> 加入预定单 </text>
+            </button>
+        </view>
+        <view style="width:60%;margin-top: 5px;" wx:else>
+            <button bindgetphonenumber="onGetPhoneNumbergm" class="submitbtn" openType="getPhoneNumber" style="margin-top: 10px;">
+                <text> 立即预定 </text>
+            </button>
+            <button bindgetphonenumber="onGetPhoneNumbergwc" class="submitbtns" openType="getPhoneNumber" style="margin-top: 10px;">
+                <text>  加入预定单 </text>
+            </button>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,125 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">
+            <text bindtap="back" class="icon-back" style="width: 20px;margin-left: -7rem;"></text>
+            <text style="font-size: 16px;font-weight: 800;color:black;margin-left: 7rem;">待付款的销售单</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="background-color:white;margin-top:-2.5rem;">
+    <view style="display: flex;width: 100%;font-size: 15px;">
+        <view style="width: 20%;margin:10px 0px 0px 10px;">
+            <image mode="widthFix" src="/img/pay.png"></image>
+        </view>
+        <view style="width: 80%;margin:40px 20px 0px 20px;">
+            <text>等待买家付款</text>
+        </view>
+    </view>
+    <view style="width:90%;height: 0.5px;background-color: rgb(243, 229, 229);margin:0 auto;justify-content: center;display: flex;"></view>
+    <view style="display: flex;width: 100%;">
+        <view style="width: 80%;margin:20px 0px 0px 20px;">
+            <text>{{address1}}</text>
+        </view>
+    </view>
+    <view style="display: flex;width: 100%;">
+        <view style="width: 80%;margin:10px 0px 0px 20px;font-weight: 700;font-size: 16px;">
+            <text>{{address2}}</text>
+        </view>
+    </view>
+    <view style="display: flex;width: 100%;margin-bottom: 25px;" wx:if="{{body}}">
+        <view style="width: 20%;margin:10px 0px 0px 20px;">
+            <text>{{body}}</text>
+        </view>
+        <view style="width: 20%;margin:13px 0px 0px 0px;">
+            <text>{{phone}}</text>
+        </view>
+    </view>
+    <view style="display: flex;width: 100%;margin-bottom: 25px;" wx:else>
+        <view style="width: 100%;margin:13px 0px 0px 10px;">
+            <text>{{phone}}</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl  shadow-lg">
+    <view class="canui-order-item bg-white">
+        <view class="head-title-box" style="margin: 0px 0px 0px 20px;">
+            <view style="height: 10px;"></view>
+            <text class="icon-shop"></text>
+            <text style="margin-left: 5px;">广天藏品</text>
+        </view>
+        <view wx:for="{{replu}}" wx:key="index">
+            <view class="Grid-sku" data-title="{{item.XF_PLU}}" style="height:6.5rem;border-radius:8px;background-color:white;margin:5px 0px 5px 0px;">
+                <view catchtap="selectsku" data-XF_PLU="{{item.XF_PLU}}" style="margin-left:10px;margin-top:15px;height:100px;width:100px;">
+                    <image mode="widthFix" src="{{scimgurl}}{{item.XF_PLU}}/{{item.IMAGESSL}}"></image>
+                </view>
+                <view class="" data-XF_PLU="{{item.XF_PLU}}" style="margin-left:15px;width:70%;margin-top:10px;">
+                    <view>
+                        <text>{{item.XF_DESCI}}</text>
+                    </view>
+                    <view>
+                        <text>编号：{{item.XF_PLU}}</text>
+                    </view>
+                    <view style="display: flex;width:100%;">
+                        <view style="color:rgb(195,167,105);margin-top:12px;width:30%;">
+                            <text class="text-price"></text>
+                            <text style="font-weight: 700;margin-left: 5px;">{{item.XF_PRICE}}</text>
+                            <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);" wx:if="{{!xiaoshu}}">.00</text>
+                        </view>
+                        <view style="width: 70%;margin-top:12px;">
+                            <view style="height: 25px;width:10%;margin-right: 20px;float: right;">
+                                <text style="font-size: 12px;">X</text>
+                                <text style="margin-left: 10px;">{{item.XF_QTY}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 共 <text class="text-red">{{item.XF_QTY}}</text> 件商品 </view>
+                    <view class="action"> 小计： <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.SUMXF_PRICE}}</text>
+                        <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);" wx:if="{{!xiaoshu}}">.00</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="cu-form-group bg-white canui-input">
+            <view>买家留言</view>
+            <input class="radius" disabled="true" style="font-size: 14px;margin: 2px 0px 0px 15px;color:gray;" value="{{remark}}"></input>
+        </view>
+        <view class="cu-form-group bg-white canui-input">
+            <view>配送方式</view>
+            <input class="radius" disabled="true" style="font-size: 14px;margin: 2px 0px 0px 15px;color:gray;" value="{{shtypename}}"></input>
+        </view>
+        <view class="cu-form-group bg-white ">
+            <text>运费</text>
+            <view style="float: left;">
+                <text class="text-price" style="font-size: 14px;font-weight: 700;color:rgb(195,167,105);">{{sumwlprice}}</text>
+                <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);">.00</text>
+            </view>
+        </view>
+        <view class="cu-form-group bg-white canui-input">
+            <view>订单编号</view>
+            <input class="radius" disabled="true" style="margin: 2px 0px 0px 15px;color: gray;font-size: 14px;" value="{{xf_docno}}"></input>
+        </view>
+        <view class="cu-form-group bg-white canui-input">
+            <view>创建时间</view>
+            <input class="radius" disabled="true" style="margin: 2px 0px 0px 15px;color: gray;font-size: 14px;" value="{{xf_txdate}}"></input>
+        </view>
+    </view>
+</view>
+<view style="height: 8rem;"></view>
+<view class="bg-white canui-foor-fixed canui-submit-view " style="height: 5rem;">
+    <view style="display: flex;width: 100%;">
+        <view style="margin-left: 1rem;font-size: 16px;margin-top: 2rem;width: 70%;">
+            <text>合计：</text>
+            <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{sumprice}}</text>
+            <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);" wx:if="{{!xiaoshu}}">.00</text>
+        </view>
+        <view bindtap="payment" style="width: 30%;margin-top: 5px;">
+            <button class="submitbtn" style="margin: 20px 20px 20px 0px;">
+                <text> 去支付</text>
+            </button>
+        </view>
+    </view>
+</view>

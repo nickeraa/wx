@@ -1,0 +1,52 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="action canui-head-title">
+            <text style="margin-left: 120px;"></text>创建会员卡 </view>
+    </view>
+</view>
+<view class="canui-order-item bg-white" style="margin-top: 4rem;">
+    <view class="head-title-box" style="height:2rem;margin-top:8px;">
+        <text class="icon-shop" style="margin-left:1rem;margin-top:8px;"></text>
+        <text calss="sp" style="margin-left:3px;margin-top:8px;">当天个人新开会员卡列表</text>
+        <text class="icon-right"></text>
+        <view class="head-title-box sp solid-bottom "></view>
+    </view>
+</view>
+<view data-xf_vipcode="{{item.XF_VIPCODE}}" style="background-color:#E0EEEE;" wx:for="{{replu}}" wx:key="id">
+    <view class="Grid-sku" style="height:2.2rem;margin-top: 5px;">
+        <view class="Grid-cellp stp " style="margin-left:1rem;margin-top: 8px;">
+            <text class=""> {{item.XF_VIPCODE}} </text>
+        </view>
+        <view class="Grid-pcellp stp" style="margin-left:1.5rem;margin-top: 5px;">
+            <text>{{item.XF_SURNAME}}</text>
+        </view>
+        <view class="Grid-cellp stp" style="margin-left:1rem;margin-top: 5px;">
+            <text>{{item.GRADE}}</text>
+        </view>
+        <view class="Grid-pcellp stp" style="margin-top: 5px;margin-left:2rem;">
+            <text>{{item.XF_STORE}}</text>
+        </view>
+    </view>
+    <view class="Grid-sku action solid-bottom " style="height:3rem;margin-top: 8px;">
+        <view class="Grid-scellp stp" style="margin-left:1rem;width:40%;">
+            <text>{{item.XF_NAME}}</text>
+        </view>
+        <view class="Grid-sellp stp" style="margin-left:6px;margin-top: 3px;width:40%;">
+            <text>{{subData(item.XF_JOINTDATE)}}</text>
+        </view>
+        <view class="Grid-sellp stp" style="margin-left: 8px;margin-top: 1px;width:30%;" wx:if="{{item.XF_TELEPHONE!='****'&&item.XF_TELEPHONE!=''}}">
+            <text>{{item.XF_TELEPHONE}}</text>
+        </view>
+        <view style="display: flex;width:100%;" wx:else>
+            <view class="stp" style="margin-left: 8px;margin-top: 1px;width:50%;">
+                <text style="color: red;">没有获得手机号</text>
+            </view>
+            <view style="width: 40%;margin-left: 8px;">
+                <text class="cu-btn round " style="border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;font-size: 14px;"> 选择</text>
+            </view>
+        </view>
+    </view>
+</view>
+<view bindtap="newvip" style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 3rem;padding-top: 2rem;">
+    <text class="cu-btn round  bg-gradual-green" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 创建新会员卡</text>
+</view>
