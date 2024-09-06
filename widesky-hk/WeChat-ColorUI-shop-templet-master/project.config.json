@@ -12,7 +12,9 @@
       "outputPath": ""
     },
     "minified": true,
-    "ignoreUploadUnusedFiles": false
+    "ignoreUploadUnusedFiles": false,
+    "es6": true,
+    "enhance": true
   },
   "editorSetting": {
     "tabIndent": "insertSpaces",

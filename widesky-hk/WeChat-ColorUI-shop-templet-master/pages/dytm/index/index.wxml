@@ -1,0 +1,55 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>打印二维码 </navigator>
+    </view>
+</view>
+
+ <!--搜索-->
+
+<view style="width:100%;margin:120px 0px 10px 10px;height:3rem;">
+        <button bindtap="openBluetoothAdapter" class="cu-btn round " style="margin:5px 5px 5px 35px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:70%">
+        <text class='{{colors}}'>{{ly_text}}</text>       
+        </button>
+    </view>
+
+ 
+ 
+<view hidden='{{flag}}' style="margin: 30rpx 20rpx 30rpx 80rpx;">
+    <view class="has-devices-list-container">
+        <view class="tip-search">搜索到的设备>>></view>
+        <view class="devices-list" style='font-size: 12px;'>
+            <view wx:for="{{devices}}" wx:key="index" class="devices-item">
+                <view style="flex:2">{{item.name? item.name:item.localName}}</view>
+                <button  style="font-size:12px;flex:1; background-image: linear-gradient(45deg, #ff9700, #ed1c24);color:white;height:1.8rem;" id="{{index}}"  bindtap="_createBLEConnection" >{{lianjie}}</button>
+            </view>
+        </view>
+    </view>
+</view>
+
+<view class="cu-form-group">
+            <view class="title icon-title text-orange ">质检员：</view>
+            <text style="color:#808080;margin:auto;"> {{susername}}</text>
+        </view>
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange ">打印日期：</view>
+            <text style="color:#808080;margin:auto;"> {{todate}}</text>
+        </view>
+
+        <view style="width:100%;margin:40px 0px 10px 10px;height:3rem;">
+        <button bindtap="creatcode" class="cu-btn round " style="margin:5px 5px 5px 35px;height:2.2rem;border-radius: 0.8rem;background-image: linear-gradient(45deg, #ff9700, #ed1c24);color:white;width:70%">
+        <text >生成二维码</text>       
+        </button>
+    </view>
+    <view hidden='{{tag}}' > 
+    <view>
+        <canvas canvasId="qrcode" style="margin-left: 6rem;margin-top:1.5rem;"></canvas>
+    </view>
+
+    <view style="width:100%;margin:0px 0px 10px 10px;height:3rem;">
+        <button bindtap="dycode" class="cu-btn round " style="margin:5px 5px 5px 35px;height:2.2rem;border-radius: 0.8rem;background-image: linear-gradient(45deg, #5679ec, #1f1ced);color:white;width:70%">
+        <text >打印二维码</text>       
+        </button>
+    </view>
+
+  </view>

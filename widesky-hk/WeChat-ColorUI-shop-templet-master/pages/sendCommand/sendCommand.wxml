@@ -1,0 +1,33 @@
+<!--blecontrol.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>打印二维码
+        </navigator>
+    </view>
+</view>
+
+
+<view class="cu-form-group" style="margin-top:7rem;">
+    <view class="title icon-title text-orange ">质检员：</view>
+    <text style="color:#808080;margin:auto;"> {{susername}}</text>
+</view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange ">打印日期：</view>
+    <text style="color:#808080;margin:auto;"> {{todate}}</text>
+</view>
+
+
+
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">打印份数：</view>
+    <input bindinput="printNumBindChange" class="radius" name="printerNum" placeholder="必须填写打印份数" type="number" value='{{printerNum}}'></input>
+</view>
+
+
+
+<view style='margin-top:50px;'>
+
+    <button class="cu-btn round " style="margin:5px 5px 5px 45px;height:2.2rem;border-radius: 0.8rem;background-image: linear-gradient(45deg, #ff9700, #ed1c24);color:white;width:70%" type='primary' bindtap='labelTest' loading='{{isLabelSend}}' disabled='{{isLabelSend}}'>打印二维码</button>
+
+</view>

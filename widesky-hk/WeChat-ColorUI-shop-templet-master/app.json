@@ -1,7 +1,14 @@
 {
   "pages": [
+  
+  
     "pages/home/index/index",
+    "pages/fhstocks/index/index",
+    "pages/dqcode/index/index",
+    "pages/bleConnect/bleConnect",
+    "pages/sendCommand/sendCommand",
     "pages/depositqh/index/index",
+    "pages/dytm/index/index",
     "pages/deposit/index/index",
     "pages/postsc/index/index",
     "pages/screport/index/index",
@@ -29,7 +36,7 @@
     "pages/fhjzbs/index/index",
     "pages/fhjzp/index/index",
     "pages/fhqs/index/index",
-    "pages/fhstocks/index/index",
+    
     "pages/fhstockss/index/index",
     "pages/fhstocksss/index/index",
     "pages/fhstockssss/index/index",
@@ -172,12 +179,11 @@
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
+  "lazyCodeLoading": "requiredComponents",
   "requiredBackgroundModes": [
     "location"
   ],
-  "navigateToMiniProgramAppIdList": [
-    "wx187fe5b10e271c63"
-  ],
+
   "requiredPrivateInfos": [
     "getLocation",
     "chooseLocation",

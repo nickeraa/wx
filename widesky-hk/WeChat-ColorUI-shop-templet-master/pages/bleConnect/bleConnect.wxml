@@ -1,0 +1,23 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>连接打印机 </navigator>
+    </view>
+</view>
+
+<view style="width:100%;margin:120px 0px 10px 10px;height:3rem;">
+<button class="btn cu-btn round" style='margin:5px 5px 5px 35px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:70%;color:black;' type="primary" bindtap="startSearch" loading='{{isScanning}}'> 搜索标签打印机 </button>
+</view>
+
+  <view style='margin-top:20px;' wx:for="{{list}}" wx:for-item="item" 
+         data-title="{{item.deviceId}}" 
+         data-name="{{item.name}}" 
+         data-advertisData="{{item.advertisServiceUUIDs}}" 
+         wx:key="{{item.deviceId}}"
+         bindtap="bindViewTap">
+      <view  class="item">
+      <!-- <div class="deviceId block">{{item.deviceId}}</div> -->
+      <div class="name block">{{item.name}}</div>
+     </view>    
+</view>  
+ 
