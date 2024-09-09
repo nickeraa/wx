@@ -9,6 +9,7 @@
     "pages/sendCommand/sendCommand",
     "pages/depositqh/index/index",
     "pages/dytm/index/index",
+    "pages/acqitem/index/index",
     "pages/deposit/index/index",
     "pages/postsc/index/index",
     "pages/screport/index/index",

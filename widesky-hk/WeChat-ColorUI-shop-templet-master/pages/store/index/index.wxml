@@ -1,7 +1,7 @@
 <view class="cu-custom">
     <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <view bindtap="goback" class="action canui-head-title">
-            <text class="icon-back"></text>货品调拨 </view>
+            <text class="icon-back"></text>仓库管理 </view>
     </view>
 </view>
 <view style="height:2rem;background-color:white;"></view>
@@ -147,7 +147,7 @@
 </view>
 
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
-    <view bindtap="fstate" class=" ">
+    <view bindtap="cxcq" class=" ">
         <view style="margin-left:1rem;">
             <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
         </view>

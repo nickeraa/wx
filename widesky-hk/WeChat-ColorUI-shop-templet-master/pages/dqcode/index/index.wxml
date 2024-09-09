@@ -19,17 +19,41 @@
 
 
 <view class="cu-form-group" >
-    <view class="title icon-title text-orange">二维码打印时间：</view>
+    <view class="title icon-title text-orange">二维码打印日期：</view>
     <text style="color:#808080;margin:auto;"> {{todate}}</text>
    
 </view>
 
-<view class="cu-form-group">
-        <view class="title icon-title text-orange">质量投诉：</view>
-        <input bindinput="gettstext" class="radius" name="tstext" placeholder="请输入投诉内容" value="{{dnumber}}"></input>
+
+    <view class="cu-form-group">
+        <view class="page" style="margin-top:5px;background-color:white;">
+            <view class="picker_group ">
+                <view class="title icon-title text-orange up" style="font-size:15px;">投诉日期：</view>
+                <picker bindchange="bindDateChange" mode="date" style="margin-left: 15rem;margin-top: -2.5rem;float:right;" value="{{date}}">
+                    <view class="picker"> {{date}} </view>
+                </picker>
+            </view>
+        </view>
+    </view>
+    <view class="cu-form-group" hidden="{{check}}" style="height:5rem;">
+        <view class="title icon-title text-orange">投诉店铺：</view>
+        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="LCCODE" value="{{picker2[index2].XF_STORECODE}}">
+            <view class="picker dp ">
+                <text>{{index2?picker2[index2].LCCODE:'请选择店铺'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
     </view>
 
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">投诉人：</view>
+        <input bindinput="gettsbody" class="radius" name="tsbody" placeholder="" value="{{tsbody}}"></input>
+    </view>
 
+    <view bindtap="input" class="cu-form-group">
+            <view class="title icon-title text-orange">投诉描述：</view>
+            <textarea bindinput="bindTextAreaBlur" class="input" focus="{{focus}}" name="note" placeholder="必须输入投诉详情" value="{{note}}" style="position: relative; left: 0rpx; top: -2rpx; width: 490rpx; height: 252rpx; display: block; box-sizing: border-box"></textarea>
+        </view>
 
 <view class="cu-form-group" style="height:19rem;">
     <view class="title text-orange">照片：</view>
@@ -40,7 +64,7 @@
         </view>
     </view>
 </view>
-<view class="cu-form-group sp" style="height:4rem;margin-top: 10px;">
-    <button bindtap="checkinput" class="cu-btn canui-color-gradual shadow-bur round lg sp" style="width:80%;margin-left:1rem;">
+<view class="cu-form-group sp" style="height:4rem;margin-top: 20px;">
+    <button bindtap="djcq" class="cu-btn canui-color-gradual shadow-bur round lg sp" style="width:80%;margin-left:1rem;">
         <text class="icon-check"></text> 确认登记</button>
 </view>

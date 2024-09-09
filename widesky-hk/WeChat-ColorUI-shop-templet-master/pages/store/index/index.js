@@ -48,6 +48,12 @@ Page({
       url: "/pages/dpjzb/index/index"
     });
   },
+  cxcq: function () {
+    wx.navigateTo({
+      url: "/pages/acqitem/index/index"
+    });
+  },
+
   fh: function () {
     wx.navigateTo({
       url: "/pages/fhjzb/index/index"

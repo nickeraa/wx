@@ -78,12 +78,12 @@ Page({
 
     var command = tsc.jpPrinter.createNew()
 
-    command.setSize(50, 30)
+    command.setSize(30, 20)
     command.setGap(0)
     command.setCls()
  
    // command.setQR(40, 120, "L", 5, "A", that.data.susername+'-'+that.data.todate)
-   command.setQR(130, 50, "L", 6, "A", wx.getStorageSync('zjuserid')+'-'+that.data.todate)
+   command.setQR(70, 40, "L", 5, "A", wx.getStorageSync('zjuserid')+'-'+that.data.todate)
    //command.setQR(40, 120, "L", 5, "A", "佳博智汇")
 
 
