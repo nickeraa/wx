@@ -21,7 +21,7 @@
 </view>
 
 
-<view style="padding-top: 0.6rem;">
+<view hidden="{{flag}}"  style="padding-top: 0.6rem;">
         <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 2rem;">
             <view class="stp" style="margin-left:3rem;width:30%;">
                 <text> 员工号</text>
@@ -36,16 +36,17 @@
         </view>
     </view>
 
-    <view  hidden="{{flag}}"  bindtap="newsaleslist" data-cqbody="{{item.CQBODY}}"style="background-color:#E0EEEE;" wx:for="{{replu}}" wx:key="*this">
+    <view  hidden="{{flag}}"  bindtap="tslist" data-cqbody="{{item.CQBODY}}"
+     style="background-color:#E0EEEE;" wx:for="{{replu}}" wx:key="*this">
     <view class="Grid-sku" style="height:3.5rem;">
-        <view class="stp" style="margin-left:2.5rem;width:30%;margin-top: 20px;">
+        <view class="stp" style="margin-left:3rem;width:30%;margin-top: 20px;">
             <text class=""> {{item.STORECODE}}   </text>
         </view>
         <view class="stp" style="margin-left:1.5rem;width:30%;margin-top: 20px;">
             <text class=""> {{item.CQBODY}} </text>
         </view>
   
-        <view class="stp" style="width:30%;margin-top: 20px;margin-left:1.5rem;">
+        <view class="stp" style="width:30%;margin-top: 20px;margin-left:2rem;">
             <text>{{item.TSSUM}}</text>
         </view>
      

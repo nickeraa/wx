@@ -1,0 +1,58 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>投诉详情 </navigator>
+    </view>
+</view>
+
+<view class="cu-form-group" style='margin-top: 3rem;'>
+    <view class="title icon-title text-orange">二维码信息：</view>
+    <text style="color:#808080;margin:auto;"> {{qcode}}</text>
+
+</view>
+
+<view class="cu-form-group" >
+    <view class="title icon-title text-orange">质检员：</view>
+    <text style="color:#808080;margin:auto;"> {{cqbody}}</text>
+   
+</view>
+
+
+<view class="cu-form-group" >
+    <view class="title icon-title text-orange">二维码打印日期：</view>
+    <text style="color:#808080;margin:auto;"> {{dydate}}</text>
+   
+</view>
+
+
+
+<view class="cu-form-group" >
+    <view class="title icon-title text-orange">投诉日期：</view>
+    <text style="color:#808080;margin:auto;"> {{tsdate}}</text>
+   
+</view>
+
+<view class="cu-form-group" >
+    <view class="title icon-title text-orange">投诉店铺：</view>
+    <text style="color:#808080;margin:auto;"> {{storecode}}</text>
+   
+</view>
+
+<view class="cu-form-group" >
+    <view class="title icon-title text-orange">投诉人：</view>
+    <text style="color:#808080;margin:auto;"> {{tsbody}}</text>
+   
+</view>
+
+    <view class="cu-form-group">
+            <view class="title icon-title text-orange">投诉描述：</view>
+            <textarea    style="position: relative; left: 0rpx; top: -2rpx; width: 490rpx; height: 252rpx; display: block; box-sizing: border-box;color:#808080;">{{note}}</textarea>
+        </view>
+
+<view class="cu-form-group" style="height:19rem;padding-bottom: 2rem;">
+    <view class="title text-orange">照片：</view>
+    <view class="" style="margin-top:10px;margin-left:2rem;">
+        <image id="imgurl" mode="aspectFill" src="{{imgurl}}" style="height:250px;width:250px;"></image>
+
+    </view>
+</view>

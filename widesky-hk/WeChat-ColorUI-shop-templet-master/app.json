@@ -4,6 +4,8 @@
   
     "pages/home/index/index",
     "pages/fhstocks/index/index",
+    "pages/cqlist/index/index",
+    "pages/cqnumber/index/index",
     "pages/dqcode/index/index",
     "pages/bleConnect/bleConnect",
     "pages/sendCommand/sendCommand",

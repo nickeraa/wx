@@ -7,10 +7,9 @@ Page({
     replu: {},
     index2: null,
     picker2: [],
-    itemname: "",
     flag: !0,
-    xf_plu: "",
-    xf_desci: "",
+    cqbody: "",
+
     date: "2024-01-01",
     date2: "",
   },
@@ -40,6 +39,7 @@ Page({
   },
   search: function (t) {
  
+    
     var e = this;
   
     wx.showLoading({ title: "数据加载中", mask: !0 }),
@@ -55,7 +55,7 @@ Page({
         success: function (a) {
           console.log(a),
             a.data.length > 0
-              ? e.setData({ replu: a.data, flag: false })
+              ? e.setData({ replu: a.data, flag: false,cqbody:a.data[0].CQBODY})
               : wx.showModal({
                   title: "提示",
                   content: "没有数据",
@@ -68,4 +68,17 @@ Page({
         },
       });
   },
+
+
+  tslist: function (t) {
+ 
+    wx.navigateTo({
+      url: '/pages/cqlist/index/index?begindate='+this.data.date+'&enddate='+this.data.date2+'&cqbody='+this.data.cqbody
+    })
+  
+  },
+
+
+
+
 });

@@ -1,0 +1,55 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>投诉明细 </navigator>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;margin-top: 5rem;">
+
+        <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 2rem;">
+            <view class="stp" style="margin-left:0.8rem;width:20%;">
+                <text>反馈店铺</text>
+            </view>
+            <view class="stp" style="width:20%;margin-left: -6px;">
+                <text>反馈人</text>
+            </view>
+            <view class="stp" style="width:20%;">
+                <text>质检人</text>
+            </view>
+
+            <view class="stp" style="width:30%;">
+                <text>反馈日期</text>
+            </view>
+
+    </view>
+    <view bindtap="cqlist" data-cqnumber="{{item.CQNUMBER}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+        <view class="Grid-sku" style="height:2.2rem;">
+            <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;">
+                <text class=""> {{item.STORECODE}} </text>
+            </view>
+            <view class="stp" style="width:30%;">
+                <text>{{item.TSBODY}}</text>
+            </view>
+            <view class="stp" style="width:30%;">
+                <text>{{item.CQBODY}}</text>
+            </view>
+            <view class="stp" style="width:50%;">
+                <text>{{item.TSTIME}}</text>
+            </view>
+        </view>
+
+        <view style="height:3px;background-color:white;"></view>
+    </view>
+</view>
+<wxs module="subData">
+module.exports = (function(val) {
+    if (val == undefined || val == '' || val == null) {
+        return
+    };
+    if (val.length > 10) {
+        return (val.substring(0, 10))
+    } else {
+        return (val)
+    }
+});
+</wxs>
