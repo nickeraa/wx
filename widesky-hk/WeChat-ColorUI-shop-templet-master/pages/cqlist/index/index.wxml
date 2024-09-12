@@ -4,7 +4,7 @@
             <text class="icon-back"></text>投诉明细 </navigator>
     </view>
 </view>
-<view style="width:100%;overflow-x:hidden;margin-top: 5rem;">
+<view style="width:100%;overflow-x:hidden;margin-top: 6rem;">
 
         <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 2rem;">
             <view class="stp" style="margin-left:0.8rem;width:20%;">
@@ -23,17 +23,17 @@
 
     </view>
     <view bindtap="cqlist" data-cqnumber="{{item.CQNUMBER}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
-        <view class="Grid-sku" style="height:2.2rem;">
+        <view class="Grid-sku" style="height:3rem;">
             <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;">
                 <text class=""> {{item.STORECODE}} </text>
             </view>
-            <view class="stp" style="width:30%;">
+            <view class="stp" style="width:30%;margin-top: 10px;">
                 <text>{{item.TSBODY}}</text>
             </view>
-            <view class="stp" style="width:30%;">
+            <view class="stp" style="width:30%;margin-top: 10px;">
                 <text>{{item.CQBODY}}</text>
             </view>
-            <view class="stp" style="width:50%;">
+            <view class="stp" style="width:50%;margin-top: 12px;">
                 <text>{{item.TSTIME}}</text>
             </view>
         </view>

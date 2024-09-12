@@ -98,25 +98,6 @@ Page({
 
   dy: function () {
 
- 
-
-    
-    if (wx.getStorageSync('zjuserid')) {
-
-      wx.navigateTo({
-        url: "/pages/bleConnect/bleConnect"
-      });
-
-      return false;
-    }
-
-    var that = this;
-    wx.showLoading({
-        title: '数据加载中',
-        mask: true,
-      }),
-
-
       wx.request({
         url: a.globalData.api + 'wx_customer_zjlogin.ashx', //服务器地址
 
@@ -157,8 +138,7 @@ Page({
 
           }
 
-          wx.hideLoading()
-
+    
 
         }
       })

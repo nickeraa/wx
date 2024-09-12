@@ -46,8 +46,11 @@
 
     <view class="cu-form-group">
             <view class="title icon-title text-orange">投诉描述：</view>
-            <textarea    style="position: relative; left: 0rpx; top: -2rpx; width: 490rpx; height: 252rpx; display: block; box-sizing: border-box;color:#808080;">{{note}}</textarea>
+            <textarea  class="input" name="bhtext" value="{{note}}"></textarea>
         </view>
+
+ 
+
 
 <view class="cu-form-group" style="height:19rem;padding-bottom: 2rem;">
     <view class="title text-orange">照片：</view>
