@@ -182,7 +182,7 @@ Page({
             duration: 2e3
         }), !1;
         if (this.data.date == s.formatDate(new Date())) return wx.showToast({
-            title: "请选择消费日期",
+            title: "请选择消费意向日期",
             icon: "none",
             duration: 2e3
         }), !1;

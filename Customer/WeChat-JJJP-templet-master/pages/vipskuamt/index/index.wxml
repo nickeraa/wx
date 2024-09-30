@@ -10,7 +10,7 @@
         <view class="title icon-title text-orange">查询方式：</view>
         <radio-group class="radio-group dp">
             <label class="radio dp">
-                <radio checked class="round red" value="1"></radio>按消费金额 </label>
+                <radio checked class="round red" value="1"></radio>按消费意向金额 </label>
         </radio-group>
     </view>
     <view style="background-color: white;">
@@ -35,7 +35,7 @@
     </view>
     <view class="cu-form-group" style="height:5rem;margin-left:-1rem;">
         <view class="cu-form-group" style="width: 20rem;">
-            <view class="title icon-title text-orange">选择消费金额：</view>
+            <view class="title icon-title text-orange">选择消费意向金额：</view>
             <picker bindchange="bindPickerChange" range="{{array}}" value="{{index}}">
                 <view class="picker dp"> {{array[index]}} </view>
             </picker>

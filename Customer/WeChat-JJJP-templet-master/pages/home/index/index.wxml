@@ -9,7 +9,7 @@
 <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">
         <text class="title icon-title text-orange"></text>
-        <text style="color:black;font-weight:bold;">会员消费记录查询</text>
+        <text style="color:black;font-weight:bold;">会员消费意向记录查询</text>
     </view>
 </view>
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
@@ -18,7 +18,7 @@
             <image src="{{zyimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
         </view>
         <view style="margin-top:-2rem;margin-left:6rem;">
-            <text class="text-black">查询消费历史</text>
+            <text class="text-black">查询消费意向历史</text>
         </view>
     </view>
 </view>
@@ -28,7 +28,7 @@
             <image src="{{rgimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
         </view>
         <view style="margin-top:-2rem;margin-left:6rem;">
-            <text class="text-black">查询消费VIP（按类别）</text>
+            <text class="text-black">查询消费意向VIP（按类别）</text>
         </view>
     </view>
 </view>
@@ -38,7 +38,7 @@
             <image src="{{tzimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
         </view>
         <view style="margin-top:-2rem;margin-left:6rem;">
-            <text class="text-black">查询消费VIP（按货品）</text>
+            <text class="text-black">查询消费意向VIP（按货品）</text>
         </view>
     </view>
 </view>
@@ -48,7 +48,7 @@
             <image src="{{gqimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
         </view>
         <view style="margin-top:-2rem;margin-left:6rem;">
-            <text class="text-black">查询消费VIP（按消费金额）</text>
+            <text class="text-black">查询消费意向VIP（按消费意向金额）</text>
         </view>
     </view>
 </view>

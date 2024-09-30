@@ -30,7 +30,7 @@ Page({
         index2: null,
         picker3: [],
         index3: null
-    }, t(t(t(t(t(t(t(t(t(t(e, "xf_plu", ""), "xf_desci", ""), "userid", ""), "view", !0), "snumber", ""), "flag", !0), "store", ""), "storename", ""), "array", [ "单次消费满3千以上（V客）", "当月同一店铺累计消费满1万以上（A客）", "银卡会员", "金卡会员", "钻卡会员" ]), "index", 0), 
+    }, t(t(t(t(t(t(t(t(t(t(e, "xf_plu", ""), "xf_desci", ""), "userid", ""), "view", !0), "snumber", ""), "flag", !0), "store", ""), "storename", ""), "array", [ "单次消费意向满3千以上（V客）", "当月同一店铺累计消费意向满1万以上（A客）", "银卡会员", "金卡会员", "钻卡会员" ]), "index", 0), 
     t(t(t(t(t(t(e, "rv", !0), "countboy", 0), "picker4", []), "index4", null), "xf_staffcode", ""), "i", "")),
     onLoad: function(e) {
         var t = this;
@@ -149,7 +149,7 @@ Page({
         }
         if (null == this.data.index) return wx.showModal({
             title: "提示",
-            content: "请选择消费等级",
+            content: "请选择消费意向等级",
             showCancel: !1,
             success: function(e) {
                 e.confirm;

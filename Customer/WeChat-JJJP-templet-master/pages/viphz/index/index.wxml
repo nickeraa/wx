@@ -15,9 +15,9 @@
         </view>
         <view style="width:100%;">
             <label class="radio dp" style="float:left;">
-                <radio class="round red" value="2"></radio>查询客户本店消费 </label>
+                <radio class="round red" value="2"></radio>查询客户本店消费意向 </label>
             <label class="radio dp" style="float: right;">
-                <radio class="round red" value="3"></radio>查询客户它店消费 </label>
+                <radio class="round red" value="3"></radio>查询客户它店消费意向 </label>
         </view>
     </radio-group>
 </view>

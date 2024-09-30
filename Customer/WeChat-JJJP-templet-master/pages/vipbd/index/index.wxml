@@ -1,7 +1,7 @@
 <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <view bindtap="back" class="action canui-head-title">
-            <text class="icon-back"></text>查询到店消费 </view>
+            <text class="icon-back"></text>查询到店消费意向 </view>
     </view>
 </view>
 <view style="width:100%;overflow-x:hidden;">
@@ -28,7 +28,7 @@
     </view>
     <view class="page" style="margin-top:5px;background-color:white;">
         <view class="picker_group " style="margin-left:-35px;">
-            <view class="title icon-title text-orange up" style="font-size:15px;">消费日期：</view>
+            <view class="title icon-title text-orange up" style="font-size:15px;">消费意向日期：</view>
             <picker bindchange="bindDateChange" end="{{date2}}" mode="date" value="{{date}}">
                 <view class="picker"> {{date}} </view>
             </picker> 至 <picker bindchange="bindDateChange2" end="2050-01-01" mode="date" start="{{date}}" value="{{date2}}">
@@ -37,7 +37,7 @@
         </view>
     </view>
     <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
-        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询消费客户</button>
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询消费意向客户</button>
     </view>
     <view style="background-color:white;height:0.5rem;"></view>
     <view class="canui-order-item bg-white" hidden="{{rv}}">

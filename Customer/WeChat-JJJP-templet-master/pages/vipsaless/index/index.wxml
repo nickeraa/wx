@@ -1,7 +1,7 @@
 <view class="cu-custom">
     <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
-            <text class="icon-back"></text>查询客户购买历史 </navigator>
+            <text class="icon-back"></text>查询客户购买意向历史 </navigator>
     </view>
 </view>
 <view style="background-color:white">
@@ -45,16 +45,16 @@
     </view>
     <view class="cu-form-group sp" style="margin-top:1rem;">
         <button bindtap="selectvip" class="cu-btn canui-color-gradual shadow-blur round lg sp" style="width:95%;">
-            <text class="icon-search"></text> 查询会员购买记录</button>
+            <text class="icon-search"></text> 查询会员购买意向记录</button>
     </view>
 </view>
 <view style="background-color:white;height:0.5rem;"></view>
 <view class="canui-order-item bg-white" hidden="{{rv}}">
     <view class="head-title-box" style="height:2rem;">
         <text class="icon-shop" style="margin-left:1rem;"></text>
-        <text calss="sp" style="margin-left:3px;">消费记录</text>
+        <text calss="sp" style="margin-left:3px;">消费意向记录</text>
         <text class="icon-right"></text>
-        <text style="color:red;">消费{{amtsold}}元</text>
+        <text style="color:red;">消费意向{{amtsold}}元</text>
         <view class="head-title-box sp solid-bottom "></view>
     </view>
 </view>
