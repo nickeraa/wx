@@ -4,19 +4,8 @@
             <text class="icon-back"></text>抢订配额 </navigator>
     </view>
 </view>
-<view class="bg-white" style="margin-top:50px;">
-    <view class="cu-form-group">
-        <view class="title icon-title text-orange">选择项目：</view>
-        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="ITEMNAME" style="margin-left:1rem;margin-top:3px;" value="{{picker2[index2].ITEMNAME}}">
-            <view class="picker dp ">
-                <text>{{index2?picker2[index2].ITEMNAME:'请选择查询项目'}}</text>
-                <text class="cuIcon-triangledownfill"></text>
-            </view>
-        </picker>
-        <view class="action" style="margin-left:1rem;"></view>
-    </view>
-</view>
-<view class="cu-bar bg-white search ">
+
+<view class="cu-bar bg-white search " style="margin-top:50px;">
     <view class="search-form round">
         <text class="icon-search"></text>
         <input bindinput="getsku" name="sku" placeholder="输入货品编码或名称，支持模糊查询" type="text" value="{{sku}}"></input>

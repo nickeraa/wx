@@ -1,12 +1,12 @@
 <block wx:for="{{replu}}" wx:key="itemid">
     <swiper autoplay="true" circular="true" class=" square-dot bg-white " duration="500" indicatorDots="true" interval="5000" style="height: {{swiperHeight}};">
         <swiper-item wx:for="{{swiperlist}}" wx:key="*this">
-            <image bindload="computeImgHeight" bindtap="previewImage" data-src="{{item}}" mode="widthFix" src="{{item}}" style="width: 100%;"></image>
+            <image bindload="computeImgHeight" bindtap="previewImage" data-src="{{item}}" mode="widthFix" src="{{item}}" style="width: 100%;top:20px;"></image>
         </swiper-item>
     </swiper>
-    <view bindtap="back" class="canui-head-box" style="top:{{StatusBar}}px;">
-        <view class="icon-back"></view>
-    </view>
+    <view bindtap="back" class="canui-head-box" style="top:{{StatusBar}}px;font-size: 20px;font-weight: 600;">
+            <view class="icon-back"></view>
+        </view>
     <view class="bg-white">
         <view class="bg-white canui-goods-box" style="padding-top:40rpx;">
             <text class=" text-red text-xl  icon-cart">总配额： {{item.AMOUNT}}</text>

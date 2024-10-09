@@ -18,13 +18,7 @@ Page({
   onLoad: function (a) {
     this.searchs();
   },
-  bindPickerChange2: function (a) {
-    console.log("picker发送选择改变，携带值为", a.detail.value),
-      this.setData({
-        index2: a.detail.value,
-        itemname: this.data.picker2[a.detail.value].ITEMNAME,
-      });
-  },
+
   searchs: function () {
     var t = this;
     wx.request({
@@ -38,13 +32,7 @@ Page({
     });
   },
   select: function () {
-    if (
-      (console.log("sdfsdfsdfsdf"),
-      console.log(this.data.sku),
-      "" == this.data.itemname)
-    )
-      wx.showToast({ title: "请选择查询项目" });
-    else if ("" == this.data.sku)
+ if ("" == this.data.sku)
       wx.showModal({
         title: "提示",
         content: "请输入货号或名称模糊查询",

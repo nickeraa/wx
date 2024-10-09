@@ -7,6 +7,7 @@ Page({
         {
           swiperlist: [""],
           pict: a.globalData.hkimgUrl,
+          StatusBar: a.globalData.StatusBar + 26,
           xf_plu: "",
           ontime: "",
           timer: "",
@@ -94,7 +95,7 @@ Page({
     });
   },
   back: function () {
-    wx.navigateBack({ delta: 0 });
+    wx.navigateBack({ delta: 1 });
   },
   additem: function (t) {
     var e = this;
