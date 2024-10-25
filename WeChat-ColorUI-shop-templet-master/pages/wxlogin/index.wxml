@@ -1,0 +1,26 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title">
+            <text style="margin-left: 150px;">头像昵称</text>
+        </navigator>
+    </view>
+</view>
+<view class="b1" style="margin-top:3rem;">
+    <view class="t_w">
+        <view class="t_image" style='margin-top: 60px;'>
+ 
+    <image class="avatar avatar-wrapper" src="{{avatarUrl}}"></image>
+    <view style="width:100%;margin:-70px 0px 10px 10px;">
+                <button open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" class="cu-btn round" style="margin: 5px 5px 5px 95px; height: 2rem; border-radius: 0.8rem;font-weight: 500; background-color: white; border: 1px solid #436EEE; width: 50%; position: relative; left: -10rpx; top: -31rpx">选择头像</button>
+            </view>
+    <input bindinput="bindKeyInput"  type="nickname" value='{{nickName}}' style='color: grey;margin-top: 30px;' placeholder="请填写自己的昵称"/>
+
+        </view>
+        <view class="b2" style="width: 600rpx; height: 529rpx; display: block; box-sizing: border-box;">
+     
+            <view style="width:100%;margin:215px 0px 10px 100px;">
+                <button bindtap="lq" class="cu-btn canui-color-gradual shadow-blur" >领取会员卡</button>
+            </view>
+        </view>
+    </view>
+</view>

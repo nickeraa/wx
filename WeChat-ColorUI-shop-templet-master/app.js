@@ -17,7 +17,10 @@ App({
         (console.log(t.referrerInfo.extraData),
         wx.removeStorageSync("yguserid"),
         wx.setStorageSync("yguserid", t.referrerInfo.extraData.yguserid),
+        wx.removeStorageSync("vipcode"),
+        wx.setStorageSync("vipcode", t.referrerInfo.extraData.vipcode),
         console.log(wx.getStorageSync("yguserid")));
+        
     var e = wx.getUpdateManager();
     e.onCheckForUpdate(function (t) {}),
       e.onUpdateReady(function () {
@@ -47,6 +50,7 @@ App({
     imgUrl: "https://widesky.work/scimg/widesky/",
     hkimgUrl: "https://widesky.work/hkimg/",
     scimgurl: "https://widesky.work/scimg/",
+    wximgurl: "https://widesky.work/",
     api: "https://widesky.work/hkback/",
   },
 });

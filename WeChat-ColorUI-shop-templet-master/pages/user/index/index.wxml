@@ -4,7 +4,7 @@
     </view>
 </view>
 <view>
-    <image mode="widthFix" src="/img/bg.png" style="width: 400px;height:200px;"></image>
+    <image mode="widthFix" src="/img/bg.png" style="width: 100%;height:200px;"></image>
 </view>
 <view style=" justify-content: center;width:100%;display: flex;">
     <view class="bgvip">
@@ -16,17 +16,26 @@
 <view class="bgtx">
     <image src="{{tximg}}" style="width:50px;height:50px; border-radius: 25px;margin-left: 1rem;"></image>
 </view>
+
+
+
+
 <view class="bgtx" hidden="{{flag}}" style="margin-left: 7rem;">
     <button bindgetphonenumber="onGetPhoneNumber" class="submitbtn icon-goodsfavor" openType="getPhoneNumber" style="border-radius:50px;border: 1px solid red;width:100%;">
         <text style="margin-left: 5px;font-weight: 750;">领取会员卡</text>
     </button>
 </view>
-<view class="bgtx" hidden="{{flags}}" style="margin-left: 3rem;color:white;font-weight: 800;width:70%;">
+
+
+<view class="bgtx" hidden="{{flags}}" style="margin-left: 3rem;color:white;font-weight: 600;width:70%;">
     <text style="margin-left: 2rem;font-size: 16px;">
     NO</text>
     <text style="margin-top: 1.5rem;">.{{vipcode}} </text>
-    <view style="margin-top: -2rem;margin-left: 3rem;">
-        <image mode="widthFix" src="/img/logo1.png" style="width: 100px;"></image>
+    <view style="margin-top: -1rem;margin-left: 5rem;">
+      <image class="avatar avatar-wrapper" src="{{avatarUrl}}"></image>
+      <view style='margin-top:16px;height: 22px;width:75px;background-image: linear-gradient(45deg, #383736, #444244);border-radius: 5px;margin-left: -10px;display: flex;justify-content: center;align-items: center;'>
+      <text  style='font-size: 13px;color: #c3a769;font-weight: 500;' >{{nickName}}</text>
+    </view>
     </view>
 </view>
 <view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:6rem;background-color:white;margin-top:1rem;">

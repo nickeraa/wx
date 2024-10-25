@@ -1,7 +1,9 @@
 {
   "pages": [
+
     "pages/home/index/index",
     "pages/reloginc/index",
+    "pages/wxlogin/index",
     "pages/reloginb/index",
     "pages/relogin/index",
     "pages/qyxyc/index",
