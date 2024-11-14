@@ -22,6 +22,11 @@ Page({
             url: "/pages/djsales/index/index"
         });
     },
+    djsku: function() {
+        wx.navigateTo({
+            url: "/pages/seskuyd/index/index"
+        });
+    },
     djdpqh: function() {
         wx.navigateTo({
             url: "/pages/djsalesqh/index/index"

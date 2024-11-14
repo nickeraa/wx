@@ -19,7 +19,8 @@ Page({
         storename: "",
         djamt: "",
         yfamt: "",
-        sqamt: ""
+        sqamt: "",
+        czamtsold: ""
     },
     bindDateChange: function(a) {
         console.log(a.detail.value), this.setData({
@@ -88,9 +89,9 @@ Page({
             },
             dataType: "json",
             success: function(a) {
-                console.log(a), wx.hideLoading(), a.data.length > 0 ? e.setData({
+                console.log(a), wx.hideLoading(), a.data.length > 0 ? (e.setData({
                     rejob: a.data
-                }) : (wx.showToast({
+                }),e.djc()) : (wx.showToast({
                     title: "没有数据！",
                     icon: "none",
                     duration: 2e3
@@ -100,6 +101,42 @@ Page({
             }
         });
     },
+
+djc()
+{
+
+
+    var t = this;
+    wx.showLoading({
+        title: "正在汇总"
+    }),
+    wx.request({
+        url: a.globalData.api + "wx_dpdjc.ashx",
+        data: {
+            begindate: t.data.date,
+            enddate: t.data.date2
+         
+        },
+        header: {
+            "content-type": "application/x-www-form-urlencoded"
+        },
+        dataType: "json",
+        success: function(res) {
+            console.log(res), res.data.length > 0 ? t.setData({
+                czamtsold:res.data[0].AMTSOLD+'('+(res.data[0].AMTSOLD/t.data.djamt).toFixed(4)*100+'%'+')'
+            }) : t.setData({
+                czamtsold: ""
+            });
+
+            wx.hideLoading()
+        }
+    });
+
+
+
+},
+
+
     djlist: function(a) {
         wx.navigateTo({
             url: "/pages/yddps/index/index?xf_storecode=" + a.currentTarget.dataset.xf_storecode + "&begindate=" + this.data.date + "&enddate=" + this.data.date2 + "&amtsold=" + a.currentTarget.dataset.amtsold + "&xf_name=" + a.currentTarget.dataset.xf_name

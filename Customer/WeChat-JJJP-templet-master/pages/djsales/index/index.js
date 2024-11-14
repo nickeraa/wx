@@ -19,7 +19,8 @@ Page({
         storename: "",
         djamt: "",
         yfamt: "",
-        sqamt: ""
+        sqamt: "",
+        czamtsold:''
     },
     bindDateChange: function(a) {
         console.log(a.detail.value), this.setData({
@@ -100,15 +101,15 @@ Page({
                 "content-type": "application/x-www-form-urlencoded"
             },
             dataType: "json",
-            success: function(a) {
-                console.log(a), wx.hideLoading(), a.data.length > 0 ? t.setData({
-                    djamt: a.data[0].DPDJ,
-                    yfamt: a.data[0].DPYF,
-                    sqamt: a.data[0].DPSQ,
-                    zb: a.data[0].ZB,
+            success: function(res) {
+                console.log(res+'ttttttttt'),  res.data.length > 0 ? (t.setData({
+                    djamt: res.data[0].DPDJ,
+                    yfamt: res.data[0].DPYF,
+                    sqamt: res.data[0].DPSQ,
+                    zb: res.data[0].ZB,
                     flag: !1,
-                    rejob: a.data
-                }) : (wx.showToast({
+                    rejob: res.data
+                }), t.showzb()) : (wx.showToast({
                     title: "没有数据",
                     icon: "none",
                     duration: 2e3
@@ -119,6 +120,37 @@ Page({
             }
         });
     },
+
+    showzb() {
+     
+        var t = this;
+        wx.showLoading({
+            title: "正在汇总"
+        }),
+        wx.request({
+            url: a.globalData.api + "wx_csalesstoreyd.ashx",
+            data: {
+                begindate: t.data.date,
+                enddate: t.data.date2,
+                xf_storecode: t.data.store
+            },
+            header: {
+                "content-type": "application/x-www-form-urlencoded"
+            },
+            dataType: "json",
+            success: function(res) {
+                console.log(res), res.data.length > 0 ? t.setData({
+                    czamtsold:res.data[0].AMTSOLD+'('+(res.data[0].AMTSOLD/t.data.djamt).toFixed(4)*100+'%'+')'
+                }) : t.setData({
+                    czamtsold: ""
+                });
+
+                wx.hideLoading()
+            }
+        });
+    },
+
+
     djlist: function(a) {
         wx.navigateTo({
             url: "/pages/ydcxs/index/index?xf_staffcode=" + a.currentTarget.dataset.xf_salesman + "&xf_storecode=" + this.data.store + "&begindate=" + this.data.date + "&enddate=" + this.data.date2 + "&ygamt=" + a.currentTarget.dataset.ygamt + "&xf_name=" + a.currentTarget.dataset.xf_name
