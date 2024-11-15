@@ -123,7 +123,7 @@ djc()
         dataType: "json",
         success: function(res) {
             console.log(res), res.data.length > 0 ? t.setData({
-                czamtsold:res.data[0].AMTSOLD+'('+(res.data[0].AMTSOLD/t.data.djamt).toFixed(4)*100+'%'+')'
+                czamtsold:res.data[0].AMTSOLD+'('+(res.data[0].AMTSOLD/t.data.djamt*100).toFixed(2)+'%'+')'
             }) : t.setData({
                 czamtsold: ""
             });
