@@ -9,6 +9,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "会员打开分享链接",
+          "pathName": "pages/home/index/index",
+          "query": "vipcode=D8008835278&tj=1&yguserid=0005",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "员工分享给会员",
+          "pathName": "pages/home/index/index",
+          "query": "vipcode=D8008835278&yguserid=0005",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "员工跳转到首页",
           "pathName": "pages/acxpexl/index/index",
           "query": "yguserid=0005",
@@ -18,13 +32,6 @@
             "appId": "wx187fe5b10e271c63",
             "extraData": "{\"yguserid\":\"0005\"}"
           }
-        },
-        {
-          "name": "会员打开分享链接",
-          "pathName": "pages/home/index/index",
-          "query": "vipcode=800810046848&tj=1&yguserid=0005",
-          "launchMode": "default",
-          "scene": null
         },
         {
           "name": "员工分享页面客户打开页面",
@@ -64,13 +71,6 @@
             "appId": "wx187fe5b10e271c63",
             "extraData": "{\"yguserid\":\"YXY\" }"
           }
-        },
-        {
-          "name": "员工分享给会员",
-          "pathName": "pages/home/index/index",
-          "query": "vipcode=800810046848&yguserid=0005&d=1",
-          "launchMode": "default",
-          "scene": null
         },
         {
           "name": "会员分享给客户",

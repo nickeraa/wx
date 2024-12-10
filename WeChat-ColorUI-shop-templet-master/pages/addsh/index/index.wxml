@@ -6,7 +6,7 @@
         </view>
     </view>
 </view>
-<view style="height: 3rem;background-color: white;"></view>
+
 <view class="cu-form-group">
     <view class="title icon-title text-orange">收货人</view>
     <input bindinput="getshname" class="radius" name="shname" placeholder="   收货人姓名" value="{{shname}}"></input>

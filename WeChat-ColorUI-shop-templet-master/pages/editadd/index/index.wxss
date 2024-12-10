@@ -1,6 +1,7 @@
 page {
   padding-bottom: 20rpx;
   padding-top: 50px;
+  background-color: #fff;
 }
 .head-title {
   margin: 0 auto;

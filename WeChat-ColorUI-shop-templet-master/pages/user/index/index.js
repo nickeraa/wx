@@ -199,13 +199,13 @@ Page({
           console.log(e),
             console.log("fffffffffff"),
             e.data.length > 0 ?
-            a.setData({
+            (a.setData({
               vip: e.data[0].GRADE,
               flag: !0,
               flags: !1,
               tximg: "/img/vip.png",
 
-            }) :
+            }),a.tz() ) :
             a.setData({
               vip: "您还没有登录哦 ~",
               flag: !1,
@@ -222,6 +222,20 @@ Page({
       }),
       this.tjtypes();
   },
+
+tz()
+{
+
+  if(this.data.nickName=='')
+  {
+
+    wx.navigateTo({
+      url: "/pages/wxlogin/index"
+    });
+  }
+
+},
+
   onGetPhoneNumber: function (e) {
     /*
     if (!wx.getStorageSync("vipcode") && !wx.getStorageSync("vip_id"))
