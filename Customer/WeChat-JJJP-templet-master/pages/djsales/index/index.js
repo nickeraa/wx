@@ -140,10 +140,12 @@ Page({
             dataType: "json",
             success: function(res) {
                 console.log(res), res.data.length > 0 ? t.setData({
-                    czamtsold:res.data[0].AMTSOLD+'('+(res.data[0].AMTSOLD/t.data.djamt).toFixed(4)*100+'%'+')'
+                    czamtsold:res.data[0].AMTSOLD+'('+((res.data[0].AMTSOLD/t.data.djamt).toFixed(4)*100).toString().substr(0,5)+'%'+')'
                 }) : t.setData({
                     czamtsold: ""
                 });
+
+
 
                 wx.hideLoading()
             }
