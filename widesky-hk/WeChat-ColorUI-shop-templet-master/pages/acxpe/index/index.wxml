@@ -53,11 +53,11 @@
         </view>
     </view>
     <view class="Grid-sku action solid-bottom " style="height:2.5rem;">
-        <view style="margin-left:1rem;width:40%;margin-top:15px;" wx:if="{{item.VIPPRICE}}">
-            <text> 会员价：{{item.VIPPRICE}}元 </text>
+        <view style="margin-left:1rem;width:40%;margin-top:15px;" wx:if="{{item.XF_ORGUPRICE}}">
+            <text> 售价：{{item.XF_ORGUPRICE}}元 </text>
         </view>
         <view style="margin-left:1rem;width:40%;margin-top:15px;" wx:else>
-            <text> 会员价：无 </text>
+            <text> 售价：无 </text>
         </view>
         <view class="" style="margin-left:8px;width:30%;margin-top:15px;">
             <text>总配额：{{item.AMOUNT}}</text>

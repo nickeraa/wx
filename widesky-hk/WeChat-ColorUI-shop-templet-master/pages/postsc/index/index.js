@@ -68,7 +68,7 @@ Page({
   onLoad: function (a) {
     console.log(this.data.scimgurl);
     var e = s.formatDate(new Date());
-    this.setData({ date: "2024-01-01", date2: e });
+    this.setData({ date: "2025-01-01", date2: e });
     var o = this;
     wx.getStorageSync("masterid")
       ? wx.request({

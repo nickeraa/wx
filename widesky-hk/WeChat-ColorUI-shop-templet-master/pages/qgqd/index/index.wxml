@@ -4,14 +4,8 @@
             <text class="icon-back"></text>我的签到 </navigator>
     </view>
 </view>
-<view class="UCenter-bg" style="padding-bottom:260px;">
-    <image class="gif-wave" mode="scaleToFill" src="{{bgimage}}wave.gif"></image>
-    <view style="margin-top:15rem;">
-        <image class="userinfo" src="/images/logo.png"></image>
-        <view style="margin:5px 0px 0px 30px;">{{username}}</view>
-    </view>
-</view>
-<view style="padding-top: 3rem;margin-left: 8rem;display: flex;width:100%;">
+
+<view style='margin-top: 50px;'  style="padding-top: 3rem;margin-left: 8rem;display: flex;width:100%;">
     <view style="width:15%;">
         <image src="/images/green.png" style="width:50px;height:50px;"></image>
     </view>

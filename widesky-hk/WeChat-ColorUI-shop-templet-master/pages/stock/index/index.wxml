@@ -13,9 +13,9 @@
                 <text class="icon-right"></text>
                 <text>{{xf_longdesc}}</text>
             </view>
-            <view class="head-title-box" style="height:1rem;font-size:16px;margin-top:10px;">
-                <text wx:if="{{vipprice}}">会员价：{{vipprice}}元</text>
-                <text wx:else>会员价：无</text>
+            <view class="head-title-box" style="height:1rem;font-size:16px;margin-top:20px;">
+                <text wx:if="{{XF_ORGUPRICE}}">售价：{{XF_ORGUPRICE}}元</text>
+                <text wx:else>售价：无</text>
                 <text style="margin-left:15px;">总配额：{{amount}}</text>
                 <text style="margin-left:15px;">剩余配额：{{stock}}</text>
             </view>

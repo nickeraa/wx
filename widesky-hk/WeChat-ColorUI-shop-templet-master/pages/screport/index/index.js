@@ -37,7 +37,7 @@ Page({
   },
   onLoad: function (e) {
     var s = t.formatDate(new Date());
-    this.setData({ date: "2024-01-01", date2: s }),
+    this.setData({ date: "2025-01-01", date2: s }),
       e.p && this.setData({ p: e.p });
     var i = this;
     wx.getStorageSync("masterid")

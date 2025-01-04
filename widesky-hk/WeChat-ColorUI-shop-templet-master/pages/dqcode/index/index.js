@@ -23,7 +23,7 @@ Page({
   onLoad: function (a) {
     var s = t.formatDate(new Date());
     this.setData({
-      date: "2024-01-01",
+      date: "2025-01-01",
       date2: s
     });
 
@@ -85,6 +85,7 @@ Page({
         t.setData({
             imglist: e.tempFilePaths
           }),
+          console.log(t.data.imglist[0]),
           wx.showLoading({
             title: "正在上传",
             mask: !0
@@ -157,7 +158,7 @@ Page({
     if ("" == this.data.todate) return wx.showToast({
       title: "没有二维码打印日期"
     }), !1;
-    if ("2024-01-01" == this.data.date) return wx.showToast({
+    if ("2025-01-01" == this.data.date) return wx.showToast({
       title: "请选择投诉日期"
     }), !1;
     if ("" == this.data.tsbody) return wx.showToast({

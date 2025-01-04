@@ -11,7 +11,7 @@
         <text class=" text-red text-xl  icon-cart">总配额： {{item.AMOUNT}}</text>
         <text class=" text-red text-xl gp icon-cart"> 剩余配额：{{item.STOCK}}</text>
     </view>
-    <form bindsubmit="shuaxin" data-plu="{{item.XF_PLU}}" data-qty="{{item.QTY}}" data-store="{{item.STORE}}">
+    <view >
         <view class="bg-white canui-goods-box canui-xzwz text-black">货号：{{item.XF_PLU}} 品名：{{item.XF_DESCI}}</view>
         <view class="cu-form-group">
             <view class="title icon-title text-orange up ">店铺编号：<text class=" gp ">{{item.STORE}}{{item.STORENAME}}</text>
@@ -22,8 +22,8 @@
             </view>
         </view>
         <view class="cu-form-group lg" style="height:5rem;">
-            <button class="cu-btn canui-color-gradual shadow-blur round lg" formType="submit" style="margin-left:5rem;">
+            <button class="cu-btn canui-color-gradual shadow-blur round lg" bindtap="shuaxin" style="margin-left:5rem;">
                 <text class="icon-check "></text> 取消配额</button>
         </view>
-    </form>
+    </view>
 </block>

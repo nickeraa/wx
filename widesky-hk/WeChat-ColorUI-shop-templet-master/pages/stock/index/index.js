@@ -29,6 +29,7 @@ Page({
                 amount: a.data[0].AMOUNT,
                 stock: a.data[0].STOCK,
                 vipprice: a.data[0].VIPPRICE,
+                XF_ORGUPRICE:a.data[0].XF_ORGUPRICE
               })
             : wx.showModal({
                 title: "提示",

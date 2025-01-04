@@ -34,7 +34,7 @@
                     <input bindinput="getqty" class="radius" name="qty" placeholder="必须填写抢订数量" type="number" value="{{qty}}"></input>
                 </view>
                 <view class="cu-load load-modal" wx:if="{{loadModal}}">
-                    <image class="png" mode="aspectFit" src="/img/logo.png"></image>
+                 
                     <view class="gray-text">连线查询中...</view>
                 </view>
                 <view class=" bg-white canui-goods-box canui-xzwz ">

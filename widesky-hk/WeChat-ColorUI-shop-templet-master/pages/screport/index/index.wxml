@@ -173,9 +173,9 @@
                     </view>
                 </view>
                 <view class="cu-list menu bg-white solid-bottom canui-selet">
-                    <view class="cu-item">
-                        <view class="content"> 收货地址： </view>
-                        <view class="action">
+                    <view style='display: flex;width: 100%;'>
+                        <view style='width: 30%;margin-left: 15px;'> 收货地址： </view>
+                        <view class="action" style='margin-left: 10px;'>
                             <text style="font-size: 14px;font-weight: 700;">{{item.ADDRESS}}</text>
                         </view>
                     </view>

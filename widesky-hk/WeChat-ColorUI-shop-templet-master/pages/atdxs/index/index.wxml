@@ -4,14 +4,8 @@
             <text class="icon-back"></text>我的退货 </navigator>
     </view>
 </view>
-<view class="UCenter-bg" style="padding-bottom:260px;">
-    <image class="gif-wave" mode="scaleToFill" src="{{bgimage}}wave.gif"></image>
-    <view style="margin-top:15rem;">
-        <image class="userinfo" src="/images/logo.png"></image>
-        <view style="margin:5px 0px 0px 30px;">{{username}}</view>
-    </view>
-</view>
-<view wx:for="{{resultdt}}" wx:key="id">
+
+<view style='margin-top: 50px;' wx:for="{{resultdt}}" wx:key="id">
     <view class=" solid-bottom">
         <view class="Item-top">
             <text class="icon-shop"></text>

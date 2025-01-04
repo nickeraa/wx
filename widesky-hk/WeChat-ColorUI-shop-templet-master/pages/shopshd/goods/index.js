@@ -25,6 +25,7 @@ Page({
       images: "",
       stock: "",
       amount: "",
+      flags:true,
     }),
     a(
       a(
@@ -199,6 +200,24 @@ Page({
         });
   },
   add: function () {
+
+    if (this.data.flags==false) {
+
+      wx.showLoading({
+        title: '太频繁了',
+      })
+
+      return false;
+
+    }
+
+    this.setData({
+
+      flags: false
+
+    })
+
+
     var t = this;
     clearInterval(t.data.timer),
       wx.request({
@@ -237,6 +256,13 @@ Page({
                     t.confirm;
                   },
                 });
+
+                t.setData({
+
+                  flags: false
+            
+                })
+
         },
       });
   },
