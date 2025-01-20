@@ -27,6 +27,7 @@ Page({
     count: 0,
     slt: "",
     xf_users: "",
+    fnumber:''
   },
   onLoad: function (a) {
     a.yguserid && wx.setStorageSync("yguserid", a.yguserid),
@@ -343,7 +344,7 @@ Page({
               "款货品 ...",
             path:
               "/pages/home/index/index?vipcode=" +
-              this.data.vipcode +
+              this.data.vipcode +"&fnumber="+this.data.fnumber+
               "&tj=1&yguserid=" +
               wx.getStorageSync("yguserid"),
             imageUrl: this.data.slt,
@@ -360,7 +361,7 @@ Page({
       dataType: "json",
       success: function (a) {
         "error" != a.data
-          ? (console.log("tttttttttt"), t.sesku())
+          ? (console.log("tttttttttt"),t.setData({fnumber:a.data}), t.sesku())
           : wx.showToast({ title: "数据错误" });
       },
     });

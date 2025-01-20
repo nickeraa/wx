@@ -77,7 +77,7 @@
         </view>
         <view class="cu-form-group bg-white canui-input">
             <view>买家留言</view>
-            <input bindinput="getremark" class="radius" name="remark" placeholder="留言建议提前协商" style="font-size: 12px;margin: 5px 0px 0px 10px;"></input>
+            <input bindinput="getremark" class="radius" name="remark" placeholder="" style="font-size: 12px;margin: 5px 0px 0px 10px;"></input>
         </view>
     </view>
 </view>

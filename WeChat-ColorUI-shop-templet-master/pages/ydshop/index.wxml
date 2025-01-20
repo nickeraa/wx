@@ -45,7 +45,27 @@
                 <text style="font-size: 18px;color:rgb(195,167,105);">RMB {{item.XF_VIPPRICE}}</text>
             </view>
             <view class="padding-sm" style="width:50%;" wx:else>会员价：无</view>
-        </view>               <view style="margin:20px" wx:if="{{item.ZWIMAGES1}}">
+        </view>             
+        
+        <view style="margin-top: -2.2rem;margin-left: -65px;" wx:for="{{rb}}">  
+        <view wx:if="{{item.XF_VIPPRICE}}">
+            <view class="del"  style="background-color: gray;height:1px;width: 3.5rem;"></view>      
+            <view style="margin:5px 0px 0px 75px;font-weight: 700;"><text>会员实价：</text>
+                <text style="color: red;" class="text-price"></text>
+                    <text style="font-weight: 700;margin-left: 5px;font-size: 18px;color: red;">{{item.XF_VIPPRICE}}</text>
+            </view>
+        </view>
+        <view wx:elif="{{item.XF_WZK}}" style="color: red; margin: 5px 0px 0px 75px;" >无折扣</view>
+        <view wx:elif="{{item.XF_ZKPRICE}}">
+            <view class="del"   style="background-color: gray;height:1px;width: 3.5rem;"></view>
+            <view style="margin:5px 0px 0px 75px;font-weight: 700;"><text>会员折扣价：</text>
+                <text style="color: red;" class="text-price"></text>
+                    <text style="font-weight: 700;margin-left: 5px;font-size: 18px;color: red;">{{item.XF_ZKPRICE}}</text>
+            </view>
+        </view>
+    </view>     
+        
+          <view style="margin:10px" wx:if="{{item.ZWIMAGES1}}">
             <view wx:if="{{kzm=='mp4'}}">
                 <view style="margin-left: 5px;margin-top: 2rem;">
                     <video autoPauseIfNavigate autoPauseIfOpenNative controls enableDanmu showFullscreenBtn showPlayBtn bindended="bindended" bindpause="bindpause" id="myVideo" objectFit="contain" showCenterPlayBtn="{{false}}" src="{{pict}}{{item.XF_PLU}}/{{item.ZWIMAGES1}}" style="width:{{'100%'}};height:{{videohight+'px'}}">
@@ -63,7 +83,7 @@
                     </video>
                 </view>
             </view>
-            <view style="padding-top: 20px;padding-bottom: 20px;">
+            <view style="padding-top: 10px;padding-bottom: 20px;">
                 <text class="icon-search" style="color:red;"></text>
                 <text style="margin-left: 5px;">点击图片左右滑动，可放大观看高清图</text>
             </view>

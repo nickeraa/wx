@@ -23,6 +23,7 @@ Page({
       images: "",
       stock: "",
       xf_qoh: "",
+      rb:{}
     }),
     a(
       a(
@@ -185,6 +186,45 @@ Page({
       },
     });
   },
+
+
+  checkprice()
+  {
+  
+    var t = this;
+    wx.request({
+      url: e.globalData.api + "wx_listsc.ashx",
+      data: {
+        vipcode: wx.getStorageSync("vipcode"),
+        wxuserid: wx.getStorageSync("wxuserid"),
+        xf_plu: t.data.xf_plu,
+      },
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      dataType: "json",
+      success: function (a) {
+        console.log(a.data),
+          a.data.length > 0
+            ? (t.setData({
+                rb: a.data,
+                sumprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
+                realprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
+                xishu: a.data[0].XISHU,
+                sumrealprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
+                xf_desci: a.data[0].XF_DESCI,
+                sorts: a.data[0].SORTS,
+              }),
+              t.data.sumprice.toString().indexOf(".") >= 0 &&
+                t.setData({ xiaoshu: !0 }))
+            : t.setData({ replu: null })
+         
+       
+      },
+    });
+  
+  
+  },
+
+
   delsc: function () {
     wx.request({
       url: e.globalData.api + "wx_delsc.ashx",
@@ -526,6 +566,7 @@ Page({
                   a.data.pict + t.data[0].XF_PLU + "//" + t.data[0].TBIMAGES3,
               }),
             console.log(a.data.swiperlist),
+            a.checkprice();
             wx.hideLoading();
         },
       });

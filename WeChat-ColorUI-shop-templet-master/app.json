@@ -1,6 +1,6 @@
 {
   "pages": [
-
+    "pages/acxpexl/index/index",
     "pages/home/index/index",
     "pages/reloginc/index",
     "pages/wxlogin/index",
@@ -39,7 +39,7 @@
     "pages/depositgwc/index/index",
     "pages/depositgwcyd/index/index",
     "pages/bags/index/index",
-    "pages/acxpexl/index/index",
+
     "pages/shopcgs/goods/index",
     "pages/bagsyd/index/index",
     "pages/card/index/index",
