@@ -312,7 +312,7 @@
 </view>
 
 
-
+<!--  
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="sclist" class=" ">
         <view style="margin-left:1rem;">
@@ -355,7 +355,7 @@
         </view>
     </view>
 </view>
-
+-->
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="checknumber">
         <view style="margin-left:1rem;">

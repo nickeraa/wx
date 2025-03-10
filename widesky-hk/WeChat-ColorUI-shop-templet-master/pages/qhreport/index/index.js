@@ -125,7 +125,7 @@ phone:'',
       wx.request({
         url: a.globalData.api + "wx_qhsclist.ashx",
         data: {
-          phone: e.data.phone,   
+          wxuserid: e.data.phone,   
           begindate: e.data.date,
           enddate: e.data.date2,
         

@@ -1,7 +1,8 @@
 <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
-            <text class="icon-back"></text>到店取货查询 </navigator>
+            <text class="icon-back"></text>到店取货查询
+        </navigator>
     </view>
 </view>
 <view style="width:100%;overflow-x:hidden;">
@@ -63,7 +64,7 @@
                 </view>
             </view>
 
-            <view class="cu-list menu bg-white solid-bottom canui-selet" wx:if="{{item.TAGS=='销售单已付款'}}">
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
                 <view class="cu-item">
                     <view class="content"> 已付金额： </view>
                     <view class="action">
@@ -71,7 +72,7 @@
                     </view>
                 </view>
             </view>
- 
+
 
             <view class="cu-list menu bg-white solid-bottom canui-selet">
                 <view class="cu-item">
@@ -82,40 +83,42 @@
                 </view>
             </view>
 
-            <view  wx:if="{{item.TAGS=='销售单已取货'}}"  class="cu-list menu bg-white solid-bottom canui-selet">
-                <view class="cu-item">
-                    <view class="content"> 取货日期： </view>
-                    <view class="action">
-                        <text style="font-size: 15px;color:blue;">{{item.XF_DOCNO}}</text>
-                    </view>
-                
-                </view>
-                </view>
-
-                <view class="cu-list menu bg-white solid-bottom canui-selet">
-                    <view class="cu-item">
-                        <view class="content"> 科传单号： </view>
-                        <view class="action">
-                            <text style="font-size: 14px;font-weight: 700;">{{item.KCXF_DOCNO}}</text>
-                        </view>
-                    </view>
-                </view>
-
-                <view class="cu-list menu bg-white solid-bottom canui-selet">
-                    <view class="cu-item">
-                        <view class="content"> 警示： </view>
-                        <view class="action">
-                            <text style="font-size: 14px;font-weight: 700;">此销售单已取货，不能重复取货</text>
-                        </view>
-                    </view>
-                </view>
-
-        
-
-
-            <view  wx:if="{{item.TAGS=='已发快递不能取货'}}">
-           
             <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 科传单号： </view>
+                    <view class="action">
+                        <text style="font-size: 14px;font-weight: 700;">{{item.KCXF_DOCNO}}</text>
+                    </view>
+                </view>
+            </view>
+
+
+
+            <block wx:if="{{item.TAGS=='销售单已付款已取货'}}">
+                <view class="cu-list menu bg-white solid-bottom canui-selet">
+                    <view class="cu-item">
+                        <view class="content"> 取货日期： </view>
+                        <view class="action">
+                            <text style="font-size: 15px;color:blue;">{{item.XF_DOCNO}}</text>
+                        </view>
+
+                    </view>
+                </view>
+                <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content icon-close" style="color: red;font-weight: 700;"> 不能取货： </view>
+                    <view class="action">
+                        <text style="font-size: 14px;font-weight: 700;color:red;">此销售单已取货，不能重复取货</text>
+                    </view>
+                </view>
+            </view>
+
+            </block>
+
+
+            <block wx:if="{{item.TAGS=='销售单已付款已发快递'}}">
+
+                <view class="cu-list menu bg-white solid-bottom canui-selet">
                     <view class="cu-item">
                         <view class="content"> 收货人： </view>
                         <view class="action">
@@ -139,35 +142,32 @@
                         </view>
                     </view>
                 </view>
+
                 <view class="cu-list menu bg-white solid-bottom canui-selet">
-                    <view style='display: flex;width: 100%;'>
-                        <view style='width: 30%;margin-left: 15px;'> 警示： </view>
-                        <view class="action" style='margin-left: 10px;'>
-                            <text style="font-size: 14px;font-weight: 700;">此销售单已发快递，不能到店取货</text>
-                        </view>
+                <view class="cu-item">
+                    <view class="content icon-close" style="color: red;font-weight: 700;"> 不能取货： </view>
+                    <view class="action">
+                        <text style="font-size: 14px;font-weight: 700;color:red;">此销售单已发快递，不能到店取货</text>
                     </view>
                 </view>
- 
             </view>
+            </block>
+       
 
 
 
-            <view  wx:if="{{item.TAGS=='销售单已付款未取货'}}">
-           
-               <view class="cu-list menu bg-white solid-bottom canui-selet">
-                   <view style='display: flex;width: 100%;'>
-                       <view style='width: 30%;margin-left: 15px;'> 可取货： </view>
-                       <view class="action" style='margin-left: 10px;'>
-                           <text style="font-size: 14px;font-weight: 700;">电脑开单请注意输入正确的商城单号</text>
-                       </view>
-                   </view>
-               </view>
+        <block wx:if="{{item.TAGS=='销售单已付款未取货'}}">
 
-           </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content icon-check" style="color: green;font-weight: 700;"> 可以取货： </view>
+                    <view class="action">
+                        <text style="font-size: 14px;font-weight: 700;color:green;">电脑开单请注意输入正确的商城单号</text>
+                    </view>
+                </view>
+            </view>
+            </block>
 
-
-
- 
-        </view>
     </view>
+</view>
 </view>
