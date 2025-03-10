@@ -24,6 +24,7 @@ Page({
     sumrealprice: 0,
     xiaoshu: !1,
     userid: "",
+    yk:false
   },
   back: function () {
     wx.navigateBack({ delta: 0 });
@@ -54,6 +55,18 @@ Page({
     });
   },
   onShow: function () {
+
+if(!wx.getStorageSync('vipcode'))
+{
+this.setData({
+
+yk:true
+
+})
+
+}
+
+
     var t = this;
     wx.request({
       url: a.globalData.api + "wx_listdfk.ashx",

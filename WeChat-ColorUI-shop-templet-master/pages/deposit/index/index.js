@@ -41,6 +41,7 @@ Page({
     xiaoshu: !1,
     xf_docno: "",
     userid: "",
+    yk:false,
   },
   back: function () {
     wx.navigateBack({ delta: 0 });
@@ -132,11 +133,34 @@ Page({
         : this.setData({ userid: wx.getStorageSync("wxuserid") });
   },
   radioChange1: function (a) {
+
+      this.setData({
+
+        yk:false
+   
+         })
+
+
+
+
     console.log("radior发送选择改变，携带值为", a.detail.value),
       this.setData({ setype: a.detail.value }),
       "0" == this.data.setype
         ? this.address()
         : "1" == this.data.setype && this.store();
+
+        if(this.data.setype=='1')
+        {
+        
+          this.setData({
+        
+            yk:true
+        
+             })
+        
+        }
+
+
   },
   sestore: function () {
     console.log("ddddddddd"),
@@ -149,11 +173,32 @@ Page({
     });
   },
   store: function () {
+ 
+    console.log("fsdfsdfsadfsadfdsa")
+    console.log(wx.getStorageSync("vipcode"))
+
+    if(!wx.getStorageSync("vipcode")&&this.data.setype=='1')
+    {
+
+      console.log("pppppppp")
+      this.setData({
+
+     yk:true
+
+      })
+
+      
+    }
+
+   
+
+
     if (
       (this.setData({ wlprice: 0, sumprice: this.data.sumrealprice }),
       !wx.getStorageSync("vipcode"))
     )
       return this.destore(), !1;
+
     var t = this;
     wx.request({
       url: a.globalData.api + "wx_sestoreaddr.ashx",
@@ -171,6 +216,10 @@ Page({
                 fg: 1,
               })
             : t.destore();
+
+
+
+
       },
     });
   },
@@ -190,6 +239,21 @@ Page({
             dpid: a.data[0].ID,
             fg: 1,
           });
+
+          if(a.data[0].ADDRESS1=='广天藏品深圳办公室')
+          {
+          
+          console.log('ttttttttttttt')
+          
+          
+          t.setData({
+          
+          yk:true
+          
+          })
+          
+          }
+
       },
     });
   },
@@ -264,13 +328,9 @@ Page({
     });
   },
   payment: function () {
-    if (!this.data.flag)
+    if (!this.data.flag&&this.data.setype=='0')
       return (
-        wx.showToast({
-          title: "还没有填写收货地址哦",
-          icon: "error",
-          duration: 2e3,
-        }),
+    
         this.add(),
         !1
       );

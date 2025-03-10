@@ -1,7 +1,12 @@
 {
   "pages": [
-    "pages/acxpexl/index/index",
+
+   
+    "pages/party/index/index",
+    "pages/1WGYB1029/goods/index",
     "pages/home/index/index",
+    "pages/zthome/index/index",
+    "pages/acxpexl/index/index",
     "pages/reloginc/index",
     "pages/wxlogin/index",
     "pages/reloginb/index",
@@ -39,8 +44,8 @@
     "pages/depositgwc/index/index",
     "pages/depositgwcyd/index/index",
     "pages/bags/index/index",
-
     "pages/shopcgs/goods/index",
+    "pages/shopcgzt/goods/index",
     "pages/bagsyd/index/index",
     "pages/card/index/index",
     "pages/cards/index/index",

@@ -73,53 +73,6 @@ page {
   text-overflow: ellipsis;
   width: 100px;
 }
-.textuser {
-  font-size: 30rpx;
-  font-weight: 800;
-  height: 50rpx;
-  line-height: 50rpx;
-  margin: -145px 0 0 120px;
-  position: absolute;
-  width: 300rpx;
-  z-index: 1;
-}
-.bgvip {
-  background-image: linear-gradient(45deg, #422b07, #0f0e0f);
-  border-radius: 8px;
-  margin-top: -50px;
-  width: 95%;
-}
-.bgtx,
-.bgvip {
-  align-items: center;
-  display: -webkit-flex;
-  display: flex;
-  height: 3rem;
-  position: absolute;
-  z-index: 1;
-}
-.bgtx {
-  margin-top: -160px;
-  width: 35%;
-}
-button::after {
-  border: none;
-}
-.btns {
-  height: 180rpx;
-}
-.submitbtn {
-  background-color: #c3a769;
-  border: none;
-  border-radius: 15px;
-  color: #fff;
-  float: right;
-  font-size: 15px;
-  font-weight: 700;
-}
-.tp {
-  margin: 10px 5px 5px;
-}
 .canui-fixed {
   bottom: 0;
   position: fixed;
@@ -137,73 +90,8 @@ button::after {
   border-radius: 5000rpx;
   color: #fff;
 }
-.Grid-sku {
-  display: -webkit-flex;
-  display: flex;
-  width: 100%;
-}
-checkbox .wx-checkbox-input {
-  border-radius: 50%;
-  height: 35rpx;
-  line-height: 35rpx;
-  width: 35rpx;
-}
-checkbox .wx-checkbox-input.wx-checkbox-input-checked {
-  background-color: #c3a769 !important;
-  border: 1rpx solid #c3a769 !important;
-  height: 35rpx;
-  line-height: 35rpx;
-  width: 35rpx;
-}
-.btns {
-  background-color: #fff;
-  bottom: 0;
-  display: -webkit-flex;
-  display: flex;
-  height: 80rpx;
-  justify-content: space-between;
-  position: fixed;
-  width: 100%;
-  z-index: 1;
-}
-.resetbtn {
-  background-color: gray;
-  margin-bottom: 10px;
-  width: 80px;
-}
 .normal {
   background: #fff;
-  color: grey;
-}
-.check,
-.normal {
-  align-items: center;
-  box-sizing: border-box;
-  display: -webkit-inline-flex;
-  display: inline-flex;
-  font-size: 28rpx;
-  height: 64rpx;
-  justify-content: center;
-  line-height: 1;
-  padding: 0 30rpx;
-  position: relative;
-}
-.check {
-  background: #c3a769;
-  color: #fff;
-}
-.del {
-  margin-top: 40px;
-  position: absolute;
-  z-index: 1;
-}
-.resetbtn {
-  background-color: #c3a769;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 30px;
-  width: 50% !important;
 }
 .imageCount {
   background-color: rgba(0, 0, 0, 0.3);
@@ -213,7 +101,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   font-size: 26rpx;
   height: 50rpx;
   line-height: 50rpx;
-  margin: -30px 0 0 300px;
+  margin: -30px 0 0 320px;
   position: absolute;
   text-align: center;
   width: 120rpx;
@@ -260,24 +148,11 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 .video_txt {
   margin: 10px 70px 0 20px;
 }
-.view_qipao {
-  align-items: center;
-  background-color: red;
-  border-radius: 50%;
-  display: -webkit-flex;
-  display: flex;
-  height: 35rpx;
-  justify-content: center;
-  width: 35rpx;
-}
-.text_qipao {
-  color: #fff;
-  font-size: 25rpx;
-}
-.radio-group {
+.container {
   align-items: center;
   display: -webkit-flex;
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  width: 400rpx;
+  vertical-align: center;
 }

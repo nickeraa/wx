@@ -44,7 +44,7 @@
                 <text>会员价：</text>
                 <text style="font-size: 18px;color:rgb(195,167,105);">RMB {{item.XF_VIPPRICE}} 元</text>
             </view>
-            <view class="padding-sm" style="width:50%;margin-top: 5px;" wx:else>会员价：无</view>
+            <view class="padding-sm" style="width:50%;" wx:else>会员价：无</view>
         </view>    
         <view style="margin-top: -2.2rem;margin-left: -65px;" wx:for="{{rb}}">  
         <view wx:if="{{item.XF_VIPPRICE}}">
@@ -73,7 +73,7 @@
                                 <cover-view class="video_bg_black">
                                     <cover-view class="video_cover_txt">
                                         <cover-view>
-                                            <cover-view class="video_txt" style="margin-top: 3rem;height: 60px;font-size: 20px;">点击播放按钮，观看作品简介</cover-view>
+                                            <cover-view class="video_txt" style="margin-top: 2rem;">点击播放按钮，观看作品简介</cover-view>
                                         </cover-view>
                                     </cover-view>
                                 </cover-view>
@@ -81,7 +81,7 @@
                         </video>
                     </view>
                 </view>
-                <view style="padding-top: 20px;padding-bottom: 10px;">
+                <view style="padding-top: -20px;padding-bottom: 20px;">
                     <text class="icon-search" style="color:red;"></text>
                     <text style="margin-left: 5px;">点击图片左右滑动，可放大观看高清图</text>
                 </view>

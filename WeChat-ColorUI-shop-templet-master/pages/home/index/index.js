@@ -40,6 +40,20 @@ Page({
     e.globalData.m = "";
   },
   onShow: function () {
+
+if(this.data.fnumber=='')
+{
+
+console.log('pppppppppppppppp')
+
+
+this.ykdata();
+
+
+
+}
+
+
     console.log(e.globalData.m),
       console.log(wx.getStorageSync("vipcode")),
       console.log(wx.getStorageSync("yguserid")),

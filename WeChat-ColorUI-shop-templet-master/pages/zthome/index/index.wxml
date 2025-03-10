@@ -1,0 +1,47 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">广天藏品</view>
+    </view>
+</view>
+<view class="cu-bar bg-white fixed" style="top:{{CustomBar}}px;">
+    <image mode="widthFix" src="/img/logo.jpg"></image>
+</view>
+<view style="display: flex;width:100%;background-color: white;margin-top: 3rem;">
+    <image src="/img/hot.jpg" style="width: 40px;height: 40px;margin:10px 0px 0px 10px;"></image>
+    <view style="width:60%;margin-top: 25px;">
+        <text style="font-size: 15px;font-weight: 600;">热门推荐 >>></text>
+        <text style="margin-left: 20px;font-size: 12px;color:gray;">下拉可以同步刷新</text>
+    </view>
+</view>
+
+<view class="" style="padding-bottom: 20rpx;padding-top: 15px;">
+    <view class="nav-list canui-flex-car">
+        <block wx:for="{{replu}}" wx:key="index">
+            <navigator class="nav-li canui-yx-url" url="/pages/shopcgzt/goods/index?xf_plu={{item.XF_PLU}}" wx:if="{{item.SALESTYPES=='0'}}">
+                <view class="flex-sub cu-card case shadow-warp bg-white ">
+                    <view class="cu-item shadow">
+                        <view class="image">
+                            <image mode="widthFix" src="{{scimgurl}}{{item.XF_PLU}}/{{item.IMAGESSL}}" style="position: relative; left: 0rpx; top: -2rpx"></image>
+                        </view>
+                        <view class="cu-list menu menu-avatar">
+                            <view class="cu-item">
+                                <view class="content ">
+                                    <view class="text-grey" style="font-weight: 700;height:3rem;margin-left: 5px;">{{item.XF_DESCI}}</view>
+                                    <view class="" style="display: flex;width:100%;">
+                                        <view style="width:20%;font-size: 9px;color:rgb(195,167,105);margin-left: 10px;"> 当前</view>
+                                        <view style="width:50%;color:red;font-weight: 700;font-size: 15px;" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
+                                        <view style="width:50%;color:rgb(195,167,105);font-weight: 700;font-size: 15px;margin-left: 5px;" wx:else> ¥ {{item.XF_ORGUPRICE}}</view>
+                                        <view class="container icon-cart" style="height:30px;width:50%; color: rgb(195,167,105);;margin-top:-5px;font-weight: 700;font-size: 17px;"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </navigator>
+         
+        </block>
+    </view>
+
+   
+</view>

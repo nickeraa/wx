@@ -16,6 +16,7 @@
         </view>
     </view>
     <view style="width:90%;height: 0.5px;background-color: rgb(243, 229, 229);margin:0 auto;justify-content: center;display: flex;"></view>
+    <view hidden='{{yk}}'>
     <view style="display: flex;width: 100%;">
         <view style="width: 80%;margin:20px 0px 0px 20px;">
             <text>{{address1}}</text>
@@ -39,6 +40,7 @@
             <text>{{phone}}</text>
         </view>
     </view>
+</view>
 </view>
 <view class="cu-list menu card-menu margin-top-xl  shadow-lg">
     <view class="canui-order-item bg-white">

@@ -4,10 +4,8 @@
     </view>
 </view>
 <view class="cu-bar bg-white fixed" style="top:{{CustomBar}}px;display: flex;width:100%;">
-    <view style="margin:0px 10px 0px 20px;width:20%;">
-        <text bindtap="back" class="icon-back" style="margin-top: 5px;width: 20px;"></text>
-    </view>
-    <view style="width:80%;align-items: center;justify-content: center;">
+
+    <view style="width:100%;align-items: center;justify-content: center;text-align: center;">
         <text style="font-size: 16px;font-weight: 800;color:black;">{{xf_desci}}</text>
     </view>
 </view>
@@ -118,32 +116,16 @@
             </view>
         </view>
         <view style="background-color: white;height: 3rem;margin-top: 7rem;"></view>
-        <view class="btns">
-            <view class="cu-list  grid col-{{gridCol}} {{gridBorder?'':'no-border'}}" style="width: 50%;margin-top: 5px;">
-                <view class="cu-item" style="margin-top: -15px;" wx:for="{{iconList}}" wx:key="icon">
-                    <view catchtap="setype" class="icon-{{item.icon}} text-{{item.color}}" data-name="{{item.name}}" style="font-size: 16px;">
-                        <text style="font-size: 12px;color:{{item.color}}">{{item.name}}</text>
-                    </view>
-                </view>
-            </view>
-            <view class="view_qipao" style="width: 4.5%;margin-left: -2.2rem;margin-top: 4px;" wx:if="{{n>0}}">
-                <text class="text_qipao">{{n}}</text>
-            </view>
-            <view style="width:60%;margin-top: 5px;" wx:if="{{vipcode||wxuserid}}">
-                <button bindtap="gwjs" class="submitbtn" style="margin-top: 10px;">
+        <view class="btns" style='text-align: center;align-items: center;justify-content: center;'>
+
+      
+            <view style="width:30%;" >
+
+                <button bindgetphonenumber="onGetPhoneNumbergm" class="sub" openType="getPhoneNumber" >
                     <text> 立即购买</text>
                 </button>
-                <button bindtap="gw" class="submitbtns" style="margin-top: 10px;">
-                    <text> 加入购物车 </text>
-                </button>
+         
             </view>
-            <view style="width:60%;margin-top: 5px;" wx:else>
-                <button bindgetphonenumber="onGetPhoneNumbergm" class="submitbtn" openType="getPhoneNumber" style="margin-top: 10px;">
-                    <text> 立即购买 </text>
-                </button>
-                <button bindgetphonenumber="onGetPhoneNumbergwc" class="submitbtns" openType="getPhoneNumber" style="margin-top: 10px;">
-                    <text> 加入购物车 </text>
-                </button>
-            </view>
+ 
         </view>
     </view>
