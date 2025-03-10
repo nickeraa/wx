@@ -299,6 +299,20 @@
     </view>
 </view>
 
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="qhlist" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{tzimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">到店取货查询</text>
+        </view>
+    </view>
+</view>
+
+
+
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="sclist" class=" ">
         <view style="margin-left:1rem;">

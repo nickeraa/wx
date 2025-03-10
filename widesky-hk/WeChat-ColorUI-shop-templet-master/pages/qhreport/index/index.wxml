@@ -1,0 +1,173 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>到店取货查询 </navigator>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;">
+    <view style="height:7rem;background-color:white;"></view>
+
+    <view class="page" style="margin-top:5px;background-color:white;">
+        <view class="picker_group " style="margin-left:-12px;">
+            <view class="title icon-title text-orange up" style="font-size:15px;">顾客下单日期：</view>
+            <picker bindchange="bindDateChange" end="{{date2}}" mode="date" value="{{date}}">
+                <view class="picker"> {{date}} </view>
+            </picker> 至 <picker bindchange="bindDateChange2" end="2050-01-01" mode="date" start="{{date}}" value="{{date2}}">
+                <view class="picker"> {{date2}} </view>
+            </picker>
+        </view>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">顾客手机号：</view>
+        <input bindinput="getphone" class="radius dp" name="phone" placeholder="请输入顾客手机号查询" value="{{phone}}"></input>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="vip_sort" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询明细</button>
+    </view>
+    <view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="margin-top: 1rem;" wx:for="{{replu}}" wx:key="index">
+        <view class="canui-order-item bg-white">
+            <view class="head-title-box" style="margin: 0px 0px 0px 20px;">
+                <view style="height: 10px;"></view>
+                <text class="icon-shop"></text>
+                <text style="margin-left: 5px;">广天藏品</text>
+            </view>
+            <view catchtap="selectsku" data-XF_PLU="{{shopItem.XF_PLU}}" wx:for="{{item.shop}}" wx:for-item="shopItem" wx:key="index">
+                <view class="Grid-sku" style="border-radius:8px;background-color:white;margin:5px 0px 5px 0px;">
+                    <view style="margin-left:10px;margin-top:15px;height:100px;width:100px;">
+                        <image mode="widthFix" src="{{scimgurl}}{{shopItem.XF_PLU}}/{{shopItem.IMAGESSL}}" style="border-radius: 5px;"></image>
+                    </view>
+                    <view style="margin-left:15px;width:70%;margin-top:10px;">
+                        <view>
+                            <text>{{shopItem.XF_DESCI}}</text>
+                        </view>
+                        <view>
+                            <text>编号：{{shopItem.XF_PLU}}</text>
+                        </view>
+                        <view style="display: flex;width:100%;">
+                            <view style="color:rgb(195,167,105);margin-top:8px;width:30%;margin-left:3px;">
+                                <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);">{{shopItem.XF_PRICE}}</text>
+                            </view>
+                            <view style="width: 70%;margin-top:2px;text-align: right;margin-right: 8px;">
+                                <view class="cu-btn" style="background-color:rgb(243, 244, 246);height: 25px;width:10%;font-size: 12px;">X</view>
+                                <view class="cu-btn" style="background-color:rgb(243, 244, 246);height: 25px;margin-left: 3px;margin-top:5px;width:10%;">{{shopItem.XF_QTY}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 共 <text style="font-weight: 700;color:rgb(195,167,105);">{{item.SUMQTY}}</text> 件商品 </view>
+                    <view class="action"> 小计： <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.SUMPRICE}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <view class="cu-list menu bg-white solid-bottom canui-selet" wx:if="{{item.TAGS=='销售单已付款'}}">
+                <view class="cu-item">
+                    <view class="content"> 已付金额： </view>
+                    <view class="action">
+                        <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.PAY_AMTSOLDS}}</text>
+                    </view>
+                </view>
+            </view>
+ 
+
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 商城单号： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:blue;">{{item.XF_DOCNO}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <view  wx:if="{{item.TAGS=='销售单已取货'}}"  class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 取货日期： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:blue;">{{item.XF_DOCNO}}</text>
+                    </view>
+                
+                </view>
+                </view>
+
+                <view class="cu-list menu bg-white solid-bottom canui-selet">
+                    <view class="cu-item">
+                        <view class="content"> 科传单号： </view>
+                        <view class="action">
+                            <text style="font-size: 14px;font-weight: 700;">{{item.KCXF_DOCNO}}</text>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="cu-list menu bg-white solid-bottom canui-selet">
+                    <view class="cu-item">
+                        <view class="content"> 警示： </view>
+                        <view class="action">
+                            <text style="font-size: 14px;font-weight: 700;">此销售单已取货，不能重复取货</text>
+                        </view>
+                    </view>
+                </view>
+
+        
+
+
+            <view  wx:if="{{item.TAGS=='已发快递不能取货'}}">
+           
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                    <view class="cu-item">
+                        <view class="content"> 收货人： </view>
+                        <view class="action">
+                            <text style="font-size: 14px;font-weight: 700;">{{item.BODY}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="cu-list menu bg-white solid-bottom canui-selet">
+                    <view class="cu-item">
+                        <view class="content"> 收货电话： </view>
+                        <view class="action">
+                            <text style="font-size: 14px;font-weight: 700;">{{item.PHONE}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="cu-list menu bg-white solid-bottom canui-selet">
+                    <view style='display: flex;width: 100%;'>
+                        <view style='width: 30%;margin-left: 15px;'> 收货地址： </view>
+                        <view class="action" style='margin-left: 10px;'>
+                            <text style="font-size: 14px;font-weight: 700;">{{item.ADDRESS}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="cu-list menu bg-white solid-bottom canui-selet">
+                    <view style='display: flex;width: 100%;'>
+                        <view style='width: 30%;margin-left: 15px;'> 警示： </view>
+                        <view class="action" style='margin-left: 10px;'>
+                            <text style="font-size: 14px;font-weight: 700;">此销售单已发快递，不能到店取货</text>
+                        </view>
+                    </view>
+                </view>
+ 
+            </view>
+
+
+
+            <view  wx:if="{{item.TAGS=='销售单已付款未取货'}}">
+           
+               <view class="cu-list menu bg-white solid-bottom canui-selet">
+                   <view style='display: flex;width: 100%;'>
+                       <view style='width: 30%;margin-left: 15px;'> 可取货： </view>
+                       <view class="action" style='margin-left: 10px;'>
+                           <text style="font-size: 14px;font-weight: 700;">电脑开单请注意输入正确的商城单号</text>
+                       </view>
+                   </view>
+               </view>
+
+           </view>
+
+
+
+ 
+        </view>
+    </view>
+</view>

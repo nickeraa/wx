@@ -189,6 +189,17 @@ Page({
       },
     });
   },
+
+qhlist()
+{
+
+  wx.navigateTo({ url: "/pages/qhreport/index/index" });
+
+
+},
+
+
+
   selectmaps: function (o) {
     e = new n({ key: "B5QBZ-SYKKN-22JF2-SBYNV-G5L67-F7BYX" });
     var t = wx.getStorageSync("oldLocation").split(",");

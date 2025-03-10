@@ -6,14 +6,14 @@
 </view>
 <view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
     <view class="cu-form-group">
-        <view class="title icon-title text-orange">选择项目：</view>
-        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="ITEMNAME" style="margin-left:1rem;margin-top:3px;" value="{{picker2[index2].ITEMNAME}}">
+        <view class="title icon-title text-orange" style="margin-left:-10px;">选择项目：</view>
+        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="ITEMNAME" style="margin-left:-20px;margin-top:3px;" value="{{picker2[index2].ITEMNAME}}">
             <view class="picker dp ">
                 <text>{{index2?picker2[index2].ITEMNAME:'请选择查询项目'}}</text>
-                <text class="cuIcon-triangledownfill"></text>
+                <text class="cuIcon-triangledownfill" style="margin-left:-40px;"></text>
             </view>
         </picker>
-        <view class="action" style="margin-left:1rem;">
+        <view class="action" style="margin-left:10px;">
             <button bindtap="search" class="cu-btn bg-gradual-green shadow-blur round">搜索</button>
         </view>
     </view>
