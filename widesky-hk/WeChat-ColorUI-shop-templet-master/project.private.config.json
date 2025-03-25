@@ -7,6 +7,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "订单通知",
+          "pathName": "pages/deposit/index/index",
+          "query": "xf_docno=SSC0000049",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/home/index/index",
           "pathName": "pages/home/index/index",
           "query": "",
@@ -28,13 +35,6 @@
           "name": "pages/home/index/index",
           "pathName": "pages/home/index/index",
           "query": "",
-          "scene": null
-        },
-        {
-          "name": "订单通知",
-          "pathName": "pages/deposit/index/index",
-          "query": "xf_docno=SSC0000003",
-          "launchMode": "default",
           "scene": null
         }
       ]

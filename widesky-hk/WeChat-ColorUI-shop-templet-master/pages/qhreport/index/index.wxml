@@ -85,9 +85,18 @@
 
             <view class="cu-list menu bg-white solid-bottom canui-selet">
                 <view class="cu-item">
+                    <view class="content"> 下单时间： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;">{{item.XF_TXDATE}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
                     <view class="content"> 科传单号： </view>
                     <view class="action">
-                        <text style="font-size: 14px;font-weight: 700;">{{item.KCXF_DOCNO}}</text>
+                        <text style="font-size: 14px;font-weight: 700;color:red;">{{item.KCXF_DOCNO}}</text>
                     </view>
                 </view>
             </view>
@@ -99,11 +108,22 @@
                     <view class="cu-item">
                         <view class="content"> 取货日期： </view>
                         <view class="action">
-                            <text style="font-size: 15px;color:blue;">{{item.XF_DOCNO}}</text>
+                            <text style="font-size: 15px;">{{item.KC_UPDATETIME}}</text>
                         </view>
 
                     </view>
                 </view>
+
+                <view class="cu-list menu bg-white solid-bottom canui-selet">
+                    <view class="cu-item">
+                        <view class="content"> 取货店铺： </view>
+                        <view class="action">
+                            <text style="font-size: 15px;">{{item.KC_STORECODE}}</text>
+                        </view>
+
+                    </view>
+                </view>
+
                 <view class="cu-list menu bg-white solid-bottom canui-selet">
                 <view class="cu-item">
                     <view class="content icon-close" style="color: red;font-weight: 700;"> 不能取货： </view>

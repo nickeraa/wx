@@ -14,7 +14,7 @@
                 </view>
                 <view class="cu-form-group">
                     <view class="title cuIcon-title text-orange">登录密码：</view>
-                    <input bindinput="getcompasswordValue" class="radius dp" name="compassword" type="password" value="{{compassword}}"></input>
+                    <input bindinput="getcompasswordValue" class="radius dp" name="compassword" password value="{{compassword}}"></input>
                 </view>
                 <view class="cu-form-group"></view>
             </view>
