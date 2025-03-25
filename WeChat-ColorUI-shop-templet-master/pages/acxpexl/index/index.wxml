@@ -5,7 +5,7 @@
     </view>
 </view>
 <view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
-    <view class="cu-form-group">
+    <view class="cu-form-group" style='display: flex;width: 100%;flex-wrap:wrap;'>
         <view class="title icon-title text-orange">选择系列：</view>
         <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="ITEMNAME" style="margin-left:1rem;margin-top:3px;" value="{{picker2[index2].ITEMNAME}}">
             <view class="picker dp ">
