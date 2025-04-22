@@ -343,7 +343,7 @@ Page({
               this.data.count +
               "款货品 ...",
             path:
-              "/pages/home/index/index?vipcode=" +
+              "/pages/homerm/index/index?vipcode=" +
               this.data.vipcode +"&fnumber="+this.data.fnumber+
               "&tj=1&yguserid=" +
               wx.getStorageSync("yguserid"),

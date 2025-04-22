@@ -19,6 +19,8 @@ App({
         wx.setStorageSync("yguserid", t.referrerInfo.extraData.yguserid),
         wx.removeStorageSync("vipcode"),
         wx.setStorageSync("vipcode", t.referrerInfo.extraData.vipcode),
+        wx.removeStorageSync("fnumber"),
+        wx.setStorageSync("fnumber", t.referrerInfo.extraData.fnumber),
         console.log(wx.getStorageSync("yguserid")));
         
     var e = wx.getUpdateManager();

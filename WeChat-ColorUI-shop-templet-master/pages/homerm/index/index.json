@@ -1,1 +1,7 @@
-{ "enablePullDownRefresh": true, "usingComponents": {} }
+{
+  "navigationBarTitleText": "下拉刷新",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#fff",
+  "backgroundTextStyle": "dark",
+  "usingComponents": {}
+}

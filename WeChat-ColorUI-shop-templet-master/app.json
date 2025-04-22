@@ -1,5 +1,7 @@
 {
   "pages": [
+
+
     "pages/party/index/index",
     "pages/1WGYB1029/goods/index",
     "pages/home/index/index",
@@ -67,6 +69,12 @@
     "list": [
       {
         "pagePath": "pages/home/index/index",
+        "text": "首页",
+        "iconPath": "img/basics.png",
+        "selectedIconPath": "img/basics_cur.png"
+      },
+      {
+        "pagePath": "pages/homerm/index/index",
         "text": "我的推荐",
         "iconPath": "img/basics.png",
         "selectedIconPath": "img/basics_cur.png"

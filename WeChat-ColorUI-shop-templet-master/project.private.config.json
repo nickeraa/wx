@@ -9,6 +9,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "会员打开分享链接",
+          "pathName": "pages/homerm/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "首页",
           "pathName": "pages/home/index/index",
           "query": "",
@@ -19,13 +26,6 @@
           "name": "金钞",
           "pathName": "pages/1WGYB1029/goods/index",
           "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "会员打开分享链接",
-          "pathName": "pages/home/index/index",
-          "query": "vipcode=800810046848&tj=1&yguserid=0005&fnumber=0005638593299514490000",
           "launchMode": "default",
           "scene": null
         },

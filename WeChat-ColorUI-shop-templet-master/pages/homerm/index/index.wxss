@@ -148,3 +148,11 @@ page {
 .video_txt {
   margin: 10px 70px 0 20px;
 }
+.container {
+  align-items: center;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  vertical-align: center;
+}
