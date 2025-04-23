@@ -11,7 +11,7 @@
         {
           "name": "会员打开分享链接",
           "pathName": "pages/homerm/index/index",
-          "query": "",
+          "query": "vipcode=99880005137&yguserid=YXY&fnumber=3490749476867&tj=1",
           "launchMode": "default",
           "scene": null
         },

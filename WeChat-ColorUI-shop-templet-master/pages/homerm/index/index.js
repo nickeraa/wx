@@ -269,6 +269,7 @@ Page({
       console.log(wx.getStorageSync("fxuserid")),
 
     e.vipcode && wx.setStorageSync("vipcode", e.vipcode),
+    e.fnumber && wx.setStorageSync("fnumber", e.fnumber),
       e.tj && wx.setStorageSync("tj", e.tj),
       e.yguserid && wx.setStorageSync("yguserid", e.yguserid),
       e.wxuserid && wx.setStorageSync("wxuserid", e.wxuserid),

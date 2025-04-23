@@ -135,7 +135,9 @@
         <view class="title icon-title text-orange up">跟进员工：</view>
         <text class="text-grey">{{xf_name}}</text>
     </view>
-    <view style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 3rem;padding-top: 2rem;">
+
+
+    <view  style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 3rem;padding-top: 2rem;">
         <button class="cu-btn round  bg-gradual-green" openType="share" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 分享货品给此客户</button>
     </view>
 </view>

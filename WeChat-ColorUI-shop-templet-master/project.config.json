@@ -11,9 +11,10 @@
     "ignoreUploadUnusedFiles": false,
     "coverView": false,
     "postcss": false,
-    "enhance": false,
+    "enhance": true,
     "showShadowRootInWxmlPanel": false,
-    "packNpmRelationList": []
+    "packNpmRelationList": [],
+    "es6": true
   },
   "editorSetting": {
     "tabIndent": "insertSpaces",

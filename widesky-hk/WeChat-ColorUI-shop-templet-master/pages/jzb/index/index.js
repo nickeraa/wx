@@ -679,6 +679,9 @@ qhlist()
       : wx.navigateTo({ url: "/pages/qglogins/index" });
   },
   xl: function () {
+
+console.log(wx.getStorageSync("userid"))
+
     wx.getStorageSync("job")
       ? wx.showModal({
           title: "提示",
