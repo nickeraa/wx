@@ -312,10 +312,10 @@ Page({
           a.data.length > 0
             ? (t.setData({
                 replu: a.data,
-                sumprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
-                realprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
+                sumprice: parseFloat(a.data[0].REALPRICE).toFixed(2)*t.data.qty,
+                realprice: parseFloat(a.data[0].REALPRICE).toFixed(2)*t.data.qty,
                 xishu: a.data[0].XISHU,
-                sumrealprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
+                sumrealprice: parseFloat(a.data[0].REALPRICE).toFixed(2)*t.data.qty,
                 xf_desci: a.data[0].XF_DESCI,
                 sorts: a.data[0].SORTS,
               }),
