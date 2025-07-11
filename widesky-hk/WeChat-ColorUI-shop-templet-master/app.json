@@ -4,6 +4,9 @@
   
     "pages/home/index/index",
     "pages/fhstocks/index/index",
+    "pages/viphz/index/index",
+    "pages/viplp/index/index",
+    "pages/viphzlist/index/index",
     "pages/cqlist/index/index",
     "pages/cqnumber/index/index",
     "pages/dqcode/index/index",

@@ -1,0 +1,57 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>明细查询 </navigator>
+    </view>
+</view>
+<view style="height:7rem;background-color:white;"></view>
+
+<view class="canui-order-item ">
+ 
+    <view style="margin-top: 0.6rem;">
+        <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 3rem;padding: 0.6rem;">
+      
+            <view class="stp" style="width:40%;">
+                <text>会员卡号</text>
+            </view>
+            <view class="stp" style="width:40%;">
+                <text>会员姓名</text>
+            </view>
+            <view class="stp" style="width:40%;">
+                <text>会员等级</text>
+            </view>
+            <view class="stp" style="width:40%;">
+                <text>归属员工</text>
+            </view>
+            <view class="stp" style="width:40%;">
+                <text>签到时间</text>
+            </view>
+        </view>
+    </view>
+</view>
+<view bindtap="newsaleslist"  style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+    <view class="Grid-sku" style="height:3.5rem;padding: 0.6rem;display: flex;width: 100%;">
+        <view class="stp" style="margin-left:5px;width:20%;margin-top: 5px;">
+            <text class=""> {{item.XF_VIPCODE}}</text>
+        </view>
+        <view class="stp" style="width:30%;margin-top: 5px;margin-left: 20px;">
+            <text class=""> {{item.XF_SURNAME}} </text>
+        </view>
+        <view class="stp" style="width:30%;margin-top: 5px;margin-left: 20px;">
+            <text class=""> {{item.GRADE}} {{item.XF_ADDRESS1}} </text>
+        </view>
+        <view wx:if="{{item.XF_DEFSALESMAN}}" class="stp" style="width:30%;margin-top: 5px;">
+            <text class=""> {{item.XF_DEFSALESMAN}} {{item.XF_NAME}} </text>
+        </view>
+        <view wx:else class="stp" style="width:30%;margin-top: 5px;">
+            <text class=""> 无 </text>
+        </view>
+
+        <view class="stp" style="width:30%;margin-top: 5px;">
+            <text class=""> {{item.ENTIME}} </text>
+        </view>
+
+    
+    </view>
+    <view style="height:3px;background-color:white;"></view>
+</view>

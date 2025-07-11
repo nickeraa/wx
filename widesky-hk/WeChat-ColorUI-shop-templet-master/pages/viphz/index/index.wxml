@@ -1,0 +1,91 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>汇总查询 </navigator>
+    </view>
+</view>
+<view style="height:7rem;background-color:white;"></view>
+
+<view style="background-color: white;padding-bottom: 10px;">
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">展会活动查询：</view>
+        <picker bindchange="bindPickerChange3" range="{{picker3}}" rangeKey="ZHNAME" value="{{picker3[index3].ZHNAME}}">
+            <view class="picker dp ">
+                <text>{{index3?picker3[index3].ZHNAME:'请选择展会活动'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+</view>
+
+<view class="page" style="margin-top:5px;background-color:white;">
+    <view class="picker_group " style="margin-left:-35px;">
+      
+        <picker   mode="multiSelector" value="{{dateTime1}}" bindchange="changeDateTime1" bindcolumnchange="changeDateTimeColumn1" range="{{dateTimeArray1}}">
+            <view class="picker"> {{dateTimeArray1[0][dateTime1[0]]}}-{{dateTimeArray1[1][dateTime1[1]]}}-{{dateTimeArray1[2][dateTime1[2]]}} {{dateTimeArray1[3][dateTime1[3]]}}:{{dateTimeArray1[4][dateTime1[4]]}} </view>
+
+        </picker> 至 
+        <picker   mode="multiSelector" value="{{dateTime2}}" bindchange="changeDateTime2" bindcolumnchange="changeDateTimeColumn2" range="{{dateTimeArray2}}">
+            <view class="picker"> {{dateTimeArray2[0][dateTime2[0]]}}-{{dateTimeArray2[1][dateTime2[1]]}}-{{dateTimeArray2[2][dateTime2[2]]}} {{dateTimeArray2[3][dateTime2[3]]}}:{{dateTimeArray2[4][dateTime2[4]]}} </view>
+
+        </picker> 
+    </view>
+</view>
+
+<view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+    <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询数据</button>
+</view>
+<view class="canui-order-item " hidden="{{rv}}">
+ 
+    <view class="head-title-box bg-white" style="height:3rem;">
+    <view style='padding-top: 10px;font-size: 18px;'>
+        <text class="icon-shop" style="margin-left:1rem;"></text>
+        <text calss="sp" style="margin-left:3px;">公司总计：</text>
+        <text class="icon-right"></text>
+        <text style="color:red;">{{gssum}}人</text>
+        <view class="head-title-box sp solid-bottom "></view>
+    </view>
+    </view>
+    <view style="margin-top: 0.6rem;">
+        <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 3rem;padding: 0.6rem;">
+            <view class="stp" style="margin-left:1.5rem;width:15%;">
+                <text> 店号</text>
+            </view>
+            <view class="stp" style="margin-left:3rem;width:50%;">
+                <text> 店铺名称</text>
+            </view>
+            <view class="stp" style="width:40%;">
+                <text>客人签到数量</text>
+            </view>
+
+        </view>
+    </view>
+</view>
+<view bindtap="newsaleslist"  data-xf_issuestore="{{item.XF_ISSUESTORE}}" hidden="{{rv}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+    <view class="Grid-sku" style="height:3.5rem;padding: 0.6rem;">
+        <view class="stp" style="margin-left:1.5rem;width:20%;margin-top: 10px;">
+            <text class=""> {{item.XF_ISSUESTORE}}</text>
+        </view>
+        <view class="stp" style="margin-left:1.5rem;width:50%;margin-top: 10px;">
+            <text class=""> {{item.STORENAME}} </text>
+        </view>
+        <view class="stp" style="margin-left:2rem;width:30%;margin-top: 10px;">
+            <text class=""> {{item.DPSUM}} </text>
+        </view>
+   
+    
+    </view>
+    <view style="height:3px;background-color:white;"></view>
+</view>
+<wxs module="subData">
+module.exports = (function(val) {
+    if (val == undefined || val == '' || val == null) {
+        return
+    };
+    if (val.length > 10) {
+        return (val.substring(0, 10))
+    } else {
+        return (val)
+    }
+});
+</wxs>

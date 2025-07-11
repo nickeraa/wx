@@ -295,19 +295,32 @@
 <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">
         <text class="title icon-title text-orange"></text>
-        <text style="color:black;font-weight:bold;">商城订单管理</text>
+        <text style="color:black;font-weight:bold;">展会活动查询</text>
     </view>
 </view>
 
 
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
-    <view bindtap="qhlist" class=" ">
+    <view bindtap="qdhz" class=" ">
         <view style="margin-left:1rem;">
             <image src="{{tzimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
         </view>
         <view style="margin-top:-2rem;margin-left:6rem;">
-            <text class="text-black">到店取货查询</text>
+            <text class="text-black">会员签到统计</text>
         </view>
+       
+    </view>
+</view>
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="lphz" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">礼品领取统计</text>
+        </view>
+       
     </view>
 </view>
 
@@ -356,6 +369,7 @@
     </view>
 </view>
 -->
+<!-- 
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="checknumber">
         <view style="margin-left:1rem;">
@@ -365,7 +379,7 @@
             <text class="text-black">修改微信商城单据号</text>
         </view>
     </view>
-</view>
+</view> -->
 <view class="cu-form-group sp">
     <button bindtap="gzmessage" class="cu-btn canui-color-gradual shadow-blur round lg sp"> 关注公众号接收微信通知</button>
 </view>
