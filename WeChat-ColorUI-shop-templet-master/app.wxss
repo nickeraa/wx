@@ -3755,8 +3755,7 @@ scroll-view.cu-steps .cu-item {
   color: #888;
 }
 .bg-gradual-red {
-  background-image: linear-gradient(45deg, #f43f3b, #ec008c);
-  color: #fff;
+  background-image: linear-gradient(45deg,#ff9700,#ed1c24);
 }
 .bg-gradual-orange {
   background-color: #c3a769;
@@ -3771,7 +3770,7 @@ scroll-view.cu-steps .cu-item {
   color: #fff;
 }
 .bg-gradual-pink {
-  background-image: linear-gradient(45deg, #ec008c, #6739b6);
+  background-image: linear-gradient(45deg, #eceb88, #ecd92b);
   color: #fff;
 }
 .bg-gradual-blue {

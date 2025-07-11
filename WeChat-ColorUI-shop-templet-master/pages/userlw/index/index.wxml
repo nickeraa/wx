@@ -1,0 +1,150 @@
+<view class="cu-custom bg-white" style="height:50px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">会员领取礼品</view>
+    </view>
+</view>
+<view>
+    <image mode="widthFix" src="{{banner}}{{images}}" style="width: 100%;height:200px;"></image>
+</view>
+<view style=" justify-content: center;width:100%;display: flex;">
+    <view class="bgvip">
+        <text style="color:gray;font-weight: 400;width: 50%;margin-left: 20px;">广天藏品</text>
+        <text wx:if="{{checkflag}}" class="icon-roundcheck" style="color:rgb(4, 173, 69);font-weight: 500;width:70%;font-size: 28px;">
+            <text style='color:white;font-size: 18px;'> {{vip}}</text>
+
+        </text>
+        <text wx:else style="color:gray;font-weight: 500;width:50%;">{{vip}}</text>
+
+    </view>
+</view>
+
+<view wx:if="{{flaghy!=true&&note=='核验会员资质'}}" class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:4rem;background-color:white;margin-top:0.5rem;">
+
+    <view style="margin-left:1rem;">
+        <image src="/img/my.png" style="width:2.5rem;height:2.5rem;margin-top:1rem;margin-left: -4px;"></image>
+
+        <view style="margin-top:-3rem;height: 100px;">
+            <button bindtap="hy" class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: right;margin-right: 7rem;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
+                <text> {{note}} </text>
+
+            </button>
+
+        </view>
+    </view>
+</view>
+
+
+
+<view wx:if="{{flaghy!=true&&note=='领取礼品'}}" class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:4rem;background-color:white;margin-top:0.5rem;">
+
+    <view style="margin-left:1rem;">
+        <image src="/img/my.png" style="width:2.5rem;height:2.5rem;margin-top:1rem;margin-left: -4px;"></image>
+
+        <view style="margin-top:-3rem;">
+            <button bindgetphonenumber="onGetPhoneNumber" openType="getPhoneNumber" class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: right;margin-right: 7rem;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
+                <text> {{note}} </text>
+
+            </button>
+
+        </view>
+    </view>
+</view>
+
+
+
+<view wx:if="{{!checkqd}}" class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:4rem;background-color:white;margin-top:0.5rem;">
+
+    <view style="margin-left:1rem;">
+        <image src="/img/my.png" style="width:2.5rem;height:2.5rem;margin-top:1rem;margin-left: -4px;"></image>
+
+        <view style="margin-top:-3rem;">
+            <button bindtap="qd" class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: right;margin-right: 7rem;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
+                <text > 点击签到 </text>
+            </button>
+        </view>
+    </view>
+</view>
+
+
+
+<view wx:if="{{flagcard!=true}}" class="cu-list menu card-menu margin-top-xl  shadow-lg" style="background-color:white;margin-top:0.5rem;">
+    <view class="cu-form-group" style="height:5rem;margin-left:-1rem;width: 100%;">
+        <view class="cu-form-group" style="width:80%;">
+            <view class="title icon-title text-orange">会员卡号：</view>
+            <input bindinput="getvipcode" name="qdvipcode" placeholder="请输入卡号查询" value="{{qdvipcode}}"></input>
+        </view>
+        <view style="width:25%;">
+            <button bindtap="search" class="cu-btn bg-gradual-orange shadow-blur round" style="width:100%;height: 2.8rem;font-size: 20px;">搜索</button>
+        </view>
+    </view>
+</view>
+
+<view wx:if="{{flagvip!=true}}" class="cu-list menu card-menu margin-top-xl  shadow-lg" style="background-color:white;margin-top:0.5rem;">
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">会员姓名：</view>
+        <input disabled class="radius dp" style='color:gray;' name="vipname" placeholder="" value="{{vipname}}"></input>
+    </view>
+    <view wx:if="{{grade=='银卡贵宾'}}" class="cu-form-group">
+        <view class="title icon-title text-orange up">会员等级：</view>
+        <input disabled class="radius dp" name="grade" style='color:gray;' placeholder="" value="{{grade}} {{xf_address1}}"></input>
+    </view>
+    <view wx:else class="cu-form-group">
+        <view class="title icon-title text-orange up">会员等级：</view>
+        <input class="radius dp" class="cu-btn bg-gradual-pink" style="float: right;margin-right: 7rem;margin-top: 3px;" name="grade" placeholder="" value="{{grade}} {{xf_address1}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">注册店铺：</view>
+        <input disabled class="radius dp" name="storecode" style='color:gray;' placeholder="" value="{{storecode}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">签到时间：</view>
+        <input disabled class="radius dp" name="storecode" style='color:gray;' placeholder="" value="{{qddate}}"></input>
+    </view>
+</view>
+
+<view wx:if="{{flagqd!=true}}" style="margin-top: 2rem;justify-content: center;display: flex; align-items: center;margin-bottom: 3rem;">
+    <button bindtap="qds" class="cu-btn bg-gradual-red shadow-blur round" style='color:white;height: 2.8rem;font-size: 20px;'>确认签到</button>
+</view>
+
+<block wx:if="{{ylq}}">
+    <view style=" justify-content: center;width:100%;display: flex;margin-top: 2rem;">
+        <view class="icon-roundcheck" style="color:rgb(4, 173, 69);font-weight: 500;width:15%;font-size: 50px;">
+        </view>
+    </view>
+    <view style='font-size: 25px;justify-content: center;width:100%;display: flex;color:rgb(4, 173, 69);margin-top: 0.5rem;'> 已领取</view>
+</block>
+
+<block wx:if="{{dlq}}">
+    <view style=" justify-content: center;width:100%;display: flex;margin-top: 2rem;">
+
+
+        <view class="icon-roundcheck" style="color:rgb(173, 4, 4);font-weight: 500;width:15%;font-size: 50px;">
+        </view>
+
+    </view>
+
+    <view style='font-size: 25px;justify-content: center;width:100%;display: flex;color:rgb(173, 4, 4);margin-top: 0.5rem;'> 待领取</view>
+</block>
+
+<block wx:if="{{hb}}">
+    <view style=" justify-content: center;width:100%;display: flex;margin-top: 2rem;">
+        <view class="icon-roundcheck" style="color:gold;font-weight: 500;width:15%;font-size: 50px;">
+        </view>
+    </view>
+    <view style='font-size: 25px;justify-content: center;width:100%;display: flex;color:gold;margin-top: 0.5rem;'> 候补</view>
+</block>
+
+<view bindtap='hx' wx:if="{{tx}}" style="margin:30px 0px 0px 20px;font-size: 20px;margin-bottom: 2rem;">
+    <text style="color: #436EEE;">※  </text>
+    <text>请向工作人员展示此界面，领取礼品</text>
+</view>
+
+<view wx:if="{{hx}}"  style="margin-top:1.5rem;margin-bottom: 8rem;">
+    <button bindtap="hb" class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: right;margin-right: 4rem;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
+        <text> 登记候补 </text>
+    </button>
+
+    <button bindtap="ff" class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: right;margin-right: 7rem;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
+        <text> 已发放 </text>
+    </button>
+</view>
