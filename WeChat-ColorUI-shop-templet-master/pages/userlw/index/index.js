@@ -75,7 +75,7 @@ Page({
 
   onShow: function (t) {
 
-   
+
     var a = this;
     wx.request({
       url: e.globalData.api + "wx_listzh.ashx",
@@ -128,18 +128,18 @@ Page({
         if (wx.getStorageSync('vipmessage')) {
 
           a.setData({
-    
+
             flagvip: false,
-     //       flaghy: true
-    
+            //       flaghy: true
+
           })
-  
-    
+
+
         }
-    
-    
-    
-    
+
+
+
+
 
 
 
@@ -165,7 +165,7 @@ Page({
 
         checkqd: true,
         flaghy: true,
-        flagcard:false
+        flagcard: false
 
       });
 
@@ -331,17 +331,17 @@ Page({
             }
           })
 
-          if (wx.getStorageSync('vipmessage')) {
+        if (wx.getStorageSync('vipmessage')) {
 
-            t.setData({
-      
-              flagvip: false,
-       //       flaghy: true
-      
-            })
-    
-      
-          }
+          t.setData({
+
+            flagvip: false,
+            //       flaghy: true
+
+          })
+
+
+        }
 
 
       }
@@ -551,17 +551,17 @@ Page({
 
 
           });
-          if (wx.getStorageSync('vipmessage')) {
+        if (wx.getStorageSync('vipmessage')) {
 
-            t.setData({
-      
-              flagvip: false,
-       //       flaghy: true
-      
-            })
-    
-      
-          }
+          t.setData({
+
+            flagvip: false,
+            //       flaghy: true
+
+          })
+
+
+        }
 
       },
     });
@@ -594,17 +594,17 @@ Page({
             hx: false
           });
 
-          if (wx.getStorageSync('vipmessage')) {
+        if (wx.getStorageSync('vipmessage')) {
 
-            t.setData({
-      
-              flagvip: false,
-       //       flaghy: true
-      
-            })
-    
-      
-          }
+          t.setData({
+
+            flagvip: false,
+            //       flaghy: true
+
+          })
+
+
+        }
 
       },
     });

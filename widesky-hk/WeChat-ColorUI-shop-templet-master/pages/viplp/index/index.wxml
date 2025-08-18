@@ -25,8 +25,8 @@
 <view class="canui-order-item " hidden="{{rv}}">
  
     <view class="head-title-box bg-white" style="height:3rem;">
-    <view style='padding-top: 10px;font-size: 18px;'>
-        <text class="icon-shop" style="margin-left:1rem;"></text>
+    <view style='padding-top: 10px;font-size: 16px;'>
+        <text class="icon-shop" style="margin-left:5px;"></text>
         <text calss="sp" style="margin-left:3px;">已发放礼品总计：</text>
         
         <text style="color:red;">{{sumff}}套</text>
