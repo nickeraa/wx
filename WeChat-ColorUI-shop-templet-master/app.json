@@ -1,10 +1,10 @@
 {
   "pages": [
-  
-  
+
+
     "pages/home/index/index",
-    "pages/userqd/index/index",
     "pages/userlw/index/index",
+    "pages/userqd/index/index",
     "pages/party/index/index",
     "pages/1WGYB1029/goods/index",
     "pages/zthome/index/index",

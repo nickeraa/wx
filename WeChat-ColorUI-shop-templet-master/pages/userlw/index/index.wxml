@@ -23,7 +23,7 @@
     <view style="margin-left:1rem;">
         <image src="/img/my.png" style="width:2.5rem;height:2.5rem;margin-top:1rem;margin-left: -4px;"></image>
 
-        <view style="margin-top:-3rem;height: 100px;">
+        <view style="margin-top:-3.3rem;height: 100px;">
             <button bindtap="hy" class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: right;margin-right: 7rem;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
                 <text> {{note}} </text>
 
@@ -40,7 +40,7 @@
     <view style="margin-left:1rem;">
         <image src="/img/my.png" style="width:2.5rem;height:2.5rem;margin-top:1rem;margin-left: -4px;"></image>
 
-        <view style="margin-top:-3rem;">
+        <view style="margin-top:-3.3rem;">
             <button bindgetphonenumber="onGetPhoneNumber" openType="getPhoneNumber" class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: right;margin-right: 7rem;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
                 <text> {{note}} </text>
 
@@ -57,7 +57,7 @@
     <view style="margin-left:1rem;">
         <image src="/img/my.png" style="width:2.5rem;height:2.5rem;margin-top:1rem;margin-left: -4px;"></image>
 
-        <view style="margin-top:-3rem;">
+        <view style="margin-top:-3.3rem;">
             <button bindtap="qd" class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: right;margin-right: 7rem;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
                 <text > 点击签到 </text>
             </button>
@@ -69,9 +69,9 @@
 
 <view wx:if="{{flagcard!=true}}" class="cu-list menu card-menu margin-top-xl  shadow-lg" style="background-color:white;margin-top:0.5rem;">
     <view class="cu-form-group" style="height:5rem;margin-left:-1rem;width: 100%;">
-        <view class="cu-form-group" style="width:80%;">
+        <view class="cu-form-group" style="width:75%;">
             <view class="title icon-title text-orange">会员卡号：</view>
-            <input bindinput="getvipcode" name="qdvipcode" placeholder="请输入卡号查询" value="{{qdvipcode}}"></input>
+            <input  style='margin-left: -15px;'  bindinput="getvipcode" name="qdvipcode" placeholder="请输入卡号查询" value="{{qdvipcode}}"></input>
         </view>
         <view style="width:25%;">
             <button bindtap="search" class="cu-btn bg-gradual-orange shadow-blur round" style="width:100%;height: 2.8rem;font-size: 20px;">搜索</button>
@@ -90,7 +90,7 @@
     </view>
     <view wx:else class="cu-form-group">
         <view class="title icon-title text-orange up">会员等级：</view>
-        <input class="radius dp" class="cu-btn bg-gradual-pink" style="float: right;margin-right: 7rem;margin-top: 3px;" name="grade" placeholder="" value="{{grade}} {{xf_address1}}"></input>
+        <input class=" radius cu-btn bg-gradual-pink" style="float: right;margin-right: 1rem;margin-top: 3px;" name="grade"  value="{{grade}} {{xf_address1}}"></input>
     </view>
     <view class="cu-form-group">
         <view class="title icon-title text-orange up">注册店铺：</view>
@@ -139,12 +139,22 @@
     <text>请向工作人员展示此界面，领取礼品</text>
 </view>
 
-<view wx:if="{{hx}}"  style="margin-top:1.5rem;margin-bottom: 8rem;">
-    <button bindtap="hb" class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: right;margin-right: 4rem;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
-        <text> 登记候补 </text>
-    </button>
 
-    <button bindtap="ff" class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: right;margin-right: 7rem;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
+<view wx:if="{{hx}}"  style="margin-top:1.5rem;margin-bottom: 8rem;display: flex;width: 100%;">
+
+
+    <view style='width:50%'>
+    <button bindtap="ff" class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: left;margin-left:5px;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
         <text> 已发放 </text>
     </button>
 </view>
+
+<view style='width:50%'>
+    <button bindtap="hb" class="submitbtn cu-btn  shadow-blur round" style="float: right;margin-right: 5px;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;background-color: black;">
+        <text> 登记候补 </text>
+    </button>
+</view>
+
+
+</view>
+
