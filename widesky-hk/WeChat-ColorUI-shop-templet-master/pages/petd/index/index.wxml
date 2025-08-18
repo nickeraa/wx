@@ -1,0 +1,32 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>订金单退配额 </navigator>
+    </view>
+</view>
+<view style="overflow-x: hidden;">
+ 
+    <view class="cu-form-group" style='padding-top: 5rem;'>
+        <view class="title icon-title text-orange">定金单号：</view>
+        <input bindinput="getsnumber" class="radius" name="snumber" placeholder="请输入配额定金单号" value="{{snumber}}"></input>
+    </view>
+
+    <view class="cu-form-group" style='padding-top: 2rem;'>
+        <view class="title icon-title text-orange">货号：</view>
+        <input bindinput="getsku" class="radius" name="xf_plu" placeholder="请输入货号" value="{{xf_plu}}"></input>
+    </view>
+
+
+    <view class="cu-form-group" style='padding-top: 2em;'>
+        <view class="title icon-title text-orange">数量：</view>
+        <input bindinput="getqty" class="radius" name="qty" placeholder="请输入数量" value="{{qty}}"></input>
+    </view>
+
+
+
+
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">退配额</button>
+    </view>
+ 
+</view>

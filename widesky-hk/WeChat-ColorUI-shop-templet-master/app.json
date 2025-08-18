@@ -6,6 +6,8 @@
     "pages/fhstocks/index/index",
     "pages/viphz/index/index",
     "pages/viplp/index/index",
+    "pages/petd/index/index",
+    "pages/pets/index/index",
     "pages/viphzlist/index/index",
     "pages/cqlist/index/index",
     "pages/cqnumber/index/index",
@@ -59,7 +61,7 @@
     "pages/wxcz/index/index",
     "pages/joinus/index",
     "pages/joinuss/index",
-    "pages/joinusstd/index",
+
     "pages/joinusstp/index",
     "pages/joinussth/index",
     "pages/kqlogin/index",
@@ -125,7 +127,6 @@
     "pages/qhjzb/index/index",
     "pages/tpsq/index/index",
     "pages/qxtp/index/index",
-    "pages/atd/index/index",
     "pages/qhreport/index/index",
     "pages/acxpech/index/index",
     "pages/sendcard/index/index",
@@ -145,7 +146,6 @@
     "pages/joinusxs/index",
     "pages/tjlogin/index",
     "pages/vipsku/index/index",
-    "pages/atdxs/index/index",
     "pages/axmcx/index/index"
   ],
   "window": {

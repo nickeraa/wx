@@ -4,6 +4,15 @@
 .Item-top {
   flex: 0 0 100%;
 }
+.Grid-cell {
+  background-color: #efefef;
+  height: 95px;
+  line-height: 95px;
+  margin: 5px 5px 0;
+}
+.Grid-img {
+  flex: 0 0 28%;
+}
 .Grid-name {
   flex: 0 0 75%;
 }
@@ -13,14 +22,14 @@
 }
 .UCenter-bg {
   align-items: center;
-  background-image: url(https://widesky.work/HKback/upload/bg.jpg);
+  background-image: url(https://widesky.work/HKback/upload/bg2.jpg);
   background-size: cover;
   color: #fff;
   display: -webkit-flex;
   display: flex;
   flex-direction: column;
   font-weight: 300;
-  height: 100rpx;
+  height: 550rpx;
   justify-content: center;
   overflow: hidden;
   padding-top: 40rpx;
@@ -30,25 +39,22 @@
 .UCenter-bg text {
   opacity: 0.8;
 }
-.UCenter-bg image {
-  height: 200rpx;
-  width: 200rpx;
-}
 .UCenter-bg .gif-wave {
   bottom: 0;
+  height: 60rpx;
   position: absolute;
   width: 100%;
 }
 .UCenter-bg .gif-wave,
 .mapBox,
 map {
-  height: 100rpx;
   left: 0;
   mix-blend-mode: screen;
   z-index: 99;
 }
 .mapBox,
 map {
+  height: 100rpx;
   height: 300rpx;
   width: 750rpx;
 }
@@ -165,11 +171,6 @@ page {
 .cu-left {
   bottom: 10px;
 }
-.Grid-sku {
-  display: -webkit-flex;
-  display: flex;
-  width: 100%;
-}
 .Item-top {
   display: block;
   margin: 10px;
@@ -186,9 +187,7 @@ page {
   padding: 0 10px;
 }
 .Grid-cell {
-  background-color: #efefef;
   flex: 1;
-  margin: 5px;
   text-align: center;
   width: 30%;
 }
@@ -227,9 +226,6 @@ page {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.textname {
-  font-weight: 700;
-}
 .userinfo {
   border-radius: 50%;
   display: -webkit-flex;
@@ -238,4 +234,36 @@ page {
   overflow: hidden;
   text-align: center;
   width: 185rpx;
+}
+.imgg {
+  height: 40rpx;
+  margin: 0 0-5px 10px;
+  width: 40rpx;
+}
+.imgg,
+.imgp {
+  overflow: hidden;
+}
+.imgp {
+  border-radius: 50%;
+  height: 185rpx;
+  width: 185rpx;
+}
+.tpp {
+  margin: 5px 0 0;
+}
+.mp {
+  margin: 15px 0 0;
+}
+.Grid-sku {
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+}
+.Grid-cell {
+  margin: 5px;
+  width: 20%;
+}
+.sp {
+  margin: 8px 5px 5px;
 }

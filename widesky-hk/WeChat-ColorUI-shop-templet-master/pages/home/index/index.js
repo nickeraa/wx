@@ -33,7 +33,7 @@ Page({
             e.confirm && wx.navigateTo({ url: "/pages/coupon/index/index" });
           },
         })
-      : wx.navigateTo({ url: "/pages/atdxs/index/index" });
+      : wx.navigateTo({ url: "/pages/pets/index/index" });
   },
   scxs: function () {
     wx.getStorageSync("job")
@@ -166,10 +166,10 @@ Page({
           content: "请您验证用户，必须是在职状态才能操作",
           showCancel: !1,
           success: function (e) {
-            e.confirm && wx.navigateTo({ url: "/pages/coupon/index/index" });
+            e.confirm && wx.navigateTo({ url: "/pages/petd/index/index" });
           },
         })
-      : wx.navigateTo({ url: "/pages/atd/index/index" });
+      : wx.navigateTo({ url: "/pages/petd/index/index" });
   },
   onShow: function (n) {
     if (
