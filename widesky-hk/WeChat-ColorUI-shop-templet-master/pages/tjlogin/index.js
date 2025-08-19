@@ -17,11 +17,17 @@ Page({
   getcompasswordValue: function (o) {
     this.setData({ compassword: o.detail.value });
   },
-  onLoad: function (o) {},
+  onLoad: function (o) {
+
+    this.setData({ id: o.id });
+console.log(this.data.id)
+
+  },
   onShow: function () {},
   cklogins: function () {
     if (0 == this.checklogin()) return !1;
     wx.showLoading({ title: "正在检测登录", mask: !0 });
+    var that=this;
     wx.request({
       url: o.globalData.api + "wx_tjlogin.ashx",
       data: { userid: this.data.comuserid, password: this.data.compassword },
@@ -36,8 +42,10 @@ Page({
                 content: "登录成功！",
                 showCancel: !1,
                 success: function (o) {
-                  o.confirm &&
-                    wx.redirectTo({ url: "/pages/axmcx/index/index" });
+                  
+                  o.confirm && that.data.id=='1' ?
+                    wx.redirectTo({ url: "/pages/axmcx/index/index" }) 
+                    :  wx.redirectTo({ url: "/pages/zxselect/index/index" }) 
                 },
               }))
             : (wx.hideLoading(),

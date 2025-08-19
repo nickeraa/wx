@@ -1,0 +1,104 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>汇总查询 </navigator>
+    </view>
+</view>
+
+<view class="cu-bar bg-white search " style="margin-top:50px;">
+    <view class="search-form round">
+        <text class="icon-search"></text>
+        <input bindinput="getitemname" name="itemname" placeholder="输入项目名或大师名，支持模糊查询" type="text" value="{{itemname}}"></input>
+    </view>
+    <view class="action">
+        <button bindtap="select" class="cu-btn bg-gradual-green shadow-blur round">搜索</button>
+    </view>
+</view>
+<view>
+
+<checkbox-group bindchange="checkboxChange" >
+    <view data-itemname="{{item.ITEMNAME}}" style="background-color:#E0EEEE;margin-top:3px;" wx:for="{{replu}}" wx:key="id">
+        <view class="Grid-sku" style="height:3rem;">
+            <checkbox checked="{{item.checked}}" class="checkbox" style="margin-left: 8px;margin-top: 15px;" value="{{item.ITEMNAME}}"></checkbox>
+            <view class="" style="margin-left:1.5rem;width:50%;margin-top:15px;">
+                <text>{{item.ITEMNAME}}</text>
+            </view>
+
+            <view class="" style="margin-left:0.5rem;width:20%;margin-top:15px;">
+                <text>{{item.CREATDATE}}</text>
+            </view>
+          
+        </view>
+  
+    </view>
+</checkbox-group>
+</view>
+
+<view class="action" style='padding-top:2rem;text-align: center;' hidden='{{flag}}'>
+        <button bindtap="seall" class="cu-btn bg-gradual-green shadow-blur round">汇总查询</button>
+    </view>
+
+    <view style="font-size:14px;"  hidden="{{flags}}">
+        <view class="Grid-sku" style="color:#00868B;padding-top:3rem;">
+            <view style="margin-left:1rem;width:15%;">
+                <text> 总配额 </text>
+            </view>
+            <view style="width:20%;">
+                <text>客订数量</text>
+            </view>
+            <view style="width:25%;">
+                <text>客订金额</text>
+            </view>
+            <view style="width:20%;">
+                <text>销售数量</text>
+            </view>
+            <view style="width:30%;">
+                <text>销售金额</text>
+            </view>
+        </view>
+        <view class="Grid-sku" style="color:red;padding-top:1rem;">
+            <view style="margin-left:1rem;width:15%;margin-top:15px;">
+                <text> {{amount}} </text>
+            </view>
+            <view style="width:20%;margin-top:15px;">
+                <text> {{orderqty}} </text>
+            </view>
+            <view style="width:25%;margin-top:15px;">
+                <text> {{damt}} </text>
+            </view>
+            <view style="width:20%;margin-top:15px;">
+                <text> {{qtysold}} </text>
+            </view>
+            <view style="width:30%;margin-top:15px;">
+                <text> {{samt}} </text>
+            </view>
+        </view>
+        <view class="Grid-sku" style="color:#00868B;padding-top:1.5rem;">
+            <view style="width:25%;margin-left: 1rem;">
+                <text>总定售数量</text>
+            </view>
+            <view style="width:30%;">
+                <text>总定售金额</text>
+            </view>
+            <view style="width:20%;">
+                <text>可售数量</text>
+            </view>
+            <view style="width:30%;">
+                <text>可售金额</text>
+            </view>
+        </view>
+        <view class="Grid-sku" style="color:red;padding-top:1rem;">
+            <view style="width:25%;margin-top:15px;margin-left: 1rem;">
+                <text class=""> {{znum}} </text>
+            </view>
+            <view style="width:30%;margin-top:15px;">
+                <text class=""> {{zamt}} </text>
+            </view>
+            <view style="width:20%;margin-top:15px;">
+                <text class=""> {{lastnum}} </text>
+            </view>
+            <view style="width:30%;margin-top:15px;">
+                <text class=""> {{camt}} </text>
+            </view>
+        </view>
+    </view>

@@ -560,7 +560,20 @@ qhlist()
             e.confirm && wx.navigateTo({ url: "/pages/coupon/index/index" });
           },
         })
-      : wx.navigateTo({ url: "/pages/tjlogin/index" });
+      : wx.navigateTo({ url: "/pages/tjlogin/index?id=1" });
+  },
+
+  tjlogins: function () {
+    wx.getStorageSync("job")
+      ? wx.showModal({
+          title: "提示",
+          content: "请您验证用户，必须是在职状态才能操作",
+          showCancel: !1,
+          success: function (e) {
+            e.confirm && wx.navigateTo({ url: "/pages/coupon/index/index" });
+          },
+        })
+      : wx.navigateTo({ url: "/pages/tjlogin/index?id=2" });
   },
   tp: function (e) {
     wx.getStorageSync("job")

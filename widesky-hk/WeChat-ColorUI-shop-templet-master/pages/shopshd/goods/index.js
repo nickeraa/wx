@@ -259,7 +259,7 @@ Page({
 
                 t.setData({
 
-                  flags: false
+                  flags: true
             
                 })
 
