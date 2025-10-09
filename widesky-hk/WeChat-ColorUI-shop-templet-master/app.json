@@ -1,7 +1,6 @@
 {
   "pages": [
-  
-  
+
     "pages/home/index/index",
     "pages/fhstocks/index/index",
     "pages/viphz/index/index",
@@ -45,7 +44,6 @@
     "pages/fhjzbs/index/index",
     "pages/fhjzp/index/index",
     "pages/fhqs/index/index",
-    
     "pages/fhstockss/index/index",
     "pages/fhstocksss/index/index",
     "pages/fhstockssss/index/index",

@@ -6,11 +6,11 @@ Page({
     url: "",
   },
   onLoad: function (t) {
-    console.log(wx.getStorageSync("phone")),
+    console.log(wx.getStorageSync("userid")),
       this.setData({
         url:
           "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9efd484d9468b80a&redirect_uri=https://widesky.work/HKback/getopenid.aspx&response_type=code&scope=snsapi_base&state=" +
-          wx.getStorageSync("phone") +
+          wx.getStorageSync("userid") +
           "#wechat_redirect",
       });
   },

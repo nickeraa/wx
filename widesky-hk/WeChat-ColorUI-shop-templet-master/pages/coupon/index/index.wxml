@@ -6,7 +6,7 @@
 </view>
 <view class="box bgcolor">
     <view style="height:2rem;background-color:white;"></view>
-    <form bindsubmit="checkphone">
+    <!-- <form bindsubmit="checkphone"> -->
         <view class="cu-form-group action sp">
             <button class="cu-btn bg-green shadow">第一步</button>
         </view>
@@ -28,28 +28,29 @@
                     <text class="icon-check"></text> 验证用户</button>
             </view>
         </form>
-        <view class="cu-form-group action sp">
+     
+        <!-- <view class="cu-form-group action sp">
             <button class="cu-btn bg-green shadow">第二步</button>
-        </view>
-        <view class="cu-form-group">
+        </view> -->
+        <!-- <view class="cu-form-group">
             <view class="title icon-title text-orange">手机号码</view>
             <input bindinput="getPhoneValue" class="radius" name="phone" placeholder="手机号接收公司短讯" type="number" value="{{phone}}"></input>
             <button bindtap="getVerificationCode" class="cu-btn bg-green shadow" disabled="{{disabled}}">{{codename}}</button>
-        </view>
-        <view class="cu-form-group">
+        </view> -->
+        <!-- <view class="cu-form-group">
             <view class="title icon-title text-orange">验证码</view>
             <input bindinput="getCodeValue" class="radius" name="input" placeholder="请输入手机验证码" type="number" value="{{code}}"></input>
-        </view>
-        <view class="cu-form-group">
+        </view> -->
+        <!-- <view class="cu-form-group">
             <view class="title icon-title text-orange ">注意事项<text class="text-green gp ">{{phonets}}</text>
             </view>
-        </view>
-        <view class="cu-form-group sp">
+        </view> -->
+        <!-- <view class="cu-form-group sp">
             <button class="cu-btn canui-color-gradual shadow-blur round lg sp" formType="submit">
                 <text class="icon-check"></text>确认提交</button>
-        </view>
-    </form>
-    <view class="cu-form-group action sp">
+        </view> -->
+    <!-- </form> -->
+    <!-- <view class="cu-form-group action sp">
         <button class="cu-btn bg-green shadow">第三步</button>
     </view>
     <view class="cu-form-group">
@@ -59,10 +60,10 @@
     <view class="cu-form-group sp">
         <button bindtap="checkuserph" class="cu-btn canui-color-gradual shadow-blur round lg sp">
             <text class="icon-check"></text>绑定登录ID与手机</button>
-    </view>
+    </view> -->
     <view class="cu-form-group sp" hidden="{{hidden}}">
         <view class="cu-form-group action sp">
-            <button class="cu-btn bg-green shadow">第四步</button>
+            <button class="cu-btn bg-green shadow">第二步</button>
         </view>
         <view class="cu-form-group sp">
             <button bindgetuserinfo="bingGetUserInfo" class="cu-btn canui-color-gradual shadow-blur round lg sp" openType="getUserInfo">

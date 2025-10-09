@@ -13,7 +13,19 @@
     "coverView": false,
     "postcss": false,
     "showShadowRootInWxmlPanel": false,
-    "packNpmRelationList": []
+    "packNpmRelationList": [],
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
   },
   "editorSetting": {
     "tabIndent": "insertSpaces",
@@ -23,5 +35,7 @@
     "ignore": [],
     "include": []
   },
-  "appid": "wx83ab069b06696bf2"
+  "appid": "wx83ab069b06696bf2",
+  "libVersion": "3.8.12",
+  "simulatorPluginLibVersion": {}
 }
