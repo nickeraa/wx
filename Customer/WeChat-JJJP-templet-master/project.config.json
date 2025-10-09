@@ -1,29 +1,30 @@
 {
-  "compileType": "miniprogram",
-  "setting": {
-    "ignoreDevUnusedFiles": false,
-    "ignoreUploadUnusedFiles": false,
-    "babelSetting": {
-      "ignore": [],
-      "disablePlugins": [],
-      "outputPath": ""
+    "compileType": "miniprogram",
+    "setting": {
+        "ignoreDevUnusedFiles": false,
+        "ignoreUploadUnusedFiles": false,
+        "babelSetting": {
+            "ignore": [],
+            "disablePlugins": [],
+            "outputPath": ""
+        },
+        "minified": true,
+        "coverView": false,
+        "postcss": false,
+        "enhance": false,
+        "showShadowRootInWxmlPanel": false,
+        "packNpmRelationList": [],
+        "minifyWXML": true
     },
-    "minified": true,
-    "coverView": false,
-    "postcss": false,
-    "enhance": false,
-    "showShadowRootInWxmlPanel": false,
-    "packNpmRelationList": []
-  },
-  "condition": {},
-  "editorSetting": {
-    "tabIndent": "insertSpaces",
-    "tabSize": 2
-  },
-  "libVersion": "3.8.7",
-  "packOptions": {
-    "ignore": [],
-    "include": []
-  },
-  "appid": "wxb18dd7d225d97168"
+    "condition": {},
+    "editorSetting": {
+        "tabIndent": "insertSpaces",
+        "tabSize": 2
+    },
+    "libVersion": "3.8.7",
+    "packOptions": {
+        "ignore": [],
+        "include": []
+    },
+    "appid": "wxb18dd7d225d97168"
 }
