@@ -11,7 +11,7 @@ Page({
     flagqd: true,
     flaghy: false,
     flaglp: true,
-    lpphone: "",
+    wxid: "",
     banner: e.globalData.imgUrls,
     images: '',
     vipname: '',
@@ -55,8 +55,8 @@ Page({
                 });
                 var a = t[0],
                   o = t[1];
-                wx.setStorageSync("openid", a),
-                  wx.setStorageSync("sessionID", o),
+                wx.setStorageSync("wxopenid", a),
+               //   wx.setStorageSync("sessionID", o),
                   console.log(o),
                   console.log(a);
               },
@@ -211,7 +211,7 @@ Page({
           console.log(t.data.tx)
           if (t.data.tx) {
 
-            console.log('fffffffffffffffffff')
+          
 
             t.setData({
 
@@ -352,7 +352,7 @@ Page({
 
 
 
-
+/*
   onGetPhoneNumber: function (e) {
 
     var t = this,
@@ -415,15 +415,16 @@ Page({
 
       });
   },
+  */
 
-  checkphone() {
+  checkwx() {
 
     var t = this;
     wx.request({
       url: e.globalData.api + "wx_checklpphone.ashx",
       data: {
         zhname: t.data.zhname,
-        phone: wx.getStorageSync('lpphone')
+        wxid: wx.getStorageSync('wxopenid')
 
       },
       header: {
@@ -473,7 +474,7 @@ Page({
       data: {
         zhname: t.data.zhname,
         lpvipcode: wx.getStorageSync('qdvipcode'),
-        phone: wx.getStorageSync('lpphone')
+        wxid: wx.getStorageSync('wxopenid')
       },
       header: {
         "content-type": "application/x-www-form-urlencoded"
@@ -528,7 +529,7 @@ Page({
       url: e.globalData.api + "wx_fflw.ashx",
       data: {
         zhname: t.data.zhname,
-        lpphone: wx.getStorageSync('lpphone')
+        wxid: wx.getStorageSync('wxopenid')
       },
       header: {
         "content-type": "application/x-www-form-urlencoded"
@@ -572,7 +573,7 @@ Page({
       url: e.globalData.api + "wx_hblw.ashx",
       data: {
         zhname: t.data.zhname,
-        lpphone: wx.getStorageSync('lpphone')
+        wxid: wx.getStorageSync('wxopenid')
       },
       header: {
         "content-type": "application/x-www-form-urlencoded"

@@ -41,7 +41,7 @@
         <image src="/img/my.png" style="width:2.5rem;height:2.5rem;margin-top:1rem;margin-left: -4px;"></image>
 
         <view style="margin-top:-3.3rem;">
-            <button bindgetphonenumber="onGetPhoneNumber" openType="getPhoneNumber" class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: right;margin-right: 7rem;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
+            <button bindtap='checkwx' class="submitbtn cu-btn bg-gradual-red shadow-blur round" style="float: right;margin-right: 7rem;margin-top: 3px;color:white;height: 2.8rem;font-size: 20px;">
                 <text> {{note}} </text>
 
             </button>

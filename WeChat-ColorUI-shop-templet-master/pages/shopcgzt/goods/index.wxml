@@ -131,7 +131,7 @@
             </view>
             <view style="width:60%;margin-top: 5px;" wx:if="{{vipcode||wxuserid}}">
                 <button bindtap="gwjs" class="submitbtn" style="margin-top: 10px;">
-                    <text> 立即购买</text>
+                    <text> 立即预定</text>
                 </button>
                 <button bindtap="gw" class="submitbtns" style="margin-top: 10px;">
                     <text> 加入购物车 </text>
@@ -139,7 +139,7 @@
             </view>
             <view style="width:60%;margin-top: 5px;" wx:else>
                 <button bindgetphonenumber="onGetPhoneNumbergm" class="submitbtn" openType="getPhoneNumber" style="margin-top: 10px;">
-                    <text> 立即购买 </text>
+                    <text> 立即预定 </text>
                 </button>
                 <button bindgetphonenumber="onGetPhoneNumbergwc" class="submitbtns" openType="getPhoneNumber" style="margin-top: 10px;">
                     <text> 加入购物车 </text>

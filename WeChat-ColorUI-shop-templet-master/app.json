@@ -1,14 +1,14 @@
 {
   "pages": [
 
-
     "pages/home/index/index",
+    "pages/hofman/goods/index",
+    "pages/acxpexl/index/index",
+    "pages/shopcghfm/goods/index",
     "pages/userlw/index/index",
     "pages/userqd/index/index",
     "pages/party/index/index",
-    "pages/1WGYB1029/goods/index",
     "pages/zthome/index/index",
-    "pages/acxpexl/index/index",
     "pages/reloginc/index",
     "pages/wxlogin/index",
     "pages/reloginb/index",
@@ -25,6 +25,7 @@
     "pages/address/index/index",
     "pages/scitem/index/index",
     "pages/deposit/index/index",
+    "pages/deposithfm/index/index",
     "pages/deposityd/index/index",
     "pages/dfdeposit/index/index",
     "pages/mydj/index/index",

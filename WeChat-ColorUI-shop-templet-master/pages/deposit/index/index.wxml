@@ -17,7 +17,7 @@
                     <label>
                         <radio checked="true" class="round red " style="transform:scale(0.8);" value="0"></radio>快递运输 </label>
                     <label>
-                        <radio class="round red " style="transform:scale(0.8);margin-left: 10px;" value="1" disabled></radio>到店取货 </label>
+                        <radio class="round red " style="transform:scale(0.8);margin-left: 10px;" value="1"  disabled></radio>到店取货 </label>
                 </radio-group>
             </view>
         </view>
@@ -202,7 +202,7 @@
             </view>
             <view bindtap="payment" style="width: 60%;margin-top: 5px;">
                 <button class="submitbtn" style="margin: 20px 20px 20px 0px;">
-                    <text style='font-size: 15px;'> 提交销售单</text>
+                    <text style='font-size: 15px;'> 立即购买</text>
                 </button>
             </view>
         </view>

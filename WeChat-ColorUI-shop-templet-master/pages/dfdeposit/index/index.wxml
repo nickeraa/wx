@@ -2,7 +2,7 @@
     <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <view class="head-title canui-head-title" style="font-weight: 550;">
             <text bindtap="back" class="icon-back" style="width: 20px;margin-left: -7rem;"></text>
-            <text style="font-size: 16px;font-weight: 800;color:black;margin-left: 7rem;">待付款的销售单</text>
+            <text style="font-size: 16px;font-weight: 800;color:black;margin-left: 8rem;">待付款</text>
         </view>
     </view>
 </view>

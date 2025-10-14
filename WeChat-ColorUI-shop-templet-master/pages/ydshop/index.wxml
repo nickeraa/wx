@@ -47,7 +47,7 @@
             <view class="padding-sm" style="width:50%;" wx:else>会员价：无</view>
         </view>             
         
-        <view style="margin-top: -2.2rem;margin-left: -65px;" wx:for="{{rb}}">  
+        <view style="margin-top: -2.2rem;margin-left: -65px;" wx:for="{{rb}}" wx:key="index">  
         <view wx:if="{{item.XF_VIPPRICE}}">
             <view class="del"  style="background-color: gray;height:1px;width: 3.5rem;"></view>      
             <view style="margin:5px 0px 0px 75px;font-weight: 700;"><text>会员实价：</text>

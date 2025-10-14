@@ -13,7 +13,7 @@ Page({
       duration: 500,
       circular: !1,
       pict: i.globalData.scimgurl,
-      xf_plu: "1WGYB1029",
+      xf_plu: "",
       pnumber: "",
       index2: null,
       picker2: [],
@@ -137,7 +137,13 @@ Page({
     this.setData({ swiperHeight: t });
   },
   onLoad: function (a) {
-
+    console.log(a.xf_plu),
+      console.log(a.fxuserid),
+      console.log(a.fx),
+      a.xf_plu && this.setData({ xf_plu: a.xf_plu }),
+      a.vipcode && wx.setStorageSync("vipcode", a.vipcode),
+      a.fxuserid && wx.setStorageSync("fxuserid", a.fxuserid),
+      a.wxuserid && wx.setStorageSync("wxuserid", a.wxuserid),
       a.d && wx.setStorageSync("d", a.d),
       a.fx &&
         (wx.setStorageSync("fx", a.fx),
@@ -370,7 +376,7 @@ Page({
   },
   gwjs: function () {
     wx.navigateTo({
-      url: "/pages/deposit/index/index?xf_plu=" + this.data.xf_plu,
+      url: "/pages/deposithfm/index/index?xf_plu=" + this.data.xf_plu,
     });
   },
   gw: function () {
@@ -993,7 +999,13 @@ checkprice()
       ? {
           title: "广天藏品 " + this.data.xf_desci,
           path:
-            "/pages/1WGYB1029/goods/index",
+            "/pages/shopcg/goods/index?xf_plu=" +
+            this.data.xf_plu +
+            "&fxuserid=" +
+            wx.getStorageSync("yguserid") +
+            "&vipcode=" +
+            wx.getStorageSync("vipcode") +
+            "&fx=1",
           imageUrl:
             this.data.pict + this.data.xf_plu + "//" + this.data.tbimages1,
           success: function (a) {
@@ -1007,7 +1019,11 @@ checkprice()
       ? {
           title: "广天藏品 " + this.data.xf_desci,
           path:
-          "/pages/1WGYB1029/goods/index",
+            "/pages/shopcg/goods/index?xf_plu=" +
+            this.data.xf_plu +
+            "&fxuserid=" +
+            wx.getStorageSync("vipcode") +
+            "&fx=1",
           imageUrl:
             this.data.pict + this.data.xf_plu + "//" + this.data.tbimages1,
           success: function (a) {
@@ -1021,7 +1037,11 @@ checkprice()
       ? {
           title: "广天藏品 " + this.data.xf_desci,
           path:
-          "/pages/1WGYB1029/goods/index",
+            "/pages/shopcg/goods/index?xf_plu=" +
+            this.data.xf_plu +
+            "&fxuserid=" +
+            wx.getStorageSync("wxuserid") +
+            "&fx=1",
           imageUrl:
             this.data.pict + this.data.xf_plu + "//" + this.data.tbimages1,
           success: function (a) {
@@ -1034,7 +1054,7 @@ checkprice()
       : {
           title: "广天藏品 " + this.data.xf_desci,
           path:
-          "/pages/1WGYB1029/goods/index",
+            "/pages/shopcg/goods/index?xf_plu=" + this.data.xf_plu + "&fx=1",
           imageUrl:
             this.data.pict + this.data.xf_plu + "//" + this.data.tbimages1,
           success: function (a) {

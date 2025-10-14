@@ -59,42 +59,42 @@ Page({
   listvipcode: function () {
 
     var t = this;
-      wx.request({
-        url: a.globalData.api + "wx_checkvip.ashx",
-        data: {
-          vipcode: t.data.vipcode
-        },
-        header: {
-          "content-type": "application/x-www-form-urlencoded"
-        },
-        dataType: "json",
-        success: function (a) {
-          console.log(a),
-            a.data.length > 0 ?
-            t.setData({
-              vipname: a.data[0].XF_SURNAME,
-              grade: a.data[0].GRADE,
-              store: a.data[0].XF_STORES,
-              xf_name: a.data[0].XF_USERNAME,
-              xf_users: a.data[0].XF_USERS,
-              vipcode:a.data[0].XF_VIPCODE,
-            }) :
-            (t.setData({
-                rejob: null,
-                vipcode:'',
-                xf_users: '',
-              }),
-              wx.showModal({
-                title: "提示",
-                content: "卡号不存在或输入错误",
-                showCancel: !1,
-                success: function (a) {
-                  a.confirm;
-                },
-              }))
-        
-        },
-      });
+    wx.request({
+      url: a.globalData.api + "wx_checkvip.ashx",
+      data: {
+        vipcode: t.data.vipcode
+      },
+      header: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      dataType: "json",
+      success: function (a) {
+        console.log(a),
+          a.data.length > 0 ?
+          t.setData({
+            vipname: a.data[0].XF_SURNAME,
+            grade: a.data[0].GRADE,
+            store: a.data[0].XF_STORES,
+            xf_name: a.data[0].XF_USERNAME,
+            xf_users: a.data[0].XF_USERS,
+            vipcode: a.data[0].XF_VIPCODE,
+          }) :
+          (t.setData({
+              rejob: null,
+              vipcode: '',
+              xf_users: '',
+            }),
+            wx.showModal({
+              title: "提示",
+              content: "卡号不存在或输入错误",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            }))
+
+      },
+    });
   },
   back: function () {
     wx.switchTab({
@@ -281,7 +281,7 @@ Page({
                   "?temp=" +
                   t,
               });
-console.log(e.data.count)
+              console.log(e.data.count)
 
             },
           }) :
@@ -402,7 +402,7 @@ console.log(e.data.count)
         !1);
   },
   onShareAppMessage: function (a) {
-    
+
 
     var timestamp = Date.parse(new Date());
     var currentTimeMillis = new Date().getTime();
@@ -421,33 +421,30 @@ console.log(e.data.count)
       console.log(this.data.count),
       console.log(this.data.xf_users),
       console.log(this.data.vipname),
-    //  console.log(this.checkzf()),
-  
-      this.checkzf()
-        ? (console.log("pppppppp"),
+      //  console.log(this.checkzf()),
+
+      this.checkzf() ?
+      (console.log("pppppppp"),
         console.log(this.data.fnumber),
-        this.fx(),
-          {
-            title:
-              "广天藏品 " +
-              this.data.xfname +
-              " 向您最新分享了：" +
-              this.data.count +
-              "款货品 ...",
-            path:
-              "/pages/homerm/index/index?vipcode=" +
-              this.data.vipcode  + "&fnumber=" + this.data.fnumber+
-              "&tj=1&yguserid=" +
-              wx.getStorageSync("yguserid"),
-            imageUrl: this.data.slt,
-          })
-        : (console.log("ddddd"), null)
- 
+        this.fx(), {
+          title: "广天藏品 " +
+            this.data.xfname +
+            " 向您最新分享了：" +
+            this.data.count +
+            "款货品 ...",
+          path: "/pages/homerm/index/index?vipcode=" +
+            this.data.vipcode + "&fnumber=" + this.data.fnumber +
+            "&tj=1&yguserid=" +
+            wx.getStorageSync("yguserid"),
+          imageUrl: this.data.slt,
+        }) :
+      (console.log("ddddd"), null)
+
 
     );
 
 
-   
+
 
     if (this.data.count == 0) {
       wx.showModal({
@@ -481,12 +478,12 @@ console.log(e.data.count)
 
       return false;
     } else {
-console.log('kkkkkkkkkkkkkkkkkkkk')
-console.log(this.data.xfname)
-console.log(this.data.slt)
+      console.log('kkkkkkkkkkkkkkkkkkkk')
+      console.log(this.data.xfname)
+      console.log(this.data.slt)
       return {
-        title: "广天藏品 " +this.data.xfname +" 向您最新分享了：" +this.data.count +"款货品 ...",
-        path: "/pages/homerm/index/index?vipcode=" + this.data.vipcode + "&fnumber=" + this.data.fnumber +"&tj=1&yguserid=" +wx.getStorageSync("yguserid"),
+        title: "广天藏品 " + this.data.xfname + " 向您最新分享了：" + this.data.count + "款货品 ...",
+        path: "/pages/homerm/index/index?vipcode=" + this.data.vipcode + "&fnumber=" + this.data.fnumber + "&tj=1&yguserid=" + wx.getStorageSync("yguserid"),
         imageUrl: this.data.slt
       },
 
@@ -503,7 +500,7 @@ console.log(this.data.slt)
       data: {
         userid: wx.getStorageSync("yguserid"),
         vipcode: t.data.vipcode,
-        fnumber:t.data.fnumber
+        fnumber: t.data.fnumber
       },
       header: {
         "content-type": "application/x-www-form-urlencoded"
@@ -511,7 +508,7 @@ console.log(this.data.slt)
       dataType: "json",
       success: function (a) {
         "error" != a.data ?
-          (console.log("tttttttttt"),t.sesku()) :
+          (console.log("tttttttttt"), t.sesku()) :
           wx.showToast({
             title: "数据错误"
           });
