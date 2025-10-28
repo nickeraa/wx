@@ -1,0 +1,95 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>查询尾号</view>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;background-color: white;">
+    <view class="cu-form-group" style="padding-top: 8rem;height:8rem;">
+        <radio-group bindchange="radioChange" class="radio-group dp">
+            <label class="radio dp">
+                <radio class="round red" value="0"></radio>按会员查询 </label>
+            <label class="radio dp">
+                <radio class="round red" value="1"></radio>按店铺查询 </label>
+            <label class="radio dp">
+                <radio class="round red" value="2"></radio>按尾号查询 </label>
+        </radio-group>
+    </view>
+    <view class="cu-form-group" hidden="{{check}}" style="height:5rem;margin-left:-1rem;margin-top: 2rem;">
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">输入会员卡号：</view>
+            <input bindinput="getvipcode" class="radius dp" name="vipcode" placeholder="请输入客户卡号精准查询" value="{{vipcode}}"></input>
+        </view>
+    </view>
+    <view class="cu-form-group" hidden="{{check1}}" style="height:5rem;margin-left:-1rem;margin-top: 2rem;">
+        <view class="cu-form-group" style="padding-top:0px;">
+        <view class="title icon-title text-orange">登记店铺：</view>
+        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="LCCODE" value="{{picker2[index2].XF_STORECODE}}">
+            <view class="picker dp ">
+                <text>{{index2?picker2[index2].LCCODE:'请选择登记店铺'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+    </view>
+    <view class="cu-form-group" hidden="{{check2}}" style="height:5rem;margin-left:-1rem;margin-top: 2rem;">
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">输入尾号：</view>
+            <input bindinput="getwh" class="radius dp" name="whnumber" maxlength="3" type="number" placeholder="请输入尾号模糊查询" value="{{whnumber}}"></input>
+        </view>
+    </view>
+    <view style="width:100%;margin:30px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询登记信息</button>
+    </view>
+    <view hidden="{{f1}}">
+        <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 2rem;">
+            <view style="margin-left:1rem;width:20%;margin-top: 5px;">
+                <text> 店铺名称</text>
+            </view>
+            <view style="width:25%;margin-top: 5px;">
+                <text> 客户名称</text>
+            </view>
+            <view style="width:20%;margin-top: 5px;margin-left: -25px;">
+                <text>登记类型</text>
+            </view>
+            <view style="width:20%;margin-top: 5px;">
+                <text>龙钞尾号</text>
+            </view>
+            <view style="width:20%;margin-top: 5px;">
+                <text>登记员工</text>
+            </view>
+
+        </view>
+    </view>
+
+<view style='background-color: rgb(240, 245, 236);'>
+
+    <view  hidden="{{f1}}" >
+
+        <view  wx:for="{{rejob}}" wx:key="id">
+            <view style='height: 1rem;background-color: rgb(240, 245, 236);'></view>
+            <view  style="height:3rem;display: flex;width: 100%;">
+                <view  style="margin-left:0.5rem;width: 25%;">
+                    <text class=""> {{item.STORENAME}} </text>
+                </view>
+                <view  style='width: 20%;margin-left: 10px;'>
+                    <text class=""> {{item.XF_NAME}} </text>
+                </view>
+                <view style="width: 25%;">
+                    <text>{{item.SETYPE}}</text>
+                </view>
+                <view style="width: 26%;">
+                    <text>{{item.WHNUMBER}}</text>
+                </view>
+                <view style="width: 20%;">
+                    <text>{{item.ADD_USERID}}</text>
+                </view>
+    </view>
+    <view style='height: 1px;background-color: white;'></view>
+</view>
+
+</view>
+
+</view>
+
+</view>

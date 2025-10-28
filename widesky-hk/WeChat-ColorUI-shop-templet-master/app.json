@@ -3,6 +3,9 @@
 
     "pages/home/index/index",
     "pages/fhstocks/index/index",
+    "pages/hmdj/index/index",
+    "pages/selcwh/index/index",
+    "pages/delwh/index/index",
     "pages/viphz/index/index",
     "pages/viplp/index/index",
     "pages/petd/index/index",

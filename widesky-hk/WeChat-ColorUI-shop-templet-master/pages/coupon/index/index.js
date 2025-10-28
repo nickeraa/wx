@@ -148,8 +148,8 @@ Page(
                     console.log(a),
                       a.data.length > 0 &&
                       e.setData({
-                        masterid: a.data[0].XF_STAFFCODE,
-                        hidden:false
+                        masterid: a.data[0].XF_STAFFCODE
+                       
                       });
                   },
                 });
@@ -188,8 +188,26 @@ Page(
                         console.log(e),
                           t.setData({
                             warning: e.data
-                          }),
-                          e.data=='>>>账号密码验证成功！' && t.checkqg(),
+                          })
+                         // e.data=='>>>账号密码验证成功！' && t.checkqg(),
+                         if (e.data==">>>账号密码验证成功！")
+                         {
+
+                          t.setData({
+                            hidden:false
+                          })
+                          t.checkqg()
+
+                         }
+
+                         else{
+
+                          t.setData({
+                            hidden:true
+                          })
+
+                         }
+                        
                           wx.hideLoading();
                       },
                     }));

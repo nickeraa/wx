@@ -643,6 +643,43 @@ qhlist()
         })
       : wx.navigateTo({ url: "/pages/senumber/index/index" });
   },
+
+  hmdj: function () {
+    wx.getStorageSync("job")
+      ? wx.showModal({
+          title: "提示",
+          content: "请您验证用户，必须是在职状态才能操作",
+          showCancel: !1,
+          success: function (e) {
+            e.confirm && wx.navigateTo({ url: "/pages/coupon/index/index" });
+          },
+        })
+      : wx.navigateTo({ url: "/pages/hmdj/index/index" });
+  },
+  delwh: function () {
+    wx.getStorageSync("job")
+      ? wx.showModal({
+          title: "提示",
+          content: "请您验证用户，必须是在职状态才能操作",
+          showCancel: !1,
+          success: function (e) {
+            e.confirm && wx.navigateTo({ url: "/pages/coupon/index/index" });
+          },
+        })
+      : wx.navigateTo({ url: "/pages/delwh/index/index" });
+  },
+  selcwh: function () {
+    wx.getStorageSync("job")
+      ? wx.showModal({
+          title: "提示",
+          content: "请您验证用户，必须是在职状态才能操作",
+          showCancel: !1,
+          success: function (e) {
+            e.confirm && wx.navigateTo({ url: "/pages/coupon/index/index" });
+          },
+        })
+      : wx.navigateTo({ url: "/pages/selcwh/index/index" });
+  },
   zc: function () {
     wx.getStorageSync("job")
       ? wx.showModal({
