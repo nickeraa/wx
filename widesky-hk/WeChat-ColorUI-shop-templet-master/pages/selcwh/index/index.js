@@ -104,7 +104,7 @@ Page(
             );
     ;
           var t = this;
-          wx.showLoading({ title: "正在加载数据", mask: !0 }),
+         
             wx.request({
               url: e.globalData.api + "wx_selectwh.ashx",
               data: { whnumber: t.data.whnumber },
@@ -122,8 +122,8 @@ Page(
                         success: function (t) {
                           t.confirm;
                         },
-                      })),
-                  wx.hideLoading();
+                      }))
+            
               },
               complete: function () {},
             });
@@ -143,7 +143,7 @@ Page(
               !1
             );
           var t = this;
-          wx.showLoading({ title: "正在加载数据", mask: !0 }),
+         
             wx.request({
               url: e.globalData.api + "wx_sewh.ashx",
               data: {
@@ -164,8 +164,8 @@ Page(
                         success: function (t) {
                           t.confirm;
                         },
-                      })),
-                  wx.hideLoading();
+                      }))
+             
               },
               complete: function () {},
             });
@@ -185,7 +185,7 @@ Page(
               !1
             );
           var t = this;
-          wx.showLoading({ title: "正在加载数据", mask: !0 }),
+        
             wx.request({
               url: e.globalData.api + "wx_storewh.ashx",
               data: {
@@ -205,8 +205,8 @@ Page(
                         success: function (t) {
                           t.confirm;
                         },
-                      })),
-                  wx.hideLoading();
+                      }))
+          
               },
               complete: function () {},
             });

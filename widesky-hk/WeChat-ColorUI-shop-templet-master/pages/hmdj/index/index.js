@@ -236,7 +236,7 @@ Page({
 
         wx.showModal({
           title: "提示",
-          content: "请输入3位数起始尾号",
+          content: "起始尾号错误",
           showCancel: !1,
           success: function (a) {
             a.confirm;
