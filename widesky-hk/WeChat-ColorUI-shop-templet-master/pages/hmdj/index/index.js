@@ -154,9 +154,9 @@ Page({
             xf_users: a.data[0].XF_USERS,
             vipcode: a.data[0].XF_VIPCODE,
             f1: false,
-            f2:true,
-            f3:true,
-            f4:true
+            f2: true,
+            f3: true,
+            f4: true
           }) :
           (that.setData({
               vipname: '',
@@ -232,7 +232,7 @@ Page({
         return false
       }
 
-      if (this.data.snumber.length != 3 || this.data.enumber.length != 3) {
+      if (this.data.snumber.length < 3 || this.data.enumber.length < 3) {
 
         wx.showModal({
           title: "提示",
@@ -288,44 +288,49 @@ Page({
     }
 
     var a = this;
-    wx.request({
-      url: t.globalData.api + "wx_addwh.ashx",
-      data: {
-        xf_storecode: this.data.store.substring(0, 4),
-        xf_vipcode: this.data.vipcode,
-        xf_staffcode: wx.getStorageSync('userid'),
-        whnumber: this.data.whnumber,
-        setype: this.data.setype,
-        snumber: this.data.snumber,
-        enumber: this.data.enumber
+    wx.showLoading({
+        title: "数据登记中",
+        mask: !0
+      }),
 
-      },
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
-      dataType: "json",
-      success: function (e) {
-        console.log(e)
-        if (e.data != 'ok') {
+      wx.request({
+        url: t.globalData.api + "wx_addwh.ashx",
+        data: {
+          xf_storecode: this.data.store.substring(0, 4),
+          xf_vipcode: this.data.vipcode,
+          xf_staffcode: wx.getStorageSync('userid'),
+          whnumber: this.data.whnumber,
+          setype: this.data.setype,
+          snumber: this.data.snumber,
+          enumber: this.data.enumber
 
-          wx.showModal({
-            title: "提示",
-            content: "添加尾号失败，数据出错！",
-            showCancel: !1,
-            success: function (a) {
-              a.confirm;
-            },
-          })
+        },
+        header: {
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        dataType: "json",
+        success: function (e) {
+          console.log(e)
+          if (e.data != 'ok') {
 
-        } else {
+            wx.showModal({
+              title: "提示",
+              content: "添加尾号失败，数据出错！",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            })
+
+          } else {
 
 
-          a.se_whnumber();
+            a.se_whnumber();
+            wx.hideLoading();
+          }
 
-        }
-
-      },
-    });
+        },
+      });
 
 
   },
@@ -348,7 +353,7 @@ Page({
       success: function (e) {
         console.log(e), a.setData({
           rets: e.data,
-          f4:false
+          f4: false
         });
       },
     });

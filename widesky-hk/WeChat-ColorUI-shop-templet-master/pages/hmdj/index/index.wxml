@@ -76,9 +76,9 @@
     <view hidden='{{f3}}'>
         <view class="cu-form-group" style='height: 3rem;'>
             <view class="title icon-title text-orange">龙钞尾号：从</view>
-            <input style='background-color: rgb(243, 231, 231);height: 2rem;' bindinput="getsnumber" maxlength="3" type="number" class="radius dp" name="snumber" placeholder="" value="{{snumber}}"></input>
+            <input style='background-color: rgb(243, 231, 231);height: 2rem;' bindinput="getsnumber"  type="number" class="radius dp" name="snumber" placeholder="" value="{{snumber}}"></input>
             <view class="title text-orange">至</view>
-            <input style='background-color: rgb(243, 231, 231);height: 2rem;' bindinput="getenumber" maxlength="3" type="number" class="radius dp" name="enumber" placeholder="" value="{{enumber}}"></input>
+            <input style='background-color: rgb(243, 231, 231);height: 2rem;' bindinput="getenumber"  type="number" class="radius dp" name="enumber" placeholder="" value="{{enumber}}"></input>
             <view bindtap="add" style="width:30%;height: 2rem;">
                 <button class="cu-btn bg-gradual-green shadow-blur round" style='font-size: 15px;width: 100%;'>添加尾号</button>
             </view>
