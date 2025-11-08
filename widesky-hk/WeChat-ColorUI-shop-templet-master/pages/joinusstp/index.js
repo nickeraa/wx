@@ -51,7 +51,7 @@ Page({
             tag: t.data[0].TAG,
             qty: t.data[0].QTY,
           }),
-          "9" != a.data.tag
+          "9" != a.data.tag&&"8" != a.data.tag
             ? wx.showModal({
                 title: "提示",
                 content: "配额状态超时或发生改变，无法取消特批，请刷新后再操作",

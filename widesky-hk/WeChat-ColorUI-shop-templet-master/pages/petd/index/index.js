@@ -76,8 +76,8 @@ Page({
         dnumber: a.data.snumber,
         xf_plu: a.data.xf_plu,
         qty: a.data.qty,
-        userid: wx.getStorageSync("userid")
-       
+       userid: wx.getStorageSync("userid")
+      // userid: '2413'
       },
       header: {
         "content-type": "application/x-www-form-urlencoded"
@@ -94,10 +94,15 @@ Page({
 
             },
           }) :
-          a.setData({
-            pnumber: e.data[0].PNUMBER
+         (a.setData({
+            pnumber: e.data[0].PNUMBER,
+            qty:e.data[0].QTY,
+            xf_plu:e.data[0].XF_PLU
+
           }),
-          a.td();
+          console.log(a.data.pnumber),
+          a.td()
+          );
       },
     });
   },
@@ -106,6 +111,9 @@ Page({
 
 
     console.log(this.data.pnumber)
+    console.log(this.data.userid)
+    console.log(this.data.xf_plu)
+    console.log(this.data.qty)
 
     wx.request({
       url: t.globalData.api + "wx_tdpe.ashx",

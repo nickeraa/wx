@@ -183,7 +183,53 @@ Page({
       url: "/pages/vipss/index/index"
     });
   },
+
+  adds() {
+    var e = this;
+    wx.request({
+      url: t.globalData.api + "wx_date.ashx",
+      data: {
+
+      },
+      header: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      dataType: "json",
+      success: function (t) {
+        console.log(t.data)
+        if (t.data == 'fail') {
+
+          wx.showModal({
+            title: "提示",
+            content: "无法登记，登记时间已超时",
+            showCancel: !1,
+            success: function (e) {
+
+            },
+          })
+
+          console.log('ttttttttt')
+
+        } else {
+
+
+          e.add()
+
+
+        }
+
+      },
+    });
+
+
+
+  },
+
+
   add: function () {
+
+
+
     if (this.data.setype == '') {
 
       wx.showModal({
@@ -200,11 +246,11 @@ Page({
     }
 
     if (this.data.setype == '0') {
-      if (this.data.whnumber == '' || this.data.whnumber.length != 3) {
+      if (this.data.whnumber == '' || this.data.whnumber.length != 10) {
 
         wx.showModal({
           title: "提示",
-          content: "请输入3位数尾号",
+          content: "请输入10位数号码",
           showCancel: !1,
           success: function (a) {
             a.confirm;
@@ -222,7 +268,7 @@ Page({
 
         wx.showModal({
           title: "提示",
-          content: "请输入起始尾号",
+          content: "请输入起始号码",
           showCancel: !1,
           success: function (a) {
             a.confirm;
@@ -232,11 +278,11 @@ Page({
         return false
       }
 
-      if (this.data.snumber.length < 3 || this.data.enumber.length < 3) {
+      if (this.data.snumber.length != 10 || this.data.enumber.length != 10) {
 
         wx.showModal({
           title: "提示",
-          content: "起始尾号错误",
+          content: "起始号码错误",
           showCancel: !1,
           success: function (a) {
             a.confirm;
@@ -248,11 +294,11 @@ Page({
 
 
       if (this.data.setype == '1') {
-        if (this.data.enumber - this.data.snumber != 9) {
+        if (this.data.enumber.substring(this.data.enumber.length - 3) - this.data.snumber.substring(this.data.snumber.length - 3) != 9) {
 
           wx.showModal({
             title: "提示",
-            content: "起始尾号输入错误",
+            content: "起始号码输入错误",
             showCancel: !1,
             success: function (a) {
               a.confirm;
@@ -264,11 +310,11 @@ Page({
       } else {
 
 
-        if (this.data.enumber - this.data.snumber != 99) {
+        if (this.data.enumber.substring(this.data.enumber.length - 3) - this.data.snumber.substring(this.data.snumber.length - 3) != 99) {
 
           wx.showModal({
             title: "提示",
-            content: "起始尾号输入错误",
+            content: "起始号码输入错误",
             showCancel: !1,
             success: function (a) {
               a.confirm;
@@ -315,7 +361,7 @@ Page({
 
             wx.showModal({
               title: "提示",
-              content: "添加尾号失败，数据出错！",
+              content: "添加号码失败，数据出错！",
               showCancel: !1,
               success: function (a) {
                 a.confirm;

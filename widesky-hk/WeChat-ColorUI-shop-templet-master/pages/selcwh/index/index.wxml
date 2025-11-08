@@ -1,7 +1,7 @@
 <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <view bindtap="back" class="action canui-head-title">
-            <text class="icon-back"></text>查询尾号</view>
+            <text class="icon-back"></text>查询号码</view>
     </view>
 </view>
 <view style="width:100%;overflow-x:hidden;background-color: white;">
@@ -35,7 +35,7 @@
     <view class="cu-form-group" hidden="{{check2}}" style="height:5rem;margin-left:-1rem;margin-top: 2rem;">
         <view class="cu-form-group">
             <view class="title icon-title text-orange">输入尾号：</view>
-            <input bindinput="getwh" class="radius dp" name="whnumber" maxlength="3" type="number" placeholder="请输入尾号模糊查询" value="{{whnumber}}"></input>
+            <input bindinput="getwh" class="radius dp" name="whnumber"  type="number" placeholder="请输入尾号模糊查询" value="{{whnumber}}"></input>
         </view>
     </view>
     <view style="width:100%;margin:30px 0px 10px 10px;height:3rem;">
@@ -53,7 +53,7 @@
                 <text>登记类型</text>
             </view>
             <view style="width:20%;margin-top: 5px;">
-                <text>龙钞尾号</text>
+                <text>龙钞号码</text>
             </view>
             <view style="width:20%;margin-top: 5px;">
                 <text>登记员工</text>

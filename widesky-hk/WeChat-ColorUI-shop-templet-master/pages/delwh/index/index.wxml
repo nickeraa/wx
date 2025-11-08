@@ -50,7 +50,7 @@
         <view class="cu-form-group" style="padding-top: 1rem;height:6rem;">
 
             <view bindtap="delvipnumber" style="width:80%;margin-top:5px;text-align: center;">
-            <button class="cu-btn bg-gradual-green shadow-blur round" style='font-size: 18px;height: 2.5rem;'>删除此会员登记的尾号</button>
+            <button class="cu-btn bg-gradual-green shadow-blur round" style='font-size: 18px;height: 2.5rem;'>删除此会员登记的号码</button>
         </view>
      
         </view>
