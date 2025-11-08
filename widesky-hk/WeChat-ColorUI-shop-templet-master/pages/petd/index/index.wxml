@@ -8,7 +8,7 @@
  
     <view class="cu-form-group" style='padding-top: 5rem;'>
         <view class="title icon-title text-orange">定金单号：</view>
-        <input bindinput="getsnumber" class="radius" name="snumber" placeholder="请输入配额定金单号" value="{{snumber}}"></input>
+        <input bindinput="getsnumber" class="radius" name="snumber" placeholder="请输入配额定金单号" value="{{snumber}}" ></input>
     </view>
 
     <view class="cu-form-group" style='padding-top: 2rem;'>
@@ -19,7 +19,7 @@
 
     <view class="cu-form-group" style='padding-top: 2em;'>
         <view class="title icon-title text-orange">数量：</view>
-        <input bindinput="getqty" class="radius" name="qty" placeholder="请输入数量" value="{{qty}}"></input>
+        <input bindinput="getqty" class="radius" name="qty" placeholder="请输入数量" value="{{qty}}" type='number'></input>
     </view>
 
 

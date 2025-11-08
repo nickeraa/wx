@@ -20,12 +20,12 @@ Page({
 
   getsnumber: function (e) {
     this.setData({
-      snumber: e.detail.value
+      snumber: e.detail.value.toUpperCase()
     }), console.log(this.data.snumber);
   },
   getsku: function (e) {
     this.setData({
-      xf_plu: e.detail.value
+      xf_plu: e.detail.value.toUpperCase()
     }), console.log(this.data.xf_plu);
   },
 
@@ -76,8 +76,8 @@ Page({
         dnumber: a.data.snumber,
         xf_plu: a.data.xf_plu,
         qty: a.data.qty,
-       userid: wx.getStorageSync("userid")
-      // userid: '2413'
+        userid: wx.getStorageSync("userid")
+        // userid: '2413'
       },
       header: {
         "content-type": "application/x-www-form-urlencoded"
@@ -88,20 +88,20 @@ Page({
           0 == e.data.length ?
           wx.showModal({
             title: "提示",
-            content: "配额数据不存在，请检查输入信息",
+            content: "配额数据不存在或已经退订，请检查输入信息",
             showCancel: !1,
             success: function (e) {
 
             },
           }) :
-         (a.setData({
-            pnumber: e.data[0].PNUMBER,
-            qty:e.data[0].QTY,
-            xf_plu:e.data[0].XF_PLU
+          (a.setData({
+              pnumber: e.data[0].PNUMBER,
+              qty: e.data[0].QTY,
+              xf_plu: e.data[0].XF_PLU
 
-          }),
-          console.log(a.data.pnumber),
-          a.td()
+            }),
+            console.log(a.data.pnumber),
+            a.td()
           );
       },
     });
@@ -132,12 +132,14 @@ Page({
           "ok" == a.data &&
           wx.showModal({
             title: "提示",
-            content: "已退配额",
+            content: "已退配额!",
             showCancel: !1,
             success: function (a) {
-        
+
+              wx.switchTab({ url: "/pages/home/index/index" });
             },
           });
+
       },
       fail: function () {
         console.log("submit fail");
