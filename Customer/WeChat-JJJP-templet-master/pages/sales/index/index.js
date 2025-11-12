@@ -70,6 +70,16 @@ Page({
             url: "/pages/sesku/index/index"
         });
     },
+    ygzb: function() {
+        wx.navigateTo({
+            url: "/pages/ygzb/index/index"
+        });
+    },
+    dpzb: function() {
+        wx.navigateTo({
+            url: "/pages/dpzb/index/index"
+        });
+    },
     cgs: function() {
         wx.request({
             url: a.globalData.api + "wx_customer_cxlogin.ashx",

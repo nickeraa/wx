@@ -2,6 +2,8 @@
     "pages": [
         "pages/home/index/index",
         "pages/tjlogin/index",
+        "pages/ygzb/index/index",
+        "pages/dpzb/index/index",
         "pages/listprice/index/index",
         "pages/ygskus/index/index",
         "pages/ygskusyd/index/index",

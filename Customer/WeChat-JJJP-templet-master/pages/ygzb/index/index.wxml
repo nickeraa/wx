@@ -1,0 +1,97 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>指标完成率 </view>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;background-color: white;">
+    <view  style="padding-top: 5rem;height:8rem;">
+        <radio-group bindchange="radioChange" class="">
+            <label class="" style='margin-left: 50rpx;'>
+                <radio class="round red" value="0" style='margin-left: 10px;'></radio>按月查询 </label>
+            <label class="" style='margin-left: 100rpx;'>
+                <radio class="round red" value="1"></radio>按季度查询 </label>
+          
+        </radio-group>
+    </view>
+ 
+    <view hidden='{{flag1}}' class="page" style="margin-top:5px;background-color:white;">
+        <view class="picker_group " style="margin-left:-30px;">
+            <view class="title icon-title text-orange up" style="font-size:15px;">选择月份（仅选对月份即可）：</view>
+            <picker bindchange="bindDateChange" end="{{date2}}" mode="date" value="{{date}}">
+                <view class="picker"> {{date}} </view>
+            </picker> 
+        </view>
+    </view>
+
+    <view hidden='{{flag2}}' class="page" style="margin-top:5px;background-color:white;">
+        <view class="picker_group " style="margin-left:-15px;">
+            <view class="title icon-title text-orange up" style="font-size:12px;">选择季度考核开始月份（仅选对月份即可）：</view>
+         
+            <picker bindchange="bindDateChange" end="{{date2}}" mode="date" value="{{date}}">
+                <view class="picker"> {{date}} </view>
+            </picker> 
+        </view>
+    </view>
+
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="ygxs" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询排行</button>
+    </view>
+ 
+    <view hidden="{{flags}}" style="padding-top: 2rem;">
+        <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 3.5rem;text-align: center;">
+            <view class="stp" style="margin-left:10px;width:15%;margin-top: 20px;">
+                <text> 排行</text>
+            </view>
+            <view class="stp" style="width:15%;margin-left: 10px;margin-top: 20px;">
+                <text>姓名</text>
+            </view>
+            <view class="stp" style="width:15%;margin-left: 30px;">
+                <text>销售业绩</text>
+            </view>
+            <view class="stp" style="width:20%;margin-left: 30px;">
+                <text>销售达标率</text>
+            </view>
+            <view class="stp" style="width:20%;">
+                <text>C/G类业绩</text>
+            </view>
+            <view class="stp" style="width:25%;">
+                <text>C/G类达标率</text>
+            </view>
+        </view>
+    </view>
+    <view class="Grid-sku action solid-bottom" style="height:4rem;background-color:#E0EEEE;margin-top: 3px;" wx:for="{{rejob}}" wx:key="id">
+        <view class="stp" style="margin-left:15px;width:12%;margin-top: 21px;font-size: 18px;color: red;">
+            <text>{{item.CZB_RANK}}</text>
+        </view>
+        <view class="stp" style="width:20%;margin-top: 21px;">
+            <text>{{item.XF_YGNAME}}</text>
+        </view>
+        <view class="stp" style="width:20%;margin-top: 23px;">
+            <text>{{item.YGAMTSOLD}}</text>
+        </view>
+        <view class="stp" style="width:20%;margin-top: 23px;margin-left:0px;">
+            <text>{{item.ZB}}%</text>
+        </view>
+        <view class="stp" style="width:20%;margin-top: 23px;">
+            <text>{{item.CYGAMTSOLD}}</text>
+        </view>
+        <view class="stp" style="width:20%;margin-top: 23px;">
+            <text>{{item.CZB}}%</text>
+        </view>
+    </view>
+</view>
+<view style='background-color: white;height: 6rem;'></view>
+
+<wxs module="subData">
+module.exports = (function(val) {
+    if (val == undefined || val == '' || val == null) {
+        return
+    };
+    if (val.length > 10) {
+        return (val.substring(0, 10))
+    } else {
+        return (val)
+    }
+});
+</wxs>
