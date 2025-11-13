@@ -7,7 +7,7 @@
 <view style="background-color:white">
     <view class="cu-form-group" style="padding-top:6rem;">
         <view class="title icon-title text-orange" style="font-size: 17px;">查询店铺：</view>
-        <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="LCCODE" value="{{picker2[index2].XF_STORECODE}}">
+        <picker style='margin-top: -10px;' bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="LCCODE" value="{{picker2[index2].XF_STORECODE}}">
             <view class="picker dp " style="margin-left: -5px;">
                 <text>{{index2?picker2[index2].LCCODE:'请选择店铺'}}</text>
                 <text class="cuIcon-triangledownfill"></text>
@@ -68,13 +68,11 @@
             <view class="stp" style="margin-left:10px;width:15%;margin-top: 20px;">
                 <text> 姓名</text>
             </view>
-            <view class="stp" style="width:15%;margin-left: 25px;">
-                <text>销售指标</text>
-            </view>
+          
             <view class="stp" style="width:15%;margin-left: 30px;">
                 <text>销售业绩</text>
             </view>
-            <view class="stp" style="width:20%;margin-left: 30px;">
+            <view class="stp" style="width:20%;margin-left: 15px;">
                 <text>销售达标率</text>
             </view>
             <view class="stp" style="width:20%;">
@@ -88,9 +86,6 @@
     <view bindtap="newsaleslist" class="Grid-sku action solid-bottom" data-xf_name="{{item.XF_YGNAME}}" data-xf_salesman="{{item.XF_STAFFCODE}}" data-ygamt="{{item.YGAMTSOLD}}" hidden="{{flags}}" style="height:3rem;background-color:#E0EEEE;margin-top: 3px;" wx:for="{{rejob}}" wx:key="id">
         <view class="stp" style="margin-left:10px;width:18%;margin-top: 10px;">
             <text>{{item.XF_YGNAME}}</text>
-        </view>
-        <view class="stp" style="width:20%;margin-top: 12px;">
-            <text>{{item.YG_TARGET}}</text>
         </view>
         <view class="stp" style="width:20%;margin-top: 12px;">
             <text>{{item.YGAMTSOLD}}</text>
