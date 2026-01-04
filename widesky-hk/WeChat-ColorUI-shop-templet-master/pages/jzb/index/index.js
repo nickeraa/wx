@@ -875,6 +875,29 @@ Page({
       },
     });
   },
+
+cxjpg()
+{
+
+
+  wx.getStorageSync("job") ?
+  wx.showModal({
+    title: "提示",
+    content: "请您验证用户，必须是在职状态才能操作",
+    showCancel: !1,
+    success: function (e) {
+      e.confirm && wx.navigateTo({
+        url: "/pages/coupon/index/index"
+      });
+    },
+  }) :
+  wx.navigateTo({
+    url: "/pages/cxjpg/index/index"
+  });
+
+
+},
+
   selcwh: function () {
     wx.getStorageSync("job") ?
       wx.showModal({

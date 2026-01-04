@@ -50,7 +50,7 @@ Page({
   },
   shuaxin: function () {
 
-    if (this.data.flags==false) {
+    if (this.data.flags == false) {
 
       wx.showLoading({
         title: '太频繁了',
@@ -90,7 +90,7 @@ Page({
             success: function (a) {
               a.confirm &&
                 wx.redirectTo({
-                  url: "/pages/qxtp/index/index"
+                  url: "/pages/cxpe/index/index"
                 });
             },
           }) :
@@ -117,6 +117,12 @@ Page({
       dataType: "json",
       success: function (a) {
         console.log(a),
+        that.setData({
+
+          flags: false
+
+        })
+
           "ok" == a.data &&
           wx.showModal({
             title: "提示",
@@ -129,11 +135,7 @@ Page({
             },
           });
 
-        that.setData({
 
-          flags: true
-
-        })
       },
       fail: function () {
         console.log("submit fail");

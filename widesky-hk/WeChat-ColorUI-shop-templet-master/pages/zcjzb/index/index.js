@@ -29,6 +29,7 @@ Page({
   },
   onLoad: function (a) {
     this.setData({ znumber: a.znumber });
+    console.log(this.data.znumber)
   },
   checkinput: function (t) {
     this.data.imglist == a.globalData.api + "images/timg.jpg"
