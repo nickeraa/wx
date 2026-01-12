@@ -1,0 +1,80 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>店铺指标完成率 </view>
+    </view>
+</view>
+
+    <view class="page" style="padding-top:6rem;">
+        <view class="picker_group " style="margin-left:-35px;">
+            <view class="title icon-title text-orange up" style="font-size:15px;">查询日期：</view>
+            <picker bindchange="bindDateChange" end="{{date2}}" mode="date" value="{{date}}">
+                <view class="picker"> {{date}} </view>
+            </picker> 至 <picker bindchange="bindDateChange2" end="2050-01-01" mode="date" start="{{date}}" value="{{date2}}">
+                <view class="picker"> {{date2}} </view>
+            </picker>
+        </view>
+    </view>
+    <view class="cu-form-group sp" style="margin-top:1rem;">
+        <button bindtap="selectvip" class="cu-btn canui-color-gradual shadow-blur round lg sp" style="width:95%;">
+            <text class="icon-search"></text> 查询指标完成数据</button>
+    </view>
+
+    <view hidden="{{flag}}" style="padding-top: 2rem;">
+        <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 2.5rem;">
+            <view class="stp" style="margin-left:1rem;width:25%;">
+                <text> 店铺</text>
+            </view>
+       
+            <view class="stp" style="width:20%;">
+                <text>日均指标</text>
+            </view>
+ 
+            <view class="stp" style="width:20%;">
+                <text>销售</text>
+            </view>
+            <view class="stp" style="width:20%;">
+                <text>预定</text>
+            </view>
+         
+            <view class="stp" style="width:20%;">
+                <text>累计达标</text>
+            </view>
+        </view>
+    </view>
+    <view  class="Grid-sku action solid-bottom"  hidden="{{flag}}" style="height:3rem;background-color:#E0EEEE;margin-top: 3px;" wx:for="{{rejob}}" wx:key="id">
+        <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;">
+            <text>{{item.XF_NAME}}</text>
+        </view>
+
+        <view class="stp" style="width:20%;margin-top: 12px;">
+            <text>{{item.DTARGET}}</text>
+        </view>
+        <view class="stp" style="width:20%;margin-top: 12px;">
+            <text>{{item.SAMTSOLD}}</text>
+        </view>
+        <view class="stp" style="width:20%;margin-top: 12px;">
+            <text>{{item.DAMTSOLD}}</text>
+        </view>
+        <view wx:if="{{item.DB=='达标'}}" class="stp" style="width:20%;margin-top: 12px;">
+            <text class='icon-check' style='color: green;font-weight: 700;font-size: 15px;'>{{item.DB}}</text>
+        </view>
+        <view wx:else class="stp" style="width:20%;margin-top: 12px;">
+            <text style='color: red;font-size: 15px;font-weight: 700;'>{{item.DB}}</text>
+        </view>
+    </view>
+    <view style="height:3px;background-color:white;"></view>
+    <view style="height:10rem;"></view>
+
+<wxs module="subData">
+module.exports = (function(val) {
+    if (val == undefined || val == '' || val == null) {
+        return
+    };
+    if (val.length > 10) {
+        return (val.substring(0, 10))
+    } else {
+        return (val)
+    }
+});
+</wxs>

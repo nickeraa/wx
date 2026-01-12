@@ -110,6 +110,11 @@ Page({
             duration: 2e3
         });
     },
+    yjzb: function() {
+         wx.navigateTo({
+            url: "/pages/yjzb/index/index"
+        }) 
+    },
     cdp: function() {
         wx.request({
             url: a.globalData.api + "wx_customer_cxlogin.ashx",
