@@ -23,15 +23,18 @@ Page({
     vipname: "",
     grade: "",
     store: "",
-    xf_name: "",
+    ygname: "",
     count: 0,
     slt: "",
     xf_users: "",
+    yguserid:'',
     fnumber: ''
   },
   onLoad: function (a) {
-    a.yguserid && wx.setStorageSync("yguserid", a.yguserid),
-      console.log(wx.getStorageSync("yguserid"));
+ 
+      wx.navigateTo({
+        url: '/pages/relogin/index',
+      })
   },
   checkboxChange: function (a) {
     this.setData({
@@ -96,11 +99,11 @@ Page({
       },
     });
   },
-  back: function () {
-    wx.switchTab({
-      url: "/pages/jzb/index/index"
-    });
-  },
+  // back: function () {
+  //   wx.switchTab({
+  //     url: "/pages/jzb/index/index"
+  //   });
+  // },
   searchs: function () {
     var t = this;
     wx.showLoading({
@@ -140,11 +143,11 @@ Page({
         },
       });
   },
-  listvip: function () {
-    wx.navigateTo({
-      url: "/pages/vipss/index/index"
-    });
-  },
+  // listvip: function () {
+  //   wx.navigateTo({
+  //     url: "/pages/vipss/index/index"
+  //   });
+  // },
   bindPickerChange2: function (a) {
     console.log("picker发送选择改变，携带值为", a.detail.value),
       this.setData({
@@ -341,6 +344,13 @@ Page({
       });
   },
   onShow: function () {
+
+this.setData({
+yguserid:wx.getStorageSync("yguserid"),
+ygname:wx.getStorageSync("ygname")
+
+})
+
     if ("1" == a.globalData.tt) return !1;
     this.setData({
       choseNames: []
@@ -445,51 +455,6 @@ Page({
 
 
 
-
-    if (this.data.count == 0) {
-      wx.showModal({
-        title: "提示",
-        content: "没有选择货品加入到分享包",
-        showCancel: false,
-        success: function (a) {
-          a.confirm;
-        },
-      })
-      return false;
-    } else if (this.data.vipname == "") {
-      wx.showModal({
-        title: "提示",
-        content: "没有填写分享的会员卡号",
-        showCancel: false,
-        success: function (a) {
-          a.confirm;
-        },
-      })
-      return false;
-    } else if (this.data.xf_users != wx.getStorageSync("yguserid")) {
-      wx.showModal({
-        title: "提示",
-        content: "此客户跟进员工和登录员工不一致，不能分享",
-        showCancel: !1,
-        success: function (a) {
-          a.confirm;
-        },
-      })
-
-      return false;
-    } else {
-      console.log('kkkkkkkkkkkkkkkkkkkk')
-      console.log(this.data.xfname)
-      console.log(this.data.slt)
-      return {
-        title: "广天藏品 " + this.data.xfname + " 向您最新分享了：" + this.data.count + "款货品 ...",
-        path: "/pages/homerm/index/index?vipcode=" + this.data.vipcode + "&fnumber=" + this.data.fnumber + "&tj=1&yguserid=" + wx.getStorageSync("yguserid"),
-        imageUrl: this.data.slt
-      },
-
-      console.log(this.data.fnumber),
-        this.fx();
-    }
   },
   fx: function () {
 

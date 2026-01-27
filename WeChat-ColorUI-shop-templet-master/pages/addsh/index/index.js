@@ -84,8 +84,8 @@ Page({
   add: function () {
     if ((console.log(this.data.tag), "" == this.data.shname))
       wx.showToast({ title: "请填写收货人", icon: "error", duration: 1e3 });
-    else if ("" == this.data.shphone)
-      wx.showToast({ title: "请填写手机号", icon: "error", duration: 1e3 });
+    else if (!(/^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$/.test(this.data.shphone))) 
+    ({ title: "请填写所在地区", icon: "error", duration: 1e3 }); 
     else if ("" == this.data.address1)
       wx.showToast({ title: "请填写所在地区", icon: "error", duration: 1e3 });
     else if ("" == this.data.address2)

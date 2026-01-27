@@ -83,9 +83,9 @@
         </view>
     </view>
 </view>
-<view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:4rem;background-color:white;margin-top:0.5rem;">
+<view bindtap="address" class="cu-list menu card-menu margin-top-xl  shadow-lg" style="height:4rem;background-color:white;margin-top:0.5rem;">
     <image src="/img/basics.png" style="width:2.5rem;height:2.5rem;margin-top:0.8rem;margin-left: 12px;"></image>
-    <button bindtap="address" style="margin-top:-2.5rem;margin-left:4.8rem;width:6rem;background-color: white;font-size: 14px;">
+    <button  style="margin-top:-2.5rem;margin-left:4.8rem;width:6rem;background-color: white;font-size: 14px;">
         <text class="text-black">收货地址</text>
     </button>
     <view style="margin-top: -1.5rem;">

@@ -4,8 +4,17 @@
             <text style="margin-left: 120px;"></text>货品推荐 </view>
     </view>
 </view>
+
 <view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
+
     <view class="cu-form-group" style='display: flex;width: 100%;flex-wrap:wrap;'>
+
+        <view class="cu-form-group" style='margin-top: 1rem;'>
+            <view class="title icon-title text-orange" style="margin-left: -15px;">已绑定员工：</view>
+            <text class='text-red' style='font-size: 24px;margin-top: 3px;'>{{yguserid}}</text>
+            <text class='text-red' style='font-size: 24px;margin-left: 20px;'>{{ygname}}</text>
+        </view>
+
         <view class="title icon-title text-orange">选择系列：</view>
         <picker bindchange="bindPickerChange2" range="{{picker2}}" rangeKey="ITEMNAME" style="margin-left:1rem;margin-top:3px;" value="{{picker2[index2].ITEMNAME}}">
             <view class="picker dp ">
@@ -17,11 +26,13 @@
             <button bindtap="search" class="cu-btn bg-gradual-green shadow-blur round">查询</button>
         </view>
     </view>
+
+
 </view>
 <form bindsubmit="formSubmit">
-    <swiper autoplay="true" circular="true" class="screen-swiper square-dot shadow-warp bg-white" duration="500" indicatorDots="true" interval="5000" style="margin-top:20px;">
+    <swiper autoplay="true" circular="true" class="screen-swiper1 square-dot shadow-warp bg-white" duration="500" indicatorDots="true" interval="5000" style="margin-top:20px;">
         <swiper-item wx:for="{{resultdt}}" wx:key="itemid">
-            <image data-itemname="{{item.ITEMNAME}}" mode="aspectFit" src="{{banner}}{{item.BANNER}}" style="height: 650rpx; width: 1080rpx;"></image>
+            <image data-itemname="{{item.ITEMNAME}}" mode="aspectFit" src="{{banner}}{{item.BANNER}}" style="height: 950rpx; width: 1080rpx;"></image>
         </swiper-item>
     </swiper>
 </form>
@@ -59,28 +70,26 @@
             <view style="margin-left:10px;width:35%;margin-top:15px;" wx:if="{{item.XF_ORGUPRICE=='999999'}}">
                 <text class=""> 售价：未定价 </text>
             </view>
-            <view style="margin-left:10px;width:35%;margin-top:15px;" wx:else>
+            <view style="margin-left:5px;width:35%;margin-top:15px;" wx:else>
                 <text class=""> 售价：{{item.XF_ORGUPRICE}}</text>
             </view>
-            <view class="" style="margin-left:0px;width:30%;margin-top:15px;" wx:if="{{!item.XF_VIPPRICE}}">
+            <view class="" style="margin-left:-10px;width:30%;margin-top:15px;" wx:if="{{!item.XF_VIPPRICE}}">
                 <text>会员价:无</text>
             </view>
-            <view class="" style="margin-left:0px;width:35%;margin-top:15px;" wx:if="{{item.XF_VIPPRICE}}">
+            <view class="" style="margin-left:-15px;width:35%;margin-top:15px;" wx:if="{{item.XF_VIPPRICE}}">
                 <text>会员价:{{item.XF_VIPPRICE}}</text>
             </view>
-            <view class="" style="margin-left:10px;width:20%;margin-top:15px;" wx:if="{{item.STOCK==''}}">
-                <text>配额：</text>
-            </view>
-            <view class="" style="margin-left:10px;width:20%;margin-top:15px;" wx:if="{{item.STOCK=='0'}}">
+      
+            <view class="" style="margin-left:-15px;width:20%;margin-top:15px;" wx:if="{{item.STOCK=='0'}}">
                 <text class="text-red"> 配额：{{item.STOCK}} </text>
             </view>
-            <view class="" style="margin-left:10px;width:20%;margin-top:15px;" wx:if="{{item.STOCK}}">
+            <view class="" style="margin-left:-15px;width:20%;margin-top:15px;" wx:if="{{item.STOCK}}">
                 <text class="text-red"> 配额：{{item.STOCK}} </text>
             </view>
-            <view class="" style="margin-left:10px;width:20%;margin-top:15px;">
+            <view class="" style="margin-left:-15px;width:20%;margin-top:15px;">
                 <text class="text-red"> 库存：{{item.XF_QOH}} </text>
             </view>
-            <view bindtap="listpe" data-xf_plu="{{item.XF_PLU}}" style="margin-left:0px;width:20%;margin-top:8px;">
+            <view bindtap="listpe" data-xf_plu="{{item.XF_PLU}}" style="margin-left:-10px;width:20%;margin-top:8px;">
                 <button class="cu-btn bg-gradual-green shadow-blur round">查询</button>
             </view>
         </view>
@@ -115,9 +124,9 @@
         <view bindtap="listvipcode" style="margin-left:8rem;width:20%;margin-top:5px;width:30%;">
             <button class="cu-btn bg-gradual-green shadow-blur round">查询</button>
         </view>
-        <view bindtap="listvip" style="margin-left:10px;margin-top:5px;width:50%;">
+        <!-- <view bindtap="listvip" style="margin-left:10px;margin-top:5px;width:50%;">
             <button class="cu-btn  shadow-blur round" style="background-color: #03a9f4;color:white;">会员数据查询工具</button>
-        </view>
+        </view> -->
     </view>
     <view class="cu-form-group" style="padding-top: 20px;">
         <view class="title icon-title text-orange up">会员姓名：</view>

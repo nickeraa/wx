@@ -98,7 +98,7 @@ Page({
       "0"
     ),
     t(
-      t(t(t(t(a, "sumwlprice", 0), "sorts", ""), "strarrs", ""), "xiaoshu", !1),
+      t(t(t(t(a, "sumwlprice", 0), "sorts", ""), "strarrs", "","replu",{},), "xiaoshu", !1),
       "userid",
       ""
     )),

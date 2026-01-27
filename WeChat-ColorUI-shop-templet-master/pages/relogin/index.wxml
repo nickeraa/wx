@@ -1,7 +1,7 @@
 <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <navigator class="action canui-head-title">
-            <text style="margin-left: 150px;"> 签约须知</text>
+            <text style="margin-left: 150px;"> 员工登录绑定</text>
         </navigator>
     </view>
 </view>
@@ -11,19 +11,20 @@
             <image class="t_image1" src="/img/logo.jpg" style="position: relative; left: 0rpx; top: 156rpx"></image>
         </view>
         <view class="b2" style="width: 700rpx; height: 729rpx; display: block; box-sizing: border-box">
-            <view class="v1" style="margin-top: 140px; height: 125rpx; display: block; box-sizing: border-box; width: 708rpx">广天藏品非常重视您的隐私保护，您使用服务之前，请仔细阅读《隐私条款》,我们将严格按照您同意的各项条款使用您的个人信息，以便为您提供更好的服务。</view>
-            <view class="cu-form-group" style="width: 708rpx; height: 81rpx; display: flex; box-sizing: border-box">
-                <checkbox-group bindchange="checkboxChange" style="margin-left:-40px;">
-                    <checkbox checked="" style="transform: scale(0.6,0.6);" value="true">
-                        <text style="margin-left:10px;color:#7A8B8B;font-size:25px;">我已阅读并同意</text>
-                    </checkbox>
-                </checkbox-group>
-                <view style="margin-right:auto;">
-                    <text bindtap="listys" decode="{{true}}" style="color:#436EEE;font-size:15px;margin-left:-40px;">《隐私条款》</text>
+                <view style="height:7rem;">
+                <view class="cu-form-group" style="margin-top:8rem;">
+                    <view class="title cuIcon-title text-orange">员工ID：</view>
+                    <input bindinput="getcomuseridValue" class="radius dp" name="comuserid" placeholder="请输入科传系统ID" type="text" value="{{comuserid}}"></input>
                 </view>
+                <view class="cu-form-group">
+                    <view class="title cuIcon-title text-orange">登录密码：</view>
+                    <input bindinput="getcompasswordValue" class="radius dp" name="compassword" password value="{{compassword}}"></input>
+                </view>
+                <view class="cu-form-group"></view>
             </view>
+   
             <view style="width:100%;margin:40px 0px 10px 10px;">
-                <button bindtap="qy" class="cu-btn round" style="margin: 5px 5px 5px 5px; height: 2rem; border-radius: 0.8rem;font-weight: 500; background-color: white; border: 1px solid #436EEE; width: 90%; position: relative; left: -10rpx; top: -31rpx">>>> 进入签约</button>
+                <button bindtap="qy" class="cu-btn round" style="margin: 5px 5px 5px 5px; height: 2rem; border-radius: 0.8rem;font-weight: 500; background-color: white; border: 1px solid #436EEE; width: 90%; position: relative; left: -10rpx; top: -31rpx">确认登录</button>
             </view>
         </view>
     </view>

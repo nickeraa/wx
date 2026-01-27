@@ -111,6 +111,9 @@ page {
 .sp {
   margin: 0 5px;
 }
+.screen-swiper1 {
+  min-height: 650rpx;
+}
 .sku-sp {
   display: block;
   float: left;

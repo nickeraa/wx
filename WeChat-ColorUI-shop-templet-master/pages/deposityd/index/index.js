@@ -10,42 +10,47 @@ Page({
     xf_plu: "",
     xf_desci: "",
     replu: {},
+    ck: 0,
+    setype: "0",
     flags: !1,
     ret: {},
+    address1: "",
+    address2: "",
+    phone: "",
+    body: "",
     tag: "",
     tags: !1,
     qty: 1,
     sumprice: 0,
     realprice: 0,
+    wlprice: 0,
     sumrealprice: 0,
+    dpid: "",
+    id: "",
     fg: 0,
     amount: 0,
     remark: "",
     xf_storecode: "",
     salesman: "",
-    salestypes: "",
-    sumydprice: 0,
-    yd_amtsold: 0,
+    types: "",
     grade: "",
+    salestypes: "",
+    salestypeswx: "",
+    xishu: 0,
     sorts: "",
     xiaoshu: !1,
+    xf_docno: "",
     userid: "",
+    yk:false,
   },
   back: function () {
     wx.navigateBack({ delta: 0 });
   },
-  onLoad: function (a) {
-    a.xf_plu && this.setData({ xf_plu: a.xf_plu }),
-      wx.getStorageSync("vipcode")
-        ? this.setData({ userid: wx.getStorageSync("vipcode") })
-        : this.setData({ userid: wx.getStorageSync("wxuserid") });
-  },
   jia: function () {
     this.setData({ qty: this.data.qty + 1 }),
       this.setData({
-        sumprice: this.data.realprice * this.data.qty,
+        sumprice: this.data.realprice * this.data.qty + this.data.wlprice,
         sumrealprice: this.data.realprice * this.data.qty,
-        sumydprice: this.data.yd_amtsold * this.data.qty,
       });
   },
   jian: function () {
@@ -53,10 +58,242 @@ Page({
       ? wx.showToast({ title: "不能少于1", icon: "error", duration: 1e3 })
       : (this.setData({ qty: this.data.qty - 1 }),
         this.setData({
-          sumprice: this.data.realprice * this.data.qty,
+          sumprice: this.data.realprice * this.data.qty + this.data.wlprice,
           sumrealprice: this.data.realprice * this.data.qty,
-          sumydprice: this.data.yd_amtsold * this.data.qty,
         }));
+  },
+  showModal: function (t) {
+    this.setData({ modalName: t.currentTarget.dataset.target, flags: !0 });
+    var e = this;
+    wx.request({
+      url: a.globalData.api + "wx_alladdress.ashx",
+      data: {
+        vipcode: wx.getStorageSync("vipcode"),
+        wxuserid: wx.getStorageSync("wxuserid"),
+      },
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      dataType: "json",
+      success: function (a) {
+        console.log(a.data),
+          a.data.length > 0
+            ? e.setData({ ret: a.data })
+            : e.setData({ ret: null });
+      },
+    });
+  },
+  hideModal: function (a) {
+    this.setData({ modalName: null, flags: !1 });
+  },
+  add: function () {
+    wx.navigateTo({ url: "/pages/addsh/index/index" });
+  },
+  edit: function (a) {
+    wx.navigateTo({
+      url: "/pages/editadd/index/index?id=" + a.currentTarget.dataset.id,
+    });
+  },
+  checkboxChange: function (a) {
+    this.setData({
+      address1: a.currentTarget.dataset.address1,
+      address2: a.currentTarget.dataset.address2,
+      phone: a.currentTarget.dataset.phone,
+      body: a.currentTarget.dataset.body,
+      ck: a.currentTarget.dataset.id,
+      id: a.currentTarget.dataset.id,
+    }),
+      console.log(a.currentTarget.dataset.tag),
+      "1" == a.currentTarget.dataset.tag
+        ? this.setData({ tags: !1 })
+        : this.setData({ tags: !0 }),
+      console.log(this.data.tags),
+      this.hideModal(),
+      this.sewlprice();
+  },
+  sewlprice: function () {
+    var t = this;
+    wx.request({
+      url: a.globalData.api + "wx_sewlprice.ashx",
+      data: { id: t.data.id },
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      dataType: "json",
+      success: function (a) {
+        console.log(a.data),
+          t.setData({ wlprice: a.data[0].WLPRICE * t.data.xishu });
+      },
+    });
+  },
+  onLoad: function (a) {
+    a.xf_plu && this.setData({ xf_plu: a.xf_plu }),
+      a.address1 && this.setData({ address1: a.address1 }),
+      a.address2 && this.setData({ address2: a.address2 }),
+      a.telphone && this.setData({ telphone: a.telphone }),
+      a.id && this.setData({ id: a.id }),
+      wx.getStorageSync("vipcode")
+        ? this.setData({ userid: wx.getStorageSync("vipcode") })
+        : this.setData({ userid: wx.getStorageSync("wxuserid") });
+  },
+  radioChange1: function (a) {
+
+      this.setData({
+
+        yk:false
+   
+         })
+
+
+
+
+    console.log("radior发送选择改变，携带值为", a.detail.value),
+      this.setData({ setype: a.detail.value }),
+      "0" == this.data.setype
+        ? this.address()
+        : "1" == this.data.setype && this.store();
+
+        if(this.data.setype=='1')
+        {
+        
+          this.setData({
+        
+            yk:true
+        
+             })
+        
+        }
+
+
+  },
+  sestore: function () {
+    console.log("ddddddddd"),
+      console.log(this.data.dpid),
+      wx.navigateTo({ url: "/pages/store/index/index?dpid=" + this.data.dpid });
+  },
+  selectsku: function (a) {
+    wx.navigateTo({
+      url: "/pages/shopcg/goods/index?xf_plu=" + a.currentTarget.dataset.xf_plu,
+    });
+  },
+  store: function () {
+ 
+    console.log("fsdfsdfsadfsadfdsa")
+    console.log(wx.getStorageSync("vipcode"))
+
+    if(!wx.getStorageSync("vipcode")&&this.data.setype=='1')
+    {
+
+      console.log("pppppppp")
+      this.setData({
+
+     yk:true
+
+      })
+
+      
+    }
+
+   
+
+
+    if (
+      (this.setData({ wlprice: 0, sumprice: this.data.sumrealprice }),
+      !wx.getStorageSync("vipcode"))
+    )
+      return this.destore(), !1;
+
+    var t = this;
+    wx.request({
+      url: a.globalData.api + "wx_sestoreaddr.ashx",
+      data: { vipcode: wx.getStorageSync("vipcode") },
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      dataType: "json",
+      success: function (a) {
+        console.log(a.data),
+          a.data.length > 0
+            ? t.setData({
+                address1: a.data[0].ADDRESS1,
+                address2: a.data[0].ADDRESS2,
+                telphone: a.data[0].TELPHONE,
+                dpid: a.data[0].ID,
+                fg: 1,
+              })
+            : t.destore();
+
+
+
+
+      },
+    });
+  },
+  destore: function () {
+    var t = this;
+    wx.request({
+      url: a.globalData.api + "wx_deaddr.ashx",
+      data: {},
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      dataType: "json",
+      success: function (a) {
+        console.log(a.data),
+          t.setData({
+            address1: a.data[0].ADDRESS1,
+            address2: a.data[0].ADDRESS2,
+            telphone: a.data[0].TELPHONE,
+            dpid: a.data[0].ID,
+            fg: 1,
+          });
+
+          if(a.data[0].ADDRESS1=='广天藏品深圳办公室')
+          {
+          
+          console.log('ttttttttttttt')
+          
+          
+          t.setData({
+          
+          yk:true
+          
+          })
+          
+          }
+
+      },
+    });
+  },
+  address: function () {
+    var t = this;
+    wx.request({
+      url: a.globalData.api + "wx_address.ashx",
+      data: {
+        vipcode: wx.getStorageSync("vipcode"),
+        wxuserid: wx.getStorageSync("wxuserid"),
+        xf_plu: t.data.xf_plu,
+      },
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      dataType: "json",
+      success: function (a) {
+        console.log(a.data),
+          a.data.length > 0
+            ? (t.setData({
+                address1: a.data[0].ADDRESS1,
+                address2: a.data[0].ADDRESS2,
+                phone: a.data[0].PHONE,
+                body: a.data[0].BODY,
+                tag: a.data[0].TAG,
+                ck: a.data[0].ID,
+                wlprice: a.data[0].WLPRICE * t.data.xishu,
+                sumprice: parseFloat(
+                  t.data.sumprice + a.data[0].WLPRICE
+                ).toFixed(2),
+                flag: !0,
+                salestypes: a.data[0].SALESTYPES,
+                xf_storecode: a.data[0].XF_STORECODE,
+                salesman: a.data[0].SALESMAN,
+                grade: a.data[0].GRADE,
+              }),
+              "1" == a.data[0].TAG
+                ? t.setData({ tags: !1 })
+                : t.setData({ tags: !0 }))
+            : t.setData({ flag: !1 });
+      },
+    });
   },
   onShow: function () {
     console.log(this.data.xf_plu);
@@ -91,6 +328,7 @@ Page({
                 t.setData({ xiaoshu: !0 }))
             : t.setData({ replu: null }),
           console.log(t.data.replu);
+          "0" == t.data.setype && t.address();
       },
     });
   },

@@ -1,9 +1,10 @@
 {
   "pages": [
-
     "pages/home/index/index",
-    "pages/hofman/goods/index",
     "pages/acxpexl/index/index",
+  
+    "pages/hofman/goods/index",
+    "pages/homerm/index/index",
     "pages/shopcghfm/goods/index",
     "pages/userlw/index/index",
     "pages/userqd/index/index",
@@ -17,7 +18,6 @@
     "pages/ystk/index",
     "pages/qyxy/index",
     "pages/qyxyb/index",
-    "pages/homerm/index/index",
     "pages/user/index/index",
     "pages/addsh/index/index",
     "pages/store/index/index",

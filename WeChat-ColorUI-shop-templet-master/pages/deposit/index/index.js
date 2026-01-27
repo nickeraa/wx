@@ -318,6 +318,7 @@ Page({
                 sumrealprice: parseFloat(a.data[0].REALPRICE).toFixed(2)*t.data.qty,
                 xf_desci: a.data[0].XF_DESCI,
                 sorts: a.data[0].SORTS,
+                grade:a.data[0].GRADE
               }),
               t.data.sumprice.toString().indexOf(".") >= 0 &&
                 t.setData({ xiaoshu: !0 }))

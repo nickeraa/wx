@@ -89,7 +89,7 @@
         <view style="margin-left: 1rem;font-size: 16px;margin-top: 2rem;width: 70%;">
             <text>定金合计：</text>
             <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{sumydprice}}</text>
-            <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);" wx:if="{{!xiaoshu}}">.00"</text>
+            <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);" wx:if="{{!xiaoshu}}">.00</text>
         </view>
         <view bindtap="payment" style="width: 30%;margin-top: 5px;">
             <button class="submitbtn" style="margin: 20px 20px 20px 0px;">

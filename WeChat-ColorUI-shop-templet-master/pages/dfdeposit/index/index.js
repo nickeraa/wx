@@ -81,7 +81,7 @@ yk:true
                 shtype: a.data[0].SHTYPE,
                 sumrealprice: a.data[0].XF_AMTSOLD,
                 xf_docno: a.data[0].XF_DOCNO,
-                xf_txdate: a.data[0].XF_TXDATE,
+                xf_txdate: a.data[0].XF_TXDATE.replace(/T/g,' '),
                 sumwlprice: a.data[0].SUMWLPRICE,
                 xf_desci: a.data[0].XF_DESCI,
                 remark: a.data[0].REMARK,

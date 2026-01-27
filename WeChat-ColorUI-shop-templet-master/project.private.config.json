@@ -1,145 +1,145 @@
 {
-  "projectname": "WeChat-ColorUI-shop-templet-master",
-  "setting": {
-    "compileHotReLoad": true,
-    "urlCheck": false
-  },
-  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
-  "condition": {
-    "miniprogram": {
-      "list": [
-        {
-          "name": "会员打开分享链接",
-          "pathName": "pages/homerm/index/index",
-          "query": "vipcode=99880005137&yguserid=YXY&fnumber=3490749476867&tj=1",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "首页",
-          "pathName": "pages/home/index/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "金钞",
-          "pathName": "pages/1WGYB1029/goods/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "员工跳转到首页",
-          "pathName": "pages/acxpexl/index/index",
-          "query": "yguserid=0005",
-          "launchMode": "default",
-          "scene": 1037,
-          "referrerInfo": {
-            "appId": "wx187fe5b10e271c63",
-            "extraData": "{\"yguserid\":\"0005\"}"
-          }
-        },
-        {
-          "name": "员工分享给会员",
-          "pathName": "pages/home/index/index",
-          "query": "vipcode=D8008835278&yguserid=0005",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "员工分享页面客户打开页面",
-          "pathName": "pages/home/index/index",
-          "query": "vipcode=800810046848&q=ke&yguserid=0005",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "员工货号分享",
-          "pathName": "pages/shopcg/goods/index",
-          "query": "xf_plu=1ZH005217&fxuserid=YXY&vipcode=800810856468&fx=1",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "员工发送取货链接",
-          "pathName": "pages/fkdepositfx/index/index",
-          "query": "vipcode=800810046848&yguserid=0005&d=1&xf_docno=DSC0000009",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "客户扫描",
-          "pathName": "pages/user/index/index",
-          "query": "q=https://widesky.work/vipcode?id=123&vipid=1626",
-          "launchMode": "default",
-          "scene": 1011
-        },
-        {
-          "name": "跳转小程序",
-          "pathName": "pages/sendcard/index/index",
-          "query": "vipid=1607",
-          "launchMode": "default",
-          "scene": 1037,
-          "referrerInfo": {
-            "appId": "wx187fe5b10e271c63",
-            "extraData": "{\"yguserid\":\"YXY\" }"
-          }
-        },
-        {
-          "name": "会员分享给客户",
-          "pathName": "pages/home/index/index",
-          "query": "fxuserid=800810091148",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "手机客户分享给客户",
-          "pathName": "pages/home/index/index",
-          "query": "fxuserid=13688897078",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "游客分享给游客",
-          "pathName": "pages/home/index/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "货号会员分享",
-          "pathName": "pages/shopcg/goods/index",
-          "query": "xf_plu=1ZH005217&fxuserid=800810856468&fx=1",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "手机客户分享货号",
-          "pathName": "pages/shopcg/goods/index",
-          "query": "xf_plu=1ZH005217&fxuserid=13688897078&fx=1",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "客户打开定金取货链接",
-          "pathName": "pages/fkdeposit/index/index",
-          "query": "vipcode=800810046848&yguserid=0005&xf_docno=DSC0000009",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "跳转小程序员工发定金取货链接",
-          "pathName": "pages/fkdepositfx/index/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": 1037,
-          "referrerInfo": {
-            "appId": "wx187fe5b10e271c63",
-            "extraData": "{\"vipcode\":\"800810046848\",\"yguserid\":\"0005\" ,\"d\":\"1\",\"xf_docno\":\"DSC0000012\"}"
-          }
+    "projectname": "WeChat-ColorUI-shop-templet-master",
+    "setting": {
+        "compileHotReLoad": true,
+        "urlCheck": false
+    },
+    "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+    "condition": {
+        "miniprogram": {
+            "list": [
+                {
+                    "name": "会员打开分享链接",
+                    "pathName": "pages/homerm/index/index",
+                    "query": "vipcode=99880008627&yguserid=2340&fnumber=3539005022079&tj=1",
+                    "scene": null,
+                    "launchMode": "default"
+                },
+                {
+                    "name": "首页",
+                    "pathName": "pages/home/index/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "金钞",
+                    "pathName": "pages/1WGYB1029/goods/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "员工跳转到首页",
+                    "pathName": "pages/acxpexl/index/index",
+                    "query": "yguserid=0005",
+                    "launchMode": "default",
+                    "scene": 1037,
+                    "referrerInfo": {
+                        "appId": "wx187fe5b10e271c63",
+                        "extraData": "{\"yguserid\":\"0005\"}"
+                    }
+                },
+                {
+                    "name": "员工分享给会员",
+                    "pathName": "pages/home/index/index",
+                    "query": "vipcode=D8008835278&yguserid=0005",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "员工分享页面客户打开页面",
+                    "pathName": "pages/home/index/index",
+                    "query": "vipcode=800810046848&q=ke&yguserid=0005",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "员工货号分享",
+                    "pathName": "pages/shopcg/goods/index",
+                    "query": "xf_plu=1ZH005217&fxuserid=YXY&vipcode=800810856468&fx=1",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "员工发送取货链接",
+                    "pathName": "pages/fkdepositfx/index/index",
+                    "query": "vipcode=800810046848&yguserid=0005&d=1&xf_docno=DSC0000009",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "客户扫描",
+                    "pathName": "pages/user/index/index",
+                    "query": "q=https://widesky.work/vipcode?id=123&vipid=1626",
+                    "launchMode": "default",
+                    "scene": 1011
+                },
+                {
+                    "name": "跳转小程序",
+                    "pathName": "pages/sendcard/index/index",
+                    "query": "vipid=1607",
+                    "launchMode": "default",
+                    "scene": 1037,
+                    "referrerInfo": {
+                        "appId": "wx187fe5b10e271c63",
+                        "extraData": "{\"yguserid\":\"YXY\" }"
+                    }
+                },
+                {
+                    "name": "会员分享给客户",
+                    "pathName": "pages/home/index/index",
+                    "query": "fxuserid=800810091148",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "手机客户分享给客户",
+                    "pathName": "pages/home/index/index",
+                    "query": "fxuserid=13688897078",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "游客分享给游客",
+                    "pathName": "pages/home/index/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "货号会员分享",
+                    "pathName": "pages/shopcg/goods/index",
+                    "query": "xf_plu=1ZH005217&fxuserid=800810856468&fx=1",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "手机客户分享货号",
+                    "pathName": "pages/shopcg/goods/index",
+                    "query": "xf_plu=1ZH005217&fxuserid=13688897078&fx=1",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "客户打开定金取货链接",
+                    "pathName": "pages/fkdeposit/index/index",
+                    "query": "vipcode=800810046848&yguserid=0005&xf_docno=DSC0000009",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "跳转小程序员工发定金取货链接",
+                    "pathName": "pages/fkdepositfx/index/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": 1037,
+                    "referrerInfo": {
+                        "appId": "wx187fe5b10e271c63",
+                        "extraData": "{\"vipcode\":\"800810046848\",\"yguserid\":\"0005\" ,\"d\":\"1\",\"xf_docno\":\"DSC0000012\"}"
+                    }
+                }
+            ]
         }
-      ]
     }
-  }
 }

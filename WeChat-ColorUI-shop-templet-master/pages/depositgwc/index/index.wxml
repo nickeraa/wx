@@ -2,7 +2,7 @@
     <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <view class="head-title canui-head-title" style="font-weight: 550;">
             <text bindtap="back" class="icon-back" style="width: 20px;margin-left: -9rem;"></text>
-            <text style="font-size: 16px;font-weight: 800;color:black;margin-left: 7rem;">确认预定单</text>
+            <text style="font-size: 16px;font-weight: 800;color:black;margin-left: 7rem;">确认销售单</text>
         </view>
     </view>
 </view>
@@ -155,7 +155,7 @@
         </view>
         <view class="cu-form-group bg-white canui-input">
             <view>买家留言</view>
-            <input bindinput="getremark" class="radius" name="remark" placeholder="留言建议提前协商" style="font-size: 12px;margin: 5px 0px 0px 10px;"></input>
+            <input bindinput="getremark" class="radius" name="remark" placeholder="" style="font-size: 12px;margin: 5px 0px 0px 10px;"></input>
         </view>
     </view>
 </view>
@@ -182,7 +182,7 @@
         <view style="margin-top:-2rem;margin-left:4rem;" wx:else>
             <text class="text-black">会员卡</text>
             <text class="icon-right" style="float: right;color:gray;margin-right: 20px;margin-top: 3px;"></text>
-            <text style="float: right;margin-top: -2px;color:gray;font-weight: 700px;margin-right: 5px;">暂无会员卡</text>
+            <text style="float: right;margin-top: -2px;color:gray;font-weight: 700px;margin-right: 5px;"></text>
         </view>
     </view>
 </view>
@@ -203,7 +203,7 @@
             </view>
             <view bindtap="payment" style="width: 35%;margin-top: 5px;">
                 <button class="submitbtn" style="margin: 20px 20px 20px 0px;">
-                    <text> 提交预定单</text>
+                    <text> 立即购买</text>
                 </button>
             </view>
         </view>
