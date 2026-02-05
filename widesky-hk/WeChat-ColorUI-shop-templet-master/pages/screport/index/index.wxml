@@ -52,7 +52,7 @@
                 <text class="icon-shop"></text>
                 <text style="margin-left: 5px;">广天藏品</text>
             </view>
-            <view catchtap="selectsku" data-XF_PLU="{{shopItem.XF_PLU}}" wx:for="{{item.shop}}" wx:for-item="shopItem" wx:key="index">
+            <view catchtap='selectsku' data-XF_PLU="{{shopItem.XF_PLU}}" wx:for="{{item.shop}}" wx:for-item="shopItem" wx:key="index">
                 <view class="Grid-sku" style="border-radius:8px;background-color:white;margin:5px 0px 5px 0px;">
                     <view style="margin-left:10px;margin-top:15px;height:100px;width:100px;">
                         <image mode="widthFix" src="{{scimgurl}}{{shopItem.XF_PLU}}/{{shopItem.IMAGESSL}}" style="border-radius: 5px;"></image>
@@ -127,13 +127,13 @@
                 <view class="cu-item">
                     <view class="content"> 商城单号： </view>
                     <view class="action">
-                        <text style="font-size: 15px;color:blue;">{{item.XF_DOCNO}}</text>
+                        <text style="font-size: 15px;color:green;font-weight: 700;">{{item.XF_DOCNO}}</text>
                     </view>
                 </view>
             </view>
             <view class="cu-list menu bg-white solid-bottom canui-selet">
                 <view class="cu-item">
-                    <view class="content"> 科传单号： </view>
+                    <view class="content"> 下单时间： </view>
                     <view class="action">
                         <text style="font-size: 15px;color:red;">{{item.KCXF_DOCNO}}</text>
                     </view>

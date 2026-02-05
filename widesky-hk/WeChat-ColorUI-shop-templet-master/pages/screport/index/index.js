@@ -11,7 +11,7 @@ Page({
     replu: {},
     i: "",
     userid: "",
-    array: ["定金单未取货", "定金单已取货", "销售单已付款", "待付款"],
+    array: ["已付款", "待付款"],
     p: "",
     date: "",
     date2: "",
@@ -37,7 +37,7 @@ Page({
   },
   onLoad: function (e) {
     var s = t.formatDate(new Date());
-    this.setData({ date: "2025-01-01", date2: s }),
+    this.setData({ date: "2026-01-01", date2: s }),
       e.p && this.setData({ p: e.p });
     var i = this;
     wx.getStorageSync("masterid")
@@ -110,14 +110,20 @@ Page({
       this.sestaff();
   },
   onShow: function (a) {},
-  newsaleslist: function (a) {
-    wx.navigateTo({
-      url:
-        "/pages/scdeposit/index/index?xf_docno=" +
-        a.currentTarget.dataset.xf_docno +
-        "&tags=" +
-        a.currentTarget.dataset.tags,
-    });
+  //  newsaleslist: function (a) {
+  //    wx.navigateTo({
+  //      url:
+  //       "/pages/scdeposit/index/index?xf_docno=" +
+  //        a.currentTarget.dataset.xf_docno +
+  //       "&tags=" +
+  //        a.currentTarget.dataset.tags,
+  //   });
+  // },
+  selectsku: function (t) {
+    console.log(t.currentTarget.dataset.xf_plu),
+      wx.navigateTo({
+        url: "/pages/shopcg/goods/index?id=" + t.currentTarget.dataset.xf_plu,
+      });
   },
   checkinput: function () {
     return (

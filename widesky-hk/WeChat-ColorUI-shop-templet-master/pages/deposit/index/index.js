@@ -19,6 +19,7 @@ Page({
     imgurl: "",
     i: "",
     date: "",
+    vipname:''
   },
   back: function () {
     "" == this.data.i
@@ -36,6 +37,7 @@ Page({
     this.setData({ date: e }),
       t.xf_docno && this.setData({ xf_docno: t.xf_docno }),
       t.i && this.setData({ i: t.i });
+      console.log(this.data.xf_docno)
   },
   dd: function () {
     this.setData({ replu: null });
@@ -52,6 +54,7 @@ Page({
                 replu: t.data.items,
                 tag: t.data.items[0].TAG,
                 salestypes: t.data.items[0].SALESTYPES,
+                vipname:t.data.items[0].VIPNAME,
               })
             : a.setData({ replu: null });
       },

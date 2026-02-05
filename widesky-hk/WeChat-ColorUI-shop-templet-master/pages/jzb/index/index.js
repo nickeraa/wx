@@ -47,6 +47,11 @@ Page({
       url: "/pages/sqtkdeposit/index/index"
     });
   },
+  scfh: function () {
+    wx.navigateTo({
+      url: "/pages/depositfh/index/index"
+    });
+  },
   checknumber: function () {
     wx.navigateTo({
       url: "/pages/checknumber/index/index"

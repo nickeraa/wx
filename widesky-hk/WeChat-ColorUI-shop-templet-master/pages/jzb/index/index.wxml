@@ -319,7 +319,7 @@
         </view>
     </view>
 </view>
-<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+<!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="ch" class=" ">
         <view style="margin-left:1rem;">
             <image src="{{rgimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
@@ -328,7 +328,7 @@
             <text class="text-black">撤回分享客户货品</text>
         </view>
     </view>
-</view>
+</view> -->
 <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">
         <text class="title icon-title text-orange"></text>
@@ -345,7 +345,7 @@
         </view>
     </view>
 </view>
-<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+<!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="oldvip" class=" ">
         <view style="margin-left:1rem;">
             <image src="{{sfimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
@@ -354,10 +354,7 @@
             <text class="text-black">发放老会员卡</text>
         </view>
     </view>
-</view>
-
-
-
+</view> -->
 
 <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">
@@ -392,19 +389,10 @@
 </view>
 
 
+
+
+
 <!--  
-<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
-    <view bindtap="sclist" class=" ">
-        <view style="margin-left:1rem;">
-            <image src="{{rgimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
-        </view>
-        <view style="margin-top:-2rem;margin-left:6rem;">
-            <text class="text-black">商城销售单订单付款查询</text>
-        </view>
-    </view>
-</view>
-
-
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="ddqh" class=" ">
         <view style="margin-left:1rem;">
@@ -447,6 +435,35 @@
         </view>
     </view>
 </view> -->
+
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="title icon-title text-orange"></text>
+        <text style="color:black;font-weight:bold;">商城订单查询</text>
+    </view>
+</view>
+
+<!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="sclist" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{rgimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">商城销售单订单付款查询</text>
+        </view>
+    </view>
+</view> -->
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="scfh" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{rgimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">商城销售单订单快递发货</text>
+        </view>
+    </view>
+</view>
 <view class="cu-form-group sp">
     <button bindtap="gzmessage" class="cu-btn canui-color-gradual shadow-blur round lg sp"> 关注公众号接收微信通知</button>
 </view>
