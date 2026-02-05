@@ -102,7 +102,8 @@ Page({
       "userid",
       "",
       "replu",{},
-      "xf_docno",""
+      "xf_docno","",
+      "dpid", "",
     )),
     back: function () {
       wx.navigateBack({ delta: 0 });
@@ -356,10 +357,10 @@ Page({
       signType: t[4],
       paySign: t[3],
       success: function (a) {
-        console.log("success"), console.log(a), e.yfk();
+        console.log("success"), console.log(a), e.yfk(a.errMsg);
       },
       fail: function (a) {
-        console.log("fail"), console.log(a), e.dfk();
+        console.log("fail"), console.log(a), e.dfk(a.errMsg);
       },
     });
   },
@@ -367,7 +368,10 @@ Page({
     console.log("picker发送选择改变，携带值为", a.detail.value),
       this.setData({ remark: a.detail.value });
   },
-  dfk: function () {
+  dfk: function (k) {
+    "0" == this.data.setype
+    ? this.setData({ id: this.data.ck })
+    : this.setData({ id: this.data.dpid }),
     wx.getStorageSync("vipcode") ||
       this.setData({ xf_vipcode: "", xf_storecode: "", salesman: "" }),
       wx.getStorageSync("wxuserid") || this.setData({ wxuserid: "" }),
@@ -382,13 +386,14 @@ Page({
         sumwlprice: 0,
         remark: this.data.remark,
         salestypes: "1",
-        shtype: "",
-        shid: "",
+        shtype: this.data.setype,
+        shid: this.data.id,
         tag: "0",
         xf_storecode: this.data.xf_storecode,
         salesman: this.data.salesman,
         pay_amtsold: 0,
         xf_docno: this.data.xf_docno,
+        pass:k
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
@@ -398,7 +403,14 @@ Page({
             ? wx.redirectTo({
                 url: "/pages/dfdepositydgwc/index/index?xf_docno=" + a.data,
               })
-            : wx.showToast({ title: "数据错误" });
+            : wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            })
       },
     });
   },
@@ -407,7 +419,10 @@ Page({
       url: "/pages/ydshop/index?xf_plu=" + a.currentTarget.dataset.xf_plu,
     });
   },
-  yfk: function () {
+  yfk: function (k) {
+    "0" == this.data.setype
+    ? this.setData({ id: this.data.ck })
+    : this.setData({ id: this.data.dpid }),
     wx.getStorageSync("vipcode") ||
       this.setData({ xf_vipcode: "", xf_storecode: "", salesman: "" }),
       wx.getStorageSync("wxuserid") || this.setData({ wxuserid: "" }),
@@ -423,13 +438,14 @@ Page({
         sumwlprice: 0,
         remark: a.data.remark,
         salestypes: "1",
-        shtype: "",
-        shid: "",
+        shtype: a.data.setype,
+        shid: a.data.id,
         tag: "1",
         xf_storecode: a.data.xf_storecode,
         salesman: a.data.salesman,
         pay_amtsold: a.data.sumydprice,
         xf_docno: a.data.xf_docno,
+        pass:k
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
@@ -443,7 +459,14 @@ Page({
                   "&tag=3&sorts=" +
                   a.data.sorts,
               })
-            : wx.showToast({ title: "数据错误" });
+            : wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            })
       },
     });
   },

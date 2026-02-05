@@ -404,17 +404,17 @@ Page({
       signType: e[4],
       paySign: e[3],
       success: function (a) {
-        console.log("success"), console.log(a), t.yfk();
+        console.log("success"), console.log(a), t.yfk(a.errMsg);
       },
       fail: function (a) {
         console.log("fail"),
           console.log(a),
           wx.showToast({ title: "付款失败", icon: "error", duration: 2e3 }),
-          t.dfk();
+          t.dfk(a.errMsg);
       },
     });
   },
-  yfk: function () {
+  yfk: function (k) {
     "0" == this.data.setype
       ? this.setData({ id: this.data.ck })
       : this.setData({ id: this.data.dpid }),
@@ -443,6 +443,7 @@ Page({
         salesman: t.data.salesman,
         pay_amtsold: t.data.sumprice,
         xf_docno: t.data.xf_docno,
+        pass:k
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
@@ -456,7 +457,14 @@ Page({
                   "&tag=0&xf_docno=" +
                   a.data,
               })
-            : wx.showToast({ title: "数据错误" });
+            :  wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            })
       },
     });
   },
@@ -464,7 +472,7 @@ Page({
     console.log("picker发送选择改变，携带值为", a.detail.value),
       this.setData({ remark: a.detail.value });
   },
-  dfk: function () {
+  dfk: function (k) {
     "0" == this.data.setype
       ? this.setData({ id: this.data.ck })
       : this.setData({ id: this.data.dpid }),
@@ -492,6 +500,7 @@ Page({
         salesman: this.data.salesman,
         pay_amtsold: 0,
         xf_docno: this.data.xf_docno,
+        pass:k
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
@@ -501,7 +510,14 @@ Page({
             ? wx.redirectTo({
                 url: "/pages/dfdeposit/index/index?xf_docno=" + a.data,
               })
-            : wx.showToast({ title: "数据错误" });
+            :  wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            })
       },
     });
   },

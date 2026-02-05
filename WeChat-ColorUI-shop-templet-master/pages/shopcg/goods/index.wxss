@@ -144,7 +144,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   color: #fff;
 }
 .del {
-  margin: -28px 0 0 150px;
+  margin: -25px 0 0 150px;
   position: absolute;
   z-index: 1;
 }

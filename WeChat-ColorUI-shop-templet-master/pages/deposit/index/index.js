@@ -124,10 +124,12 @@ Page({
   },
   onLoad: function (a) {
     a.xf_plu && this.setData({ xf_plu: a.xf_plu }),
-      a.address1 && this.setData({ address1: a.address1 }),
-      a.address2 && this.setData({ address2: a.address2 }),
-      a.telphone && this.setData({ telphone: a.telphone }),
-      a.id && this.setData({ id: a.id }),
+       a.address1 && this.setData({ address1: a.address1 }),
+       a.address2 && this.setData({ address2: a.address2 }),
+       a.telphone && this.setData({ telphone: a.telphone }),
+       a.id && this.setData({ id: a.id }),
+      // console.log(a.id)
+      // console.log(a.telphone)
       wx.getStorageSync("vipcode")
         ? this.setData({ userid: wx.getStorageSync("vipcode") })
         : this.setData({ userid: wx.getStorageSync("wxuserid") });
@@ -139,9 +141,6 @@ Page({
         yk:false
    
          })
-
-
-
 
     console.log("radior发送选择改变，携带值为", a.detail.value),
       this.setData({ setype: a.detail.value }),
@@ -292,6 +291,7 @@ Page({
                 ? t.setData({ tags: !1 })
                 : t.setData({ tags: !0 }))
             : t.setData({ flag: !1 });
+            console.log(a.data.id)
       },
     });
   },
@@ -405,17 +405,17 @@ Page({
       signType: e[4],
       paySign: e[3],
       success: function (a) {
-        console.log("success"), console.log(a), t.yfk();
+        console.log("success"), console.log(a), t.yfk(a.errMsg);
       },
       fail: function (a) {
         console.log("fail"),
           console.log(a),
           wx.showToast({ title: "付款失败", icon: "error", duration: 2e3 }),
-          t.dfk();
+          t.dfk(a.errMsg);
       },
     });
   },
-  yfk: function () {
+  yfk: function (k) {
     "0" == this.data.setype
       ? this.setData({ id: this.data.ck })
       : this.setData({ id: this.data.dpid }),
@@ -433,17 +433,18 @@ Page({
         xf_plu: t.data.xf_plu,
         xf_price: t.data.realprice,
         xf_qty: t.data.qty,
-        xf_amtsold: t.data.sumrealprice,
-        sumwlprice: t.data.wlprice,
+        xf_amtsold: t.data.sumydprice,
+        sumwlprice: 0,
         remark: t.data.remark,
-        salestypes: "0",
+        salestypes: "1",
         shtype: t.data.setype,
         shid: t.data.id,
         tag: "1",
         xf_storecode: t.data.xf_storecode,
         salesman: t.data.salesman,
-        pay_amtsold: t.data.sumprice,
+        pay_amtsold: t.data.sumydprice,
         xf_docno: t.data.xf_docno,
+        pass:k
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
@@ -457,7 +458,14 @@ Page({
                   "&tag=0&xf_docno=" +
                   a.data,
               })
-            : wx.showToast({ title: "数据错误" });
+            : wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            })
       },
     });
   },
@@ -465,7 +473,7 @@ Page({
     console.log("picker发送选择改变，携带值为", a.detail.value),
       this.setData({ remark: a.detail.value });
   },
-  dfk: function () {
+  dfk: function (k) {
     "0" == this.data.setype
       ? this.setData({ id: this.data.ck })
       : this.setData({ id: this.data.dpid }),
@@ -493,6 +501,7 @@ Page({
         salesman: this.data.salesman,
         pay_amtsold: 0,
         xf_docno: this.data.xf_docno,
+        pass:k
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
@@ -502,7 +511,14 @@ Page({
             ? wx.redirectTo({
                 url: "/pages/dfdeposit/index/index?xf_docno=" + a.data,
               })
-            : wx.showToast({ title: "数据错误" });
+            :  wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            })
       },
     });
   },

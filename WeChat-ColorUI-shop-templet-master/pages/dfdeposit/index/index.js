@@ -171,7 +171,7 @@ yk:true
       signType: e[4],
       paySign: e[3],
       success: function (a) {
-        console.log("success"), console.log(a), t.yfk();
+        console.log("success"), console.log(a), t.yfk(a.errMsg);
       },
       fail: function (a) {
         console.log("fail"),
@@ -180,7 +180,7 @@ yk:true
       },
     });
   },
-  yfk: function () {
+  yfk: function (k) {
     wx.getStorageSync("vipcode") ||
       this.setData({ xf_vipcode: "", xf_storecode: "", salesman: "" }),
       wx.getStorageSync("wxuserid") || this.setData({ wxuserid: "" });
@@ -197,6 +197,7 @@ yk:true
         shid: t.data.shid,
         tag: "1",
         pay_amtsold: t.data.sumprice,
+        pass:k
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
@@ -210,7 +211,14 @@ yk:true
                   "&tag=1&xf_docno=" +
                   t.data.xf_docno,
               })
-            : wx.showToast({ title: "数据错误", icon: "error", duration: 2e3 });
+            : wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            })
       },
     });
   },

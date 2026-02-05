@@ -114,7 +114,7 @@ Page({
   },
   onShow: function () {
     this.setData({ select_all: !1, issum: !0 }),
-      wx.removeTabBarBadge({ index: 2 }),
+      wx.removeTabBarBadge({ index: 3 }),
       wx.setStorageSync("n", "0"),
       wx.setStorageSync("p", "");
     var t = this;

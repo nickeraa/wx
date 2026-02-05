@@ -359,14 +359,14 @@ Page({
       signType: e[4],
       paySign: e[3],
       success: function (a) {
-        console.log("success"), console.log(a), t.yfk();
+        console.log("success"), console.log(a), t.yfk(a.errMsg);
       },
       fail: function (a) {
-        console.log("fail"), console.log(a), t.dfk();
+        console.log("fail"), console.log(a), t.dfk(a.errMsg);
       },
     });
   },
-  yfk: function () {
+  yfk: function (k) {
     "1" == this.data.setype && this.setData({ id: this.data.dpid }),
       wx.getStorageSync("vipcode") ||
         this.setData({ xf_vipcode: "", xf_storecode: "", salesman: "" }),
@@ -389,6 +389,7 @@ Page({
         salesman: a.data.salesman,
         pay_amtsold: a.data.sumprice,
         xf_docno: a.data.xf_docno,
+        pass:k
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
@@ -402,7 +403,14 @@ Page({
                   "&tag=1&xf_docno=" +
                   t.data,
               })
-            : wx.showToast({ title: "数据错误", icon: "error", duration: 2e3 });
+            : wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            })
       },
     });
   },
@@ -415,7 +423,7 @@ Page({
       url: "/pages/shopcg/goods/index?xf_plu=" + a.currentTarget.dataset.xf_plu,
     });
   },
-  dfk: function () {
+  dfk: function (k) {
     "1" == this.data.setype && this.setData({ id: this.data.dpid }),
       wx.getStorageSync("vipcode") ||
         this.setData({ xf_vipcode: "", xf_storecode: "", salesman: "" }),
@@ -439,6 +447,7 @@ Page({
         salesman: this.data.salesman,
         pay_amtsold: 0,
         xf_docno: this.data.xf_docno,
+        pass:k
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
@@ -448,7 +457,14 @@ Page({
             ? wx.redirectTo({
                 url: "/pages/dfdeposit/index/index?xf_docno=" + a.data,
               })
-            : wx.showToast({ title: "数据错误" });
+            :wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            })
       },
     });
   },

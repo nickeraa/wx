@@ -18,8 +18,6 @@ Page({
     address2: "",
     phone: "",
     body: "",
-    tag: "",
-    tags: !1,
     qty: 1,
     sumprice: 0,
     realprice: 0,
@@ -27,7 +25,6 @@ Page({
     sumrealprice: 0,
     dpid: "",
     id: "",
-    fg: 0,
     amount: 0,
     remark: "",
     xf_storecode: "",
@@ -37,11 +34,24 @@ Page({
     salestypes: "",
     salestypeswx: "",
     xishu: 0,
-    sorts: "",
     xiaoshu: !1,
     xf_docno: "",
     userid: "",
     yk:false,
+    xf_plu: "",
+    xf_desci: "",
+    replu: {},
+    flags: !1,
+    ret: {},
+    tag: "",
+    tags: !1,
+    fg: 0,
+    amount: 0,
+    remark: "",
+    sumydprice: 0,
+    yd_amtsold: 0,
+    sorts: "",
+
   },
   back: function () {
     wx.navigateBack({ delta: 0 });
@@ -49,8 +59,9 @@ Page({
   jia: function () {
     this.setData({ qty: this.data.qty + 1 }),
       this.setData({
-        sumprice: this.data.realprice * this.data.qty + this.data.wlprice,
+        sumprice: this.data.realprice * this.data.qty,
         sumrealprice: this.data.realprice * this.data.qty,
+        sumydprice: this.data.yd_amtsold * this.data.qty,
       });
   },
   jian: function () {
@@ -58,8 +69,9 @@ Page({
       ? wx.showToast({ title: "不能少于1", icon: "error", duration: 1e3 })
       : (this.setData({ qty: this.data.qty - 1 }),
         this.setData({
-          sumprice: this.data.realprice * this.data.qty + this.data.wlprice,
+          sumprice: this.data.realprice * this.data.qty,
           sumrealprice: this.data.realprice * this.data.qty,
+          sumydprice: this.data.yd_amtsold * this.data.qty,
         }));
   },
   showModal: function (t) {
@@ -400,10 +412,10 @@ Page({
       signType: e[4],
       paySign: e[3],
       success: function (a) {
-        console.log("success"), console.log(a), t.yfk();
+        console.log("success"), console.log(a), t.yfk(a.errMsg);
       },
       fail: function (a) {
-        console.log("fail"), console.log(a), t.dfk();
+        console.log("fail"), console.log(a.errMsg), t.dfk(a.errMsg);
       },
     });
   },
@@ -411,7 +423,11 @@ Page({
     console.log("picker发送选择改变，携带值为", a.detail.value),
       this.setData({ remark: a.detail.value });
   },
-  yfk: function () {
+  yfk: function (k) {
+    "0" == this.data.setype
+    ? this.setData({ id: this.data.ck })
+    : this.setData({ id: this.data.dpid }),
+    console.log(this.data.id)
     wx.getStorageSync("vipcode") ||
       this.setData({ xf_vipcode: "", xf_storecode: "", salesman: "" }),
       wx.getStorageSync("wxuserid") || this.setData({ wxuserid: "" }),
@@ -429,13 +445,14 @@ Page({
         sumwlprice: 0,
         remark: t.data.remark,
         salestypes: "1",
-        shtype: "",
-        shid: "",
+        shtype: t.data.setype,
+        shid: t.data.id,
         tag: "1",
         xf_storecode: t.data.xf_storecode,
         salesman: t.data.salesman,
         pay_amtsold: t.data.sumydprice,
         xf_docno: t.data.xf_docno,
+        pass:k
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
@@ -449,7 +466,14 @@ Page({
                   "&xf_docno=" +
                   a.data,
               })
-            : wx.showToast({ title: "数据错误" });
+            :  wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            })
       },
     });
   },
@@ -458,7 +482,11 @@ Page({
       url: "/pages/ydshop/index?xf_plu=" + a.currentTarget.dataset.xf_plu,
     });
   },
-  dfk: function () {
+  dfk: function (k) {
+    "0" == this.data.setype
+    ? this.setData({ id: this.data.ck })
+    : this.setData({ id: this.data.dpid }),
+    console.log(this.data.id)
     wx.getStorageSync("vipcode") ||
       this.setData({ xf_vipcode: "", xf_storecode: "", salesman: "" }),
       wx.getStorageSync("wxuserid") || this.setData({ wxuserid: "" }),
@@ -475,13 +503,14 @@ Page({
         sumwlprice: 0,
         remark: this.data.remark,
         salestypes: "1",
-        shtype: "",
-        shid: "",
+        shtype: this.data.setype,
+        shid: this.data.id,
         tag: "0",
         xf_storecode: this.data.xf_storecode,
         salesman: this.data.salesman,
         pay_amtsold: 0,
         xf_docno: this.data.xf_docno,
+        pass:k
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
@@ -491,7 +520,14 @@ Page({
             ? wx.redirectTo({
                 url: "/pages/dfdeposityd/index/index?xf_docno=" + a.data,
               })
-            : wx.showToast({ title: "数据错误" });
+            : wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm;
+              },
+            })
       },
     });
   },
