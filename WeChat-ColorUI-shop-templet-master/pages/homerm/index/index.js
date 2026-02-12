@@ -67,6 +67,8 @@ Page({
   },
   onIndex: function () {
     console.log("ghghghghghghghgghgh");
+    console.log(wx.getStorageSync("vipcode"));
+    console.log(wx.getStorageSync("fnumber"));
     var a = this;
     wx.request({
       url: e.globalData.api + "wx_fxpage.ashx",

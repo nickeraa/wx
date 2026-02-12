@@ -12,7 +12,7 @@ Page({
     i: "",
   },
   back: function () {
-    wx.switchTab({ url: "/pages/user/index/index" });
+    wx.switchTab({ url: "/pages/homerm/index/index" });
   },
   onLoad: function (a) {
     a.sorts && this.setData({ sorts: a.sorts }),

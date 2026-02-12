@@ -44,7 +44,7 @@ Page({
     pay_amtsolds: 0,
   },
   back: function () {
-    wx.switchTab({ url: "/pages/home/index/index" });
+    wx.switchTab({ url: "/pages/homerm/index/index" });
   },
   onLoad: function (a) {
     wx.getStorageSync("vipcode")

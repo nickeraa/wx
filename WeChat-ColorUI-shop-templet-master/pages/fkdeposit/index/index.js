@@ -48,7 +48,7 @@ Page(
                 ygname: "",
               },
               back: function () {
-                wx.switchTab({ url: "/pages/home/index/index" });
+                wx.switchTab({ url: "/pages/homerm/index/index" });
               },
               onLoad: function (a) {
                 a.xf_docno && this.setData({ xf_docno: a.xf_docno }),

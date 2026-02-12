@@ -10,6 +10,7 @@ Page({
     flag: !1,
     flags: !0,
     tximg: e.globalData.imgUrl+'yk.jpg',
+    vipimg:e.globalData.imgUrl+'vip.png',
     arr: [],
     phone: "",
     yguserid: "",
@@ -167,7 +168,7 @@ Page({
           vipcode: wx.getStorageSync("vipcode"),
           flag: !0,
           flags: !1,
-          tximg: e.globalData.imgUrl+'vip.png',
+          tximg: this.data.vipimg,
           avatarUrl: e.globalData.wximgurl+wx.getStorageSync('wximg'),
           nickName: wx.getStorageSync('wxuser')
         })) :
@@ -203,14 +204,14 @@ Page({
               vip: e.data[0].GRADE,
               flag: !0,
               flags: !1,
-              tximg: e.globalData.imgUrl+'vip.png',
+              tximg: a.data.vipimg,
 
             }),a.tz() ) :
             a.setData({
               vip: "您还没有登录哦 ~",
               flag: !1,
               flags: !0,
-              tximg: e.globalData.imgUrl+'yk.jpg',
+              tximg: a.data.tximg,
             });
         },
       }) :
@@ -218,7 +219,7 @@ Page({
         vip: "您还没有登录哦 ~",
         flag: !1,
         flags: !0,
-        tximg: e.globalData.imgUrl+'yk.jpg',
+        tximg: this.data.tximg,
       }),
       this.tjtypes();
   },
@@ -324,13 +325,13 @@ tz()
                       vip: e.data[0].GRADE,
                       flag: !0,
                       flags: !1,
-                      tximg: e.globalData.imgUrl+'vip.png',
+                      tximg: n.data.vipimg,
                     }) :
                     (n.setData({
                         vip: "您还没有登录哦 ~",
                         flag: !1,
                         flags: !0,
-                        tximg: e.globalData.imgUrl+'yk.jpg',
+                        tximg: n.data.tximg,
                       }),
                       wx.showToast({
                         title: "没有会员卡信息"
@@ -391,7 +392,7 @@ tz()
                         vip: e.data[0].GRADE,
                         flag: !0,
                         flags: !1,
-                        tximg: e.globalData.imgUrl+'vip.png',
+                        tximg: t.data.vipimg,
                         vipcode: e.data[0].XF_VIPCODE,
                       }),
                       wx.setStorageSync("vipcode", e.data[0].XF_VIPCODE),
@@ -399,7 +400,7 @@ tz()
                         vipcode: e.data[0].XF_VIPCODE,
                         flag: !0,
                         flags: !1,
-                        tximg: e.globalData.imgUrl+'vip.png',
+                        tximg: t.data.vipimg,
                       }),
                       wx.redirectTo({
                         url: '/pages/wxlogin/index',
@@ -410,7 +411,7 @@ tz()
                         vip: "您还没有登录哦 ~",
                         flag: !1,
                         flags: !0,
-                        tximg: e.globalData.imgUrl+'yk.jpg',
+                        tximg: t.data.tximg,
                       }),
                       wx.showToast({
                         title: "没有会员卡信息"

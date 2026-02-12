@@ -12,7 +12,7 @@
         <view class="cu-form-group" style='margin-top: 1rem;'>
             <view class="title icon-title text-orange" style="margin-left: -15px;">已绑定员工：</view>
             <text class='text-red' style='font-size: 24px;margin-top: 3px;'>{{yguserid}}</text>
-            <text class='text-red' style='font-size: 24px;margin-left: 20px;'>{{ygname}}</text>
+            <text class='text-red' style='font-size: 24px;margin-left: 60px;'>{{ygname}}</text>
         </view>
 
         <view class="title icon-title text-orange">选择系列：</view>
