@@ -5,6 +5,7 @@ Page({
     CustomBar: a.globalData.CustomBar,
     banner: a.globalData.imgUrl,
     scimgurl: a.globalData.scimgurl,
+    iconurlok:a.globalData.iconurl+'ok.jpg',
     replu: {},
     sorts: "",
     tag: "",

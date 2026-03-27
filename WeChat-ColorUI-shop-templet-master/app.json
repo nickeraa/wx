@@ -1,11 +1,16 @@
 {
   "pages": [
 
+    "pages/userlive/index/index",
     "pages/home/index/index",
+
+    "pages/wxloginzb/index",
+    "pages/user/index/index",
     "pages/acxpexl/index/index",
     "pages/hofman/goods/index",
     "pages/homerm/index/index",
     "pages/shopcghfm/goods/index",
+    "pages/webview/index",
     "pages/userlw/index/index",
     "pages/userqd/index/index",
     "pages/party/index/index",
@@ -18,7 +23,6 @@
     "pages/ystk/index",
     "pages/qyxy/index",
     "pages/qyxyb/index",
-    "pages/user/index/index",
     "pages/addsh/index/index",
     "pages/store/index/index",
     "pages/editadd/index/index",

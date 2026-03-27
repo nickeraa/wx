@@ -1,0 +1,28 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;color:white;">
+            <text bindtap="back" class="icon-back" style="width: 20px;margin-left: -9rem;"></text>
+            <text style="font-size: 16px;font-weight: 500;color:black;margin-left: 7rem;color:white;">头像昵称</text>
+        </view>
+    </view>
+</view>
+
+<view class="b1" style="margin-top:3rem;">
+    <view class="t_w">
+        <view class="t_image" style='margin-top: 60px;'>
+ 
+    <image class="avatar avatar-wrapper" src="{{avatarUrl}}"></image>
+    <view style="width:100%;margin:-70px 0px 10px 10px;">
+                <button open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" class="cu-btn round" style="margin: 5px 5px 5px 95px; height: 2rem; border-radius: 0.8rem;font-weight: 500; background-color: white; border: 1px solid #436EEE; width: 50%; position: relative; left: -10rpx; top: -31rpx">选择头像</button>
+            </view>
+    <input bindinput="bindKeyInput"  type="nickname" value='{{nickName}}' style='color: grey;margin-top: 30px;' placeholder="请填写自己的昵称"/>
+
+        </view>
+        <view class="b2" style="width: 600rpx; height: 529rpx; display: block; box-sizing: border-box;">
+     
+            <view style="width:100%;margin:215px 0px 10px 100px;">
+                <button bindtap="lq" class="cu-btn canui-color-gradual shadow-blur" >登录直播间</button>
+            </view>
+        </view>
+    </view>
+</view>

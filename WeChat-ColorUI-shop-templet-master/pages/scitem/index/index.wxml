@@ -7,7 +7,7 @@
     </view>
 </view>
 <view class="cu-bar bg-white fixed" style="top:{{CustomBar}}px;">
-    <image mode="widthFix" src="/img/logo.jpg"></image>
+    <image mode="widthFix" src="{{iconurl}}logo.jpg"></image>
 </view>
 <view hidden="{{flag}}" style="text-align: center;padding-top: 18rem;">
     <image src="/img/component_k.png" style="width: 50px;height: 50px;"></image>

@@ -5,6 +5,7 @@ Page({
     CustomBar: a.globalData.CustomBar,
     banner: a.globalData.imgUrl,
     scimgurl: a.globalData.scimgurl,
+    iconurlfx:a.globalData.iconurl+'fx.jpg',
     flag: !1,
     xf_plu: "",
     replu: {},
@@ -153,7 +154,7 @@ Page({
     return {
       title: "广天藏品始创于1997年",
       path: "/pages/homerm/index/index",
-      imageUrl: "/img/fx.jpg",
+      imageUrl: this.data.iconurlfx,
       success: function (a) {
         console.log("转发成功:" + JSON.stringify(a));
       },

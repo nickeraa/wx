@@ -4,6 +4,7 @@ Page({
     StatusBar: a.globalData.StatusBar,
     CustomBar: a.globalData.CustomBar,
     banner: a.globalData.imgUrl,
+    iconurl:a.globalData.iconurl,
     scimgurl: a.globalData.scimgurl,
     replu: {},
     avaurl: "",

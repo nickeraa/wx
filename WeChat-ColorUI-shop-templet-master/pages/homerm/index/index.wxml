@@ -4,10 +4,10 @@
     </view>
 </view>
 <view class="cu-bar bg-white fixed" style="top:{{CustomBar}}px;">
-    <image mode="widthFix" src="/img/logo.jpg"></image>
+    <image mode="widthFix" src="{{iconurl}}logo.jpg"></image>
 </view>
 <view style="display: flex;width:100%;background-color: white;margin-top: 3rem;">
-    <image src="/img/hot.jpg" style="width: 40px;height: 40px;margin:10px 0px 0px 10px;"></image>
+    <image src="{{iconurlhot}}" style="width: 40px;height: 40px;margin:10px 0px 0px 10px;"></image>
     <view style="width:60%;margin-top: 25px;">
         <text style="font-size: 15px;font-weight: 600;">热门推荐 >>></text>
         <text style="margin-left: 20px;font-size: 12px;color:gray;">下拉可以同步刷新</text>

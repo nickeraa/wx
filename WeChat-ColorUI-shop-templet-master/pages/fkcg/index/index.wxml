@@ -9,7 +9,7 @@
 <view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="background-color:white;margin-top:-2.5rem;">
     <view style="display: flex;width: 100%;font-size: 15px;">
         <view style="width: 20%;margin:10px 0px 0px 10px;">
-            <image mode="widthFix" src="/img/ok.jpg"></image>
+            <image mode="widthFix" src="{{iconurlok}}"></image>
         </view>
         <view style="width: 80%;margin:40px 20px 0px 20px;">
             <text style="color:green;">支付成功</text>

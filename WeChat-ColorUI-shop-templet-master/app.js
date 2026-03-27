@@ -53,6 +53,8 @@ App({
     hkimgUrl: "https://widesky.work/hkimg/",
     scimgurl: "https://widesky.work/scimg/",
     wximgurl: "https://widesky.work/",
+    iconurl:"https://widesky.work/HKback/images/",
+    zbimgurl:"https://widesky.work/zbimg/",
     api: "https://widesky.work/hkback/",
   },
 });

@@ -11,6 +11,7 @@ Page(
               ((a = {
                 StatusBar: i.globalData.StatusBar,
                 CustomBar: i.globalData.CustomBar,
+                iconurlan:i.globalData.iconurl+'an.png',
                 swiperlist: [""],
                 pict: i.globalData.scimgurl,
                 xf_plu: "",
@@ -90,7 +91,7 @@ Page(
                 "videoCoverImg",
                 ""
               ),
-              t(t(a, "videoPlayIcon", "/img/an.png"), "videohight", "")),
+              t(t(a, "videoPlayIcon", i.globalData.iconurl+'an.png',), "videohight", "")),
             previewImage1: function (a) {
               var t = [];
               if (

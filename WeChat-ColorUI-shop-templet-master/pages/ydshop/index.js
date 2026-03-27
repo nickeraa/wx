@@ -6,6 +6,7 @@ Page({
     ((t = {
       StatusBar: e.globalData.StatusBar,
       CustomBar: e.globalData.CustomBar,
+      iconurlan:e.globalData.iconurl+'an.png',
       swiperlist: [""],
       autoplay: !1,
       indicatorDots: !1,
@@ -81,7 +82,7 @@ Page({
         ""
       ),
       "videoPlayIcon",
-      "/img/an.png"
+      e.globalData.iconurl+'an.png',
     ),
     a(
       a(

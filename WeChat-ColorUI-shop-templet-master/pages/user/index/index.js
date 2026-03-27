@@ -4,6 +4,7 @@ Page({
   data: {
     StatusBar: e.globalData.StatusBar,
     CustomBar: e.globalData.CustomBar,
+    iconurlfx:e.globalData.iconurl+'fx.jpg',
     vip: "您还没有登录哦 ~",
     vipcode: "",
     wxuserid: "",
@@ -11,6 +12,7 @@ Page({
     flags: !0,
     tximg: e.globalData.imgUrl+'yk.jpg',
     vipimg:e.globalData.imgUrl+'vip.png',
+    iconurl:e.globalData.iconurl,
     arr: [],
     phone: "",
     yguserid: "",
@@ -427,7 +429,7 @@ tz()
     return {
       title: "广天藏品始创于1997年",
       path: "/pages/homerm/index/index",
-      imageUrl: "/img/fx.jpg",
+      imageUrl: this.data.iconurlfx,
       success: function (e) {
         console.log("转发成功:" + JSON.stringify(e));
       },

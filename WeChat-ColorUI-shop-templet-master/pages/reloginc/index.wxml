@@ -8,7 +8,7 @@
 <view class="b1" style="margin-top:3rem;">
     <view class="t_w">
         <view class="t_image">
-            <image class="t_image1" src="/img/logo.jpg" style="position: relative; left: 0rpx; top: 156rpx"></image>
+            <image class="t_image1" src="{{iconurl}}logo.jpg" style="position: relative; left: 0rpx; top: 156rpx"></image>
         </view>
         <view class="b2" style="width: 700rpx; height: 729rpx; display: block; box-sizing: border-box">
             <view class="v1" style="margin-top: 140px; height: 125rpx; display: block; box-sizing: border-box; width: 708rpx">广天藏品非常重视您的隐私保护，您使用服务之前，请仔细阅读《隐私条款》,我们将严格按照您同意的各项条款使用您的个人信息，以便为您提供更好的服务。</view>

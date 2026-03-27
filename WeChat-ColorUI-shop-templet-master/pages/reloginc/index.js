@@ -4,6 +4,7 @@ Page({
     StatusBar: a.globalData.StatusBar,
     CustomBar: a.globalData.CustomBar,
     TabbarBot: a.globalData.tabbar_bottom,
+    iconurl:a.globalData.iconurl,
     select: "",
   },
   onLoad: function (a) {},

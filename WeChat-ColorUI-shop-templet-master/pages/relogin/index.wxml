@@ -8,7 +8,7 @@
 <view class="b1" style="margin-top:3rem;">
     <view class="t_w">
         <view class="t_image">
-            <image class="t_image1" src="/img/logo.jpg" style="position: relative; left: 0rpx; top: 156rpx"></image>
+            <image class="t_image1" src="{{iconurl}}logo.jpg" style="position: relative; left: 0rpx; top: 156rpx"></image>
         </view>
         <view class="b2" style="width: 700rpx; height: 729rpx; display: block; box-sizing: border-box">
                 <view style="height:7rem;">

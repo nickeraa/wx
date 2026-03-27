@@ -7,7 +7,10 @@ Page({
     lines: 0,
     banner: e.globalData.imgUrl,
     scimgurl: e.globalData.scimgurl,
+    iconurlfx:e.globalData.iconurl+'fx.jpg',
+    iconurlhot:e.globalData.iconurl+'hot.jpg',
     replu: {},
+    iconurl:e.globalData.iconurl,
     xfname: "",
     skuname: "",
     listIndex: 0,
@@ -63,7 +66,7 @@ Page({
     return {
       title: "广天藏品在线商城",
       path: "/pages/home/index/index",
-      imageUrl: "/img/fx.jpg",
+      imageUrl: this.data.iconurlfx,
     };
   },
   onLoad: function (e) {
