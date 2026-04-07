@@ -1,9 +1,9 @@
 {
   "pages": [
 
-    "pages/userlive/index/index",
     "pages/home/index/index",
-
+    "pages/userlive/index/index",
+    "pages/userliveyg/index/index",
     "pages/wxloginzb/index",
     "pages/user/index/index",
     "pages/acxpexl/index/index",
