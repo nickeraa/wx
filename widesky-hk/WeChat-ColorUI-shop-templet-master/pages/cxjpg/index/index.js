@@ -98,7 +98,7 @@ Page({
     var t = this;
 
     wx.request({
-      url: a.globalData.api + "wx_index.ashx",
+      url: a.globalData.api + "wx_indexsp.ashx",
       data: {},
       header: {
         "content-type": "application/x-www-form-urlencoded"

@@ -9,6 +9,7 @@ Page({
     current: 0,
     lines: 0,
     banner: a.globalData.imgUrl,
+    iconurlfx:a.globalData.iconurl+'fx.jpg',
     sku: "",
     xf_plu: "",
     id: "",

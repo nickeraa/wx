@@ -47,6 +47,14 @@ Page({
       url: "/pages/sqtkdeposit/index/index"
     });
   },
+
+  seboder: function () {
+    wx.navigateTo({
+      url: "/pages/boder/index/index"
+    });
+  },
+
+
   scfh: function () {
     wx.navigateTo({
       url: "/pages/depositfh/index/index"
@@ -1091,7 +1099,34 @@ cxjpg()
       });
   },
 
+  livefx: function () {
 
+    console.log(wx.getStorageSync("userid"))
+
+    wx.getStorageSync("job") ?
+      wx.showModal({
+        title: "提示",
+        content: "请您验证用户，必须是在职状态才能操作",
+        showCancel: !1,
+        success: function (e) {
+          e.confirm && wx.navigateTo({
+            url: "/pages/coupon/index/index"
+          });
+        },
+      }) :
+      ((o.globalData.tt = ""),
+        wx.navigateToMiniProgram({
+          appId: "wx187fe5b10e271c63",
+          path: "/pages/userliveyg/index/index",
+          extraData: {
+            yguserid: wx.getStorageSync("userid")
+          },
+          envVersion: "release",
+          success: function (e) {
+            console.info(e);
+          },
+        }));
+  },
   jg: function () {
     wx.getStorageSync("job") ?
       wx.showModal({

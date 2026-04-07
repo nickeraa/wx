@@ -464,6 +464,46 @@
         </view>
     </view>
 </view>
+
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="title icon-title text-orange"></text>
+        <text style="color:black;font-weight:bold;">广天直播</text>
+    </view>
+</view>
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="livefx" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{sfimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">分享直播间给客户</text>
+        </view>
+    </view>
+</view>
+
+
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="title icon-title text-orange"></text>
+        <text style="color:black;font-weight:bold;">二维码溯源</text>
+    </view>
+</view>
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="seboder" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">查询货品档案</text>
+        </view>
+    </view>
+</view>
+
+
+
 <view class="cu-form-group sp">
     <button bindtap="gzmessage" class="cu-btn canui-color-gradual shadow-blur round lg sp"> 关注公众号接收微信通知</button>
 </view>

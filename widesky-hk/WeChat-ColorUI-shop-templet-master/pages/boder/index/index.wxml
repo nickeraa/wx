@@ -1,0 +1,54 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>货品档案信息
+        </navigator>
+    </view>
+</view>
+<view style="background-color:white;height:2rem;margin-top: 30px;"></view>
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">二维码流水号：</view>
+    <input bindinput="getsnumber" class="radius" name="scnumber" placeholder="请输入二维码流水号" value="{{snumber}}"></input>
+</view>
+
+<view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+    <button bindtap="checkinput" class="cu-btn round "
+        style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询档案信息</button>
+</view>
+<view hidden="{{flag}}">
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">采购单号：</view>
+        <text style="color:#808080;margin:auto;"> {{ponumber}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">货品编号：</view>
+        <text style="color:#808080;margin:auto;">{{xf_plu}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">货品名称：</view>
+        <text style="color:#808080;margin:auto;"> {{xf_desci}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange up">采购数量：</view>
+        <text style="color:#808080;margin:auto;"> {{xf_qty}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">入仓数量：</view>
+        <text style="color:#808080;margin:auto;"> {{rcqty}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">入仓日期：</view>
+        <text style="color:#808080;margin:auto;"> {{rcdate}}</text>
+    </view>
+    <view style='margin-top: 10px;'>
+        <text style="margin-left: 20px;">备注：货品图片显示为缩略图，高清图保存在质检组</text>
+    </view>
+
+
+
+    <view style="text-align: center;padding-top: 20px;padding-bottom: 80px;">
+        <view wx:for="{{imageList}}" wx:key="FileName">
+            <image mode="aspectFill" style="width:350px" src="{{item.FileName}}"></image>
+        </view>
+    </view>
+</view>
