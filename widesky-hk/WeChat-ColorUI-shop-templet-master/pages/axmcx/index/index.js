@@ -11,34 +11,49 @@ Page({
     flag: !0,
     xf_plu: "",
     xf_desci: "",
-    date: "2025-01-01",
+    date: "2026-01-01",
     date2: "",
+    zsum: 0
   },
   onLoad: function (a) {
     var e = t.formatDate(new Date());
-    this.setData({ date2: e }),
+    this.setData({
+        date2: e
+      }),
       a.itemname &&
-        (this.setData({ itemname: a.itemname }),
+      (this.setData({
+          itemname: a.itemname
+        }),
         console.log(this.data.itemname));
   },
   bindDateChange: function (a) {
-    console.log(a.detail.value), this.setData({ date: a.detail.value });
+    console.log(a.detail.value), this.setData({
+      date: a.detail.value
+    });
   },
   bindDateChange2: function (a) {
-    this.setData({ date2: a.detail.value });
+    this.setData({
+      date2: a.detail.value
+    });
   },
   back: function () {
-    wx.switchTab({ url: "/pages/jzb/index/index" });
+    wx.switchTab({
+      url: "/pages/jzb/index/index"
+    });
   },
   searchs: function () {
     var t = this;
     wx.request({
       url: a.globalData.api + "wx_indexs.ashx",
       data: {},
-      header: { "content-type": "application/x-www-form-urlencoded" },
+      header: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
       dataType: "json",
       success: function (a) {
-        console.log(a), t.setData({ picker2: a.data });
+        console.log(a), t.setData({
+          picker2: a.data
+        });
       },
     });
   },
@@ -68,7 +83,10 @@ Page({
         }),
         !1
       );
-    wx.showLoading({ title: "数据加载中", mask: !0 }),
+    wx.showLoading({
+        title: "数据加载中",
+        mask: !0
+      }),
       wx.request({
         url: a.globalData.api + "wx_itemsum.ashx",
         data: {
@@ -76,22 +94,44 @@ Page({
           begindate: e.data.date,
           enddate: e.data.date2,
         },
-        header: { "content-type": "application/x-www-form-urlencoded" },
+        header: {
+          "content-type": "application/x-www-form-urlencoded"
+        },
         dataType: "json",
         success: function (a) {
           console.log(a),
-            a.data.length > 0
-              ? e.setData({ replu: a.data, flag: !1 })
-              : wx.showModal({
-                  title: "提示",
-                  content: "该项目暂没有数据",
-                  showCancel: !1,
-                  success: function (a) {
-                    a.confirm && e.setData({ flag: !0 });
-                  },
-                }),
+            a.data.length > 0 ?
+            e.setData({
+              replu: a.data,
+              zsum: a.data[0]['ZNUM'],
+              flag: !1
+            }) :
+            wx.showModal({
+              title: "提示",
+              content: "该项目暂没有数据",
+              showCancel: !1,
+              success: function (a) {
+                a.confirm && e.setData({
+                  flag: !0
+                });
+              },
+            }),
             wx.hideLoading();
         },
       });
   },
+
+  checksum: function (e) {
+
+    wx.navigateTo({
+      url: '/pages/dslist/index/index?itemname=' + this.data.itemname + '&date1=' + this.data.date+'&date2='+this.data.date2
+
+    })
+
+
+
+  }
+
+
+
 });

@@ -45,10 +45,9 @@
     </view>
 
 
-
     <view style="text-align: center;padding-top: 20px;padding-bottom: 80px;">
         <view wx:for="{{imageList}}" wx:key="FileName">
-            <image mode="aspectFill" style="width:350px" src="{{item.FileName}}"></image>
+            <image mode="widthFix" style="width:350px" src="{{item.FileName}}"></image>
         </view>
     </view>
 </view>

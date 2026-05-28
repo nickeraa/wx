@@ -1,0 +1,66 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>项目定售明细查询
+        </navigator>
+    </view>
+</view>
+<view class='bg-white'>
+    <view style="padding-top: 3rem;">
+        <view class=" margin-top ">
+            <view class="canui-order-item ">
+                <view class="head-title-box" style="height:2.2rem;font-size: 17px;">
+                    <text class="icon-shop" style="margin-left:1rem;"></text>
+                    <text calss="sp" style="margin-left:10px;">项目名称</text>
+                    <text class="icon-right" style="margin-left:2px;"> {{itemname}}</text>
+                    <view class="head-title-box sp solid-bottom "></view>
+                </view>
+            </view>
+        </view>
+    </view>
+    </view>
+    <view style='padding-bottom: 5rem;'>
+        <view class="Grid-sku" style="height:1.5rem;color:#00868B;">
+            <view style="margin-left:1rem;width:15%;">
+                <text> 店号 </text>
+            </view>
+            <view style="width:25%;margin-left:25px;">
+                <text>店铺名称</text>
+            </view>
+            <view style="width:25%;">
+                <text>定售总数</text>
+            </view>
+            <view style="width:19%;">
+                <text>预订</text>
+            </view>
+            <view style="width:15%;">
+                <text>销售</text>
+            </view>
+            <view style="width:20%;">
+                <text>库存</text>
+            </view>
+        </view>
+
+        <view class="Grid-sku" style="background-color:white;height:2.5rem;margin-top:5px;font-size:14px;"
+            wx:for="{{ret}}" wx:key="xf_storecode">
+            <view style="background-color:white;height:5px;"></view>
+            <view style="margin-left:0.8rem;width:18%;margin-top:10px;">
+                <text> {{item.XF_STORECODE}} </text>
+            </view>
+            <view style="width:28%;margin-left:12px;margin-top:10px;">
+                <text> {{item.XF_NAME}}</text>
+            </view>
+            <view style="width:15%;margin-top:10px;">
+                <text> {{item.ZQTYSUM}} </text>
+            </view>
+            <view style="width:15%;margin-top:10px;">
+                <text> {{item.ORDERQTY}} </text>
+            </view>
+            <view style="width:15%;margin-top:10px;">
+                <text> {{item.QTYSOLD}} </text>
+            </view>
+            <view style="width:15%;margin-top:10px;">
+                <text> {{item.XF_QOH}} </text>
+            </view>
+        </view>
+    </view>

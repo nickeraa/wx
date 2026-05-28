@@ -1,8 +1,8 @@
 {
   "pages": [
-
-    "pages/home/index/index",
+     "pages/home/index/index",
     "pages/fhstocks/index/index",
+    "pages/dslist/index/index",
     "pages/boder/index/index",
     "pages/cxjpg/index/index",
     "pages/hmdj/index/index",

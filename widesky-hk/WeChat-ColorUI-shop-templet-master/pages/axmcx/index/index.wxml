@@ -77,9 +77,9 @@
                 <text>可售金额</text>
             </view>
         </view>
-        <view class="Grid-sku" style="color:red;padding-top:1rem;">
-            <view style="width:25%;margin-top:15px;margin-left: 1rem;">
-                <text class=""> {{item.ZNUM}} </text>
+        <view class="Grid-sku" style="color:red;padding-top:1rem;"  >
+            <view style="width:25%;margin-top:10px;margin-left: 1rem;" bindtap="checksum">
+                <text  style="text-decoration: underline; color: #007aff; cursor: pointer;font-size: 20px;" > {{item.ZNUM}} </text>
             </view>
             <view style="width:30%;margin-top:15px;">
                 <text class=""> {{item.ZAMT}} </text>
