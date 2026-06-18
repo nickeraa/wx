@@ -8,8 +8,8 @@ Page({
     loading: false,
     StatusBar: e.globalData.StatusBar,
     CustomBar: e.globalData.CustomBar,
-    iconurlfx:e.globalData.iconurl+'fx.jpg',
-    iconurl:e.globalData.iconurl,
+    iconurlfx: e.globalData.iconurl + 'fx.jpg',
+    iconurl: e.globalData.iconurl,
     vipcode: "",
     openid: "",
     avatarUrl: '',
@@ -27,11 +27,8 @@ Page({
     itemname: "",
     current: 0,
     lines: 0,
-    banner: a.globalData.imgUrls,
     sku: "",
     stock: "",
-    hkimgurl: a.globalData.hkimgUrl,
-    scimgurl: a.globalData.scimgurl,
     select_all: !1,
     choseNames: "",
     flag: !0,
@@ -43,8 +40,10 @@ Page({
     count: 0,
     slt: "",
     xf_users: "",
-    yguserid:'',
-    xf_name:''
+    yguserid: '',
+    xf_name: '',
+    fxtag1: false,
+    fxtag2: false
 
   },
   getvipcode: function (a) {
@@ -54,10 +53,21 @@ Page({
   },
 
   listvipcode: function () {
+    if (this.data.vipcode == "") {
+      wx.showModal({
+        title: "提示",
+        content: "没有填写分享的会员卡号",
+        showCancel: !1,
+        success: function (a) {
+          a.confirm;
+        },
+      })
 
+      return false;
+    }
     var t = this;
     wx.request({
-      url: a.globalData.api + "wx_checkvip.ashx",
+      url: e.globalData.api + "wx_checkvip.ashx",
       data: {
         vipcode: t.data.vipcode
       },
@@ -75,6 +85,7 @@ Page({
             xf_name: a.data[0].XF_USERNAME,
             xf_users: a.data[0].XF_USERS,
             vipcode: a.data[0].XF_VIPCODE,
+            fxtag1: true
           }) :
           (t.setData({
               rejob: null,
@@ -94,59 +105,15 @@ Page({
     });
   },
 
-  // 进入直播间
-  enterLive() {
-    this.setData({
-      loading: true
-    })
-    console.log('dfsdfsdfsdfsdf')
-
-    if (!wx.getStorageSync('wximg') || !wx.getStorageSync('wxuser')) {
-      wx.navigateTo({
-        url: "/pages/wxloginzb/index"
-      });
-    } else {
-
-      // 1. 请求你自己的后端接口获取 保利威免登链接
-      wx.request({
-        url: "https://widesky.work/HKback/live_cn.aspx",
-        data: {
-          openid: wx.getStorageSync('openid'),
-          nickName: wx.getStorageSync('wxuser'),
-          avatarUrl: wx.getStorageSync('wximg')
-        },
-        header: {
-          "content-type": "application/json"
-        },
-        success: (res) => {
-          let liveUrl = res.data
-          console.log(liveUrl)
-          // 2. 跳转到web-view打开直播间
-          wx.navigateTo({
-            url: `/pages/webview/index?url=${encodeURIComponent(liveUrl)}`
-          })
-
-        },
-        complete: () => {
-          this.setData({
-            loading: false
-          })
-        }
-      })
-
-    }
-
-
-
-  },
-
 
   onLoad: function (a) {
-    console.log(a.yguserid)
-    if (a.yguserid) {
-      wx.setStorageSync("yguserid", a.yguserid)
-    }
-    
+    // console.log(a.yguserid)
+    // if (a.yguserid) {
+    //   wx.setStorageSync("yguserid", a.yguserid)
+    // }
+    wx.navigateTo({
+      url: '/pages/relogin/index',
+    })
 
   },
 
@@ -203,12 +170,62 @@ Page({
     })
   },
 
+  checkzf: function () {
+
+ if (this.data.vipcode == "") {
+
+      wx.showModal({
+        title: "提示",
+        content: "没有填写分享的会员卡号",
+        showCancel: !1,
+        success: function (a) {
+          a.confirm;
+        },
+      })
+
+
+    } else if (this.data.xf_users != wx.getStorageSync("yguserid")) {
+      var that = this
+      wx.showModal({
+        title: "提示",
+        content: "此客户跟进员工和登录员工不一致，不能分享",
+        showCancel: !1,
+        success: function (a) {
+          a.confirm;
+        },
+      })
+
+    } else {
+
+      var that = this
+      wx.showModal({
+        title: "提示",
+        content: "ok！核验无问题",
+        showCancel: !1,
+        success: function (a) {
+          that.setData({
+            fxtag2: true,
+
+          })
+        },
+      })
+
+    }
+
+
+  },
+
+
+
   onShareAppMessage: function (e) {
+
+
+
     return {
-      title: "广天藏品 " +this.data.xfname +" 向您最新分享了直播",
+      title: "广天藏品 " + this.data.xf_name + " 向您最新分享了直播",
       path: "/pages/userlive/index/index?vipcode=" +
-      this.data.vipcode + "&yguserid=" + wx.getStorageSync("yguserid"),
-      imageUrl: this.data.iconurlfx,
+        this.data.vipcode + "&yguserid=" + wx.getStorageSync("yguserid"),
+      imageUrl: this.data.banner + this.data.swiperList[0].img,
       success: function (e) {
         console.log("转发成功:" + JSON.stringify(e));
       },
@@ -216,5 +233,9 @@ Page({
         console.log("转发失败:" + JSON.stringify(e));
       },
     };
+
+
+
+
   },
 });

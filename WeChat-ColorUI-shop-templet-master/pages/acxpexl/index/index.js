@@ -14,7 +14,8 @@ Page({
     banner: a.globalData.imgUrls,
     sku: "",
     stock: "",
-    iconurlfx:e.globalData.iconurl+'fx.jpg',
+    iconurlfx: a.globalData.iconurl + 'fx.jpg',
+    scimgurl: a.globalData.scimgurl,
     select_all: !1,
     choseNames: "",
     flag: !0,
@@ -26,14 +27,16 @@ Page({
     count: 0,
     slt: "",
     xf_users: "",
-    yguserid:'',
-    fnumber: ''
+    yguserid: '',
+    fnumber: '',
+    fxtag1: false,
+    fxtag2: false
   },
   onLoad: function (a) {
- 
-      wx.navigateTo({
-        url: '/pages/relogin/index',
-      })
+
+    wx.navigateTo({
+      url: '/pages/relogin/index',
+    })
   },
   checkboxChange: function (a) {
     this.setData({
@@ -80,6 +83,8 @@ Page({
             xf_name: a.data[0].XF_USERNAME,
             xf_users: a.data[0].XF_USERS,
             vipcode: a.data[0].XF_VIPCODE,
+            fxtag1: true,
+
           }) :
           (t.setData({
               rejob: null,
@@ -98,11 +103,7 @@ Page({
       },
     });
   },
-  // back: function () {
-  //   wx.switchTab({
-  //     url: "/pages/jzb/index/index"
-  //   });
-  // },
+
   searchs: function () {
     var t = this;
     wx.showLoading({
@@ -134,7 +135,8 @@ Page({
                 console.log(a.data),
                   t.setData({
                     replu: a.data,
-                    flag: !1
+                    flag: !1,
+
                   }),
                   wx.hideLoading();
               },
@@ -142,11 +144,7 @@ Page({
         },
       });
   },
-  // listvip: function () {
-  //   wx.navigateTo({
-  //     url: "/pages/vipss/index/index"
-  //   });
-  // },
+
   bindPickerChange2: function (a) {
     console.log("picker发送选择改变，携带值为", a.detail.value),
       this.setData({
@@ -212,6 +210,7 @@ Page({
           e.setData({
             xfname: a.data[0].XF_NAME,
             count: a.data.length,
+
             slt: e.data.scimgurl +
               a.data[0].XF_PLU +
               "/" +
@@ -344,11 +343,11 @@ Page({
   },
   onShow: function () {
 
-this.setData({
-yguserid:wx.getStorageSync("yguserid"),
-ygname:wx.getStorageSync("ygname")
+    this.setData({
+      yguserid: wx.getStorageSync("yguserid"),
+      ygname: wx.getStorageSync("ygname")
 
-})
+    })
 
     if ("1" == a.globalData.tt) return !1;
     this.setData({
@@ -379,36 +378,59 @@ ygname:wx.getStorageSync("ygname")
       });
   },
   checkzf: function () {
-    return 0 == this.data.count ?
-      (wx.showModal({
-          title: "提示",
-          content: "没有选择货品加入到分享包",
-          showCancel: !1,
-          success: function (a) {
-            a.confirm;
-          },
-        }),
-        !1) :
-      "" == this.data.vipcode ?
-      (wx.showModal({
-          title: "提示",
-          content: "没有填写分享的会员卡号",
-          showCancel: !1,
-          success: function (a) {
-            a.confirm;
-          },
-        }),
-        !1) :
-      this.data.xf_users == wx.getStorageSync("yguserid") ||
-      (wx.showModal({
-          title: "提示",
-          content: "此客户跟进员工和登录员工不一致，不能分享",
-          showCancel: !1,
-          success: function (a) {
-            a.confirm;
-          },
-        }),
-        !1);
+
+
+    if (this.data.count == 0) {
+      wx.showModal({
+        title: "提示",
+        content: "没有选择货品加入到分享包",
+        showCancel: !1,
+        success: function (a) {
+          a.confirm;
+        },
+      })
+    } else if (this.data.vipcode == "") {
+
+      wx.showModal({
+        title: "提示",
+        content: "没有填写分享的会员卡号",
+        showCancel: !1,
+        success: function (a) {
+          a.confirm;
+        },
+      })
+
+
+    } else if (this.data.xf_users != wx.getStorageSync("yguserid")) {
+      var that = this
+      wx.showModal({
+        title: "提示",
+        content: "此客户跟进员工和登录员工不一致，不能分享",
+        showCancel: !1,
+        success: function (a) {
+          a.confirm;
+        },
+      })
+
+    } else {
+
+      var that = this
+      wx.showModal({
+        title: "提示",
+        content: "ok！核验无问题",
+        showCancel: !1,
+        success: function (a) {
+          that.setData({
+            fxtag2: true,
+          })
+        },
+      })
+
+   
+
+    }
+
+
   },
   onShareAppMessage: function (a) {
 
@@ -425,29 +447,26 @@ ygname:wx.getStorageSync("ygname")
     this.setData({
       fnumber: timestamp + currentTimeMillis
     })
-
+    this.fx();
     return (
       console.log(this.data.count),
       console.log(this.data.xf_users),
       console.log(this.data.vipname),
       //  console.log(this.checkzf()),
 
-      this.checkzf() ?
-      (console.log("pppppppp"),
-        console.log(this.data.fnumber),
-        this.fx(), {
-          title: "广天藏品 " +
-            this.data.xfname +
-            " 向您最新分享了：" +
-            this.data.count +
-            "款货品 ...",
-          path: "/pages/homerm/index/index?vipcode=" +
-            this.data.vipcode + "&fnumber=" + this.data.fnumber +
-            "&tj=1&yguserid=" +
-            wx.getStorageSync("yguserid"),
-          imageUrl: this.data.slt,
-        }) :
-      (console.log("ddddd"), null)
+
+      ({
+        title: "广天藏品 " +
+          this.data.xfname +
+          " 向您最新分享了：" +
+          this.data.count +
+          "款货品 ...",
+        path: "/pages/homerm/index/index?vipcode=" +
+          this.data.vipcode + "&fnumber=" + this.data.fnumber +
+          "&tj=1&yguserid=" +
+          wx.getStorageSync("yguserid"),
+        imageUrl: this.data.slt,
+      })
 
 
     );
@@ -456,7 +475,7 @@ ygname:wx.getStorageSync("ygname")
 
   },
   fx: function () {
-
+    console.log("pppppppppppp")
     console.log(this.data.fnumber)
     var t = this;
     wx.request({
@@ -472,7 +491,9 @@ ygname:wx.getStorageSync("ygname")
       dataType: "json",
       success: function (a) {
         "error" != a.data ?
-          (console.log("tttttttttt"), t.sesku()) :
+          (console.log("tttttttttt"),
+        
+            t.sesku()) :
           wx.showToast({
             title: "数据错误"
           });

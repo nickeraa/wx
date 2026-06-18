@@ -1,14 +1,18 @@
 {
   "pages": [
 
+
     "pages/home/index/index",
-    "pages/userlive/index/index",
+    "pages/acxpexl/index/index",
+    "pages/homerm/index/index",
+
     "pages/userliveyg/index/index",
+   
+    "pages/userlive/index/index",
     "pages/wxloginzb/index",
     "pages/user/index/index",
-    "pages/acxpexl/index/index",
     "pages/hofman/goods/index",
-    "pages/homerm/index/index",
+  
     "pages/shopcghfm/goods/index",
     "pages/webview/index",
     "pages/userlw/index/index",

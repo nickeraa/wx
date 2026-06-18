@@ -197,7 +197,15 @@ button::after {
   font-size: 34rpx;
   font-weight: bold;
 }
-
+.live-status1 {
+  display: inline-block;
+  background: #666363;
+  color: #fff;
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 30rpx;
+  margin-bottom: 10rpx;
+}
 /* 中间提示 */
 .live-box {
   padding: 60rpx 30rpx;

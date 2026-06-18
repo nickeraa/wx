@@ -4,12 +4,12 @@ Page({
   data: {
     liveTitle: "",
     coverUrl: "https://widesky.work/HKback/upload/banner.jpg", // 封面图
-    isLiving: true,
+    isLiving: "",
     loading: false,
     StatusBar: e.globalData.StatusBar,
     CustomBar: e.globalData.CustomBar,
-    iconurlfx:e.globalData.iconurl+'fx.jpg',
-    iconurl:e.globalData.iconurl,
+    iconurlfx: e.globalData.iconurl + 'fx.jpg',
+    iconurl: e.globalData.iconurl,
     vipcode: "",
     openid: "",
     avatarUrl: '',
@@ -70,12 +70,19 @@ Page({
 
 
   onLoad: function (a) {
-    console.log(a.user)
-    if (a.user=='1') {
+
+    if (a.user == '1') {
 
       this.loginzb();
 
     } else {
+
+      if (a.yguserid) {
+        wx.setStorageSync('yguserid', a.yguserid)
+      }
+      if (a.vipcode) {
+        wx.setStorageSync('vipcode', a.vipcode)
+      }
 
       var i = this;
       wx.login({
@@ -131,6 +138,7 @@ Page({
       },
       success: (res) => {
         let liveUrl = res.data
+
         console.log(liveUrl)
         // 2. 跳转到web-view打开直播间
         wx.navigateTo({
@@ -195,19 +203,62 @@ Page({
 
         console.log("最终轮播数据：", swiperData);
 
+        that.getstate()
+
+
       },
       complete: function () {},
     })
 
+  },
+
+  getstate() {
+
+    var that = this
+    wx.request({
+      url: "https://widesky.work/HKback/PolyvLiveStatus.aspx",
+      data: {},
+      header: {
+        "content-type": "application/json"
+      },
+      success: (res) => {
+
+        console.log(res.data.data[0].liveStatus)
+
+        if (res.data.data[0].liveStatus == "end") {
+          that.setData({
+            isLiving: '已结束'
+          })
+        } else if (res.data.data[0].liveStatus == "unStart") {
+
+          that.setData({
+            isLiving: '未开始'
+          })
+
+        } else if (res.data.data[0].liveStatus == "live") {
+
+          that.setData({
+            isLiving: '直播中'
+          })
+
+        }
+
+      },
+      complete: () => {
+
+      }
+    })
 
 
   },
+
+
 
   onShareAppMessage: function (e) {
     return {
       title: "广天藏品始创于1997年",
       path: "/pages/userlive/index/index",
-      imageUrl: this.data.iconurlfx,
+      imageUrl: this.data.swiperList[0].img,
       success: function (e) {
         console.log("转发成功:" + JSON.stringify(e));
       },
