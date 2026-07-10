@@ -337,7 +337,15 @@ Page({
       });
   },
   onGetPhoneNumbergwc: function (t) {
-    console.log("kkkkkkkkk");
+    wx.showLoading({
+      title: '连接中...',
+    })
+    this.setData({
+
+      stop: true
+
+    })
+   wx.hideLoading()
     var a = this;
     wx.login({
       success: function (i) {

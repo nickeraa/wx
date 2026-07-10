@@ -129,6 +129,9 @@ Page({
     // if (a.yguserid) {
     //   wx.setStorageSync("yguserid", a.yguserid)
     // }
+
+
+    
     wx.navigateTo({
       url: '/pages/relogin/index',
     })

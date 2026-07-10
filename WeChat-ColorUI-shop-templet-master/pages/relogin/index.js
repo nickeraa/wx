@@ -10,7 +10,39 @@ Page({
     userid:'',
     xf_name:''
   },
-  onLoad: function (a) {},
+  onLoad: function (a) {
+
+    wx.request({
+        url: "https://widesky.work/HKback/wx_state.ashx",
+        data: {},
+        header: {
+          "content-type": "application/json"
+        },
+        success: (res) => {
+  
+          console.log(res.data)
+  
+          if (res.data[0].STARTS == "0") {
+  
+            wx.switchTab({
+  
+              url:'/pages/home/index/index'
+            })
+  
+           
+            
+          } 
+          
+          
+  
+        },
+        complete: () => {
+  
+        }
+      })
+
+
+  },
   onShow: function () {},
 
  

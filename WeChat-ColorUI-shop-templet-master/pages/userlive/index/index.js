@@ -71,6 +71,40 @@ Page({
 
   onLoad: function (a) {
 
+ 
+    wx.request({
+      url: "https://widesky.work/HKback/wx_state.ashx",
+      data: {},
+      header: {
+        "content-type": "application/json"
+      },
+      success: (res) => {
+
+        console.log(res.data)
+
+        if (res.data[0].STARTS == "0") {
+
+          wx.switchTab({
+
+            url:'/pages/home/index/index'
+          })
+
+         
+          
+        } 
+        
+        
+
+      },
+      complete: () => {
+
+      }
+    })
+
+
+
+
+
     if (a.user == '1') {
 
       this.loginzb();
@@ -157,6 +191,11 @@ Page({
 
   onShow: function (t) {
 
+
+
+
+
+    
     var that = this
     wx.request({
       url: e.globalData.api + "wx_zbindex.ashx",

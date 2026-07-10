@@ -1,19 +1,14 @@
 {
   "pages": [
 
-
- 
     "pages/home/index/index",
-    "pages/hofman/goods/index",
     "pages/userlive/index/index",
-   
     "pages/userliveyg/index/index",
-    "pages/wxlogin/index",
     "pages/acxpexl/index/index",
     "pages/homerm/index/index",
     "pages/wxloginzb/index",
     "pages/user/index/index",
- 
+    "pages/hofman/goods/index",
     "pages/shopcghfm/goods/index",
     "pages/webview/index",
     "pages/userlw/index/index",
@@ -21,7 +16,7 @@
     "pages/party/index/index",
     "pages/zthome/index/index",
     "pages/reloginc/index",
- 
+    "pages/wxlogin/index",
     "pages/reloginb/index",
     "pages/relogin/index",
     "pages/qyxyc/index",
@@ -85,7 +80,12 @@
         "iconPath": "img/home.png",
         "selectedIconPath": "img/home1.png"
       },
-  
+      {
+        "pagePath": "pages/homerm/index/index",
+        "text": "我的推荐",
+        "iconPath": "img/basics.png",
+        "selectedIconPath": "img/basics_cur.png"
+      },
       {
         "pagePath": "pages/bags/index/index",
         "text": "购物车",

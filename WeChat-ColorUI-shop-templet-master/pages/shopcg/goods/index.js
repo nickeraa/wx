@@ -260,14 +260,15 @@ Page({
   onGetPhoneNumbergm: function (a) {
     console.log("ggggggggg");
 
-    wx.showToast({
-      title: "正在连接"
+ wx.showLoading({
+      title: '连接中...',
     })
     this.setData({
 
       stop: true
 
     })
+   wx.hideLoading()
 
 
     var t = this;
@@ -302,6 +303,11 @@ Page({
                       showCancel: !1,
                       success: function (a) {
                         a.confirm;
+                        t.setData({
+
+                          stop: false
+                    
+                        })
                       },
                     });
               },

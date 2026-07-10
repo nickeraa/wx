@@ -12,7 +12,7 @@ Page({
     xf_docno: "",
   },
   back: function () {
-    wx.switchTab({ url: "/pages/homerm/index/index" });
+    wx.switchTab({ url: "/pages/home/index/index" });
   },
   onLoad: function (a) {
     a.sorts && this.setData({ sorts: a.sorts }),

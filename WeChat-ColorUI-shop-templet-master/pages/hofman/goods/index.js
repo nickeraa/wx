@@ -1,98 +1,66 @@
-var e = getApp();
+// pages/hofman/goods/index.js
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    StatusBar: e.globalData.StatusBar,
-    CustomBar: e.globalData.CustomBar,
-    current: 0,
-    lines: 0,
-    banner: e.globalData.imgUrl,
-    scimgurl: e.globalData.scimgurl,
-    iconurlfx:e.globalData.iconurl+'fx.jpg',
-    iconurlhot:e.globalData.iconurl+'hot.jpg',
-    replu: {},
-    iconurl:e.globalData.iconurl,
-    xfname: "",
-    skuname: "",
-    listIndex: 0,
-    screenWidth: 0,
-    screenHeight: 0,
-    index: 20,
-    remark: {},
-    openid: "",
-    wxname: "",
-    pnumber: "",
-    avaurl: "",
-    p: "",
-    vipcode: "",
-    fxuserid: "",
-    itemnames: "",
-    yguserid: "",
-    fx: "",
-    arr: "",
-    slt: "",
-    count: 0,
-    i: "",
-
 
   },
-  onUnload: function () {
-    e.globalData.m = "";
-  },
-  onShow: function () {
 
-    console.log(e.globalData.m),
-      console.log(wx.getStorageSync("vipcode")),
-      console.log(wx.getStorageSync("yguserid")),
-      "2" == wx.getStorageSync("p") &&
-      wx.setTabBarBadge({
-        index: 2,
-        text: wx.getStorageSync("n")
-      }),
-      "4" == wx.getStorageSync("p") &&
-      wx.setTabBarBadge({
-        index: 3,
-        text: wx.getStorageSync("n")
-      }),
-      "3" == wx.getStorageSync("p") && wx.removeTabBarBadge({
-        index: 2
-      })
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad(options) {
 
-      this.ykdata();
-   
   },
 
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady() {
 
-  onShareAppMessage: function (e) {
-    return {
-      title: "广天藏品在线商城",
-      path: "/pages/home/index/index",
-      imageUrl: this.data.iconurlfx,
-    };
   },
-  onLoad: function (e) {
 
-    console.log(wx.getStorageSync("yguserid")),
-      console.log(wx.getStorageSync("vipcode")),
-      console.log(wx.getStorageSync("fxuserid"))
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() {
 
-   
   },
-  ykdata: function () {
-    var a = this;
-    wx.request({
-      url: e.globalData.api + "wx_tjsortshfm.ashx",
-      data: {},
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
-      dataType: "json",
-      success: function (e) {
-        console.log(e.data),
-          a.setData({
-            replu: e.data,
-    
-          });
-      },
-    });
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide() {
+
   },
-});
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage() {
+
+  }
+})
