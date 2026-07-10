@@ -1,0 +1,81 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">
+            <text bindtap="back" class="icon-back" style="width: 20px;margin-left: -9rem;"></text>
+            <text style="font-size: 16px;font-weight: 800;color:black;margin-left: 7rem;">定金取货付款</text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="margin-top: -20px;">
+    <view class="canui-order-item bg-white">
+        <view class="head-title-box" style="margin: 0px 0px 0px 20px;">
+            <view style="height: 10px;"></view>
+            <text class="icon-shop"></text>
+            <text style="margin-left: 5px;">广天藏品</text>
+        </view>
+        <view wx:for="{{replu}}" wx:key="index">
+            <view class="Grid-sku" style="border-radius:8px;background-color:white;margin:5px 0px 5px 0px;">
+                <view style="margin-left:10px;margin-top:15px;height:100px;width:100px;">
+                    <image mode="widthFix" src="{{scimgurl}}{{item.XF_PLU}}/{{item.IMAGESSL}}" style="border-radius: 5px;"></image>
+                </view>
+                <view style="margin-left:15px;width:70%;margin-top:10px;">
+                    <view>
+                        <text>{{item.XF_DESCI}}</text>
+                    </view>
+                    <view>
+                        <text>编号：{{item.XF_PLU}}</text>
+                    </view>
+                    <view style="display: flex;width:100%;">
+                        <view style="color:rgb(195,167,105);margin-top:8px;width:30%;">
+                            <text class="text-price"></text>
+                            <text style="font-weight: 700;margin-left: 5px;">{{item.XF_PRICE}}</text>
+                        </view>
+                        <view style="width: 70%;margin-top:2px;text-align: right;margin-right: 8px;">
+                            <view class="cu-btn" style="background-color:rgb(243, 244, 246);height: 25px;width:10%;font-size: 12px;">X</view>
+                            <view class="cu-btn" style="background-color:rgb(243, 244, 246);height: 25px;margin-left: 3px;margin-top:5px;width:10%;">{{item.XF_QTY}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="cu-list menu bg-white solid-bottom canui-selet">
+            <view class="cu-item">
+                <view class="content"> 共 <text class="text-red">{{sumqty}}</text> 件商品 </view>
+                <view class="action"> 小计： <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{sumprice}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="cu-list menu bg-white solid-bottom canui-selet">
+            <view class="cu-item">
+                <view class="content"> 已付定金： </view>
+                <view class="action">
+                    <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{pay_amtsolds}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="cu-list menu bg-white solid-bottom canui-selet">
+            <view class="cu-item">
+                <view class="content"> 尚欠金额： </view>
+                <view class="action">
+                    <text class="text-price" style="font-size: 18px;color:red;font-weight: 700;">{{sumsqprice}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="height: 10rem;"></view>
+<view hidden="{{flags}}">
+    <view class="bg-white canui-foor-fixed canui-submit-view " style="height: 6rem;">
+        <view style="display: flex;width: 100%;">
+            <view style="margin-left: 1rem;font-size: 16px;margin-top: 1rem;width: 30%;">
+                <text>应付：</text>
+                <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);">{{sumsqprice}}</text>
+            </view>
+            <view style="width: 80%;margin-top: 12px;">
+                <button class="submitbtn" openType="share" style="margin: 2px 5px 20px 0px;">
+                    <text class="icon-my"> 发送定金取货链接给客户</text>
+                </button>
+            </view>
+        </view>
+    </view>
+</view>

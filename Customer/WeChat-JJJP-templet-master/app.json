@@ -1,6 +1,8 @@
 {
     "pages": [
+
         "pages/home/index/index",
+        "pages/check/index",
         "pages/tjlogin/index",
         "pages/ygzb/index/index",
         "pages/yjzb/index/index",
