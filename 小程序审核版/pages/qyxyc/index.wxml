@@ -1,0 +1,37 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="action canui-head-title">
+            <text bindtap="back" class="icon-back"></text>协议签约 </view>
+    </view>
+</view>
+<view class="cu-form-group text-xl" style="margin-top:6rem;white-space:pre-wrap;display: flex;justify-content: center; align-items: center; ">
+    <text>《盛世荷风》版画（靓号）价格保密协议</text>
+</view>
+<view class="cu-form-group" style="white-space: pre-wrap; width: 750rpx; height: 1020rpx; display: flex; box-sizing: border-box">
+    <text style="width: 681rpx; height: 1020rpx; display: block; box-sizing: border-box">
+
+甲方：深圳市广天金品有限公司
+乙方：广天会员
+
+甲乙双方根据《中华人民共和国不正当竞争法》以及国家、地方政府及行业要求有关规定，双方在遵循平等、自愿、协商一致、诚实信用的原则下，就双方商定价格保密达成如下协议：
+1、崔如琢先生版画作品《盛世荷风》发行价为88000元，是经雅昌艺术网站备案溯源。广天藏品回馈尊贵会员价格为 48800 元，此为广天会员专享的保密价。
+2、价格保密经甲乙双方商定，乙方不向第三方提供，不得在互联网以及其他渠道公开传播。
+3、因泄露价格而引起的不必要纠纷，所有造成的损失由产生方全部承担。
+4、本协议自签名后生效，本协议的任何修改必须经甲乙双方同意。
+
+
+甲方：深圳市广天金品有限公司     乙方(签名)：
+                                  
+2024年8月                                      2024年8月
+
+
+</text>
+</view>
+<view hidden="{{d}}" style="width:100%;background-color: white;margin-top: -1rem;">
+    <button bindtap="qy" class="cu-btn icon-write" style="height: 70rpx; display: inline-flex; box-sizing: border-box; left: 31rpx; top: -77rpx; color: #436EEE; position: relative; width: 643rpx">
+        <text style="margin-left: 5px;">点击开始手写签名</text>
+    </button>
+</view>
+<view style="width:90px;background-color: white;margin-top: -150px;margin-left: auto;">
+    <image src="data:image/png;base64,{{imgurl}}" style="width:90px;height: 50px;"></image>
+</view>

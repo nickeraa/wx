@@ -1,0 +1,13 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>二维码会员卡 </view>
+    </view>
+</view>
+<view bindtap="previewImage">
+    <view style="margin-top: 10rem;display:flex;justify-content:center;">
+        <image class="" mode="widthFix" src="{{image}}"></image>
+        <canvasdrawer bind:getImage="eventGetImage" painting="{{painting}}"></canvasdrawer>
+    </view>
+    <canvas canvasId="mycanvas" style="margin-left: 12rem;margin-top:-18.5rem; width:200px;height:200px;"></canvas>
+</view>
