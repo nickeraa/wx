@@ -72,6 +72,7 @@ Page({
               header: {
                 "content-type": "application/json"
               },
+              timeout: 10000,
               success: function (e) {
                 console.log("获取授权openid，session_key", e),
                   console.log(e.data);
@@ -85,6 +86,13 @@ Page({
                   wx.setStorageSync("sessionID", o),
                   console.log(o),
                   console.log(a);
+              },
+              fail: function (e) {
+                console.log("获取openid失败", e),
+                  wx.showToast({
+                    title: "获取授权信息失败",
+                    icon: "none"
+                  });
               },
             })) :
           console.log("登录失败！" + t.errMsg);
@@ -101,6 +109,7 @@ Page({
   },
   tjtypes: function () {
     var t = this;
+    wx.showLoading({ title: "加载中..." }),
     wx.request({
       url: e.globalData.api + "wx_tjtags.ashx",
       data: {
@@ -111,14 +120,24 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (e) {
-        console.log(e.data),
+        wx.hideLoading(),
+          console.log(e.data),
           e.data.length > 0 &&
           t.setData({
             sumdfk: e.data[0].SUMDFK,
             sumdfh: e.data[0].SUMDFH
           }),
           console.log(t.data.sumdfk);
+      },
+      fail: function (e) {
+        wx.hideLoading(),
+          console.log("订单统计加载失败", e),
+          wx.showToast({
+            title: "订单统计加载失败",
+            icon: "none"
+          });
       },
     });
   },
@@ -128,11 +147,12 @@ Page({
     });
   },
   setype: function (e) {
-    "待付款" == e.currentTarget.dataset.name &&
+    var idx = e.currentTarget.dataset.index;
+    0 === idx &&
       wx.navigateTo({
         url: "/pages/alldfk/index/index?title=0"
       }),
-      "已付款" == e.currentTarget.dataset.name &&
+      1 === idx &&
       wx.navigateTo({
         url: "/pages/alldfk/index/index?title=1"
       });
@@ -198,6 +218,7 @@ Page({
           "content-type": "application/x-www-form-urlencoded"
         },
         dataType: "json",
+        timeout: 10000,
         success: function (e) {
           console.log(e),
             console.log("fffffffffff"),
@@ -214,6 +235,13 @@ Page({
               flag: !1,
               flags: !0,
               tximg: a.data.tximg,
+            });
+        },
+        fail: function (e) {
+          console.log("会员信息加载失败", e),
+            wx.showToast({
+              title: "会员信息加载失败",
+              icon: "none"
             });
         },
       }) :
@@ -264,7 +292,32 @@ tz()
         success: function () {
           t.deciyption(wx.getStorageSync("sessionID"), o, n);
         },
-        fail: function () {},
+        fail: function () {
+          console.log("session已失效，重新获取登录态"),
+            wx.login({
+              success: function (res) {
+                res.code &&
+                  wx.request({
+                    url: e.globalData.api + "wx_getphone.ashx",
+                    data: { code: res.code },
+                    header: { "content-type": "application/json" },
+                    timeout: 10000,
+                    success: function (resp) {
+                      var arr = resp.data.split(",");
+                      wx.setStorageSync("openid", arr[0]),
+                      wx.setStorageSync("sessionID", arr[1]),
+                      t.deciyption(wx.getStorageSync("sessionID"), o, n);
+                    },
+                    fail: function () {
+                      wx.showToast({ title: "授权状态异常，请重试", icon: "none" });
+                    },
+                  });
+              },
+              fail: function () {
+                wx.showToast({ title: "授权状态异常，请重试", icon: "none" });
+              },
+            });
+        },
       }) :
       wx.showModal({
         title: "提示",
@@ -278,6 +331,7 @@ tz()
   deciyption: function (t, a, o) {
     var n = this;
     console.log("步骤4根据秘钥解密手机号码sessionID：", t),
+      wx.showLoading({ title: "正在加载..." }),
       wx.request({
         url: e.globalData.api + "wx_getvipphone.ashx",
         data: {
@@ -288,27 +342,24 @@ tz()
         header: {
           "content-type": "application/json"
         },
+        timeout: 10000,
         success: function (t) {
-          if (
-            (console.log(t.data),
-              n.setData({
-                phone: t.data.phoneNumber
-              }),
-              wx.setStorageSync('phone', t.data.phoneNumber),
-
-              "undefined" == t.data.phoneNumber)
-          )
-            return (
-              wx.showModal({
-                title: "提示",
-                content: "手机号获取失败，请重试",
-                showCancel: !1,
-                success: function (e) {
-                  e.confirm;
-                },
-              }),
-              !1
-            );
+          wx.hideLoading();
+          console.log(t.data);
+          if ("undefined" == typeof t.data.phoneNumber) {
+            return wx.showModal({
+              title: "提示",
+              content: "手机号获取失败，请重试",
+              showCancel: !1,
+              success: function (e) {
+                e.confirm;
+              },
+            });
+          }
+          n.setData({
+            phone: t.data.phoneNumber
+          }),
+          wx.setStorageSync('phone', t.data.phoneNumber);
           t.data.phoneNumber && wx.getStorageSync("vipcode") ?
             (wx.setStorageSync("wxuserid", t.data.phoneNumber),
               wx.request({
@@ -320,6 +371,7 @@ tz()
                   "content-type": "application/x-www-form-urlencoded"
                 },
                 dataType: "json",
+                timeout: 10000,
                 success: function (e) {
                   console.log(e),
                     e.data.length > 0 ?
@@ -339,10 +391,24 @@ tz()
                         title: "没有会员卡信息"
                       }));
                 },
+                fail: function (e) {
+                  console.log("会员验证失败", e),
+                    wx.showToast({
+                      title: "会员验证失败",
+                      icon: "none"
+                    });
+                },
               })) :
             n.inphone();
         },
-
+        fail: function (e) {
+          wx.hideLoading(),
+            console.log("手机号解密失败", e),
+            wx.showToast({
+              title: "手机号解密失败，请重试",
+              icon: "none"
+            });
+        },
       });
   },
   inphone: function () {
@@ -371,6 +437,7 @@ tz()
             "content-type": "application/x-www-form-urlencoded"
           },
           dataType: "json",
+          timeout: 10000,
           success: function (a) {
             wx.hideLoading(),
               console.log(a.data),
@@ -387,6 +454,7 @@ tz()
                   "content-type": "application/x-www-form-urlencoded",
                 },
                 dataType: "json",
+                timeout: 10000,
                 success: function (e) {
                   console.log(e),
                     e.data.length > 0 ?
@@ -419,8 +487,23 @@ tz()
                         title: "没有会员卡信息"
                       }));
                 },
+                fail: function (e) {
+                  console.log("会员信息请求失败", e),
+                    wx.showToast({
+                      title: "会员信息获取失败",
+                      icon: "none"
+                    });
+                },
               });
           },
+        fail: function (e) {
+          wx.hideLoading(),
+            console.log("数据请求失败", e),
+            wx.showToast({
+              title: "数据请求失败",
+              icon: "none"
+            });
+        },
         });
 
     }

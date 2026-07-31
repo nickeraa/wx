@@ -18,7 +18,8 @@ Page({
     userid: "",
     shid: '',
     shtype: '',
-    stop: false
+    stop: false,
+    xstock: 0
   },
   back: function () {
     wx.navigateBack({
@@ -74,117 +75,215 @@ Page({
       },
     });
   },
-  payment: function () {
+  _paymentFail: function (msg) {
+    wx.hideLoading();
+    this.setData({ stop: false });
+    wx.showToast({ title: msg, icon: "none", duration: 2000 });
+  },
+  payment: async function () {
+    if (this.data.stop) return;
+    wx.showLoading({ title: "连接中..." });
+    this.setData({ stop: true });
+    var that = this;
+    var fail = function (msg) { that._paymentFail(msg); };
 
-    wx.showLoading({
-      title: '连接中...',
-    })
-    this.setData({
+    // Step 1: 库存查询（校验所有商品）
+    var replu = that.data.replu;
+    if (!replu || replu.length === 0) {
+      fail("无商品信息");
+      return;
+    }
 
-      stop: true
-
-    })
-   wx.hideLoading()
-
-
-    var t = this;
-    wx.login({
-      success: function (o) {
-        var e = o.code;
-        e
-          ?
-          wx.request({
-            url: a.globalData.api + "wxzf.aspx",
-            data: {
-              code: e
-            },
-            header: {
-              "content-type": "application/json"
-            },
-            success: function (a) {
-              console.log(a.data);
-              var o = a.data.split(",");
-              t.setData({
-                  openid: o[0]
-                }),
-                console.log(t.data.openid),
-                t.generateOrder(t.data.openid);
-            },
-          }) :
-          console.log("获取用户登陆状态失败！");
-      },
+    var stockChecks = replu.map(function (item) {
+      return new Promise(function (resolve, reject) {
+        wx.request({
+          url: a.globalData.api + "wx_checkxstock.ashx",
+          data: { xf_plu: item.XF_PLU },
+          header: { "content-type": "application/x-www-form-urlencoded" },
+          dataType: "json",
+          timeout: 10000,
+          success: function (r) { resolve({ item: item, res: r }); },
+          fail: function () { reject({ item: item }); },
+        });
+      });
     });
+
+    var stockResults;
+    try {
+      stockResults = await Promise.all(stockChecks);
+    } catch (errInfo) {
+      var errName = (errInfo.item.XF_DESCI || errInfo.item.XF_PLU || "商品");
+      if (errName.length > 12) errName = errName.slice(0, 12) + "…";
+      fail(errName + " 库存查询失败");
+      return;
+    }
+
+    for (var i = 0; i < stockResults.length; i++) {
+      var sr = stockResults[i];
+      var item = sr.item;
+      var itemName = (item.XF_DESCI || item.XF_PLU || "该商品");
+      if (itemName.length > 12) itemName = itemName.slice(0, 12) + "…";
+      if (!Array.isArray(sr.res.data) || sr.res.data.length === 0 || !sr.res.data[0]) {
+        wx.hideLoading();
+        that.setData({ stop: false });
+        wx.showModal({
+          title: "提示",
+          content: itemName + " 未获取到库存信息",
+          showCancel: false,
+          confirmText: "知道了",
+        });
+        return;
+      }
+      var xstock = parseInt(sr.res.data[0].XSTOCK) || 0;
+      var qty = parseInt(item.XF_QTY) || 0;
+      if (xstock < qty) {
+        wx.hideLoading();
+        that.setData({ stop: false, xstock: xstock });
+        wx.showModal({
+          title: "库存不足",
+          content: itemName + "\n您订购" + qty + "件，当前库存仅剩" + xstock + "件",
+          showCancel: false,
+          confirmText: "知道了",
+        });
+        return;
+      }
+    }
+
+    // Step 2: 微信登录
+    var loginRes;
+    try {
+      loginRes = await new Promise(function (resolve, reject) {
+        wx.login({
+          success: function (r) { resolve(r); },
+          fail: function () { reject(); },
+        });
+      });
+    } catch (e) {
+      fail("微信登录失败");
+      return;
+    }
+
+    var code = loginRes.code;
+    if (!code) {
+      fail("获取用户登录状态失败");
+      return;
+    }
+
+    // Step 3: 获取 openid
+    var openidRes;
+    try {
+      openidRes = await new Promise(function (resolve, reject) {
+        wx.request({
+          url: a.globalData.api + "wxzf.aspx",
+          data: { code: code },
+          header: { "content-type": "application/json" },
+          timeout: 10000,
+          success: function (r) { resolve(r); },
+          fail: function () { reject(); },
+        });
+      });
+    } catch (e) {
+      fail("支付配置获取失败");
+      return;
+    }
+
+    if (!openidRes.data || typeof openidRes.data !== "string") {
+      fail("支付配置异常");
+      return;
+    }
+    var parts = openidRes.data.split(",");
+    if (!parts[0]) {
+      fail("支付参数异常");
+      return;
+    }
+
+    wx.hideLoading();
+    that.setData({ openid: parts[0] });
+    that.generateOrder(parts[0]);
   },
   generateOrder: function (t) {
-    var o = this;
+    var e = this;
+    if (!t) {
+      wx.showToast({ title: "下单失败，请重试", icon: "none", duration: 2000 });
+      e.setData({ stop: false });
+      return;
+    }
+    var amount = parseFloat(e.data.sumydprice);
+    if (isNaN(amount) || amount <= 0) {
+      wx.showToast({ title: "下单金额异常", icon: "none", duration: 2000 });
+      e.setData({ stop: false });
+      return;
+    }
     wx.request({
       url: a.globalData.api + "wxzfconfig.aspx",
       data: {
         openid: t,
-        amount: o.data.sumydprice,
-        xf_docno: o.data.xf_docno,
-        salestypes: "线上预定," + o.data.userid,
+        amount: amount,
+        xf_docno: e.data.xf_docno,
+        salestypes: "线上预定," + (e.data.userid || ""),
       },
       header: {
         "content-type": "application/json"
       },
-      success: function (a) {
-        console.log(a.data), o.zf(a.data);
+      timeout: 10000,
+      success: function (res) {
+        if (typeof res.data !== "string" || !res.data) {
+          wx.showToast({ title: "支付配置返回为空", icon: "none", duration: 2000 });
+          e.setData({ stop: false });
+          return;
+        }
+        e.zf(res.data);
       },
-      fail: function (a) {
-        console.info(a);
+      fail: function () {
+        wx.showToast({ title: "下单失败，请重试", icon: "none", duration: 2000 });
+        e.setData({ stop: false });
       },
     });
   },
-  zf: function (a) {
+  zf: function (payConfig) {
     var t = this;
-    console.log("发起支付"), console.log(a);
-    var o = a.split(",");
+    if (!payConfig || typeof payConfig !== "string") {
+      wx.showToast({ title: "支付参数异常", icon: "none", duration: 2000 });
+      t.setData({ stop: false });
+      return;
+    }
+    var o = payConfig.split(",");
+    if (o.length < 5 || !o[0] || !o[1] || !o[2] || !o[3] || !o[4]) {
+      wx.showToast({ title: "支付参数不完整", icon: "none", duration: 2000 });
+      t.setData({ stop: false });
+      return;
+    }
     wx.requestPayment({
       timeStamp: o[0],
       nonceStr: o[1],
       package: o[2],
       signType: o[4],
       paySign: o[3],
-      success: function (a) {
-        console.log("success"), console.log(a), t.yfk(a.errMsg);
+      success: function (res) {
+        t.yfk(res.errMsg);
       },
-      fail: function (a) {
-        console.log("fail"),
-          console.log(a),
+      fail: function (err) {
+        if (err && err.errMsg && err.errMsg.indexOf("cancel") === -1) {
           wx.showToast({
             title: "支付失败",
             icon: "error",
-            duration: 2e3
+            duration: 2000
           });
+        }
+        t.setData({ stop: false });
       },
-      complete: function (a) {
-
-        t.setData({
-
-          stop: false
-        })
-
-      }
     });
   },
   yfk: function (k) {
-    wx.getStorageSync("vipcode") ||
-      this.setData({
-        xf_vipcode: "",
-        xf_storecode: "",
-        salesman: ""
-      }),
-      wx.getStorageSync("wxuserid") || this.setData({
-        wxuserid: ""
-      }),
-      console.log(this.data.sumydprice);
+    k = k || "requestPayment:ok";
+    var vipcode = wx.getStorageSync("vipcode") || "";
+    var wxuserid = wx.getStorageSync("wxuserid") || "";
     var t = this;
     wx.request({
       url: a.globalData.api + "wx_qefkyd.ashx",
       data: {
-        xf_vipcode: wx.getStorageSync("vipcode"),
-        wxuserid: wx.getStorageSync("wxuserid"),
+        xf_vipcode: vipcode,
+        wxuserid: wxuserid,
         xf_docno: t.data.xf_docno,
         xf_amtsold: t.data.sumydprice,
         sumwlprice: 0,
@@ -198,23 +297,32 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
-      success: function (a) {
-        console.log(a.data),
-          "error" != a.data ?
-          wx.redirectTo({
-            url: "/pages/fkcg/index/index?sorts=" +
-              t.data.sorts +
-              "&tag=3&xf_docno=" +
-              t.data.xf_docno,
-          }) :
+      timeout: 10000,
+      success: function (res) {
+        if (res.data === "error") {
           wx.showModal({
             title: "提示",
             content: "数据错误，IP已被记录",
-            showCancel: !1,
-            success: function (a) {
-              a.confirm;
-            },
-          })
+            showCancel: false,
+          });
+          return;
+        }
+        wx.redirectTo({
+          url: "/pages/fkcg/index/index?sorts=" +
+            t.data.sorts +
+            "&tag=3&xf_docno=" +
+            t.data.xf_docno,
+        });
+      },
+      fail: function () {
+        wx.showModal({
+          title: "提示",
+          content: "支付确认失败，请检查订单状态或联系客服",
+          showCancel: false,
+        });
+      },
+      complete: function () {
+        t.setData({ stop: false });
       },
     });
   },

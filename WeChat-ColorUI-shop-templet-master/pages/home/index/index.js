@@ -10,7 +10,7 @@ Page({
     iconurl: e.globalData.iconurl,
     iconurlfx:e.globalData.iconurl+'fx.jpg',
     iconurlhot:e.globalData.iconurl+'hot.jpg',
-    replu: {},
+    replu: [],
     xfname: "",
     skuname: "",
     listIndex: 0,
@@ -79,6 +79,7 @@ Page({
   },
   ykdata: function () {
     var a = this;
+    wx.showLoading({ title: "加载中..." });
     wx.request({
       url: e.globalData.api + "wx_tjsorts.ashx",
       data: {},
@@ -86,12 +87,18 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (e) {
+        wx.hideLoading();
         console.log(e.data),
           a.setData({
             replu: e.data,
     
           });
+      },
+      fail: function () {
+        wx.hideLoading();
+        wx.showToast({ title: "加载失败，请下拉刷新", icon: "none", duration: 2000 });
       },
     });
   },

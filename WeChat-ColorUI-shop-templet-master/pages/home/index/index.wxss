@@ -1,6 +1,6 @@
 page {
   padding-bottom: 20rpx;
-  padding-top: 50px;
+  padding-top: 100rpx;
 }
 .head-title {
   margin: 0 auto;
@@ -16,7 +16,7 @@ page {
 }
 .swiperitem {
   background: #fff;
-  height: 55px;
+  height: 110rpx;
 }
 .canui-video {
   height: 425rpx;
@@ -32,7 +32,7 @@ page {
   width: 46% !important;
 }
 .canui-flex-car {
-  padding-top: 10px;
+  padding-top: 20rpx;
 }
 .canui-flex-car .cu-card > .cu-item {
   margin: 0;
@@ -45,7 +45,7 @@ page {
 .canui-flex-car .cu-card .cu-avatar {
   bottom: 72rpx;
   position: absolute;
-  right: 10px;
+  right: 20rpx;
 }
 .canui-flex-car .shadow-warp {
   box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.1);
@@ -60,10 +60,10 @@ page {
   color: #000;
 }
 .canui-flex-car image {
-  height: 173px !important;
+  height: 346rpx !important;
 }
 .canui-gps .justify-between {
-  padding: 0 10px;
+  padding: 0 20rpx;
 }
 .content .text-sm {
   -webkit-box-orient: vertical;
@@ -71,7 +71,7 @@ page {
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 100px;
+  width: 200rpx;
 }
 .canui-fixed {
   bottom: 0;
@@ -80,10 +80,10 @@ page {
   z-index: 999999;
 }
 .tt {
-  margin: 0 0 50px;
+  margin: 0 0 100rpx;
 }
 .pt {
-  margin: 0 0 15px px;
+  margin: 0 0 30rpx;
 }
 .is_checked {
   background-color: #c3a769;
@@ -101,7 +101,7 @@ page {
   font-size: 26rpx;
   height: 50rpx;
   line-height: 50rpx;
-  margin: -30px 0 0 320px;
+  margin: -60rpx 0 0 640rpx;
   position: absolute;
   text-align: center;
   width: 120rpx;
@@ -113,12 +113,12 @@ page {
   width: 100%;
 }
 .video_play_icon {
-  height: 40px;
+  height: 80rpx;
   left: 50%;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 40px;
+  width: 80rpx;
   z-index: 5;
 }
 .video_bg_black {
@@ -146,7 +146,7 @@ page {
   width: 30rpx;
 }
 .video_txt {
-  margin: 10px 70px 0 20px;
+  margin: 20rpx 140rpx 0 40rpx;
 }
 .container {
   align-items: center;
@@ -155,4 +155,86 @@ page {
   flex-direction: row;
   justify-content: center;
   vertical-align: center;
+}
+.home-empty {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+.home-empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.5;
+}
+.home-empty-text {
+  color: #999;
+  font-size: 28rpx;
+}
+/* Product card responsive classes */
+.product-list-wrap {
+  padding-bottom: 20rpx;
+  padding-top: 30rpx;
+}
+.product-img {
+  position: relative;
+  left: 0;
+  top: -4rpx;
+}
+.product-title {
+  font-weight: 700;
+  height: 3rem;
+}
+.product-info-row {
+  display: flex;
+  width: 100%;
+}
+.product-label {
+  width: 20%;
+  font-size: 20rpx;
+  color: rgb(195, 167, 105);
+}
+.product-price {
+  width: 50%;
+  font-weight: 700;
+  font-size: 30rpx;
+}
+.product-price-red {
+  color: red;
+}
+.product-price-gold {
+  color: rgb(195, 167, 105);
+}
+.product-badge {
+  height: 60rpx;
+  width: 50%;
+  margin-top: -10rpx;
+  font-weight: 700;
+  font-size: 28rpx;
+}
+.product-badge-state {
+  background-image: linear-gradient(45deg, #ff9700, #ed1c24);
+  color: white;
+  border-radius: 20rpx;
+}
+/* Hot header */
+.hot-header {
+  display: flex;
+  width: 100%;
+  background-color: white;
+  margin-top: 3rem;
+}
+.hot-icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin: 20rpx 0 0 20rpx;
+}
+.hot-text-wrap {
+  width: 60%;
+  margin-top: 50rpx;
+}
+.hot-text {
+  font-size: 30rpx;
+  font-weight: 600;
 }

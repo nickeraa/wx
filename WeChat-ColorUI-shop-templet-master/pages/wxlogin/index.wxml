@@ -11,16 +11,16 @@
  
     <image class="avatar avatar-wrapper" src="{{avatarUrl}}"></image>
     <view style="width:100%;margin:-70px 0px 10px 10px;">
-                <button open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" class="cu-btn round" style="margin: 5px 5px 5px 95px; height: 2rem; border-radius: 0.8rem;font-weight: 500; background-color: white; border: 1px solid #436EEE; width: 50%; position: relative; left: -10rpx; top: -31rpx">选择头像</button>
+                <button open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" class="cu-btn round" style="margin: 0px 5px 5px 95px; height: 2.5rem; border-radius: 0.8rem;font-weight: 500; background-color: white; border: 1px solid #436EEE; width: 60%; position: relative; left: -10rpx; top: -31rpx">点击选择头像</button>
             </view>
-    <input bindinput="bindKeyInput"  type="nickname" value='{{nickName}}' style='color: grey;margin-top: 30px;' placeholder="请填写自己的昵称"/>
+    <input bindinput="bindKeyInput"  type="nickname" value='{{nickName}}' style='color: grey;margin-top: 30px;' placeholder="请选择自己的昵称"/>
 
         </view>
         <view class="b2" style="width: 600rpx; height: 529rpx; display: block; box-sizing: border-box;">
      
             <view style="width:100%;margin:215px 0px 10px 100px;">
                 <button bindtap="lq" class="cu-btn canui-color-gradual shadow-blur" >领取会员卡</button>
-                <button bindtap="back" class="cu-btn canui-color-blue shadow-blur" style='margin-left: 15rpx;'>返回首页</button>
+                <button bindtap="back" class="cu-btn canui-color-blue shadow-blur" style='margin-left: 15rpx;'>返回</button>
             </view>
         </view>
     </view>

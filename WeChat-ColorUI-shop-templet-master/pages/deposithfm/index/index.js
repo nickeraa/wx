@@ -440,7 +440,7 @@ Page({
         shid: t.data.id,
         tag: "1",
         xf_storecode: t.data.xf_storecode,
-        salesman: t.data.salesman,
+        salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: t.data.sumprice,
         xf_docno: t.data.xf_docno,
         pass:k
@@ -497,7 +497,7 @@ Page({
         shid: this.data.id,
         tag: "0",
         xf_storecode: this.data.xf_storecode,
-        salesman: this.data.salesman,
+        salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: 0,
         xf_docno: this.data.xf_docno,
         pass:k

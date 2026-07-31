@@ -65,7 +65,7 @@
                         <view style="color:rgb(195,167,105);margin-top:12px;width:30%;">
                             <text class="text-price"></text>
                             <text style="font-weight: 700;margin-left: 5px;">{{item.XF_PRICE}}</text>
-                            <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);" wx:if="{{!xiaoshu}}">.00</text>
+                            <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);" wx:if="{{item.XF_PRICE % 1 === 0}}">.00</text>
                         </view>
                         <view style="width: 70%;margin-top:12px;">
                             <view style="height: 25px;width:10%;margin-right: 20px;float: right;">
@@ -80,7 +80,7 @@
                 <view class="cu-item">
                     <view class="content"> 共 <text class="text-red">{{item.XF_QTY}}</text> 件商品 </view>
                     <view class="action"> 小计： <text class="text-price" style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.SUMXF_PRICE}}</text>
-                        <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);" wx:if="{{!xiaoshu}}">.00</text>
+                        <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);" wx:if="{{item.SUMXF_PRICE % 1 === 0}}">.00</text>
                     </view>
                 </view>
             </view>
@@ -97,7 +97,7 @@
             <text>运费</text>
             <view style="float: left;">
                 <text class="text-price" style="font-size: 14px;font-weight: 700;color:rgb(195,167,105);">{{sumwlprice}}</text>
-                <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);">.00</text>
+                <text style="font-size: 12px;font-weight: 700;color:rgb(195,167,105);" wx:if="{{sumwlprice % 1 === 0}}">.00</text>
             </view>
         </view>
         <view class="cu-form-group bg-white canui-input">

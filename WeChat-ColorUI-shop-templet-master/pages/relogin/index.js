@@ -25,12 +25,9 @@ Page({
           if (res.data[0].STARTS == "0") {
   
             wx.switchTab({
-  
               url:'/pages/home/index/index'
             })
-  
            
-            
           } 
           
           
@@ -43,7 +40,9 @@ Page({
 
 
   },
-  onShow: function () {},
+  onShow: function () {
+
+  },
 
  
   getcomuseridValue: function (o) {

@@ -55,7 +55,7 @@
                     <text style="font-weight: 700;margin-left: 5px;font-size: 18px;color: red;">{{item.XF_VIPPRICE}}</text>
             </view>
         </view>
-        <view wx:elif="{{item.XF_WZK}}" style="color: red; margin: 5px 0px 0px 75px;" >无折扣</view>
+        <view wx:elif="{{item.XF_WZK}}" style="color: red; margin: 5px 0px 0px 75px;" >促销实价</view>
         <view wx:elif="{{item.XF_ZKPRICE}}">
             <view class="del"   style="background-color: gray;height:1px;width: 3.5rem;"></view>
             <view style="margin:5px 0px 0px 75px;font-weight: 700;"><text>会员折扣价：</text>

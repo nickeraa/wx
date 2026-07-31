@@ -39,7 +39,7 @@
                         <view class="del" style="background-color: gray;height:1px;width: 3.5rem;"></view>
                         <view style="color:red;margin:5px 0px 0px 75px;">会员实价</view>
                     </block>
-                    <view style="color:red;margin:5px 0px 0px 75px;" wx:elif="{{item.XF_WZK}}">无折扣</view>
+                    <view style="color:red;margin:5px 0px 0px 75px;" wx:elif="{{item.XF_WZK}}">促销实价</view>
                     <block wx:elif="{{item.XF_ZKPRICE}}">
                         <view class="del" style="background-color: gray;height:1px;width: 3.5rem;"></view>
                         <view style="color:red;margin:5px 0px 0px 75px;">会员折扣价</view>

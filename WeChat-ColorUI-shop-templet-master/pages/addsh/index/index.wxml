@@ -31,7 +31,7 @@
     </view>
 </view>
 <view class="bg-white canui-foor-fixed canui-submit-view " style="height: 5rem;display: flex;width: 100%;align-items: center;justify-content: center;">
-    <button bindtap="add" class="submitbtn" style="margin: 10px 0px 20px 0px;width:80%;height: 2.5rem;">
+    <button bindtap="add" disabled="{{stop}}" class="submitbtn" style="margin: 10px 0px 20px 0px;width:80%;height: 2.5rem;">
         <text> 保存并使用</text>
     </button>
 </view>

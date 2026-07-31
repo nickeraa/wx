@@ -1,0 +1,87 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">购物车</view>
+    </view>
+</view>
+<view class="cu-bar bg-white fixed" style="top:{{CustomBar}}px;">
+    <view style="margin:0px 10px 0px 20px;">
+        <text class="icon-shop"></text>
+        <text style="margin-left:8px;">广天藏品</text>
+        <text class="icon-right" style="margin-left: 6px;"></text>
+        <text bindtap="gm" style="margin:0px 10px 0px 200px; ">{{edit}}</text>
+    </view>
+</view>
+<view hidden="{{flag}}" style="text-align: center;padding-top: 8rem;">
+    <image src="/img/component_k.png" style="width: 50px;height: 50px;"></image>
+    <view style="padding-top: 1rem;">
+        <text>您的购物车还是空的哦</text>
+    </view>
+    <button bindtap="go" class="cu-btn" style="margin-top:20px;height:2rem;color:rgb(195,167,105);border:1px solid ;width:30%;background-color: white;">去逛逛</button>
+</view>
+<view style="margin:10px 10px 10px 10px;">
+    <checkbox-group bindchange="checkboxChange">
+        <view wx:for="{{replu}}" wx:key="index">
+            <view catchtap="seid" class="Grid-sku" data-index="{{index}}" data-title="{{item.XF_PLU}}" style="height:6.5rem;border-radius:8px;background-color:white;margin:5px 0px 5px 0px;">
+                <view>
+                    <checkbox checked="{{item.checked}}" class="checkbox" style="margin-left: 8px; margin-top: 30px;" value="{{item.XF_PLU}},{{item.REALPRICE}},{{item.QTY}}"></checkbox>
+                </view>
+                <view catchtap="selectsku" data-XF_PLU="{{item.XF_PLU}}" style="margin-left:10px;margin-top:15px;height:50px;width:50px;">
+                    <image mode="widthFix" src="{{scimgurl}}{{item.XF_PLU}}/{{item.IMAGESSL}}" style="border-radius: 5px;"></image>
+                </view>
+                <view catchtap="selectsku" class="" data-XF_PLU="{{item.XF_PLU}}" style="margin-left:15px;width:70%;margin-top:5px;">
+                    <view>
+                        <text>{{item.XF_DESCI}}</text>
+                    </view>
+                    <view>
+                        <text>编号：{{item.XF_PLU}}</text>
+                    </view>
+                    <block wx:if="{{item.XF_VIPPRICE}}">
+                        <view class="del" style="background-color: gray;height:1px;width: 3.5rem;"></view>
+                        <view style="color:red;margin:5px 0px 0px 75px;">会员实价</view>
+                    </block>
+                    <view style="color:red;margin:5px 0px 0px 75px;" wx:elif="{{item.XF_WZK}}">无折扣</view>
+                    <block wx:elif="{{item.XF_ZKPRICE}}">
+                        <view class="del" style="background-color: gray;height:1px;width: 3.5rem;"></view>
+                        <view style="color:red;margin:5px 0px 0px 75px;">会员折扣价</view>
+                    </block>
+                    <view style="display: flex;width:100%;">
+                        <view style="color:rgb(195,167,105);margin-top:8px;width:30%;">
+                            <text class="text-price"></text>
+                            <text style="font-weight: 700;margin-left: 5px;">{{item.XF_ORGUPRICE}}</text>
+                        </view>
+                        <view style="color:rgb(195,167,105);margin-top:8px;width:30%;margin-left:12px;">
+                            <block wx:if="{{item.XF_VIPPRICE}}">
+                                <text class="text-price"></text>
+                                <text style="font-weight: 700;margin-left: 5px;">{{item.XF_VIPPRICE}}</text>
+                            </block>
+                            <block wx:elif="{{!item.XF_WZK&&item.XF_ZKPRICE}}">
+                                <text class="text-price"></text>
+                                <text style="font-weight: 700;margin-left: 5px;">{{item.XF_ZKPRICE}}</text>
+                            </block>
+                        </view>
+                        <view style="width: 70%;margin-top:2px;text-align: right;">
+                            <button catchtap="jian" class="cu-btn" data-index="{{index}}" data-title="{{item.XF_PLU}}" style="background-color:rgb(243, 244, 246);height: 25px;width:10%;">-</button>
+                            <button class="cu-btn" style="background-color:rgb(243, 244, 246);height: 25px;margin-left: 3px;width:10%;">{{item.QTY}}</button>
+                            <button catchtap="jia" class="cu-btn" data-index="{{index}}" data-title="{{item.XF_PLU}}" style="background-color:rgb(243, 244, 246);height: 25px;margin-left: 3px;width:10%;">+</button>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </checkbox-group>
+</view>
+<view style="height:10rem;"></view>
+<view class="btns">
+    <view style="margin-bottom: 10px;margin-left: 17px;margin-top: 8px;">
+        <checkbox bindtap="selectall" checked="{{select_all}}" class="checkbox"></checkbox>
+        <text style="margin-left: 7px;">全选</text>
+    </view>
+    <view hidden="{{issum}}" style="margin-bottom: 10px;margin-left: 5rem;;margin-top: 8px;">
+        <text>合计：</text>
+        <text class="text-price" style="color:rgb(195,167,105);"></text>
+        <text style="color:rgb(195,167,105);font-weight: 700;font-size: 18px;">{{sumprice}}</text>
+    </view>
+    <button bindtap="del" class="{{is?'normal':'check'}} round" disabled="{{is}}" style="height:30px;margin-top: 5px;margin-right: 8px;">
+        <text> {{do}} </text>
+    </button>
+</view>

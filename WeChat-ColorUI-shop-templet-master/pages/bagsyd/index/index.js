@@ -3,13 +3,13 @@ Page({
   data: {
     StatusBar: a.globalData.StatusBar,
     CustomBar: a.globalData.CustomBar,
-    replu: {},
+    replu: [],
     scimgurl: a.globalData.scimgurl,
     edit: "完成",
     is: !0,
     do: "删除",
     select_all: !1,
-    choseNames: "",
+    choseNames: [],
     arrdata: [],
     id: "",
     xf_plu: "",
@@ -21,37 +21,36 @@ Page({
     arrs: "",
   },
   onLoad: function () {},
-  gm: function (a) {
-    this.setData({ issum: !0 });
+  gm: function () {
+    this.setData({ issum: !0, choseNames: [] });
     var t = this.data.replu;
-    for (var e in (console.log(t), t)) t[e].checked = !1;
+    if (!t || !t.length) return;
+    for (var e = 0; e < t.length; e++) t[e].checked = !1;
     this.setData({ replu: t, select_all: !1 }),
       "完成" == this.data.edit
         ? (this.setData({ edit: "编辑", do: "去结算" }),
           0 == this.data.choseNames.length
             ? this.setData({ is: !0 })
             : this.setData({ is: !1 }))
-        : (this.data.edit = "编辑") &&
-          (this.setData({ edit: "完成", do: "删除" }),
+        : (this.setData({ edit: "完成", do: "删除" }),
           0 == this.data.choseNames.length
             ? this.setData({ is: !0 })
             : this.setData({ is: !1 }));
   },
   checkboxChange: function (a) {
-    if (
-      (console.log("dfsdfsdf"),
-      this.setData({
-        choseNames: a.detail.value,
-        sumprice: "",
-        select_all: !1,
-      }),
+    var replu = this.data.replu;
+    var choseNames = a.detail.value;
+    var isAll = replu && replu.length > 0 && choseNames.length === replu.length;
+    this.setData({
+      choseNames: choseNames,
+      sumprice: "",
+      select_all: isAll,
+    }),
       "编辑" == this.data.edit && this.setData({ issum: !1 }),
       0 == this.data.choseNames.length
         ? this.setData({ is: !0, issum: !0 })
-        : this.setData({ is: !1 }),
-      console.log(this.data.choseNames),
-      "编辑" == this.data.edit)
-    ) {
+        : this.setData({ is: !1 });
+    if ("编辑" == this.data.edit) {
       "" == this.data.sumprice && this.setData({ sumprice: 0 });
       for (var t = 0; t < this.data.choseNames.length; t++) {
         var e = parseFloat(
@@ -66,54 +65,47 @@ Page({
               .replace("]", "")
               .split(",")[2]
           );
-        this.setData({ sumprice: this.data.sumprice + e * s }),
-          console.log(this.data.sumprice);
+        this.setData({ sumprice: this.data.sumprice + e * s });
       }
       this.setData({ sumprice: parseFloat(this.data.sumprice).toFixed(2) });
     }
   },
-  selectall: function (a) {
+  selectall: function () {
+    if (!this.data.replu || !this.data.replu.length) return;
     this.setData({ sumprice: 0, issum: !0 });
-    for (var t = [], e = 0; e < this.data.replu.length; e++)
-      if (
-        ((this.data.replu[e].checked = !this.data.select_all),
-        1 == this.data.replu[e].checked &&
-          ((t = t.concat(
-            this.data.replu[e].XF_PLU +
-              "," +
-              this.data.replu[e].REALPRICE +
-              "," +
-              this.data.replu[e].QTY
-          )),
-          "编辑" == this.data.edit))
-      ) {
-        console.log("ppppppp");
-        var s = parseFloat(this.data.replu[e].REALPRICE).toFixed(3),
-          i = parseInt(this.data.replu[e].QTY);
-        this.setData({
-          sumprice: parseFloat(
-            parseFloat(this.data.sumprice) + parseFloat(s * i)
-          ).toFixed(2),
-          issum: !1,
-        }),
-          console.log(this.data.sumprice);
+    for (var t = [], e = 0; e < this.data.replu.length; e++) {
+      this.data.replu[e].checked = !this.data.select_all;
+      if (1 == this.data.replu[e].checked) {
+        t = t.concat(
+          this.data.replu[e].XF_PLU +
+            "," +
+            this.data.replu[e].REALPRICE +
+            "," +
+            this.data.replu[e].QTY
+        );
+        if ("编辑" == this.data.edit) {
+          var s = parseFloat(this.data.replu[e].REALPRICE).toFixed(3),
+            i = parseInt(this.data.replu[e].QTY);
+          this.setData({
+            sumprice: parseFloat(
+              parseFloat(this.data.sumprice) + parseFloat(s * i)
+            ).toFixed(2),
+            issum: !1,
+          });
+        }
       }
+    }
     this.setData({
       replu: this.data.replu,
       select_all: !this.data.select_all,
       choseNames: t,
     }),
-      console.log(this.data.replu),
-      console.log(this.data.choseNames),
       0 == this.data.choseNames.length
         ? this.setData({ is: !0, sumprice: 0 })
-        : this.setData({ is: !1 }),
-      console.log("dddddddddddddddddddddd"),
-      console.log(this.data.choseNames),
-      console.log(this.data.sumprice);
+        : this.setData({ is: !1 });
   },
   onShow: function () {
-    this.setData({ select_all: !1, issum: !0 }),
+    this.setData({ select_all: !1, issum: !0, choseNames: [] }),
       wx.removeTabBarBadge({ index: 3 }),
       wx.setStorageSync("n", "0"),
       wx.setStorageSync("p", "");
@@ -127,12 +119,14 @@ Page({
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
+      timeout: 10000,
       success: function (a) {
-        console.log(a.data.length),
-          a.data.length > 0
-            ? t.setData({ replu: a.data, flag: !0 })
-            : t.setData({ replu: null, flag: !1 }),
-          console.log(t.data.replu);
+        a.data && a.data.length > 0
+          ? t.setData({ replu: a.data, flag: !0 })
+          : t.setData({ replu: [], flag: !1 });
+      },
+      fail: function () {
+        t.setData({ replu: [], flag: !1 });
       },
     });
   },
@@ -147,17 +141,20 @@ Page({
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
+      timeout: 10000,
       success: function (a) {
-        a.data.length > 0
+        a.data && a.data.length > 0
           ? t.setData({ replu: a.data, flag: !0, sumprice: 0, is: !0 })
           : t.setData({
-              replu: null,
+              replu: [],
               select_all: !1,
               is: !0,
               flag: !1,
               sumprice: 0,
-            }),
-          console.log(t.data.replu);
+            });
+      },
+      fail: function () {
+        t.setData({ replu: [], flag: !1 });
       },
     });
   },
@@ -165,44 +162,43 @@ Page({
     wx.switchTab({ url: "/pages/home/index/index" });
   },
   jian: function (t) {
-    this.setData({ id: t.currentTarget.dataset.index }),
-      console.log(this.data.replu[this.data.id].QTY);
-    var e;
+    var r = this.data.replu;
+    if (!r || !r.length) return;
+    this.setData({ id: t.currentTarget.dataset.index });
+    var e = r[this.data.id];
+    if (!e) return;
     if (
-      ((e = this.data.replu[this.data.id].XF_PLU),
-      console.log(e),
-      console.log(this.data.choseNames),
-      this.data.choseNames.toString().indexOf(e) >= 0 && "1",
-      "编辑" == this.data.edit &&
-        ((this.data.replu[this.data.id].checked = !1),
+      ("编辑" == this.data.edit &&
+        ((e.checked = !1),
         this.setData({ is: !0, issum: !0 })),
-      "1" == this.data.replu[this.data.id].QTY)
+      "1" == e.QTY)
     )
-      return wx.showToast({ title: "该商品1件起订哦" }), !1;
+      return wx.showToast({ title: "该商品1件起订哦", icon: "none" }), !1;
     var s = this;
     wx.request({
       url: a.globalData.api + "wx_jianskuyd.ashx",
       data: {
         vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
-        xf_plu: s.data.replu[s.data.id].XF_PLU,
+        xf_plu: e.XF_PLU,
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
+      timeout: 10000,
       success: function (a) {
-        console.log(a),
-          "error" != a.data
-            ? "编辑" == s.data.edit
-              ? (s.setData({
-                  sumprice:
-                    s.data.sumprice -
-                    1 * parseInt(s.data.replu[s.data.id].REALPRICE),
-                }),
-                (s.data.replu[s.data.id].QTY =
-                  parseInt(s.data.replu[s.data.id].QTY) - 1),
-                s.setData({ replu: s.data.replu }))
-              : s.shuaxin()
-            : wx.showToast({ title: "数据出错" });
+        "error" != a.data
+          ? "编辑" == s.data.edit
+            ? (s.setData({
+                sumprice:
+                  s.data.sumprice - 1 * parseInt(e.REALPRICE),
+              }),
+              (e.QTY = parseInt(e.QTY) - 1),
+              s.setData({ replu: s.data.replu }))
+            : s.shuaxin()
+          : wx.showToast({ title: "数据出错", icon: "none" });
+      },
+      fail: function () {
+        wx.showToast({ title: "操作失败", icon: "none", duration: 1500 });
       },
     });
   },
@@ -212,46 +208,39 @@ Page({
     });
   },
   jia: function (t) {
-    this.setData({ id: t.currentTarget.dataset.index }),
-      console.log(this.data.replu[this.data.id].QTY),
-      console.log(this.data.replu[this.data.id].XF_PLU),
-      console.log(this.data.replu[this.data.id].REALPRICE);
-    var e;
-    (e = this.data.replu[this.data.id].XF_PLU),
-      console.log(e),
-      console.log(this.data.choseNames),
-      console.log(this.data.replu[this.data.id]),
-      this.data.choseNames.toString().indexOf(e) >= 0 &&
-        ("1", console.log("dddddsdsdsdsdsd")),
-      "编辑" == this.data.edit &&
-        (console.log(this.data.replu[this.data.id]),
-        (this.data.replu[this.data.id].checked = !1),
-        this.setData({ is: !0, issum: !0 }));
+    var r = this.data.replu;
+    if (!r || !r.length) return;
+    this.setData({ id: t.currentTarget.dataset.index });
+    var e = r[this.data.id];
+    if (!e) return;
+    "编辑" == this.data.edit &&
+      ((e.checked = !1),
+      this.setData({ is: !0, issum: !0 }));
     var s = this;
     wx.request({
       url: a.globalData.api + "wx_insertyd.ashx",
       data: {
         vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
-        xf_plu: s.data.replu[s.data.id].XF_PLU,
+        xf_plu: e.XF_PLU,
         qty: "1",
         fxuserid: wx.getStorageSync("fxuserid"),
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
+      timeout: 10000,
       success: function (a) {
-        console.log(a),
-          "ok" == a.data
-            ? (console.log(s.data.replu[s.data.id].QTY),
-              s.setData({
-                sumprice:
-                  s.data.sumprice +
-                  1 * parseInt(s.data.replu[s.data.id].REALPRICE),
-              }),
-              (s.data.replu[s.data.id].QTY =
-                parseInt(s.data.replu[s.data.id].QTY) + 1),
-              s.setData({ replu: s.data.replu }))
-            : wx.showToast({ title: "数据出错" });
+        "ok" == a.data
+          ? (s.setData({
+              sumprice:
+                s.data.sumprice + 1 * parseInt(e.REALPRICE),
+            }),
+            (e.QTY = parseInt(e.QTY) + 1),
+            s.setData({ replu: s.data.replu }))
+          : wx.showToast({ title: "数据出错", icon: "none" });
+      },
+      fail: function () {
+        wx.showToast({ title: "操作失败", icon: "none", duration: 1500 });
       },
     });
   },
@@ -261,32 +250,99 @@ Page({
       xf_plu: a.currentTarget.dataset.title,
     });
   },
-  del: function (a) {
-    "去结算" == this.data.do
-      ? wx.navigateTo({
-          url: "/pages/depositgwcyd/index/index?xf_plu=" + this.data.choseNames,
-        })
-      : this.delsku();
-  },
-  delsku: function (t) {
-    var e = this;
-    wx.showLoading({ title: "正在加载" }),
-      wx.request({
-        url: a.globalData.api + "wx_delskuyd.ashx",
-        data: {
-          vipcode: wx.getStorageSync("vipcode"),
-          xf_plu: e.data.choseNames,
-          wxuserid: wx.getStorageSync("wxuserid"),
-        },
-        header: { "content-type": "application/x-www-form-urlencoded" },
-        dataType: "json",
-        success: function (a) {
-          wx.hideLoading({}),
-            console.log(a.data),
-            "error" != a.data
-              ? e.shuaxin()
-              : wx.showToast({ title: "数据错误" });
-        },
+  del: function () {
+    if ("去结算" == this.data.do) {
+      var t = this;
+      var choseNames = t.data.choseNames;
+      if (!choseNames || 0 == choseNames.length) {
+        wx.showToast({ title: "请先选择商品", icon: "none" });
+        return;
+      }
+      // 解析选中商品，提取 XF_PLU 和下单 QTY
+      var items = [];
+      for (var i = 0; i < choseNames.length; i++) {
+        var parts = choseNames[i].replace("[", "").replace("]", "").split(",");
+        items.push({ xf_plu: parts[0], qty: parseInt(parts[2]) || 0 });
+      }
+      // 并发检查库存
+      wx.showLoading({ title: "检查库存中...", mask: !0 });
+      var checked = 0,
+        allPassed = !0,
+        errList = [];
+      items.forEach(function (e) {
+        wx.request({
+          url: a.globalData.api + "wx_checkxstock.ashx",
+          data: { xf_plu: e.xf_plu },
+          header: { "content-type": "application/x-www-form-urlencoded" },
+          dataType: "json",
+          timeout: 10000,
+          success: function (r) {
+            var stock = 0;
+            if (r.data && Array.isArray(r.data) && r.data.length > 0 && r.data[0])
+              stock = parseInt(r.data[0].XSTOCK) || 0;
+            if (stock < e.qty) {
+              allPassed = !1;
+              errList.push(
+                stock <= 0
+                  ? "货品" + e.xf_plu + "已订完，数量为零"
+                  : "货品" + e.xf_plu + "库存不足，仅剩" + stock + "件"
+              );
+            }
+          },
+          fail: function () {
+            allPassed = !1;
+            errList.push("货品" + e.xf_plu + "查询失败");
+          },
+          complete: function () {
+            checked++;
+            if (checked >= items.length) {
+              wx.hideLoading();
+              if (allPassed) {
+                wx.navigateTo({
+                  url: "/pages/depositgwcyd/index/index?xf_plu=" + t.data.choseNames,
+                });
+              } else {
+                wx.showModal({
+                  title: "提示",
+                  content: errList.join("\n"),
+                  showCancel: !1,
+                });
+              }
+            }
+          },
+        });
       });
+    } else {
+      this.delsku();
+    }
+  },
+  delsku: function () {
+    if (!this.data.choseNames || 0 == this.data.choseNames.length) {
+      wx.showToast({ title: "请先选择商品", icon: "none" });
+      return;
+    }
+    var e = this;
+    wx.showLoading({ title: "正在加载" });
+    wx.request({
+      url: a.globalData.api + "wx_delskuyd.ashx",
+      data: {
+        vipcode: wx.getStorageSync("vipcode"),
+        xf_plu: e.data.choseNames,
+        wxuserid: wx.getStorageSync("wxuserid"),
+      },
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      dataType: "json",
+      timeout: 10000,
+      success: function (a) {
+        wx.hideLoading(),
+          "error" != a.data
+            ? e.shuaxin()
+            : wx.showToast({ title: "数据错误", icon: "none" });
+      },
+      fail: function () {
+        wx.hideLoading();
+        wx.showToast({ title: "删除失败", icon: "none", duration: 1500 });
+      },
+    });
   },
 });

@@ -3,7 +3,7 @@ var e = getApp()
 Page({
   data: {
     liveTitle: "",
-    fximg: "",//分享图
+    fximg: "", //分享图
     isLiving: "",
     loading: false,
     StatusBar: e.globalData.StatusBar,
@@ -18,19 +18,21 @@ Page({
     current: 0,
     lines: 0,
     banner: e.globalData.zbimgurl,
-    swiperList: []
+    swiperList: [],
+   
 
   },
 
-  // 进入直播间
+  // 进入
   enterLive() {
     this.setData({
       loading: true
     })
-    console.log('dfsdfsdfsdfsdf')
+   
+    //没有选择头像和昵称
 
     if (!wx.getStorageSync('wximg') || !wx.getStorageSync('wxuser')) {
-      wx.navigateTo({
+      wx.redirectTo({
         url: "/pages/wxloginzb/index"
       });
     } else {
@@ -41,7 +43,10 @@ Page({
         data: {
           openid: wx.getStorageSync('openid'),
           nickName: wx.getStorageSync('wxuser'),
-          avatarUrl: wx.getStorageSync('wximg')
+          avatarUrl: wx.getStorageSync('wximg'),
+          yguserid: wx.getStorageSync("yguserid"),
+          vipcode: wx.getStorageSync("vipcode"),
+          liveTitle: wx.getStorageSync("title"),
         },
         header: {
           "content-type": "application/json"
@@ -71,7 +76,7 @@ Page({
 
   onLoad: function (a) {
 
- 
+
     wx.request({
       url: "https://widesky.work/HKback/wx_state.ashx",
       data: {},
@@ -86,14 +91,10 @@ Page({
 
           wx.switchTab({
 
-            url:'/pages/home/index/index'
+            url: '/pages/home/index/index'
           })
 
-         
-          
-        } 
-        
-        
+        }
 
       },
       complete: () => {
@@ -101,16 +102,21 @@ Page({
       }
     })
 
+//判断是否直播间进入商城
+    // if (a.zb) {
 
+    //   wx.setStorageSync('zb', a.zb)
 
+    // }
 
-
+//直选头像昵称
     if (a.user == '1') {
 
       this.loginzb();
 
     } else {
 
+      //客户第一次进入员工分享界面，获取openid
       if (a.yguserid) {
         wx.setStorageSync('yguserid', a.yguserid)
       }
@@ -165,7 +171,10 @@ Page({
       data: {
         openid: wx.getStorageSync('openid'),
         nickName: wx.getStorageSync('wxuser'),
-        avatarUrl: wx.getStorageSync('wximg')
+        avatarUrl: wx.getStorageSync('wximg'),
+        yguserid: wx.getStorageSync("yguserid"),
+        vipcode: wx.getStorageSync("vipcode"),
+        liveTitle: wx.getStorageSync("title"),
       },
       header: {
         "content-type": "application/json"
@@ -187,15 +196,19 @@ Page({
 
   },
 
+  regist() {
 
+
+    wx.navigateTo({
+      url: '/pages/wxloginzbs/index'
+
+    })
+
+
+  },
 
   onShow: function (t) {
 
-
-
-
-
-    
     var that = this
     wx.request({
       url: e.globalData.api + "wx_zbindex.ashx",
@@ -207,8 +220,11 @@ Page({
       success: function (a) {
         console.log(a), that.setData({
           resultdt: a.data,
-          liveTitle: a.data[0].TITLE
+          liveTitle: a.data[0].TITLE,
+          fximg: a.data[0].FXIMG
         });
+
+        wx.setStorageSync('title', a.data[0].TITLE)
 
         // ============= 你的 3 个原始字段 =============
         let img1 = a.data[0].IMAGE1;
@@ -264,11 +280,7 @@ Page({
 
         console.log(res.data.data[0].liveStatus)
 
-        if (res.data.data[0].liveStatus == "end") {
-          that.setData({
-            isLiving: '已结束'
-          })
-        } else if (res.data.data[0].liveStatus == "unStart") {
+        if (res.data.data[0].liveStatus == "unStart") {
 
           that.setData({
             isLiving: '未开始'
@@ -280,15 +292,14 @@ Page({
             isLiving: '直播中'
           })
 
-        }
-        else{
+        } else {
           that.setData({
-            isLiving: '已过期'
+            isLiving: ''
           })
 
         }
-        
-        
+
+
 
       },
       complete: () => {
@@ -303,9 +314,10 @@ Page({
 
   onShareAppMessage: function (e) {
     return {
-      title: "广天藏品始创于1997年",
-      path: "/pages/userlive/index/index",
-      imageUrl: this.data.swiperList[0].img,
+      title: "广天藏品 " + wx.getStorageSync("title") + " 现场直播",
+      path: "/pages/userlive/index/index?vipcode=" +
+        "" + "&yguserid=" + wx.getStorageSync("yguserid"),
+      imageUrl: this.data.banner + this.data.fximg,
       success: function (e) {
         console.log("转发成功:" + JSON.stringify(e));
       },

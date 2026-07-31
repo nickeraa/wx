@@ -161,6 +161,7 @@ Page({
         name: "imgfile",
         formData: {
           method: "POST"
+      
         },
         success: function (a) {
           console.log(a),
@@ -200,33 +201,33 @@ Page({
 
   },
 
-loginzb()
-{
+// loginzb()
+// {
 
-  wx.request({
-    url: "https://widesky.work/HKback/live_cn.aspx",
-    data: {
-      openid: wx.getStorageSync('openid'),
-      nickName:wx.getStorageSync('wxuser'),
-      avatarUrl:wx.getStorageSync('wximg')
-    },
-    header: {
-      "content-type": "application/json"
-    },
-    success: (res) => {
-      let liveUrl = res.data
-      console.log(liveUrl)
-      // 2. 跳转到web-view打开直播间
-      wx.navigateTo({
-        url: `/pages/webview/index?url=${encodeURIComponent(liveUrl)}`
-      })
+//   wx.request({
+//     url: "https://widesky.work/HKback/live_cn.aspx",
+//     data: {
+//       openid: wx.getStorageSync('openid'),
+//       nickName:wx.getStorageSync('wxuser'),
+//       avatarUrl:wx.getStorageSync('wximg')
+//     },
+//     header: {
+//       "content-type": "application/json"
+//     },
+//     success: (res) => {
+//       let liveUrl = res.data
+//       console.log(liveUrl)
+//       // 2. 跳转到web-view打开直播间
+//       wx.navigateTo({
+//         url: `/pages/webview/index?url=${encodeURIComponent(liveUrl)}`
+//       })
 
-    },
-    complete: () => {
+//     },
+//     complete: () => {
 
-    }
-  })
+//     }
+//   })
 
-},
+// },
 
 });

@@ -277,3 +277,20 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 .radio {
   padding: 5px;
 }
+
+/* 进入直播间按钮 */
+.enter-btn {
+  width: 80%;
+  height: 88rpx;
+  background: linear-gradient(90deg, #1677ff, #40a9ff);
+  border-radius: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 20rpx rgba(22, 119, 255, 0.3);
+}
+.btn-text {
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: bold;
+}

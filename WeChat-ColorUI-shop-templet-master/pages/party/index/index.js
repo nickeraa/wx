@@ -137,14 +137,17 @@ Page({
       });
   },
   mydj: function () {
-    wx.switchTab({
-      url: "/pages/bagsyd/index/index"
-    });
+   // wx.showToast({ title: "暂未开放", icon: "error", duration: 1e3 });
+     wx.switchTab({
+       url: "/pages/bagsyd/index/index"
+     });
   },
   qh: function () {
-    wx.switchTab({
-      url: "/pages/bags/index/index"
-    });
+   // wx.showToast({ title: "暂未开放", icon: "error", duration: 1e3 });
+
+     wx.switchTab({
+       url: "/pages/bags/index/index"
+     });
   },
   address: function () {
     wx.navigateTo({

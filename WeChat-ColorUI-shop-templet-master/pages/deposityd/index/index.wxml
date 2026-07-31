@@ -117,7 +117,7 @@
                         <view class="del" style="background-color: gray;height:1px;width: 3.5rem;"></view>
                         <view style="color:red;margin:5px 0px 0px 75px;">会员实价</view>
                     </block>
-                    <view style="color:red;margin:5px 0px 0px 75px;" wx:elif="{{item.XF_WZK}}">无折扣</view>
+                    <view style="color:red;margin:5px 0px 0px 75px;" wx:elif="{{item.XF_WZK}}">促销实价</view>
                     <block wx:elif="{{item.XF_ZKPRICE}}">
                         <view class="del" style="background-color: gray;height:1px;width: 3.5rem;"></view>
                         <view style="color:red;margin:5px 0px 0px 75px;">会员折扣价</view>
@@ -184,7 +184,7 @@
     <view style="margin-left:1rem;">
         <image src="/img/about.png" style="width:2rem;height:2rem;margin-top:1rem;"></image>
     </view>
-    <view style="margin-top:-2rem;margin-left:4rem;" wx:if="{{grade}}">
+    <view style="margin-top:-2rem;margin-left:4rem;" wx:if="{{grade && grade != 'null'}}">
         <text class="text-black">会员卡</text>
         <text class="icon-right" style="float: right;color:gray;margin-right: 20px;margin-top: 3px;"></text>
         <text style="float: right;color: rgb(195, 167, 105);margin-top: -2px;font-weight: 700px;margin-right: 5px;">{{grade}}</text>

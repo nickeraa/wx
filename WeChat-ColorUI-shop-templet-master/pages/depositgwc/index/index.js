@@ -24,7 +24,7 @@ Page({
                   "xf_desci",
                   ""
                 ),
-                "replu", {}
+                "replu", []
               ),
               "ck",
               0
@@ -35,7 +35,7 @@ Page({
           "flags",
           !1
         ),
-        "ret", {}
+        "ret", []
       ),
       "address1",
       ""
@@ -94,15 +94,11 @@ Page({
       "salestypes",
       "0"
     ),
-    t(
-      t(t(t(t(a, "sumwlprice", 0), "sorts", ""), "strarrs", "", "replu", {}, ), "xiaoshu", !1),
-      "userid",
-      "",
-      "stop", false
-    )),
+    t(t(t(t(t(t(t(t(a, "sumwlprice", 0), "sorts", ""), "strarrs", ""), "xiaoshu", !1), "telphone", ""), "sumqty", 0), "openid", ""), "wxuserid", ""),
+    t(t(t(a, "userid", ""), "stop", !1), "modalName", "")),
   back: function () {
     wx.navigateBack({
-      delta: 0
+      delta: 1
     });
   },
   showModal: function () {
@@ -121,15 +117,18 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (t) {
-        console.log(t.data),
-          t.data.length > 0 ?
+        t.data.length > 0 ?
           a.setData({
             ret: t.data
           }) :
           a.setData({
-            ret: null
+            ret: []
           });
+      },
+      fail: function () {
+        wx.showToast({ title: "网络异常", icon: "none" });
       },
     });
   },
@@ -157,16 +156,8 @@ Page({
         body: a.currentTarget.dataset.body,
         ck: a.currentTarget.dataset.id,
         id: a.currentTarget.dataset.id,
+        tags: "1" == a.currentTarget.dataset.tag ? !1 : !0,
       }),
-      console.log(a.currentTarget.dataset.tag),
-      "1" == a.currentTarget.dataset.tag ?
-      this.setData({
-        tags: !1
-      }) :
-      this.setData({
-        tags: !0
-      }),
-      console.log(this.data.tags),
       this.hideModal(a),
       this.shows();
   },
@@ -181,17 +172,16 @@ Page({
       this.setData({
         userid: wx.getStorageSync("wxuserid")
       }),
-      console.log(this.data.xf_plu),
       this.address();
   },
   radioChange1: function (a) {
-    console.log("radior发送选择改变，携带值为", a.detail.value),
-      this.setData({
-        setype: a.detail.value
-      }),
-      "0" == this.data.setype ?
+    var v = a.detail.value;
+    this.setData({
+      setype: v
+    }),
+      "0" == v ?
       this.address() :
-      "1" == this.data.setype && this.store();
+      "1" == v && this.store();
   },
   sestore: function () {
     wx.navigateTo({
@@ -204,7 +194,6 @@ Page({
           sumwlprice: 0,
           sumprice: this.data.sumrealprice
         }),
-        console.log(wx.getStorageSync("vipcode")),
         !wx.getStorageSync("vipcode"))
     )
       return this.destore(), !1;
@@ -218,9 +207,9 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (t) {
-        console.log(t.data),
-          t.data.length > 0 ?
+        t.data.length > 0 ?
           a.setData({
             address1: t.data[0].ADDRESS1,
             address2: t.data[0].ADDRESS2,
@@ -230,16 +219,17 @@ Page({
           }) :
           a.destore();
       },
+      fail: function () {
+        wx.showToast({ title: "网络异常", icon: "none" });
+      },
     });
   },
   shows: function () {
-    console.log(this.data.xf_plu),
-      console.log(this.data.id),
-      this.setData({
-        sumwlprice: 0,
-        sumprice: 0,
-        sumrealprice: 0
-      });
+    this.setData({
+      sumwlprice: 0,
+      sumprice: 0,
+      sumrealprice: 0
+    });
     var a = this;
     wx.request({
       url: e.globalData.api + "wx_listscgwc.ashx",
@@ -253,33 +243,28 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (t) {
-        if ((console.log(t.data), t.data.length > 0)) {
+        if (t.data.length > 0) {
+          var s = 0;
+          for (var e = 0; e < t.data.length; e++) s += Number(t.data[e].WLPRICE) || 0;
           a.setData({
             replu: t.data,
             sumqty: t.data[0].SUMQTY,
             sumrealprice: parseFloat(t.data[0].SUMREALPRICE).toFixed(2),
             sorts: t.data[0].SORTS,
+            sumwlprice: s,
+            sumprice: parseFloat(
+              parseFloat(t.data[0].SUMREALPRICE).toFixed(2) + s
+            ).toFixed(2),
           });
-          for (var e = 0; e < t.data.length; e++)
-            a.setData({
-              sumwlprice: a.data.sumwlprice + t.data[e].WLPRICE
-            });
-          console.log(a.data.xf_plu),
-            console.log(a.data.sumwlprice),
-            a.setData({
-              sumprice: parseFloat(
-                a.data.sumrealprice + a.data.sumwlprice
-              ).toFixed(2),
-            });
         } else a.setData({
-          replu: null
+          replu: []
         });
-        console.log(a.data.sumprice),
-          a.data.sumprice.toString().indexOf(".") >= 0 &&
-          a.setData({
-            xiaoshu: !0
-          });
+        a.setData({ xiaoshu: !0 });
+      },
+      fail: function () {
+        wx.showToast({ title: "网络异常", icon: "none" });
       },
     });
   },
@@ -295,9 +280,9 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (t) {
-        console.log(t.data),
-          t.data.length > 0 ?
+        t.data.length > 0 ?
           (a.setData({
               address1: t.data[0].ADDRESS1,
               address2: t.data[0].ADDRESS2,
@@ -310,18 +295,16 @@ Page({
               salesman: t.data[0].SALESMAN,
               grade: t.data[0].GRADE,
               id: t.data[0].ID,
-            }),
-            "1" == t.data[0].TAG ?
-            a.setData({
-              tags: !1
-            }) :
-            a.setData({
-              tags: !0
+              tags: "1" == t.data[0].TAG ? !1 : !0,
             })) :
           a.setData({
             flag: !1
           }),
           a.shows();
+      },
+      fail: function () {
+        wx.showToast({ title: "获取地址失败", icon: "none" });
+        a.shows();
       },
     });
   },
@@ -334,8 +317,9 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (t) {
-        console.log(t.data),
+        if (t.data && t.data.length > 0) {
           a.setData({
             address1: t.data[0].ADDRESS1,
             address2: t.data[0].ADDRESS2,
@@ -343,88 +327,133 @@ Page({
             dpid: t.data[0].ID,
             fg: 1,
           });
+        } else {
+          wx.showToast({ title: "获取门店地址失败", icon: "none" });
+        }
+      },
+      fail: function () {
+        wx.showToast({ title: "网络异常", icon: "none" });
       },
     });
   },
   onShow: function () {
-
-     this.setData({
-       stop: false
-     })
-
-
+    this.setData({
+      stop: !1
+    })
   },
   payment: function () {
+    wx.showLoading({ title: "连接中..." })
+    this.setData({ stop: !0 });
 
-    wx.showLoading({
-      title: '连接中...',
-    })
-    this.setData({
-
-      stop: true
-
-    })
-   wx.hideLoading()
-    if (!this.data.flag && this.data.setype == '0')
-    return (
-
-      this.add(),
-      !1
-    );
+    if (!this.data.flag && "0" == this.data.setype)
+      return wx.hideLoading(), this.setData({ stop: !1 }), this.add(), !1;
 
     if (!this.data.sumprice || this.data.sumprice <= 0)
-      return wx.showToast({
-        title: "数据异常"
-      }), !1;
-    console.log(this.data.sumprice);
+      return wx.hideLoading(), this.setData({ stop: !1 }),
+        wx.showToast({ title: "数据异常", icon: "none" }), !1;
+
+    this.checkStock();
+  },
+  checkStock: function () {
+    var a = this;
+    var r = a.data.replu;
+    if (!r || 0 === r.length) {
+      wx.hideLoading(),
+        a.setData({ stop: !1 });
+      return;
+    }
+    var i = 0;
+    var n = function () {
+      if (i >= r.length) return void a.doPay();
+      var s = r[i];
+      wx.request({
+        url: getApp().globalData.api + "wx_checkxstock.ashx",
+        data: { xf_plu: s.XF_PLU },
+        header: { "content-type": "application/x-www-form-urlencoded" },
+        dataType: "json",
+        timeout: 10000,
+        success: function (o) {
+          if (o.data && o.data.length > 0) {
+            var stock = parseInt(o.data[0].XSTOCK) || 0,
+              qty = parseInt(s.XF_QTY) || 0;
+            if (stock < qty) {
+              var name = (s.XF_DESCI || s.XF_PLU) || "该商品";
+              if (name.length > 12) name = name.slice(0, 12) + "…";
+              return wx.hideLoading(),
+                a.setData({ stop: !1 }),
+                void wx.showModal({
+                  title: "库存不足",
+                  content: name + "\n您订购" + qty + "件，当前库存仅剩" + stock + "件",
+                  showCancel: !1,
+                  confirmText: "知道了",
+                });
+            }
+          } else {
+            var noStockName = (s.XF_DESCI || s.XF_PLU) || "该商品";
+            if (noStockName.length > 12) noStockName = noStockName.slice(0, 12) + "…";
+            return wx.hideLoading(),
+              a.setData({ stop: !1 }),
+              void wx.showModal({
+                title: "提示",
+                content: noStockName + "\n未获取到库存信息，请稍后重试",
+                showCancel: !1,
+                confirmText: "知道了",
+              });
+          }
+          i++, n();
+        },
+        fail: function () {
+          wx.hideLoading(),
+            a.setData({ stop: !1 }),
+            wx.showToast({ title: "库存查询失败，请重试", icon: "none" });
+        },
+      });
+    };
+    n();
+  },
+  doPay: function () {
     var a = this;
     wx.login({
       success: function (t) {
         var s = t.code;
         s
-          ?
-          wx.request({
+          ? wx.request({
             url: e.globalData.api + "wxzf.aspx",
-            data: {
-              code: s
-            },
-            header: {
-              "content-type": "application/json"
-            },
+            data: { code: s },
+            header: { "content-type": "application/json" },
+            timeout: 10000,
             success: function (t) {
-              console.log(t.data);
               var e = t.data.split(",");
-              a.setData({
-                  openid: e[0]
-                }),
-                console.log(a.data.openid),
+              if (!e[0]) return wx.hideLoading(), a.setData({ stop: !1 }), wx.showToast({ title: "数据异常", icon: "none" });
+              a.setData({ openid: e[0] }),
                 a.generateOrder(a.data.openid);
             },
-          }) :
-          console.log("获取用户登陆状态失败！");
+            fail: function () {
+              wx.hideLoading(),
+                a.setData({ stop: !1 }),
+                wx.showToast({ title: "网络异常", icon: "none" });
+            },
+          })
+          : (wx.hideLoading(),
+            a.setData({ stop: !1 }),
+            wx.showToast({ title: "登录失败", icon: "none" }));
+      },
+      fail: function () {
+        wx.hideLoading(),
+          a.setData({ stop: !1 }),
+          wx.showToast({ title: "登录失败", icon: "none" });
       },
     });
-
-    // a.setData({
-    //   stop: false
-
-    // })
   },
   generateOrder: function (a) {
     var t = this;
     wx.request({
       url: e.globalData.api + "get_ordernumber.ashx",
-      data: {
-        title: "SSC"
-      },
-      header: {
-        "content-type": "application/json"
-      },
+      data: { title: "SSC" },
+      header: { "content-type": "application/json" },
+      timeout: 10000,
       success: function (s) {
-        console.log(s.data),
-          t.setData({
-            xf_docno: s.data
-          }),
+        t.setData({ xf_docno: s.data }),
           wx.request({
             url: e.globalData.api + "wxzfconfig.aspx",
             data: {
@@ -433,27 +462,27 @@ Page({
               xf_docno: t.data.xf_docno,
               salestypes: "线上销售," + t.data.userid,
             },
-            header: {
-              "content-type": "application/json"
-            },
+            header: { "content-type": "application/json" },
+            timeout: 10000,
             success: function (a) {
-              console.log(a.data), t.zf(a.data);
+              t.zf(a.data);
             },
-            fail: function (a) {
-              console.info(a),
-                wx.showToast({
-                  title: "数据异常",
-                  icon: "error",
-                  duration: 2e3,
-                });
+            fail: function () {
+              wx.hideLoading(),
+                t.setData({ stop: !1 }),
+                wx.showToast({ title: "数据异常", icon: "error", duration: 2000 });
             },
           });
+      },
+      fail: function () {
+        wx.hideLoading(),
+          t.setData({ stop: !1 }),
+          wx.showToast({ title: "数据异常", icon: "error", duration: 2000 });
       },
     });
   },
   zf: function (a) {
     var t = this;
-    console.log("发起支付"), console.log(a);
     var e = a.split(",");
     wx.requestPayment({
       timeStamp: e[0],
@@ -462,17 +491,13 @@ Page({
       signType: e[4],
       paySign: e[3],
       success: function (a) {
-        console.log("success"), console.log(a), t.yfk(a.errMsg);
+        t.yfk(a.errMsg);
       },
       fail: function (a) {
-        console.log("fail"), console.log(a), t.dfk(a.errMsg);
+        t.dfk(a.errMsg);
       },
-      complete:function(a)
-      {
-
-        t.setData({
-          stop: false
-        })
+      complete: function () {
+        t.setData({ stop: !1 })
       }
     });
   },
@@ -504,7 +529,7 @@ Page({
         shid: a.data.id,
         tag: "1",
         xf_storecode: a.data.xf_storecode,
-        salesman: a.data.salesman,
+        salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: a.data.sumprice,
         xf_docno: a.data.xf_docno,
         pass: k
@@ -513,8 +538,9 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (t) {
-        console.log(t.data),
+        wx.hideLoading(),
           "error" != t.data ?
           wx.navigateTo({
             url: "/pages/fkcg/index/index?sorts=" +
@@ -522,22 +548,24 @@ Page({
               "&tag=1&xf_docno=" +
               t.data,
           }) :
-          wx.showModal({
-            title: "提示",
-            content: "数据错误，IP已被记录",
-            showCancel: !1,
-            success: function (a) {
-              a.confirm;
-            },
-          })
+          (a.setData({ stop: !1 }),
+            wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+            }));
+      },
+      fail: function () {
+        wx.hideLoading(),
+          a.setData({ stop: !1 }),
+          wx.showToast({ title: "网络异常", icon: "none" });
       },
     });
   },
   getremark: function (a) {
-    console.log("picker发送选择改变，携带值为", a.detail.value),
-      this.setData({
-        remark: a.detail.value
-      });
+    this.setData({
+      remark: a.detail.value
+    });
   },
   selectsku: function (a) {
     wx.navigateTo({
@@ -545,57 +573,60 @@ Page({
     });
   },
   dfk: function (k) {
-    "1" == this.data.setype && this.setData({
-        id: this.data.dpid
+    var a = this;
+    "1" == a.data.setype && a.setData({
+        id: a.data.dpid
       }),
       wx.getStorageSync("vipcode") ||
-      this.setData({
+      a.setData({
         xf_vipcode: "",
         xf_storecode: "",
         salesman: ""
       }),
-      wx.getStorageSync("wxuserid") || this.setData({
+      wx.getStorageSync("wxuserid") || a.setData({
         wxuserid: ""
-      }),
-      console.log(this.data.sumprice),
-      console.log(this.data.sumwlprice);
+      });
     wx.request({
       url: e.globalData.api + "wx_dfksc.ashx",
       data: {
         xf_vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
-        xf_plu: this.data.xf_plu,
-        xf_amtsold: this.data.sumrealprice,
-        sumwlprice: this.data.sumwlprice,
-        remark: this.data.remark,
-        salestypes: this.data.salestypes,
-        shtype: this.data.setype,
-        shid: this.data.id,
+        xf_plu: a.data.xf_plu,
+        xf_amtsold: a.data.sumrealprice,
+        sumwlprice: a.data.sumwlprice,
+        remark: a.data.remark,
+        salestypes: a.data.salestypes,
+        shtype: a.data.setype,
+        shid: a.data.id,
         tag: "0",
-        xf_storecode: this.data.xf_storecode,
-        salesman: this.data.salesman,
+        xf_storecode: a.data.xf_storecode,
+        salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: 0,
-        xf_docno: this.data.xf_docno,
+        xf_docno: a.data.xf_docno,
         pass: k
       },
       header: {
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
-      success: function (a) {
-        console.log(a.data),
-          "error" != a.data ?
+      timeout: 10000,
+      success: function (t) {
+        wx.hideLoading(),
+          "error" != t.data ?
           wx.redirectTo({
-            url: "/pages/dfdeposit/index/index?xf_docno=" + a.data,
+            url: "/pages/dfdeposit/index/index?xf_docno=" + t.data,
           }) :
-          wx.showModal({
-            title: "提示",
-            content: "数据错误，IP已被记录",
-            showCancel: !1,
-            success: function (a) {
-              a.confirm;
-            },
-          })
+          (a.setData({ stop: !1 }),
+            wx.showModal({
+              title: "提示",
+              content: "数据错误，IP已被记录",
+              showCancel: !1,
+            }));
+      },
+      fail: function () {
+        wx.hideLoading(),
+          a.setData({ stop: !1 }),
+          wx.showToast({ title: "网络异常", icon: "none" });
       },
     });
   },

@@ -24,7 +24,7 @@ Page({
                   "xf_desci",
                   ""
                 ),
-                "replu", {}
+                "replu", []
               ),
               "ck",
               0
@@ -35,7 +35,7 @@ Page({
           "flags",
           !1
         ),
-        "ret", {}
+        "ret", []
       ),
       "address1",
       ""
@@ -98,15 +98,15 @@ Page({
       t(t(t(t(a, "sumwlprice", 0), "sorts", ""), "strarrs", ""), "xiaoshu", !1),
       "userid",
       "",
-      "replu", {},
+      "sumqty", 0,
+      "sumydprice", 0,
+      "ydprice", 0,
       "xf_docno", "",
       "dpid", "",
       "stop", false
     )),
   back: function () {
-    wx.navigateBack({
-      delta: 0
-    });
+    wx.navigateBack({ delta: 1 });
   },
   showModal: function () {
     this.setData({
@@ -124,19 +124,22 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (t) {
-        console.log(t.data),
-          t.data.length > 0 ?
+        t.data && t.data.length > 0 ?
           a.setData({
             ret: t.data
           }) :
           a.setData({
-            ret: null
+            ret: []
           });
+      },
+      fail: function () {
+        a.setData({ ret: [] });
       },
     });
   },
-  hideModal: function (a) {
+  hideModal: function () {
     this.setData({
       modalName: null,
       flags: !1
@@ -154,46 +157,29 @@ Page({
   },
   checkboxChange: function (a) {
     this.setData({
-        address1: a.currentTarget.dataset.address1,
-        address2: a.currentTarget.dataset.address2,
-        phone: a.currentTarget.dataset.phone,
-        body: a.currentTarget.dataset.body,
-        ck: a.currentTarget.dataset.id,
-        id: a.currentTarget.dataset.id,
-      }),
-      console.log(a.currentTarget.dataset.tag),
-      "1" == a.currentTarget.dataset.tag ?
-      this.setData({
-        tags: !1
-      }) :
-      this.setData({
-        tags: !0
-      }),
-      console.log(this.data.tags),
-      this.hideModal(a),
-      this.shows();
+      address1: a.currentTarget.dataset.address1,
+      address2: a.currentTarget.dataset.address2,
+      phone: a.currentTarget.dataset.phone,
+      body: a.currentTarget.dataset.body,
+      ck: a.currentTarget.dataset.id,
+      id: a.currentTarget.dataset.id,
+    });
+    "1" == a.currentTarget.dataset.tag ?
+      this.setData({ tags: !1 }) :
+      this.setData({ tags: !0 });
+    this.hideModal(a);
+    this.shows();
   },
   onLoad: function (a) {
-    a.xf_plu && this.setData({
-        xf_plu: a.xf_plu
-      }),
-      wx.getStorageSync("vipcode") ?
-      this.setData({
-        userid: wx.getStorageSync("vipcode")
-      }) :
-      this.setData({
-        userid: wx.getStorageSync("wxuserid")
-      }),
-      console.log(this.data.xf_plu),
-
-      this.address();
+    a.xf_plu && this.setData({ xf_plu: a.xf_plu });
+    this.setData({
+      userid: wx.getStorageSync("vipcode") || wx.getStorageSync("wxuserid")
+    });
+    this.address();
   },
   radioChange1: function (a) {
-    console.log("radior发送选择改变，携带值为", a.detail.value),
-      this.setData({
-        setype: a.detail.value
-      }),
-      "0" == this.data.setype ?
+    this.setData({ setype: a.detail.value });
+    "0" == this.data.setype ?
       this.address() :
       "1" == this.data.setype && this.store();
   },
@@ -203,14 +189,11 @@ Page({
     });
   },
   store: function () {
-    if (
-      (this.setData({
-          sumwlprice: 0,
-          sumprice: this.data.sumrealprice
-        }),
-        console.log(wx.getStorageSync("vipcode")),
-        !wx.getStorageSync("vipcode"))
-    )
+    this.setData({
+      sumwlprice: 0,
+      sumprice: this.data.sumrealprice
+    });
+    if (!wx.getStorageSync("vipcode"))
       return this.destore(), !1;
     var a = this;
     wx.request({
@@ -222,9 +205,9 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (t) {
-        console.log(t.data),
-          t.data.length > 0 ?
+        t.data && t.data.length > 0 ?
           a.setData({
             address1: t.data[0].ADDRESS1,
             address2: t.data[0].ADDRESS2,
@@ -233,6 +216,9 @@ Page({
             fg: 1,
           }) :
           a.destore();
+      },
+      fail: function () {
+        a.destore();
       },
     });
   },
@@ -248,33 +234,33 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (t) {
-        console.log(t.data),
-          t.data.length > 0 ?
-          (a.setData({
-              address1: t.data[0].ADDRESS1,
-              address2: t.data[0].ADDRESS2,
-              phone: t.data[0].PHONE,
-              body: t.data[0].BODY,
-              tag: t.data[0].TAG,
-              ck: t.data[0].ID,
-              flag: !0,
-              xf_storecode: t.data[0].XF_STORECODE,
-              salesman: t.data[0].SALESMAN,
-              grade: t.data[0].GRADE,
-              id: t.data[0].ID,
-            }),
-            "1" == t.data[0].TAG ?
-            a.setData({
-              tags: !1
-            }) :
-            a.setData({
-              tags: !0
-            })) :
+        if (t.data && t.data.length > 0) {
           a.setData({
-            flag: !1
-          }),
-          a.shows();
+            address1: t.data[0].ADDRESS1,
+            address2: t.data[0].ADDRESS2,
+            phone: t.data[0].PHONE,
+            body: t.data[0].BODY,
+            tag: t.data[0].TAG,
+            ck: t.data[0].ID,
+            flag: !0,
+            xf_storecode: t.data[0].XF_STORECODE,
+            salesman: t.data[0].SALESMAN,
+            grade: t.data[0].GRADE,
+            id: t.data[0].ID,
+          });
+          "1" == t.data[0].TAG ?
+            a.setData({ tags: !1 }) :
+            a.setData({ tags: !0 });
+        } else {
+          a.setData({ flag: !1 });
+        }
+        a.shows();
+      },
+      fail: function () {
+        a.setData({ flag: !1 });
+        a.shows();
       },
     });
   },
@@ -287,8 +273,9 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (t) {
-        console.log(t.data),
+        if (t.data && t.data.length > 0 && t.data[0]) {
           a.setData({
             address1: t.data[0].ADDRESS1,
             address2: t.data[0].ADDRESS2,
@@ -296,17 +283,18 @@ Page({
             dpid: t.data[0].ID,
             fg: 1,
           });
+        }
       },
+      fail: function () {},
     });
   },
   shows: function () {
-    console.log(this.data.xf_plu),
-      this.setData({
-        sumprice: 0,
-        sumrealprice: 0,
-        sumydprice: 0,
-        ydprice: 0
-      });
+    this.setData({
+      sumprice: 0,
+      sumrealprice: 0,
+      sumydprice: 0,
+      ydprice: 0
+    });
     var a = this;
     wx.request({
       url: e.globalData.api + "wx_listscgwcyd.ashx",
@@ -319,74 +307,71 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (e) {
-        console.log(e.data),
-          e.data.length > 0 ?
-          (a.setData({
-              replu: e.data,
-              sumqty: e.data[0].SUMQTY,
-              sumrealprice: parseFloat(e.data[0].SUMREALPRICE).toFixed(2),
-              sumydprice: parseFloat(e.data[0].SUMYDPRICE).toFixed(2),
-              sumprice: parseFloat(e.data[0].SUMREALPRICE).toFixed(2),
-              xf_storecode: e.data[0].XF_STORECODE,
-              salesman: e.data[0].SALESMAN,
-              grade: e.data[0].GRADE,
-              sorts: e.data[0].SORTS,
-            }),
-            a.data.sumprice.toString().indexOf(".") >= 0 &&
-            a.setData({
-              xiaoshu: !0
-            })) :
+        if (e.data && e.data.length > 0) {
           a.setData({
-            replu: null
+            replu: e.data,
+            sumqty: e.data[0].SUMQTY,
+            sumrealprice: parseFloat(e.data[0].SUMREALPRICE).toFixed(2),
+            sumydprice: parseFloat(e.data[0].SUMYDPRICE).toFixed(2),
+            sumprice: parseFloat(e.data[0].SUMREALPRICE).toFixed(2),
+            xf_storecode: e.data[0].XF_STORECODE,
+            salesman: e.data[0].SALESMAN,
+            grade: e.data[0].GRADE,
+            sorts: e.data[0].SORTS,
           });
+          a.data.sumprice.toString().indexOf(".") >= 0 &&
+            a.setData({ xiaoshu: !0 });
+        } else {
+          a.setData({ replu: null });
+        }
+      },
+      fail: function () {
+        a.setData({ replu: null });
       },
     });
   },
   onShow: function () {},
   payment: function () {
-
-    wx.showLoading({
-      title: '连接中...',
-    })
-    this.setData({
-
-      stop: true
-
-    })
-   wx.hideLoading()
-
-
-    if (!this.data.sumprice || this.data.sumprice <= 0)
-      return wx.showToast({
-        title: "数据异常"
-      }), !1;
-    console.log(this.data.sumprice);
+    wx.showLoading({ title: "连接中...", mask: !0 });
+    this.setData({ stop: !0 });
+    if (!this.data.sumprice || this.data.sumprice <= 0) {
+      wx.hideLoading();
+      this.setData({ stop: !1 });
+      return wx.showToast({ title: "数据异常", icon: "none" }), !1;
+    }
     var a = this;
     wx.login({
       success: function (t) {
         var s = t.code;
-        s
-          ?
+        if (s) {
           wx.request({
             url: e.globalData.api + "wxzf.aspx",
-            data: {
-              code: s
-            },
-            header: {
-              "content-type": "application/json"
-            },
+            data: { code: s },
+            header: { "content-type": "application/json" },
+            timeout: 10000,
             success: function (t) {
-              console.log(t.data);
               var e = t.data.split(",");
-              a.setData({
-                  openid: e[0]
-                }),
-                console.log(a.data.openid),
-                a.generateOrder(a.data.openid);
+              a.setData({ openid: e[0] });
+              a.generateOrder(a.data.openid);
             },
-          }) :
-          console.log("获取用户登陆状态失败！");
+            fail: function () {
+              wx.hideLoading();
+              a.setData({ stop: !1 });
+              wx.showToast({ title: "获取支付信息失败", icon: "none" });
+            },
+          });
+        } else {
+          wx.hideLoading();
+          a.setData({ stop: !1 });
+          wx.showToast({ title: "获取登录状态失败", icon: "none" });
+        }
+      },
+      fail: function () {
+        wx.hideLoading();
+        a.setData({ stop: !1 });
+        wx.showToast({ title: "登录失败", icon: "none" });
       },
     });
   },
@@ -394,46 +379,40 @@ Page({
     var p = this;
     wx.request({
       url: e.globalData.api + "get_ordernumber.ashx",
-      data: {
-        title: "DSC"
-      },
-      header: {
-        "content-type": "application/json"
-      },
+      data: { title: "DSC" },
+      header: { "content-type": "application/json" },
+      timeout: 10000,
       success: function (s) {
-        console.log(s.data),
-          p.setData({
-            xf_docno: s.data
-          }),
-          wx.request({
-            url: e.globalData.api + "wxzfconfig.aspx",
-            data: {
-              openid: a,
-              amount: p.data.sumydprice,
-              xf_docno: p.data.xf_docno,
-              salestypes: "线上预定," + p.data.userid,
-            },
-            header: {
-              "content-type": "application/json"
-            },
-            success: function (a) {
-              console.log(a.data), p.zf(a.data);
-            },
-            fail: function (a) {
-              console.info(a),
-                wx.showToast({
-                  title: "数据异常",
-                  icon: "error",
-                  duration: 2e3,
-                });
-            },
-          });
+        p.setData({ xf_docno: s.data });
+        wx.request({
+          url: e.globalData.api + "wxzfconfig.aspx",
+          data: {
+            openid: a,
+            amount: p.data.sumydprice,
+            xf_docno: p.data.xf_docno,
+            salestypes: "线上预定," + p.data.userid,
+          },
+          header: { "content-type": "application/json" },
+          timeout: 10000,
+          success: function (a) {
+            p.zf(a.data);
+          },
+          fail: function () {
+            wx.hideLoading();
+            p.setData({ stop: !1 });
+            wx.showToast({ title: "获取支付配置失败", icon: "none" });
+          },
+        });
+      },
+      fail: function () {
+        wx.hideLoading();
+        p.setData({ stop: !1 });
+        wx.showToast({ title: "生成订单失败", icon: "none" });
       },
     });
   },
   zf: function (a) {
     var e = this;
-    console.log("发起支付"), console.log(a);
     var t = a.split(",");
     wx.requestPayment({
       timeStamp: t[0],
@@ -442,83 +421,62 @@ Page({
       signType: t[4],
       paySign: t[3],
       success: function (a) {
-        console.log("success"), console.log(a), e.yfk(a.errMsg);
+        e.yfk(a.errMsg);
       },
       fail: function (a) {
-        console.log("fail"), console.log(a), e.dfk(a.errMsg);
+        e.dfk(a.errMsg);
       },
-      complete:function(a)
-      {
-
-e.setData({
-
-  stop:false
-})
-
+      complete: function () {
+        e.setData({ stop: !1 });
       }
     });
   },
   getremark: function (a) {
-    console.log("picker发送选择改变，携带值为", a.detail.value),
-      this.setData({
-        remark: a.detail.value
-      });
+    this.setData({ remark: a.detail.value });
   },
   dfk: function (k) {
     "0" == this.data.setype ?
-      this.setData({
-        id: this.data.ck
-      }) :
-      this.setData({
-        id: this.data.dpid
-      }),
-      wx.getStorageSync("vipcode") ||
-      this.setData({
-        xf_vipcode: "",
-        xf_storecode: "",
-        salesman: ""
-      }),
-      wx.getStorageSync("wxuserid") || this.setData({
-        wxuserid: ""
-      }),
-      console.log(this.data.sumydprice);
+      this.setData({ id: this.data.ck }) :
+      this.setData({ id: this.data.dpid });
+    wx.getStorageSync("vipcode") ||
+      this.setData({ xf_vipcode: "", xf_storecode: "", salesman: "" });
+    wx.getStorageSync("wxuserid") || this.setData({ wxuserid: "" });
+    var a = this;
     wx.request({
       url: e.globalData.api + "wx_dfkyd.ashx",
       data: {
         xf_vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
-        xf_plu: this.data.xf_plu,
-        xf_amtsold: this.data.sumydprice,
+        xf_plu: a.data.xf_plu,
+        xf_amtsold: a.data.sumydprice,
         sumwlprice: 0,
-        remark: this.data.remark,
+        remark: a.data.remark,
         salestypes: "1",
-        shtype: this.data.setype,
-        shid: this.data.id,
+        shtype: a.data.setype,
+        shid: a.data.id,
         tag: "0",
-        xf_storecode: this.data.xf_storecode,
-        salesman: this.data.salesman,
+        xf_storecode: a.data.xf_storecode,
+        salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: 0,
-        xf_docno: this.data.xf_docno,
+        xf_docno: a.data.xf_docno,
         pass: k
       },
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
+      header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
-      success: function (a) {
-        console.log(a.data),
-          "error" != a.data ?
+      timeout: 10000,
+      success: function (t) {
+        "error" != t.data ?
           wx.redirectTo({
-            url: "/pages/dfdepositydgwc/index/index?xf_docno=" + a.data,
+            url: "/pages/dfdepositydgwc/index/index?xf_docno=" + t.data,
           }) :
           wx.showModal({
             title: "提示",
             content: "数据错误，IP已被记录",
             showCancel: !1,
-            success: function (a) {
-              a.confirm;
-            },
-          })
+          });
+      },
+      fail: function () {
+        wx.showToast({ title: "订单提交失败", icon: "none" });
       },
     });
   },
@@ -529,22 +487,11 @@ e.setData({
   },
   yfk: function (k) {
     "0" == this.data.setype ?
-      this.setData({
-        id: this.data.ck
-      }) :
-      this.setData({
-        id: this.data.dpid
-      }),
-      wx.getStorageSync("vipcode") ||
-      this.setData({
-        xf_vipcode: "",
-        xf_storecode: "",
-        salesman: ""
-      }),
-      wx.getStorageSync("wxuserid") || this.setData({
-        wxuserid: ""
-      }),
-      console.log(this.data.sumydprice);
+      this.setData({ id: this.data.ck }) :
+      this.setData({ id: this.data.dpid });
+    wx.getStorageSync("vipcode") ||
+      this.setData({ xf_vipcode: "", xf_storecode: "", salesman: "" });
+    wx.getStorageSync("wxuserid") || this.setData({ wxuserid: "" });
     var a = this;
     wx.request({
       url: e.globalData.api + "wx_dfkyd.ashx",
@@ -560,32 +507,27 @@ e.setData({
         shid: a.data.id,
         tag: "1",
         xf_storecode: a.data.xf_storecode,
-        salesman: a.data.salesman,
+        salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: a.data.sumydprice,
         xf_docno: a.data.xf_docno,
         pass: k
       },
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
+      header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
-      success: function (e) {
-        console.log(e.data),
-          "error" != e.data ?
+      timeout: 10000,
+      success: function (t) {
+        "error" != t.data ?
           wx.redirectTo({
-            url: "/pages/fkcg/index/index?xf_docno=" +
-              e.data +
-              "&tag=3&sorts=" +
-              a.data.sorts,
+            url: "/pages/fkcg/index/index?xf_docno=" + t.data + "&tag=3&sorts=" + a.data.sorts,
           }) :
           wx.showModal({
             title: "提示",
             content: "数据错误，IP已被记录",
             showCancel: !1,
-            success: function (a) {
-              a.confirm;
-            },
-          })
+          });
+      },
+      fail: function () {
+        wx.showToast({ title: "订单提交失败", icon: "none" });
       },
     });
   },

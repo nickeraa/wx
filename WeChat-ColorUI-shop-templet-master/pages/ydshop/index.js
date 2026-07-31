@@ -26,7 +26,7 @@ Page({
       xstock:0,
       stop:false,
       xf_qoh: "",
-      rb:{}
+      rb:[]
     }),
     a(
       a(
@@ -103,16 +103,12 @@ Page({
     this.videoContext = wx.createVideoContext("myVideo");
   },
   bindplay: function () {
-    this.setData({ isShow: !1 }), this.videoContext.play(), console.log("play");
+    this.setData({ isShow: !1 }), this.videoContext.play();
   },
   bindended: function () {
-    console.log("bindended"),
-      this.setData({ isShow: !0 }),
-      this.videoContext.ended();
+    this.setData({ isShow: !0 }), this.videoContext.ended();
   },
-  bindpause: function () {
-    console.log("pause");
-  },
+  bindpause: function () {},
   swiperChange: function (t) {
     this.setData({ current: t.detail.current });
   },
@@ -123,8 +119,7 @@ Page({
     this.setData({ swiperHeight: a });
   },
   onLoad: function (t) {
-    console.log(t.xf_plu),
-      t.xf_plu && this.setData({ xf_plu: t.xf_plu }),
+    t.xf_plu && this.setData({ xf_plu: t.xf_plu }),
       t.vipcode && wx.setStorageSync("vipcode", t.vipcode),
       t.fxuserid && wx.setStorageSync("fxuserid", t.fxuserid),
       t.wxuserid && wx.setStorageSync("wxuserid", t.wxuserid),
@@ -135,9 +130,9 @@ Page({
     var a = this;
     wx.getSystemInfo({
       success: function (t) {
-        a.setData({ videohight: parseInt(0.75 * t.windowWidth) }),
-          console.log(a.data.videohight);
+        a.setData({ videohight: parseInt(0.75 * t.windowWidth) });
       },
+      fail: function () {}
     });
   },
   previewImage: function (t) {
@@ -154,11 +149,14 @@ Page({
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
+      timeout: 10000,
       success: function (t) {
-        console.log(t),
-          "ok" != t.data &&
-            wx.showToast({ title: "数据出错", icon: "error", duration: 1e3 });
+        "ok" != t.data &&
+          wx.showToast({ title: "数据出错", icon: "error", duration: 1e3 });
       },
+      fail: function () {
+        wx.showToast({ title: "网络请求失败", icon: "error", duration: 1500 });
+      }
     });
   },
   checkplu: function () {
@@ -172,20 +170,20 @@ Page({
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
+      timeout: 10000,
       success: function (e) {
-        console.log(e),
-          e.data.length > 0 &&
-            t.setData(
+        e.data && Array.isArray(e.data) && e.data.length > 0 &&
+          t.setData(
+            a(
               a(
-                a(
-                  a({}, "iconList[1].name", "已收藏"),
-                  "iconList[1].color",
-                  "red"
-                ),
-                "iconList[1].icon",
-                "favorfill"
-              )
-            );
+                a({}, "iconList[1].name", "已收藏"),
+                "iconList[1].color",
+                "red"
+              ),
+              "iconList[1].icon",
+              "favorfill"
+            )
+          );
       },
     });
   },
@@ -193,7 +191,6 @@ Page({
 
   checkprice()
   {
-  
     var t = this;
     wx.request({
       url: e.globalData.api + "wx_listsc.ashx",
@@ -204,27 +201,27 @@ Page({
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
+      timeout: 10000,
       success: function (a) {
-        console.log(a.data),
-          a.data.length > 0
-            ? (t.setData({
-                rb: a.data,
-                sumprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
-                realprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
-                xishu: a.data[0].XISHU,
-                sumrealprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
-                xf_desci: a.data[0].XF_DESCI,
-                sorts: a.data[0].SORTS,
-              }),
-              t.data.sumprice.toString().indexOf(".") >= 0 &&
-                t.setData({ xiaoshu: !0 }))
-            : t.setData({ replu: null })
-         
-       
+        if (a.data && Array.isArray(a.data) && a.data.length > 0) {
+          t.setData({
+            rb: a.data,
+            sumprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
+            realprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
+            xishu: a.data[0].XISHU,
+            sumrealprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
+            xf_desci: a.data[0].XF_DESCI,
+            sorts: a.data[0].SORTS,
+            xiaoshu: true,
+          });
+        } else {
+          t.setData({ replu: [] });
+        }
+      },
+      fail: function () {
+        t.setData({ replu: [] });
       },
     });
-  
-  
   },
 
 
@@ -238,62 +235,66 @@ Page({
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
+      timeout: 10000,
       success: function (t) {
-        console.log(t),
-          "ok" != t.data &&
-            wx.showToast({ title: "数据出错", icon: "error", duration: 1e3 });
+        "ok" != t.data &&
+          wx.showToast({ title: "数据出错", icon: "error", duration: 1e3 });
       },
+      fail: function () {
+        wx.showToast({ title: "网络请求失败", icon: "error", duration: 1500 });
+      }
     });
   },
   setype: function (t) {
     var i = t.currentTarget.dataset.name;
-    console.log(i),
-      "店铺" == i
-        ? ((e.globalData.m = "1"),
-          wx.switchTab({ url: "/pages/home/index/index" }))
-        : "收藏" == i
-        ? (this.setData(
+    "店铺" == i
+      ? ((e.globalData.m = "1"),
+        wx.switchTab({ url: "/pages/home/index/index" }))
+      : "收藏" == i
+      ? (this.setData(
+          a(
             a(
-              a(
-                a({}, "iconList[1].name", "已收藏"),
-                "iconList[1].color",
-                "red"
-              ),
-              "iconList[1].icon",
-              "favorfill"
-            )
-          ),
-          this.insc())
-        : "已收藏" == i
-        ? (this.setData(
-            a(
-              a(a({}, "iconList[1].name", "收藏"), "iconList[1].color", "gray"),
-              "iconList[1].icon",
-              "favor"
-            )
-          ),
-          this.delsc())
-        : wx.switchTab({ url: "/pages/bagsyd/index/index" });
+              a({}, "iconList[1].name", "已收藏"),
+              "iconList[1].color",
+              "red"
+            ),
+            "iconList[1].icon",
+            "favorfill"
+          )
+        ),
+        this.insc())
+      : "已收藏" == i
+      ? (this.setData(
+          a(
+            a(a({}, "iconList[1].name", "收藏"), "iconList[1].color", "gray"),
+            "iconList[1].icon",
+            "favor"
+          )
+        ),
+        this.delsc())
+      : wx.switchTab({
+        url: "/pages/bagsyd/index/index"
+      });
   },
   onGetPhoneNumbergm: function (t) {
-    console.log("ggggggggg");
     var a = this;
     wx.login({
       success: function (i) {
         i.code
-          ? (console.log("步骤2获检查用户登录状态，获取用户电话号码！", i),
-            wx.request({
+          ? wx.request({
               url: e.globalData.api + "wx_getphone.ashx",
               data: { code: i.code },
               header: { "content-type": "application/json" },
+              timeout: 10000,
               success: function (e) {
-                console.log("步骤三获取授权码，获取授权openid，session_key", e),
-                  console.log(e.data);
+                if (!e.data || typeof e.data !== "string") {
+                  wx.showToast({ title: "数据格式错误", icon: "error", duration: 1500 });
+                  return;
+                }
                 var i = e.data.split(",");
                 a.setData({ arr: [i] });
                 var s = t.detail.errMsg,
                   o = i[1];
-                console.log(o);
                 var n = t.detail.encryptedData,
                   c = t.detail.iv;
                 "getPhoneNumber:ok" == s
@@ -306,63 +307,59 @@ Page({
                   : wx.showModal({
                       title: "提示",
                       content: "请选择手机号，注册登录喔",
-                      showCancel: !1,
-                      success: function (t) {
-                        t.confirm;
-                      },
+                      showCancel: !1
                     });
               },
-              fail: function (t) {
-                console.log("fail", t);
+              fail: function () {
+                wx.showToast({ title: "网络请求失败", icon: "error", duration: 1500 });
               },
-            }))
-          : console.log("登录失败！" + i.errMsg);
+            })
+          : wx.showToast({ title: "登录失败", icon: "error", duration: 1500 });
       },
+      fail: function () {
+        wx.showToast({ title: "登录失败", icon: "error", duration: 1500 });
+      }
     });
   },
   deciyptiongm: function (t, a, i) {
     var s = this;
-    console.log("步骤4根据秘钥解密手机号码sessionID：", t),
-      wx.request({
-        url: e.globalData.api + "wx_getvipphone.ashx",
-        data: { sessionID: t, encryptedData: a, iv: i },
-        header: { "content-type": "application/json" },
-        success: function (t) {
-          console.log(t.data),
-            t.data.phoneNumber &&
-              (wx.setStorageSync("wxuserid", t.data.phoneNumber),
-              s.setData({ wxuserid: t.data.phoneNumber }),
-              s.gwjs());
-        },
-      });
+    wx.request({
+      url: e.globalData.api + "wx_getvipphone.ashx",
+      data: { sessionID: t, encryptedData: a, iv: i },
+      header: { "content-type": "application/json" },
+      timeout: 10000,
+      success: function (t) {
+        t.data && t.data.phoneNumber &&
+          (wx.setStorageSync("wxuserid", t.data.phoneNumber),
+          s.setData({ wxuserid: t.data.phoneNumber }),
+          s.gwjs());
+      },
+    });
   },
   onGetPhoneNumbergwc: function (t) {
     wx.showLoading({
       title: '连接中...',
     })
-    this.setData({
-
-      stop: true
-
-    })
-   wx.hideLoading()
+    this.setData({ stop: true })
     var a = this;
     wx.login({
       success: function (i) {
         i.code
-          ? (console.log("步骤2获检查用户登录状态，获取用户电话号码！", i),
-            wx.request({
+          ? wx.request({
               url: e.globalData.api + "wx_getphone.ashx",
               data: { code: i.code },
               header: { "content-type": "application/json" },
+              timeout: 10000,
               success: function (e) {
-                console.log("步骤三获取授权码，获取授权openid，session_key", e),
-                  console.log(e.data);
+                if (!e.data || typeof e.data !== "string") {
+                  wx.hideLoading();
+                  wx.showToast({ title: "数据格式错误", icon: "error", duration: 1500 });
+                  return;
+                }
                 var i = e.data.split(",");
                 a.setData({ arr: [i] });
                 var s = t.detail.errMsg,
                   o = i[1];
-                console.log(o);
                 var n = t.detail.encryptedData,
                   c = t.detail.iv;
                 "getPhoneNumber:ok" == s
@@ -375,35 +372,36 @@ Page({
                   : wx.showModal({
                       title: "提示",
                       content: "请选择手机号，注册登录喔",
-                      showCancel: !1,
-                      success: function (t) {
-                        t.confirm;
-                      },
+                      showCancel: !1
                     });
               },
-              fail: function (t) {
-                console.log("fail", t);
+              fail: function () {
+                wx.hideLoading();
+                wx.showToast({ title: "网络请求失败", icon: "error", duration: 1500 });
               },
-            }))
-          : console.log("登录失败！" + i.errMsg);
+            })
+          : wx.showToast({ title: "登录失败", icon: "error", duration: 1500 });
       },
+      fail: function () {
+        wx.hideLoading();
+        wx.showToast({ title: "登录失败", icon: "error", duration: 1500 });
+      }
     });
   },
   deciyptiongwc: function (t, a, i) {
     var s = this;
-    console.log("步骤4根据秘钥解密手机号码sessionID：", t),
-      wx.request({
-        url: e.globalData.api + "wx_getvipphone.ashx",
-        data: { sessionID: t, encryptedData: a, iv: i },
-        header: { "content-type": "application/json" },
-        success: function (t) {
-          console.log(t.data),
-            t.data.phoneNumber &&
-              (wx.setStorageSync("wxuserid", t.data.phoneNumber),
-              s.setData({ wxuserid: t.data.phoneNumber }),
-              s.gw());
-        },
-      });
+    wx.request({
+      url: e.globalData.api + "wx_getvipphone.ashx",
+      data: { sessionID: t, encryptedData: a, iv: i },
+      header: { "content-type": "application/json" },
+      timeout: 10000,
+      success: function (t) {
+        t.data && t.data.phoneNumber &&
+          (wx.setStorageSync("wxuserid", t.data.phoneNumber),
+          s.setData({ wxuserid: t.data.phoneNumber }),
+          s.gw());
+      },
+    });
   },
   gwjs: function () {
 
@@ -411,33 +409,44 @@ Page({
     wx.showLoading({
       title: '连接中...',
     })
-    this.setData({
-
-      stop: true
-
-    })
-   wx.hideLoading()
-
-
-    if(this.data.xstock==0||!this.data.xstock)
-    {
-    
-      wx.showModal({
-        title: "提示",
-        content: "无法购买，数量为零",
-        showCancel: !1,
-        success: function (a) {
-          a.confirm;
-        },
-      })
-      return false;
-    
-    }
-
-
-    wx.navigateTo({
-      url: "/pages/deposityd/index/index?xf_plu=" + this.data.xf_plu,
+    this.setData({ stop: true })
+    var that = this;
+    wx.request({
+      url: e.globalData.api + "wx_checkxstock.ashx",
+      data: { xf_plu: this.data.xf_plu },
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      dataType: "json",
+      timeout: 10000,
+      success: function (a) {
+        var stock = 0;
+        if (a.data && Array.isArray(a.data) && a.data.length > 0 && a.data[0]) {
+          stock = parseInt(a.data[0].XSTOCK) || 0;
+        }
+        if (stock > 0) {
+          wx.navigateTo({
+            url: "/pages/deposityd/index/index?xf_plu=" + that.data.xf_plu,
+          });
+        } else {
+          wx.showModal({
+            title: "提示",
+            content: "已订完，数量为零",
+            showCancel: !1,
+            confirmText: "知道了",
+          })
+        }
+        wx.hideLoading()
+      },
+      fail: function () {
+        wx.hideLoading();
+        wx.showModal({
+          title: "提示",
+          content: "网络请求失败，请稍后重试",
+          showCancel: false,
+          confirmText: "知道了",
+        });
+      },
     });
+
   },
   gw: function () {
     var t = this;
@@ -452,122 +461,102 @@ Page({
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
+      timeout: 10000,
       success: function (a) {
-        console.log(a),
-          "ok" == a.data
-            ? (wx.setStorageSync("p", "2"),
-              wx.setStorageSync("p", "4"),
-              wx.getStorageSync("n") || wx.setStorageSync("n", "0"),
-              console.log(wx.getStorageSync("n")),
-              wx.setStorageSync(
-                "n",
-                (parseInt(wx.getStorageSync("n")) + 1).toString()
-              ),
-              console.log(wx.getStorageSync("n")),
-              t.setData({ n: wx.getStorageSync("n") }))
-            : wx.showToast({ title: "数据出错", icon: "error", duration: 1e3 });
+        a.data && "ok" == a.data
+          ? (wx.setStorageSync("p", "2"),
+            wx.setStorageSync("p", "4"),
+            wx.getStorageSync("n") || wx.setStorageSync("n", "0"),
+            wx.setStorageSync(
+              "n",
+              (parseInt(wx.getStorageSync("n")) + 1).toString()
+            ),
+            t.setData({ n: wx.getStorageSync("n") }))
+          : wx.showToast({ title: "数据出错", icon: "error", duration: 1e3 });
+      },
+      fail: function () {
+        wx.showToast({ title: "网络请求失败", icon: "error", duration: 1500 });
       },
     });
   },
-  previewImage1: function (t) {
-    var a = [];
-    if (this.data.zwimages1.indexOf("null") && "jpg" == this.data.kzm) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      a.push(e);
-    }
-    if (this.data.zwimages2.indexOf("null")) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      a.push(i);
-    }
-    if (this.data.zwimages3.indexOf("null")) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      a.push(s);
-    }
-    if (this.data.zwimages4.indexOf("null")) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      a.push(o);
-    }
-    console.log(a), wx.previewImage({ current: e, urls: a });
+  _isValidImage: function (val) {
+    return typeof val === "string" && val.length > 0 && val.indexOf("null") < 0;
   },
-  previewImage2: function (t) {
+  previewImage1: function () {
     var a = [];
-    if (this.data.zwimages1.indexOf("null") && "jpg" == this.data.kzm) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      a.push(e);
+    if (this._isValidImage(this.data.zwimages1)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1);
     }
-    if (this.data.zwimages2.indexOf("null")) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      a.push(i);
+    if (this._isValidImage(this.data.zwimages2)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2);
     }
-    if (this.data.zwimages3.indexOf("null")) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      a.push(s);
+    if (this._isValidImage(this.data.zwimages3)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3);
     }
-    if (this.data.zwimages4.indexOf("null")) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      a.push(o);
+    if (this._isValidImage(this.data.zwimages4)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4);
     }
-    console.log(a), wx.previewImage({ current: i, urls: a });
+    if (a.length > 0) wx.previewImage({ current: a[0], urls: a });
   },
-  previewImage3: function (t) {
+  previewImage2: function () {
     var a = [];
-    if (this.data.zwimages1.indexOf("null") && "jpg" == this.data.kzm) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      a.push(e);
+    if (this._isValidImage(this.data.zwimages1)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1);
     }
-    if (this.data.zwimages2.indexOf("null")) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      a.push(i);
+    if (this._isValidImage(this.data.zwimages2)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2);
     }
-    if (this.data.zwimages3.indexOf("null")) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      a.push(s);
+    if (this._isValidImage(this.data.zwimages3)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3);
     }
-    if (this.data.zwimages4.indexOf("null")) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      a.push(o);
+    if (this._isValidImage(this.data.zwimages4)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4);
     }
-    console.log(a), wx.previewImage({ current: s, urls: a });
+    if (a.length > 1) wx.previewImage({ current: a[1], urls: a });
+    else if (a.length > 0) wx.previewImage({ current: a[0], urls: a });
   },
-  previewImage4: function (t) {
+  previewImage3: function () {
     var a = [];
-    if (this.data.zwimages1.indexOf("null") && "jpg" == this.data.kzm) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      a.push(e);
+    if (this._isValidImage(this.data.zwimages1)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1);
     }
-    if (this.data.zwimages2.indexOf("null")) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      a.push(i);
+    if (this._isValidImage(this.data.zwimages2)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2);
     }
-    if (this.data.zwimages3.indexOf("null")) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      a.push(s);
+    if (this._isValidImage(this.data.zwimages3)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3);
     }
-    if (this.data.zwimages4.indexOf("null")) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      a.push(o);
+    if (this._isValidImage(this.data.zwimages4)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4);
     }
-    console.log(a), wx.previewImage({ current: o, urls: a });
+    if (a.length > 2) wx.previewImage({ current: a[2], urls: a });
+    else if (a.length > 0) wx.previewImage({ current: a[0], urls: a });
   },
-  onShow: function (t) {
- 
-    this.setData({
-
-      stop: false
-
-    })
-
+  previewImage4: function () {
+    var a = [];
+    if (this._isValidImage(this.data.zwimages1)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1);
+    }
+    if (this._isValidImage(this.data.zwimages2)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2);
+    }
+    if (this._isValidImage(this.data.zwimages3)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3);
+    }
+    if (this._isValidImage(this.data.zwimages4)) {
+      a.push(this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4);
+    }
+    if (a.length > 3) wx.previewImage({ current: a[3], urls: a });
+    else if (a.length > 0) wx.previewImage({ current: a[0], urls: a });
+  },
+  onShow: function () {
+    this.setData({ stop: false });
     this.setData({
       vipcode: wx.getStorageSync("vipcode"),
       wxuserid: wx.getStorageSync("wxuserid"),
-    }),
-      console.log(this.data.vipcode),
-      console.log(this.data.wxuserid),
-      console.log(wx.getStorageSync("vipcode")),
-      console.log(wx.getStorageSync("wxuserid")),
-      wx.setStorageSync("xf_plu", this.data.xf_plu),
-      wx.setStorageSync("starttime", new Date().valueOf()),
-      console.log(wx.getStorageSync("starttime"));
+    });
+    wx.setStorageSync("xf_plu", this.data.xf_plu);
+    wx.setStorageSync("starttime", new Date().valueOf());
     var a = this;
     wx.showLoading({ title: "正在加载" }),
       wx.request({
@@ -575,8 +564,18 @@ Page({
         data: { name: a.data.xf_plu },
         header: { "content-type": "application/x-www-form-urlencoded" },
         dataType: "json",
+        timeout: 10000,
         success: function (t) {
-          console.log(t);
+          if (!t.data || !Array.isArray(t.data) || t.data.length === 0 || !t.data[0]) {
+            wx.hideLoading();
+            wx.showModal({
+              title: "提示",
+              content: "商品信息加载失败",
+              showCancel: false,
+              confirmText: "知道了",
+            });
+            return;
+          }
           var e = Date.parse(new Date());
           (e /= 1e3),
             a.setData({
@@ -591,18 +590,15 @@ Page({
               xf_plu: t.data[0].XF_PLU,
               itemname: t.data[0].ITEMNAME,
               xf_desci: t.data[0].XF_DESCI,
-              kzm: t.data[0].ZWIMAGES1.substr(-3, 3),
-              xstock:t.data[0].XSTOCK
+              kzm: (t.data[0].ZWIMAGES1 || "").slice(-3),
+              xstock: t.data[0].XSTOCK
             }),
-            console.log(a.data.kzm),
-            console.log(a.data.xf_desci),
             a.checkplu(),
             t.data[0].TBIMAGES1 &&
-              (a.setData({
+              a.setData({
                 "swiperlist[0]":
                   a.data.pict + t.data[0].XF_PLU + "//" + t.data[0].TBIMAGES1,
               }),
-              console.log(a.data.swiperlist[0])),
             t.data[0].TBIMAGES2 &&
               a.setData({
                 "swiperlist[1]":
@@ -613,9 +609,17 @@ Page({
                 "swiperlist[2]":
                   a.data.pict + t.data[0].XF_PLU + "//" + t.data[0].TBIMAGES3,
               }),
-            console.log(a.data.swiperlist),
             a.checkprice();
             wx.hideLoading();
+        },
+        fail: function () {
+          wx.hideLoading();
+          wx.showModal({
+            title: "提示",
+            content: "网络请求失败，请稍后重试",
+            showCancel: false,
+            confirmText: "知道了",
+          });
         },
       });
   },
@@ -630,9 +634,8 @@ Page({
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
-      success: function (t) {
-        console.log(t);
-      },
+      timeout: 10000,
+      success: function () {},
     });
   },
   sewx: function () {
@@ -646,18 +649,15 @@ Page({
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
-      success: function (t) {
-        console.log(t);
-      },
+      timeout: 10000,
+      success: function () {},
     });
   },
   onUnload: function () {
     wx.setStorageSync("endtime", new Date().valueOf()),
-      console.log(wx.getStorageSync("starttime", new Date().valueOf())),
-      console.log(wx.getStorageSync("endtime", new Date().valueOf())),
-      wx.getStorageSync("vipcode")
-        ? this.sevip()
-        : wx.getStorageSync("wxuserid") && this.sewx();
+    wx.getStorageSync("vipcode")
+      ? this.sevip()
+      : wx.getStorageSync("wxuserid") && this.sewx();
   },
   onShareAppMessage: function (t) {
     return wx.getStorageSync("d")
@@ -673,12 +673,6 @@ Page({
             "&fx=1",
           imageUrl:
             this.data.pict + this.data.xf_plu + "//" + this.data.tbimages1,
-          success: function (t) {
-            console.log("转发成功:" + JSON.stringify(t));
-          },
-          fail: function (t) {
-            console.log("转发失败:" + JSON.stringify(t));
-          },
         }
       : wx.getStorageSync("vipcode")
       ? {
@@ -691,12 +685,6 @@ Page({
             "&fx=1",
           imageUrl:
             this.data.pict + this.data.xf_plu + "//" + this.data.tbimages1,
-          success: function (t) {
-            console.log("转发成功:" + JSON.stringify(t));
-          },
-          fail: function (t) {
-            console.log("转发失败:" + JSON.stringify(t));
-          },
         }
       : wx.getStorageSync("wxuserid")
       ? {
@@ -709,12 +697,6 @@ Page({
             "&fx=1",
           imageUrl:
             this.data.pict + this.data.xf_plu + "//" + this.data.tbimages1,
-          success: function (t) {
-            console.log("转发成功:" + JSON.stringify(t));
-          },
-          fail: function (t) {
-            console.log("转发失败:" + JSON.stringify(t));
-          },
         }
       : {
           title: "广天藏品 " + this.data.xf_desci,
@@ -722,20 +704,13 @@ Page({
             "/pages/shopcg/goods/index?xf_plu=" + this.data.xf_plu + "&fx=1",
           imageUrl:
             this.data.pict + this.data.xf_plu + "//" + this.data.tbimages1,
-          success: function (t) {
-            console.log("转发成功:" + JSON.stringify(t));
-          },
-          fail: function (t) {
-            console.log("转发失败:" + JSON.stringify(t));
-          },
         };
   },
   back: function () {
     (e.globalData.m = "1"),
       "1" == this.data.fx
         ? ((e.globalData.m = "2"),
-          console.log("jjjjjjjjjjjjjjj"),
           wx.switchTab({ url: "/pages/home/index/index" }))
-        : wx.navigateBack({ delta: 0 });
+        : wx.navigateBack({ delta: 1 });
   },
 });

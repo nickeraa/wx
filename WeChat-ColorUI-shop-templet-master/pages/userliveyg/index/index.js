@@ -44,6 +44,7 @@ Page({
     xf_name: '',
     fxtag1: false,
     fxtag2: false,
+    state:0
  
 
   },
@@ -125,18 +126,60 @@ Page({
 
 
   onLoad: function (a) {
-    // console.log(a.yguserid)
+     console.log(a.yguserid)
     // if (a.yguserid) {
     //   wx.setStorageSync("yguserid", a.yguserid)
     // }
 
+var that=this;
+    wx.request({
+      url: "https://widesky.work/HKback/wx_state.ashx",
+      data: {},
+      header: {
+        "content-type": "application/json"
+      },
+      success: (res) => {
 
-    
-    wx.navigateTo({
-      url: '/pages/relogin/index',
+        console.log(res.data)
+
+        if (res.data[0].STARTS == "0") {
+
+           wx.switchTab({
+
+             url:'/pages/home/index/index'
+           })
+        
+          
+        } 
+
+        else{
+
+          that.setData({
+
+            state:1
+            
+            })
+
+          wx.navigateTo({
+            url: '/pages/relogin/index',
+          })
+
+        }
+        
+        
+
+      },
+      complete: () => {
+
+      }
     })
 
+
+
+
   },
+
+
 
   onShow: function (t) {
 
@@ -202,6 +245,7 @@ Page({
         showCancel: !1,
         success: function (a) {
           a.confirm;
+        
         },
       })
 
@@ -237,11 +281,8 @@ Page({
 
   },
 
-
-
+/*
   onShareAppMessage: function (e) {
-
-
 
     return {
       title: "广天藏品 " + this.data.xf_name + " 向您最新分享了直播",
@@ -256,8 +297,48 @@ Page({
       },
     };
 
+  },
+  */
 
+  onShareAppMessage: function (e) {
+if(wx.getStorageSync('yguserid')!='GTZB')
+{
+
+  return {
+    title: "广天藏品 " + wx.getStorageSync("ygname") + " 向您分享了最新直播",
+    path: "/pages/userlive/index/index?vipcode=" +
+      "" + "&yguserid=" + wx.getStorageSync("yguserid"),
+    imageUrl: this.data.banner + this.data.fximg,
+    success: function (e) {
+      console.log("转发成功:" + JSON.stringify(e));
+    },
+    fail: function (e) {
+      console.log("转发失败:" + JSON.stringify(e));
+    },
+  };
+
+}
+else{
+
+
+  return {
+    title: "广天藏品 " + " 向您分享了最新直播",
+    path: "/pages/userlive/index/index?vipcode=" +
+      "" + "&yguserid=" + wx.getStorageSync("yguserid"),
+    imageUrl: this.data.banner + this.data.fximg,
+    success: function (e) {
+      console.log("转发成功:" + JSON.stringify(e));
+    },
+    fail: function (e) {
+      console.log("转发失败:" + JSON.stringify(e));
+    },
+  };
+
+
+}
 
 
   },
+
+
 });
