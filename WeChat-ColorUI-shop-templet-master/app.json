@@ -1,9 +1,12 @@
 {
   "pages": [
+
     "pages/home/index/index",
+    "pages/homezb/index/index",
+   
     "pages/userlive/index/index",
     "pages/userliveyg/index/index",
-    "pages/homezb/index/index",
+
     "pages/wxloginzb/index",
     "pages/homerm/index/index",
     "pages/wxloginzbs/index",

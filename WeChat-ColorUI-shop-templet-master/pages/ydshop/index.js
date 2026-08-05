@@ -404,8 +404,16 @@ Page({
    * @param {function} onSuccess - 解密成功后的回调（deciyptiongm 或 deciyptiongwc）
    * @param {boolean} [showLoading=true] - 是否显示 loading
    */
-  _handlePhoneLogin: function (e, onSuccess, showLoading) {
+  _handlePhoneLogin: function (ev, onSuccess, showLoading) {
     if (this.data.stop) return;
+    if (ev.detail.errMsg !== "getPhoneNumber:ok") {
+      console.log("getPhoneNumber fail:", ev.detail.errMsg);
+      var denyMsg = ev.detail.errMsg.indexOf("user deny") >= 0 || ev.detail.errMsg.indexOf("cancel") >= 0
+        ? "请选择手机号，注册登录喔"
+        : "授权太频繁或已受限，请稍后再试";
+      wx.showToast({ title: denyMsg, icon: "none", duration: 2000 });
+      return;
+    }
     if (showLoading !== false) showLoading = true;
     if (showLoading) {
       wx.showLoading({ title: '连接中...' });
@@ -427,41 +435,37 @@ Page({
           url: e.globalData.api + "wx_getphone.ashx",
           data: { code: loginRes.code },
           header: { "content-type": "application/json" },
+          timeout: 10000,
           success: function (res) {
-            var arr = (res.data || "").split(",");
+            // 后端可能返回非字符串（JSON对象/空），.split 会抛异常导致 loading 挂屏
+            if (typeof res.data !== "string" || res.data.indexOf(",") < 0) {
+              wx.hideLoading();
+              that.setData({ stop: false });
+              wx.showToast({ title: "授权数据异常，请重试", icon: "none", duration: 2000 });
+              return;
+            }
+            var arr = res.data.split(",");
             that.setData({ arr: [arr] });
 
             var sessionKey = arr[1];           // session_key
-            var errMsg = e.detail.errMsg;
-            var encryptedData = e.detail.encryptedData;
-            var iv = e.detail.iv;
+            var encryptedData = ev.detail.encryptedData;
+            var iv = ev.detail.iv;
 
-            if (errMsg === "getPhoneNumber:ok") {
-              // 检查 session 有效性后解密
-              wx.checkSession({
-                success: function () {
-                  onSuccess.call(that, sessionKey, encryptedData, iv);
-                },
-                fail: function () {
-                  wx.hideLoading();
-                  that.setData({ stop: false });
-                  wx.showToast({ title: "session 过期，请重试", icon: "none" });
-                }
-              });
-            } else {
-              wx.hideLoading();
-              wx.showModal({
-                title: "提示",
-                content: "请选择手机号，注册登录喔",
-                showCancel: false,
-                complete: function () {
-                  that.setData({ stop: false });
-                },
-              });
-            }
+            wx.hideLoading();
+            // 检查 session 有效性后解密
+            wx.checkSession({
+              success: function () {
+                onSuccess.call(that, sessionKey, encryptedData, iv);
+              },
+              fail: function () {
+                that.setData({ stop: false });
+                wx.showToast({ title: "session 过期，请重试", icon: "none" });
+              }
+            });
           },
           fail: function () {
             wx.hideLoading();
+            that.setData({ stop: false });
             wx.showToast({ title: "获取授权失败", icon: "none" });
           }
         });
@@ -492,10 +496,12 @@ Page({
       url: e.globalData.api + "wx_getvipphone.ashx",
       data: { sessionID: sessionKey, encryptedData: encryptedData, iv: iv },
       header: { "content-type": "application/json" },
+      timeout: 10000,
       success: function (res) {
         if (res.data && res.data.phoneNumber) {
           wx.setStorageSync("wxuserid", res.data.phoneNumber);
-          that.setData({ wxuserid: res.data.phoneNumber });
+          that.setData({ wxuserid: res.data.phoneNumber, stop: false });
+          wx.hideLoading();
           onSuccess.call(that);
         } else {
           wx.hideLoading();
@@ -535,7 +541,9 @@ Page({
       data: { xf_plu: this.data.xf_plu},
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
+      timeout: 10000,
       success: function (res) {
+        console.log("checkxstock 返回:", res.data);
         var stock = 0;
         if (Array.isArray(res.data) && res.data.length > 0 && res.data[0]) {
           stock = parseInt(res.data[0].XSTOCK);
@@ -556,12 +564,15 @@ Page({
             },
           });
         }
-        wx.hideLoading();
       },
-      fail: function () {
-        wx.hideLoading();
+      fail: function (err) {
+        console.log("checkxstock 失败:", err);
         that.setData({ stop: false });
         wx.showToast({ title: "网络异常，请重试", icon: "none", duration: 2000 });
+      },
+      complete: function () {
+        // 兜底：无论成功/失败/异常都关闭 loading，防止挂屏
+        wx.hideLoading();
       },
     });
   },

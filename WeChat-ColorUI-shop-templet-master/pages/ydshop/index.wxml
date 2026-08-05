@@ -107,7 +107,7 @@
                 </view>
             </view>
         </view>
-        <view class="view_qipao" style="width: 4.5%;margin-left: -88rpx;margin-top: 8rpx;" wx:if="{{n>0}}">
+        <view class="view_qipao" style="width: 4.5%;margin-left: -80rpx;margin-top: 8rpx;" wx:if="{{n>0}}">
             <text class="text_qipao">{{n}}</text>
         </view>
         <view style="width:60%;margin-top: 10rpx;" wx:if="{{vipcode||wxuserid}}">

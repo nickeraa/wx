@@ -215,6 +215,14 @@ Page({
   },
   onGetPhoneNumbergm: function (a) {
     if (this.data.stop) return;
+    if (a.detail.errMsg != "getPhoneNumber:ok") {
+      console.log("getPhoneNumber fail:", a.detail.errMsg);
+      var msg = a.detail.errMsg.indexOf("user deny") >= 0 || a.detail.errMsg.indexOf("cancel") >= 0
+        ? "请选择手机号，注册登录喔"
+        : "授权太频繁或已受限，请稍后再试";
+      wx.showToast({ title: msg, icon: "none", duration: 2000 });
+      return;
+    }
     wx.showLoading({ title: '连接中...' });
     this.setData({ stop: true });
     var t = this;
@@ -227,33 +235,26 @@ Page({
               header: { "content-type": "application/json" },
               timeout: 10000,
               success: function (i) {
-                var s = (i.data || "").split(",");
-                var e = a.detail.errMsg,
-                  d = s[1];
+                if (typeof i.data !== "string" || i.data.indexOf(",") < 0) {
+                  wx.hideLoading();
+                  t.setData({ stop: false });
+                  wx.showToast({ title: "授权数据异常，请重试", icon: "none", duration: 2000 });
+                  return;
+                }
+                var s = i.data.split(",");
+                var d = s[1];
                 var n = a.detail.encryptedData,
                   h = a.detail.iv;
-                "getPhoneNumber:ok" == e
-                  ?
-                  (wx.hideLoading(),
-                  wx.checkSession({
-                    success: function () {
-                      t.deciyptiongm(d, n, h);
-                    },
-                    fail: function () {
-                      wx.hideLoading();
-                      wx.showToast({ title: "登录已过期，请重试", icon: "none", duration: 2000 });
-                      t.setData({ stop: false });
-                    },
-                  })) :
-                  (wx.hideLoading(),
-                  wx.showModal({
-                    title: "提示",
-                    content: "请选择手机号，注册登录喔",
-                    showCancel: !1,
-                    complete: function () {
-                      t.setData({ stop: false });
-                    },
-                  }));
+                wx.hideLoading();
+                wx.checkSession({
+                  success: function () {
+                    t.deciyptiongm(d, n, h);
+                  },
+                  fail: function () {
+                    wx.showToast({ title: "登录已过期，请重试", icon: "none", duration: 2000 });
+                    t.setData({ stop: false });
+                  },
+                });
               },
               fail: function () {
                 wx.hideLoading();
@@ -285,9 +286,9 @@ Page({
         },
         timeout: 10000,
         success: function (a) {
-          if (a.data.phoneNumber) {
+          if (a.data && a.data.phoneNumber) {
             wx.setStorageSync("wxuserid", a.data.phoneNumber);
-            e.setData({ wxuserid: a.data.phoneNumber });
+            e.setData({ wxuserid: a.data.phoneNumber, stop: false });
             wx.hideLoading();
             e.gwjs();
           } else {
@@ -304,6 +305,14 @@ Page({
       });
   },
   onGetPhoneNumbergwc: function (a) {
+    if (a.detail.errMsg != "getPhoneNumber:ok") {
+      console.log("getPhoneNumber fail:", a.detail.errMsg);
+      var msg = a.detail.errMsg.indexOf("user deny") >= 0 || a.detail.errMsg.indexOf("cancel") >= 0
+        ? "请选择手机号，注册登录喔"
+        : "授权太频繁或已受限，请稍后再试";
+      wx.showToast({ title: msg, icon: "none", duration: 2000 });
+      return;
+    }
     wx.showLoading({ title: '连接中...' });
     var t = this;
     wx.login({
@@ -319,33 +328,27 @@ Page({
               },
               timeout: 10000,
               success: function (i) {
-                var s = (i.data || "").split(",");
-                var e = a.detail.errMsg,
-                  d = s[1];
+                if (typeof i.data !== "string" || i.data.indexOf(",") < 0) {
+                  wx.hideLoading();
+                  wx.showToast({ title: "授权数据异常，请重试", icon: "none", duration: 2000 });
+                  return;
+                }
+                var s = i.data.split(",");
+                var d = s[1];
                 var n = a.detail.encryptedData,
                   h = a.detail.iv;
-                "getPhoneNumber:ok" == e
-                  ?
-                  (wx.hideLoading(),
-                  wx.checkSession({
-                    success: function () {
-                      t.deciyptiongwc(d, n, h);
-                    },
-                    fail: function () {
-                      wx.hideLoading();
-                      wx.showToast({ title: "登录已过期，请重试", icon: "none", duration: 2000 });
-                    },
-                  })) :
-                  (wx.hideLoading(),
-                  wx.showModal({
-                    title: "提示",
-                    content: "请选择手机号，注册登录喔",
-                    showCancel: !1,
-                  }));
+                wx.hideLoading();
+                wx.checkSession({
+                  success: function () {
+                    t.deciyptiongwc(d, n, h);
+                  },
+                  fail: function () {
+                    wx.showToast({ title: "登录已过期，请重试", icon: "none", duration: 2000 });
+                  },
+                });
               },
               fail: function () {
                 wx.hideLoading();
-                t.setData({ stop: false });
                 wx.showToast({ title: "获取授权失败，请重试", icon: "none", duration: 2000 });
               },
             }) :
@@ -372,18 +375,20 @@ Page({
         },
         timeout: 10000,
         success: function (a) {
-          if (a.data.phoneNumber) {
+          if (a.data && a.data.phoneNumber) {
             wx.setStorageSync("wxuserid", a.data.phoneNumber);
-            e.setData({ wxuserid: a.data.phoneNumber });
+            e.setData({ wxuserid: a.data.phoneNumber, stop: false });
             wx.hideLoading();
             e.gw();
           } else {
             wx.hideLoading();
+            e.setData({ stop: false });
             wx.showToast({ title: "获取手机号失败，请重试", icon: "none", duration: 2000 });
           }
         },
         fail: function () {
           wx.hideLoading();
+          e.setData({ stop: false });
           wx.showToast({ title: "解密失败，请重试", icon: "none", duration: 2000 });
         },
       });
@@ -400,6 +405,7 @@ Page({
       dataType: "json",
       timeout: 10000,
       success: function (a) {
+        console.log("checkxstock 返回:", a.data);
         var stock = 0;
         if (Array.isArray(a.data) && a.data.length > 0 && a.data[0]) {
           stock = parseInt(a.data[0].XSTOCK);
@@ -419,12 +425,14 @@ Page({
             },
           });
         }
-        wx.hideLoading();
       },
-      fail: function () {
-        wx.hideLoading();
+      fail: function (err) {
+        console.log("checkxstock 失败:", err);
         that.setData({ stop: false });
         wx.showToast({ title: "网络异常，请重试", icon: "none", duration: 2000 });
+      },
+      complete: function () {
+        wx.hideLoading();
       },
     });
   },
