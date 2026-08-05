@@ -1,0 +1,240 @@
+page {
+  padding-bottom: 20rpx;
+  padding-top: 100rpx;
+}
+.head-title {
+  margin: 0 auto;
+}
+.cu-custom .cu-bar {
+  background-color: #fff;
+  padding-right: inherit;
+}
+.line-green,
+.lines-green,
+.text-green {
+  color: #e45c5c;
+}
+.swiperitem {
+  background: #fff;
+  height: 110rpx;
+}
+.canui-video {
+  height: 425rpx;
+  width: 100%;
+}
+.nav-li,
+.nav-list {
+  padding: 0;
+  z-index: 0;
+}
+.canui-yx-url {
+  margin: 0 2% 30rpx !important;
+  width: 46% !important;
+}
+.canui-flex-car {
+  padding-top: 20rpx;
+}
+.canui-flex-car .cu-card > .cu-item {
+  margin: 0;
+  position: relative;
+}
+.canui-flex-car .cu-list.menu-avatar > .cu-item {
+  height: 180rpx;
+  padding-left: 15rpx;
+}
+.canui-flex-car .cu-card .cu-avatar {
+  bottom: 72rpx;
+  position: absolute;
+  right: 20rpx;
+}
+.canui-flex-car .shadow-warp {
+  box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.1);
+}
+.canui-flex-car .cu-list.menu > .cu-item .content {
+  font-size: 26rpx;
+}
+.canui-flex-car .text-sm {
+  font-size: 20rpx;
+}
+.canui-flex-car .text-grey {
+  color: #000;
+}
+.canui-flex-car image {
+  height: 346rpx !important;
+}
+.canui-gps .justify-between {
+  padding: 0 20rpx;
+}
+.content .text-sm {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 200rpx;
+}
+.canui-fixed {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 999999;
+}
+.tt {
+  margin: 0 0 100rpx;
+}
+.pt {
+  margin: 0 0 30rpx;
+}
+.is_checked {
+  background-color: #c3a769;
+  border-radius: 5000rpx;
+  color: #fff;
+}
+.normal {
+  background: #fff;
+}
+.imageCount {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 40rpx;
+  color: #fff;
+  float: right;
+  font-size: 26rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  margin: -60rpx 0 0 640rpx;
+  position: absolute;
+  text-align: center;
+  width: 120rpx;
+  z-index: 1;
+}
+.video_cover {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+.video_play_icon {
+  height: 80rpx;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80rpx;
+  z-index: 5;
+}
+.video_bg_black {
+  background: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.video_cover_txt {
+  align-items: center;
+  color: #fff;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 28rpx;
+  height: 90rpx;
+  justify-content: flex-end;
+  margin-top: 35rpx;
+  text-align: right;
+}
+.video_icon_lock {
+  height: auto;
+  margin: 0 30rpx;
+  width: 30rpx;
+}
+.video_txt {
+  margin: 20rpx 140rpx 0 40rpx;
+}
+.container {
+  align-items: center;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  vertical-align: center;
+}
+.home-empty {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+.home-empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.5;
+}
+.home-empty-text {
+  color: #999;
+  font-size: 28rpx;
+}
+/* Product card responsive classes */
+.product-list-wrap {
+  padding-bottom: 20rpx;
+  padding-top: 30rpx;
+}
+.product-img {
+  position: relative;
+  left: 0;
+  top: -4rpx;
+}
+.product-title {
+  font-weight: 700;
+  height: 3rem;
+}
+.product-info-row {
+  display: flex;
+  width: 100%;
+}
+.product-label {
+  width: 20%;
+  font-size: 20rpx;
+  color: rgb(195, 167, 105);
+}
+.product-price {
+  width: 50%;
+  font-weight: 700;
+  font-size: 30rpx;
+}
+.product-price-red {
+  color: red;
+}
+.product-price-gold {
+  color: rgb(195, 167, 105);
+}
+.product-badge {
+  height: 60rpx;
+  width: 50%;
+  margin-top: -10rpx;
+  font-weight: 700;
+  font-size: 28rpx;
+}
+.product-badge-state {
+  background-image: linear-gradient(45deg, #ff9700, #ed1c24);
+  color: white;
+  border-radius: 20rpx;
+}
+/* Hot header */
+.hot-header {
+  display: flex;
+  width: 100%;
+  background-color: white;
+  margin-top: 3rem;
+}
+.hot-icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin: 20rpx 0 0 20rpx;
+}
+.hot-text-wrap {
+  width: 60%;
+  margin-top: 50rpx;
+}
+.hot-text {
+  font-size: 30rpx;
+  font-weight: 600;
+}

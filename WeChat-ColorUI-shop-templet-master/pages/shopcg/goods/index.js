@@ -1,135 +1,45 @@
-var a,
-  t = require("../../../@babel/runtime/helpers/defineProperty"),
+var t = require("../../../@babel/runtime/helpers/defineProperty"),
   i = getApp();
 Page({
-  data: ((a = {
-      StatusBar: i.globalData.StatusBar,
-      CustomBar: i.globalData.CustomBar,
-      iconurlan: i.globalData.iconurl + 'an.png',
-      swiperlist: [""],
-      autoplay: !1,
-      indicatorDots: !1,
-      interval: 4e3,
-      duration: 500,
-      circular: !1,
-      pict: i.globalData.scimgurl,
-      xf_plu: "",
-      pnumber: "",
-      index2: null,
-      picker2: [],
-      store: "",
-      storename: "",
-      userid: "",
-      images: "",
-      stock: "",
-      xf_qoh: "",
-      rb: {},
-      xstock: 0,
-      stop: false
-
-    }),
-    t(
-      t(
-        t(
-          t(
-            t(
-              t(
-                t(
-                  t(t(t(a, "userid", ""), "xf_desci", ""), "tbimages1", ""),
-                  "tbimages2",
-                  ""
-                ),
-                "tbimages3",
-                ""
-              ),
-              "zwimages1",
-              ""
-            ),
-            "zwimages2",
-            ""
-          ),
-          "zwimages3",
-          ""
-        ),
-        "zwimages4",
-        ""
-      ),
-      "zwimages5",
-      ""
-    ),
-    t(
-      t(
-        t(
-          t(
-            t(
-              t(
-                t(
-                  t(t(t(a, "zwimages6", ""), "zwimages7", ""), "zwimages8", ""),
-                  "zwimages9",
-                  ""
-                ),
-                "zwimages10",
-                ""
-              ),
-              "current",
-              0
-            ),
-            "fxuserid",
-            ""
-          ),
-          "fx",
-          ""
-        ),
-        "vipcode",
-        ""
-      ),
-      "wxuserid",
-      ""
-    ),
-    t(
-      t(
-        t(
-          t(
-            t(
-              t(
-                t(t(t(t(a, "arr", []), "kzm", ""), "t", ""), "isShow", !0),
-                "videoCoverImg",
-                ""
-              ),
-              "videoPlayIcon",
-              i.globalData.iconurl + 'an.png',
-            ),
-            "videohight",
-            ""
-          ),
-          "iconList",
-          [{
-              icon: "shop",
-              color: "gray",
-              badge: 50,
-              name: "店铺"
-            },
-            {
-              icon: "favor",
-              color: "gray",
-              badge: 1,
-              name: "收藏"
-            },
-            {
-              icon: "cart",
-              color: "gray",
-              badge: 0,
-              name: "购物车"
-            },
-          ]
-        ),
-        "gridCol",
-        3
-      ),
-      "n",
-      0
-    ),
-    t(t(a, "vipcode", ""), "wxuserid", "")),
+  data: {
+    StatusBar: i.globalData.StatusBar,
+    CustomBar: i.globalData.CustomBar,
+    swiperlist: [],
+    autoplay: !1,
+    interval: 4e3,
+    duration: 500,
+    circular: !1,
+    pict: i.globalData.scimgurl,
+    xf_plu: "",
+    rb: [],
+    stop: false,
+    xf_desci: "",
+    tbimages1: "",
+    current: 0,
+    fx: "",
+    vipcode: "",
+    wxuserid: "",
+    kzm: "",
+    isShow: !0,
+    videoPlayIcon: i.globalData.iconurl + 'an.png',
+    videohight: "",
+    replu: [],
+    iconList: [{
+      icon: "shop",
+      color: "gray",
+      name: "店铺"
+    }, {
+      icon: "favor",
+      color: "gray",
+      name: "收藏"
+    }, {
+      icon: "cart",
+      color: "gray",
+      name: "购物车"
+    }],
+    gridCol: 3,
+    n: 0,
+  },
   onReady: function () {
     this.videoContext = wx.createVideoContext("myVideo");
   },
@@ -138,11 +48,9 @@ Page({
       this.videoContext.play();
   },
   bindended: function () {
-    this.setData({ isShow: !0 }),
-      this.videoContext.ended();
+    this.setData({ isShow: !0 });
   },
-  bindpause: function () {
-  },
+
   swiperChange: function (a) {
     this.setData({
       current: a.detail.current
@@ -171,10 +79,14 @@ Page({
       success: function (a) {
         t.setData({ videohight: parseInt(0.75 * a.windowWidth) });
       },
+      fail: function () {
+        t.setData({ videohight: 300 });
+      },
     });
   },
   previewImage: function (a) {
     var t = a.target.dataset.src;
+    if (!this.data.swiperlist || this.data.swiperlist.length === 0) return;
     wx.previewImage({
       current: t,
       urls: this.data.swiperlist
@@ -221,7 +133,7 @@ Page({
       dataType: "json",
       timeout: 10000,
       success: function (i) {
-        i.data.length > 0 &&
+        if (Array.isArray(i.data) && i.data.length > 0) {
           a.setData(
             t(
               t(
@@ -233,6 +145,10 @@ Page({
               "favorfill"
             )
           );
+        }
+      },
+      fail: function () {
+        // 收藏状态查询非关键功能，静默降级
       },
     });
   },
@@ -298,6 +214,7 @@ Page({
        });
   },
   onGetPhoneNumbergm: function (a) {
+    if (this.data.stop) return;
     wx.showLoading({ title: '连接中...' });
     this.setData({ stop: true });
     var t = this;
@@ -310,8 +227,7 @@ Page({
               header: { "content-type": "application/json" },
               timeout: 10000,
               success: function (i) {
-                var s = i.data.split(",");
-                t.setData({ arr: [s] });
+                var s = (i.data || "").split(",");
                 var e = a.detail.errMsg,
                   d = s[1];
                 var n = a.detail.encryptedData,
@@ -323,31 +239,39 @@ Page({
                     success: function () {
                       t.deciyptiongm(d, n, h);
                     },
-                    fail: function () {},
+                    fail: function () {
+                      wx.hideLoading();
+                      wx.showToast({ title: "登录已过期，请重试", icon: "none", duration: 2000 });
+                      t.setData({ stop: false });
+                    },
                   })) :
                   (wx.hideLoading(),
                   wx.showModal({
                     title: "提示",
                     content: "请选择手机号，注册登录喔",
                     showCancel: !1,
-                    success: function () {
+                    complete: function () {
                       t.setData({ stop: false });
                     },
                   }));
               },
-              fail: function (a) {
-                console.error("getphone fail:", a);
+              fail: function () {
                 wx.hideLoading();
+                t.setData({ stop: false });
+                wx.showToast({ title: "获取授权失败，请重试", icon: "none", duration: 2000 });
               },
             }) :
-          wx.hideLoading();
+          (wx.hideLoading(), t.setData({ stop: false }), wx.showToast({ title: "获取授权失败，请重试", icon: "none", duration: 2000 }));
       },
       fail: function () {
         wx.hideLoading();
+        t.setData({ stop: false });
+        wx.showToast({ title: "登录失败，请重试", icon: "none", duration: 2000 });
       },
     });
   },
   deciyptiongm: function (a, t, s) {
+    wx.showLoading({ title: '解密中...' });
     var e = this;
     wx.request({
         url: i.globalData.api + "wx_getvipphone.ashx",
@@ -361,17 +285,26 @@ Page({
         },
         timeout: 10000,
         success: function (a) {
-          a.data.phoneNumber &&
-            (wx.setStorageSync("wxuserid", a.data.phoneNumber),
-              e.setData({ wxuserid: a.data.phoneNumber }),
-              e.gwjs());
+          if (a.data.phoneNumber) {
+            wx.setStorageSync("wxuserid", a.data.phoneNumber);
+            e.setData({ wxuserid: a.data.phoneNumber });
+            wx.hideLoading();
+            e.gwjs();
+          } else {
+            wx.hideLoading();
+            e.setData({ stop: false });
+            wx.showToast({ title: "获取手机号失败，请重试", icon: "none", duration: 2000 });
+          }
         },
         fail: function () {
+          wx.hideLoading();
+          e.setData({ stop: false });
           wx.showToast({ title: "解密失败，请重试", icon: "none", duration: 2000 });
         },
       });
   },
   onGetPhoneNumbergwc: function (a) {
+    wx.showLoading({ title: '连接中...' });
     var t = this;
     wx.login({
       success: function (s) {
@@ -384,41 +317,48 @@ Page({
               header: {
                 "content-type": "application/json"
               },
+              timeout: 10000,
               success: function (i) {
-                var s = i.data.split(",");
-                t.setData({
-                  arr: [s]
-                });
+                var s = (i.data || "").split(",");
                 var e = a.detail.errMsg,
                   d = s[1];
                 var n = a.detail.encryptedData,
                   h = a.detail.iv;
                 "getPhoneNumber:ok" == e
                   ?
+                  (wx.hideLoading(),
                   wx.checkSession({
                     success: function () {
                       t.deciyptiongwc(d, n, h);
                     },
-                    fail: function () {},
-                  }) :
+                    fail: function () {
+                      wx.hideLoading();
+                      wx.showToast({ title: "登录已过期，请重试", icon: "none", duration: 2000 });
+                    },
+                  })) :
+                  (wx.hideLoading(),
                   wx.showModal({
                     title: "提示",
                     content: "请选择手机号，注册登录喔",
                     showCancel: !1,
-                    success: function (a) {
-                      a.confirm;
-                    },
-                  });
+                  }));
               },
-              fail: function (a) {
-                console.error("getphonegwc fail:", a);
+              fail: function () {
+                wx.hideLoading();
+                t.setData({ stop: false });
+                wx.showToast({ title: "获取授权失败，请重试", icon: "none", duration: 2000 });
               },
             }) :
-          "";
+          (wx.hideLoading(), wx.showToast({ title: "获取授权失败，请重试", icon: "none", duration: 2000 }));
+      },
+      fail: function () {
+        wx.hideLoading();
+        wx.showToast({ title: "登录失败，请重试", icon: "none", duration: 2000 });
       },
     });
   },
   deciyptiongwc: function (a, t, s) {
+    wx.showLoading({ title: '解密中...' });
     var e = this;
     wx.request({
         url: i.globalData.api + "wx_getvipphone.ashx",
@@ -432,42 +372,40 @@ Page({
         },
         timeout: 10000,
         success: function (a) {
-          a.data.phoneNumber &&
-            (wx.setStorageSync("wxuserid", a.data.phoneNumber),
-              e.setData({
-                wxuserid: a.data.phoneNumber
-              }),
-              e.gw());
+          if (a.data.phoneNumber) {
+            wx.setStorageSync("wxuserid", a.data.phoneNumber);
+            e.setData({ wxuserid: a.data.phoneNumber });
+            wx.hideLoading();
+            e.gw();
+          } else {
+            wx.hideLoading();
+            wx.showToast({ title: "获取手机号失败，请重试", icon: "none", duration: 2000 });
+          }
+        },
+        fail: function () {
+          wx.hideLoading();
+          wx.showToast({ title: "解密失败，请重试", icon: "none", duration: 2000 });
         },
       });
   },
   gwjs: function () {
-
-
-    wx.showLoading({
-      title: '连接中...',
-    })
-
-    this.setData({
-
-      stop: true
-
-    })
+    if (this.data.stop) return;
+    wx.showLoading({ title: '连接中...' });
+    this.setData({ stop: true });
     var that = this;
     wx.request({
       url: i.globalData.api + "wx_checkxstock.ashx",
-      data: {
-
-        xf_plu: this.data.xf_plu
-
-      },
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
+      data: { xf_plu: this.data.xf_plu },
+      header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
       timeout: 10000,
       success: function (a) {
-        if (a.data.length > 0) {
+        var stock = 0;
+        if (Array.isArray(a.data) && a.data.length > 0 && a.data[0]) {
+          stock = parseInt(a.data[0].XSTOCK);
+          if (isNaN(stock)) stock = 0;
+        }
+        if (stock > 0) {
           wx.navigateTo({
             url: "/pages/deposit/index/index?xf_plu=" + that.data.xf_plu,
           });
@@ -476,20 +414,35 @@ Page({
             title: "提示",
             content: "已售罄，数量为零",
             showCancel: false,
+            complete: function () {
+              that.setData({ stop: false });
+            },
           });
         }
         wx.hideLoading();
       },
       fail: function () {
         wx.hideLoading();
+        that.setData({ stop: false });
         wx.showToast({ title: "网络异常，请重试", icon: "none", duration: 2000 });
       },
     });
-
-  
   },
   gw: function () {
     var a = this;
+    // 售罄预检：详情 API 已返回 XSTOCK，本地拦截避免误导性的"数据出错"提示
+    var replu = a.data.replu;
+    if (replu && replu.length > 0 && replu[0]) {
+      var stock = parseInt(replu[0].XSTOCK);
+      if (!isNaN(stock) && stock <= 0) {
+        wx.showModal({
+          title: "提示",
+          content: "已售罄，数量为零",
+          showCancel: false,
+        });
+        return;
+      }
+    }
     var vipcode = wx.getStorageSync("vipcode") || "";
     var wxuserid = wx.getStorageSync("wxuserid") || "";
     var fxuserid = wx.getStorageSync("fxuserid") || "";
@@ -513,6 +466,7 @@ Page({
           var n = parseInt(wx.getStorageSync("n") || "0") + 1;
           wx.setStorageSync("n", n.toString());
           a.setData({ n: wx.getStorageSync("n") });
+          wx.showToast({ title: "已加入购物车", icon: "success", duration: 1500 });
         } else {
           wx.showToast({ title: "数据出错", icon: "error", duration: 1000 });
         }
@@ -522,474 +476,23 @@ Page({
       },
     });
   },
-  previewImage1: function (a) {
-    var t = [];
-    if (this.data.zwimages1.indexOf("null") < 0 && "jpg" == this.data.kzm) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      t.push(i);
+  previewZwImage: function (a) {
+    var t = this, urls = [];
+    var replu = t.data.replu;
+    if (!replu || replu.length === 0) return;
+    var item = replu[0];
+    var base = t.data.pict + item.XF_PLU + "//";
+    for (var i = 1; i <= 10; i++) {
+      var raw = item["ZWIMAGES" + i];
+      if (raw && raw.indexOf("null") < 0) {
+        if (i === 1 && "jpg" !== t.data.kzm) continue;
+        urls.push(base + raw);
+      }
     }
-    if (this.data.zwimages2.indexOf("null") < 0) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      t.push(s);
-    }
-    if (this.data.zwimages3.indexOf("null") < 0) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      t.push(e);
-    }
-    if (this.data.zwimages4.indexOf("null") < 0) {
-      var d = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      t.push(d);
-    }
-    if (this.data.zwimages5.indexOf("null") < 0) {
-      var n = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages5;
-      t.push(n);
-    }
-    if (this.data.zwimages6.indexOf("null") < 0) {
-      var h = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages6;
-      t.push(h);
-    }
-    if (this.data.zwimages7.indexOf("null") < 0) {
-      var l = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages7;
-      t.push(l);
-    }
-    if (this.data.zwimages8.indexOf("null") < 0) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages8;
-      t.push(o);
-    }
-    if (this.data.zwimages9.indexOf("null") < 0) {
-      var u = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages9;
-      t.push(u);
-    }
-    if (this.data.zwimages10.indexOf("null") < 0) {
-      var p = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages10;
-      t.push(p);
-    }
+    var current = a.currentTarget.dataset.src || urls[0];
     wx.previewImage({
-      current: i,
-      urls: t
-    });
-  },
-  previewImage2: function (a) {
-    var t = [];
-    if (this.data.zwimages1.indexOf("null") < 0 && "jpg" == this.data.kzm) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      t.push(i);
-    }
-    if (this.data.zwimages2.indexOf("null") < 0) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      t.push(s);
-    }
-    if (this.data.zwimages3.indexOf("null") < 0) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      t.push(e);
-    }
-    if (this.data.zwimages4.indexOf("null") < 0) {
-      var d = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      t.push(d);
-    }
-    if (this.data.zwimages5.indexOf("null") < 0) {
-      var n = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages5;
-      t.push(n);
-    }
-    if (this.data.zwimages6.indexOf("null") < 0) {
-      var h = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages6;
-      t.push(h);
-    }
-    if (this.data.zwimages7.indexOf("null") < 0) {
-      var l = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages7;
-      t.push(l);
-    }
-    if (this.data.zwimages8.indexOf("null") < 0) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages8;
-      t.push(o);
-    }
-    if (this.data.zwimages9.indexOf("null") < 0) {
-      var u = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages9;
-      t.push(u);
-    }
-    if (this.data.zwimages10.indexOf("null") < 0) {
-      var p = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages10;
-      t.push(p);
-    }
-    wx.previewImage({
-      current: s,
-      urls: t
-    });
-  },
-  previewImage3: function (a) {
-    var t = [];
-    if (this.data.zwimages1.indexOf("null") < 0 && "jpg" == this.data.kzm) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      t.push(i);
-    }
-    if (this.data.zwimages2.indexOf("null") < 0) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      t.push(s);
-    }
-    if (this.data.zwimages3.indexOf("null") < 0) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      t.push(e);
-    }
-    if (this.data.zwimages4.indexOf("null") < 0) {
-      var d = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      t.push(d);
-    }
-    if (this.data.zwimages5.indexOf("null") < 0) {
-      var n = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages5;
-      t.push(n);
-    }
-    if (this.data.zwimages6.indexOf("null") < 0) {
-      var h = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages6;
-      t.push(h);
-    }
-    if (this.data.zwimages7.indexOf("null") < 0) {
-      var l = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages7;
-      t.push(l);
-    }
-    if (this.data.zwimages8.indexOf("null") < 0) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages8;
-      t.push(o);
-    }
-    if (this.data.zwimages9.indexOf("null") < 0) {
-      var u = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages9;
-      t.push(u);
-    }
-    if (this.data.zwimages10.indexOf("null") < 0) {
-      var p = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages10;
-      t.push(p);
-    }
-    wx.previewImage({
-      current: e,
-      urls: t
-    });
-  },
-  previewImage4: function (a) {
-    var t = [];
-    if (this.data.zwimages1.indexOf("null") < 0 && "jpg" == this.data.kzm) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      t.push(i);
-    }
-    if (this.data.zwimages2.indexOf("null") < 0) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      t.push(s);
-    }
-    if (this.data.zwimages3.indexOf("null") < 0) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      t.push(e);
-    }
-    if (this.data.zwimages4.indexOf("null") < 0) {
-      var d = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      t.push(d);
-    }
-    if (this.data.zwimages5.indexOf("null") < 0) {
-      var n = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages5;
-      t.push(n);
-    }
-    if (this.data.zwimages6.indexOf("null") < 0) {
-      var h = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages6;
-      t.push(h);
-    }
-    if (this.data.zwimages7.indexOf("null") < 0) {
-      var l = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages7;
-      t.push(l);
-    }
-    if (this.data.zwimages8.indexOf("null") < 0) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages8;
-      t.push(o);
-    }
-    if (this.data.zwimages9.indexOf("null") < 0) {
-      var u = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages9;
-      t.push(u);
-    }
-    if (this.data.zwimages10.indexOf("null") < 0) {
-      var p = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages10;
-      t.push(p);
-    }
-    wx.previewImage({
-      current: d,
-      urls: t
-    });
-  },
-  previewImage5: function (a) {
-    var t = [];
-    if (this.data.zwimages1.indexOf("null") < 0 && "jpg" == this.data.kzm) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      t.push(i);
-    }
-    if (this.data.zwimages2.indexOf("null") < 0) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      t.push(s);
-    }
-    if (this.data.zwimages3.indexOf("null") < 0) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      t.push(e);
-    }
-    if (this.data.zwimages4.indexOf("null") < 0) {
-      var d = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      t.push(d);
-    }
-    if (this.data.zwimages5.indexOf("null") < 0) {
-      var n = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages5;
-      t.push(n);
-    }
-    if (this.data.zwimages6.indexOf("null") < 0) {
-      var h = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages6;
-      t.push(h);
-    }
-    if (this.data.zwimages7.indexOf("null") < 0) {
-      var l = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages7;
-      t.push(l);
-    }
-    if (this.data.zwimages8.indexOf("null") < 0) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages8;
-      t.push(o);
-    }
-    if (this.data.zwimages9.indexOf("null") < 0) {
-      var u = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages9;
-      t.push(u);
-    }
-    if (this.data.zwimages10.indexOf("null") < 0) {
-      var p = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages10;
-      t.push(p);
-    }
-    wx.previewImage({
-      current: n,
-      urls: t
-    });
-  },
-  previewImage6: function (a) {
-    var t = [];
-    if (this.data.zwimages1.indexOf("null") < 0 && "jpg" == this.data.kzm) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      t.push(i);
-    }
-    if (this.data.zwimages2.indexOf("null") < 0) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      t.push(s);
-    }
-    if (this.data.zwimages3.indexOf("null") < 0) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      t.push(e);
-    }
-    if (this.data.zwimages4.indexOf("null") < 0) {
-      var d = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      t.push(d);
-    }
-    if (this.data.zwimages5.indexOf("null") < 0) {
-      var n = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages5;
-      t.push(n);
-    }
-    if (this.data.zwimages6.indexOf("null") < 0) {
-      var h = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages6;
-      t.push(h);
-    }
-    if (this.data.zwimages7.indexOf("null") < 0) {
-      var l = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages7;
-      t.push(l);
-    }
-    if (this.data.zwimages8.indexOf("null") < 0) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages8;
-      t.push(o);
-    }
-    if (this.data.zwimages9.indexOf("null") < 0) {
-      var u = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages9;
-      t.push(u);
-    }
-    if (this.data.zwimages10.indexOf("null") < 0) {
-      var p = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages10;
-      t.push(p);
-    }
-    wx.previewImage({
-      current: h,
-      urls: t
-    });
-  },
-  previewImage7: function (a) {
-    var t = [];
-    if (this.data.zwimages1.indexOf("null") < 0 && "jpg" == this.data.kzm) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      t.push(i);
-    }
-    if (this.data.zwimages2.indexOf("null") < 0) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      t.push(s);
-    }
-    if (this.data.zwimages3.indexOf("null") < 0) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      t.push(e);
-    }
-    if (this.data.zwimages4.indexOf("null") < 0) {
-      var d = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      t.push(d);
-    }
-    if (this.data.zwimages5.indexOf("null") < 0) {
-      var n = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages5;
-      t.push(n);
-    }
-    if (this.data.zwimages6.indexOf("null") < 0) {
-      var h = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages6;
-      t.push(h);
-    }
-    if (this.data.zwimages7.indexOf("null") < 0) {
-      var l = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages7;
-      t.push(l);
-    }
-    if (this.data.zwimages8.indexOf("null") < 0) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages8;
-      t.push(o);
-    }
-    if (this.data.zwimages9.indexOf("null") < 0) {
-      var u = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages9;
-      t.push(u);
-    }
-    if (this.data.zwimages10.indexOf("null") < 0) {
-      var p = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages10;
-      t.push(p);
-    }
-    wx.previewImage({
-      current: l,
-      urls: t
-    });
-  },
-  previewImage8: function (a) {
-    var t = [];
-    if (this.data.zwimages1.indexOf("null") < 0 && "jpg" == this.data.kzm) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      t.push(i);
-    }
-    if (this.data.zwimages2.indexOf("null") < 0) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      t.push(s);
-    }
-    if (this.data.zwimages3.indexOf("null") < 0) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      t.push(e);
-    }
-    if (this.data.zwimages4.indexOf("null") < 0) {
-      var d = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      t.push(d);
-    }
-    if (this.data.zwimages5.indexOf("null") < 0) {
-      var n = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages5;
-      t.push(n);
-    }
-    if (this.data.zwimages6.indexOf("null") < 0) {
-      var h = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages6;
-      t.push(h);
-    }
-    if (this.data.zwimages7.indexOf("null") < 0) {
-      var l = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages7;
-      t.push(l);
-    }
-    if (this.data.zwimages8.indexOf("null") < 0) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages8;
-      t.push(o);
-    }
-    if (this.data.zwimages9.indexOf("null") < 0) {
-      var u = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages9;
-      t.push(u);
-    }
-    if (this.data.zwimages10.indexOf("null") < 0) {
-      var p = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages10;
-      t.push(p);
-    }
-    wx.previewImage({
-      current: o,
-      urls: t
-    });
-  },
-  previewImage9: function (a) {
-    var t = [];
-    if (this.data.zwimages1.indexOf("null") < 0 && "jpg" == this.data.kzm) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      t.push(i);
-    }
-    if (this.data.zwimages2.indexOf("null") < 0) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      t.push(s);
-    }
-    if (this.data.zwimages3.indexOf("null") < 0) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      t.push(e);
-    }
-    if (this.data.zwimages4.indexOf("null") < 0) {
-      var d = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      t.push(d);
-    }
-    if (this.data.zwimages5.indexOf("null") < 0) {
-      var n = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages5;
-      t.push(n);
-    }
-    if (this.data.zwimages6.indexOf("null") < 0) {
-      var h = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages6;
-      t.push(h);
-    }
-    if (this.data.zwimages7.indexOf("null") < 0) {
-      var l = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages7;
-      t.push(l);
-    }
-    if (this.data.zwimages8.indexOf("null") < 0) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages8;
-      t.push(o);
-    }
-    if (this.data.zwimages9.indexOf("null") < 0) {
-      var u = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages9;
-      t.push(u);
-    }
-    if (this.data.zwimages10.indexOf("null") < 0) {
-      var p = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages10;
-      t.push(p);
-    }
-    wx.previewImage({
-      current: u,
-      urls: t
-    });
-  },
-  previewImage10: function (a) {
-    var t = [];
-    if (this.data.zwimages1.indexOf("null") < 0 && "jpg" == this.data.kzm) {
-      var i = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages1;
-      t.push(i);
-    }
-    if (this.data.zwimages2.indexOf("null") < 0) {
-      var s = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages2;
-      t.push(s);
-    }
-    if (this.data.zwimages3.indexOf("null") < 0) {
-      var e = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages3;
-      t.push(e);
-    }
-    if (this.data.zwimages4.indexOf("null") < 0) {
-      var d = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages4;
-      t.push(d);
-    }
-    if (this.data.zwimages5.indexOf("null") < 0) {
-      var n = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages5;
-      t.push(n);
-    }
-    if (this.data.zwimages6.indexOf("null") < 0) {
-      var h = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages6;
-      t.push(h);
-    }
-    if (this.data.zwimages7.indexOf("null") < 0) {
-      var l = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages7;
-      t.push(l);
-    }
-    if (this.data.zwimages8.indexOf("null") < 0) {
-      var o = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages8;
-      t.push(o);
-    }
-    if (this.data.zwimages9.indexOf("null") < 0) {
-      var u = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages9;
-      t.push(u);
-    }
-    if (this.data.zwimages10.indexOf("null") < 0) {
-      var p = this.data.pict + this.data.xf_plu + "//" + this.data.zwimages10;
-      t.push(p);
-    }
-    wx.previewImage({
-      current: p,
-      urls: t
+      current: current,
+      urls: urls
     });
   },
 
@@ -1007,26 +510,18 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (a) {
-        a.data.length > 0 ?
+        Array.isArray(a.data) && a.data.length > 0 ?
           (t.setData({
               rb: a.data,
-              sumprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
-              realprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
-              xishu: a.data[0].XISHU,
-              sumrealprice: parseFloat(a.data[0].REALPRICE).toFixed(2),
               xf_desci: a.data[0].XF_DESCI,
-              sorts: a.data[0].SORTS,
-            }),
-            t.data.sumprice.toString().indexOf(".") >= 0 &&
-            t.setData({
-              xiaoshu: !0
             })) :
-          t.setData({
-            replu: null
-          })
+          t.setData({ rb: [] });
 
-
+      },
+      fail: function () {
+        // 价格查询非关键功能，静默降级
       },
     });
 
@@ -1037,6 +532,7 @@ Page({
   onShow: function (a) {
     this.setData({
       stop: false,
+      current: 0,
       vipcode: wx.getStorageSync("vipcode") || "",
       wxuserid: wx.getStorageSync("wxuserid") || "",
     });
@@ -1051,41 +547,28 @@ Page({
         dataType: "json",
         timeout: 10000,
         success: function (a) {
-          var ts = parseInt(Date.parse(new Date()) / 1000);
+          var ts = parseInt(Date.now() / 1000);
+          if (!a.data || a.data.length === 0) {
+            wx.hideLoading();
+            wx.showToast({ title: "暂无商品数据", icon: "none", duration: 2000 });
+            return;
+          }
           var item = a.data[0];
-          t.setData({
-            replu: a.data,
-            tbimages1: item.TBIMAGES1 + "?temp=" + ts,
-            tbimages2: item.TBIMAGES2 + "?temp=" + ts,
-            tbimages3: item.TBIMAGES3 + "?temp=" + ts,
-            zwimages1: item.ZWIMAGES1 + "?temp=" + ts,
-            zwimages2: item.ZWIMAGES2 + "?temp=" + ts,
-            zwimages3: item.ZWIMAGES3 + "?temp=" + ts,
-            zwimages4: item.ZWIMAGES4 + "?temp=" + ts,
-            zwimages5: item.ZWIMAGES5 + "?temp=" + ts,
-            zwimages6: item.ZWIMAGES6 + "?temp=" + ts,
-            zwimages7: item.ZWIMAGES7 + "?temp=" + ts,
-            zwimages8: item.ZWIMAGES8 + "?temp=" + ts,
-            zwimages9: item.ZWIMAGES9 + "?temp=" + ts,
-            zwimages10: item.ZWIMAGES10 + "?temp=" + ts,
-            xf_plu: item.XF_PLU,
-            itemname: item.ITEMNAME,
-            xf_desci: item.XF_DESCI,
-            kzm: item.ZWIMAGES1.substr(-3, 3),
-            xstock: item.XSTOCK,
-          });
-          t.checkplu();
           var pict = t.data.pict;
           var plu = item.XF_PLU;
-          if (item.TBIMAGES1) {
-            t.setData({ "swiperlist[0]": pict + plu + "//" + item.TBIMAGES1 });
-          }
-          if (item.TBIMAGES2) {
-            t.setData({ "swiperlist[1]": pict + plu + "//" + item.TBIMAGES2 });
-          }
-          if (item.TBIMAGES3) {
-            t.setData({ "swiperlist[2]": pict + plu + "//" + item.TBIMAGES3 });
-          }
+          var swiperlist = [];
+          if (item.TBIMAGES1) swiperlist.push(pict + plu + "//" + item.TBIMAGES1);
+          if (item.TBIMAGES2) swiperlist.push(pict + plu + "//" + item.TBIMAGES2);
+          if (item.TBIMAGES3) swiperlist.push(pict + plu + "//" + item.TBIMAGES3);
+          t.setData({
+            replu: a.data,
+            tbimages1: item.TBIMAGES1 ? item.TBIMAGES1 + "?temp=" + ts : "",
+            xf_plu: item.XF_PLU,
+            xf_desci: item.XF_DESCI,
+            kzm: (item.ZWIMAGES1 || "").substr(-3, 3),
+            swiperlist: swiperlist,
+          });
+          t.checkplu();
           t.checkprice();
           wx.hideLoading();
         },
@@ -1108,10 +591,11 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
-      dataType: "json",
       timeout: 10000,
       success: function () {},
-      fail: function () {},
+      fail: function () {
+        // 浏览记录提交非关键功能，静默降级
+      },
     });
   },
   sewx: function () {
@@ -1127,7 +611,9 @@ Page({
       dataType: "json",
       timeout: 10000,
       success: function () {},
-      fail: function () {},
+      fail: function () {
+        // 浏览记录提交非关键功能，静默降级
+      },
     });
   },
   onUnload: function () {
@@ -1137,6 +623,8 @@ Page({
       wx.getStorageSync("wxuserid") && this.sewx();
   },
   onShareAppMessage: function (a) {
+    var tbimg = (this.data.tbimages1 || "").split("?temp=")[0];
+    var imageUrl = tbimg ? this.data.pict + this.data.xf_plu + "//" + tbimg : "";
     return wx.getStorageSync("d") ? {
         title: "广天藏品 " + this.data.xf_desci,
         path: "/pages/shopcg/goods/index?xf_plu=" +
@@ -1146,7 +634,7 @@ Page({
           "&vipcode=" +
           wx.getStorageSync("vipcode") +
           "&fx=1",
-        imageUrl: this.data.pict + this.data.xf_plu + "//" + this.data.tbimages1,
+        imageUrl: imageUrl,
       } :
       wx.getStorageSync("vipcode") ? {
         title: "广天藏品 " + this.data.xf_desci,
@@ -1155,7 +643,7 @@ Page({
           "&fxuserid=" +
           wx.getStorageSync("vipcode") +
           "&fx=1",
-        imageUrl: this.data.pict + this.data.xf_plu + "//" + this.data.tbimages1,
+        imageUrl: imageUrl,
       } :
       wx.getStorageSync("wxuserid") ? {
         title: "广天藏品 " + this.data.xf_desci,
@@ -1164,11 +652,11 @@ Page({
           "&fxuserid=" +
           wx.getStorageSync("wxuserid") +
           "&fx=1",
-        imageUrl: this.data.pict + this.data.xf_plu + "//" + this.data.tbimages1,
+        imageUrl: imageUrl,
       } : {
         title: "广天藏品 " + this.data.xf_desci,
         path: "/pages/shopcg/goods/index?xf_plu=" + this.data.xf_plu + "&fx=1",
-        imageUrl: this.data.pict + this.data.xf_plu + "//" + this.data.tbimages1,
+        imageUrl: imageUrl,
       };
   },
   back: function () {
@@ -1179,7 +667,7 @@ Page({
           url: "/pages/home/index/index"
         })) :
       wx.navigateBack({
-        delta: 0
+        delta: 1
       });
   },
 });

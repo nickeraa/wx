@@ -1,8 +1,8 @@
 <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <view class="head-title canui-head-title" style="font-weight: 550;">
-            <text bindtap="back" class="icon-back" style="width: 20px;margin-left: -9rem;"></text>
-            <text style="font-size: 16px;font-weight: 800;color:black;margin-left: 7rem;">新增地址</text>
+            <text bindtap="back" class="icon-back" style="width: 40rpx;margin-left: -9rem;"></text>
+            <text style="font-size: 32rpx;font-weight: 800;color:black;margin-left: 7rem;">新增地址</text>
         </view>
     </view>
 </view>
@@ -18,7 +18,7 @@
 <view class="cu-form-group">
     <view class="title icon-title text-orange">所在地区</view>
     <input bindinput="getaddr1" class="radius" name="address1" placeholder="" value="{{address1}}"></input>
-    <text bindtap="selectmap" class="icon-locationfill text-gray" style="float: right;font-size: 13px;font-weight: 700;">定位</text>
+    <text bindtap="selectmap" class="icon-locationfill text-gray" style="float: right;font-size: 26rpx;font-weight: 700;">定位</text>
 </view>
 <view class="cu-form-group">
     <view class="title icon-title text-orange">详细地址</view>
@@ -31,7 +31,7 @@
     </view>
 </view>
 <view class="bg-white canui-foor-fixed canui-submit-view " style="height: 5rem;display: flex;width: 100%;align-items: center;justify-content: center;">
-    <button bindtap="add" disabled="{{stop}}" class="submitbtn" style="margin: 10px 0px 20px 0px;width:80%;height: 2.5rem;">
+    <button bindtap="add" disabled="{{stop}}" class="submitbtn" style="margin: 20rpx 0rpx 40rpx 0rpx;width:80%;height: 2.5rem;">
         <text> 保存并使用</text>
     </button>
 </view>

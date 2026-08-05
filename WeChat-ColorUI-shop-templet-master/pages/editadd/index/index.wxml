@@ -1,8 +1,8 @@
 <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <view class="head-title canui-head-title" style="font-weight: 550;">
-            <text bindtap="back" class="icon-back" style="width: 20px;margin-left: -9rem;"></text>
-            <text style="font-size: 16px;font-weight: 800;color:black;margin-left: 7rem;">编辑地址</text>
+            <text bindtap="back" class="icon-back" style="width: 40rpx;margin-left: -9rem;"></text>
+            <text style="font-size: 32rpx;font-weight: 800;color:black;margin-left: 7rem;">编辑地址</text>
         </view>
     </view>
 </view>
@@ -18,7 +18,7 @@
 <view class="cu-form-group">
     <view class="title icon-title text-orange">所在地区</view>
     <input bindinput="getaddress1" class="radius" name="address1" placeholder="" value="{{address1}}"></input>
-    <text bindtap="selectmap" class="icon-locationfill text-gray" style="float: right;font-size: 13px;font-weight: 700;">定位</text>
+    <text bindtap="selectmap" class="icon-locationfill text-gray" style="float: right;font-size: 26rpx;font-weight: 700;">定位</text>
 </view>
 <view class="cu-form-group">
     <view class="title icon-title text-orange">详细地址</view>
@@ -30,13 +30,13 @@
         <switch bindchange="SetShadow" checked="{{isBeta}}" class="sm"></switch>
     </view>
 </view>
-<view style="width:100%;height:2.5rem;margin-top: 80px; display: flex;align-items: center;justify-content: center;text-align: center;">
-    <button bindtap="edit" style="width:80%;height: 2.5rem; background-color: rgb(195, 167, 105); color: white;border-radius: 10px;">
+<view style="width:100%;height:2.5rem;margin-top: 160rpx; display: flex;align-items: center;justify-content: center;text-align: center;">
+    <button bindtap="edit" style="width:80%;height: 2.5rem; background-color: rgb(195, 167, 105); color: white;border-radius: 20rpx;">
         <text> 保存并使用</text>
     </button>
 </view>
-<view style="width:100%;height:2.5rem;margin-top: 20px;  display: flex;align-items: center;justify-content: center;">
-    <button bindtap="del" style="width:80%; border-radius: 10px;background-color: rgb(195, 167, 105);color: white;">
+<view style="width:100%;height:2.5rem;margin-top: 40rpx;  display: flex;align-items: center;justify-content: center;">
+    <button bindtap="del" style="width:80%; border-radius: 20rpx;background-color: rgb(195, 167, 105);color: white;">
         <text> 删除收货地址</text>
     </button>
 </view>

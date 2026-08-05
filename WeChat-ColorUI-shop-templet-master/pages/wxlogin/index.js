@@ -177,7 +177,7 @@ Page({
     console.log(t.data.imgurl)
     //return false
 
-    if (wx.getStorageSync('vipcode')) {
+    if (wx.getStorageSync('vipcode')||wx.getStorageSync("vip_id")) {
 
       wx.request({
         url: a.globalData.api + "wx_customer_oldvip.ashx",

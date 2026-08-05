@@ -1,0 +1,33 @@
+<view class="cu-custom bg-white" style="height:50px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>
+            <text style="margin-left: 100px;">激活会员卡</text>
+        </view>
+    </view>
+</view>
+<view style="margin:10px 10px 0px 10px;">
+    <view style="display: flex;width:100%;">
+        <view class="cu-form-group" style="border-radius:8px;width:100%;">
+            <view class="title icon-title  up" style="color:rgb(100, 100, 100);">会员卡号：</view>
+            <input bindinput="getvipcode" class="radius dp" name="vipcode" placeholder="请输入会员卡号" value="{{vipcode}}"></input>
+            <text bindtap="cx" class=" icon-search"></text>
+            <text bindtap="cx" style="margin-left: 5px;"> 查询</text>
+        </view>
+    </view>
+    <view class="cu-form-group" style="border-radius:8px;margin-top: 2px;">
+        <view class="title icon-title text-grey up" style="color:rgb(200, 200, 200);">会员姓名：</view>
+        <text class="text-grey">{{vipname}}</text>
+    </view>
+    <view class="cu-form-group" style="border-radius:8px;">
+        <view class="title icon-title text-grey up" style="color:rgb(200, 200, 200);">会员等级：</view>
+        <text class="text-grey">{{grade}}</text>
+    </view>
+    <view class="cu-form-group" style="border-radius:8px;">
+        <view class="title icon-title text-grey up" style="color:rgb(200, 200, 200);">客服顾问：</view>
+        <text class="text-grey">{{xf_name}}</text>
+    </view>
+    <view bindtap="jh" style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 3rem;padding-top: 2rem;text-align: center;">
+        <text class="cu-btn round " style="margin:5px 5px 5px 5px;height:2rem;border-radius: 0.8rem;color:white; background-color:rgb(195,167,105);border:1px solid ;width:40%"> 激活会员卡</text>
+    </view>
+</view>

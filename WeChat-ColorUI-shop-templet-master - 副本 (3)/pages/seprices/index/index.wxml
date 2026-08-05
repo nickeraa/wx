@@ -1,0 +1,114 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>售价及库存查询 </navigator>
+    </view>
+</view>
+<view style="overflow-x: hidden;">
+    <view style="height:4rem;background-color:white;"></view>
+    <view class=" margin-top">
+        <view style="background-color:white;height:0.5rem;"></view>
+        <view class="canui-order-item bg-white">
+            <view class="head-title-box" style="height:2.2rem;">
+                <text class="icon-shop" style="margin-left:1rem;"></text>
+                <text calss="sp" style="margin-left:3px;">货品信息</text>
+                <text class="icon-right">{{xf_desci}}</text>
+                <view class="head-title-box sp solid-bottom "></view>
+            </view>
+            <view class="Grid-sku  " style="height:0.8rem;color:#00868B;margin-top:8px;">
+                <view style="margin-left:1rem;width:25%;">
+                    <text> 货品编号 </text>
+                </view>
+                <view style="width:20%;margin-left:20px;">
+                    <text>售价</text>
+                </view>
+                <view style="width:20%;margin-left:20px;">
+                    <text>总销售</text>
+                </view>
+                <view style="width:15%;">
+                    <text>库存</text>
+                </view>
+                <view style="width:15%;">
+                    <text>在途</text>
+                </view>
+                <view style="width:15%;">
+                    <text>客订</text>
+                </view>
+                <view style="width:15%;">
+                    <text>可售</text>
+                </view>
+            </view>
+            <view style="background-color:white;height:5px;"></view>
+            <view class="Grid-sku" style="background-color:white;height:2.5rem;margin-top:10px;font-size:14px;" wx:for="{{result}}" wx:key="id">
+                <view style="margin-left:1rem;width:20%;margin-top:15px;">
+                    <text class=""> {{item.XF_PLU}} </text>
+                </view>
+                <view style="width:22%;margin-left:15px;margin-top:12px;">
+                    <text class=""> {{item.XF_SELUPRICE}}元 </text>
+                </view>
+                <view style="width:20%;margin-left:15px;margin-top:15px;">
+                    <text class=""> {{item.XF_QTY}} </text>
+                </view>
+                <view style="width:15%;margin-top:15px;">
+                    <text class=""> {{item.XF_QOH}} </text>
+                </view>
+                <view style="width:13%;margin-top:15px;">
+                    <text class=""> {{item.XF_TRFINTRANSIT}} </text>
+                </view>
+                <view style="width:13%;margin-top:15px;">
+                    <text class=""> {{item.XF_ORDERQTY}} </text>
+                </view>
+                <view style="width:15%;margin-top:15px;">
+                    <text class=""> {{item.QTY}} </text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="senumber" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询货品明细</button>
+    </view>
+    <view style="background-color:white;height:5px;"></view>
+    <view class="Grid-sku  " hidden="{{view}}" style="height:1.5rem;color:#00868B;">
+        <view style="margin-left:1rem;width:15%;">
+            <text> 店号 </text>
+        </view>
+        <view style="width:25%;margin-left:25px;">
+            <text>店铺名称</text>
+        </view>
+        <view style="width:15%;">
+            <text>库存</text>
+        </view>
+        <view style="width:15%;">
+            <text>在途</text>
+        </view>
+        <view style="width:15%;">
+            <text>客订</text>
+        </view>
+        <view style="width:15%;">
+            <text>可售</text>
+        </view>
+    </view>
+    <view hidden="{{view}}">
+        <view class="Grid-sku" style="background-color:white;height:2.5rem;margin-top:5px;font-size:14px;" wx:for="{{results}}" wx:key="id">
+            <view style="background-color:white;height:5px;"></view>
+            <view style="margin-left:1rem;width:20%;margin-top:10px;">
+                <text class=""> {{item.XF_STORECODE}} </text>
+            </view>
+            <view style="width:28%;margin-left:12px;margin-top:10px;">
+                <text class=""> {{item.XF_NAME}}</text>
+            </view>
+            <view style="width:15%;margin-top:10px;">
+                <text class=""> {{item.XF_QOH}} </text>
+            </view>
+            <view style="width:15%;margin-top:10px;">
+                <text class=""> {{item.XF_TRFINTRANSIT}} </text>
+            </view>
+            <view style="width:15%;margin-top:10px;">
+                <text class=""> {{item.XF_ORDERQTY}} </text>
+            </view>
+            <view style="width:15%;margin-top:10px;">
+                <text class=""> {{item.QTY}} </text>
+            </view>
+        </view>
+    </view>
+</view>

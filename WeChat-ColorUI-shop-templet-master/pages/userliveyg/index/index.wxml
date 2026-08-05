@@ -1,4 +1,4 @@
-<view class="cu-custom bg-white" style="height:50px;">
+<view class="cu-custom bg-white" style="height:100rpx;">
     <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <view class="head-title canui-head-title" style="font-weight: 550;">广天特邀</view>
     </view>
@@ -32,20 +32,20 @@
 </view>
 
 
-    <view  style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 3rem;margin-top: -750rpx;">
-        <button class="cu-btn round  bg-gradual-green" openType="share" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 分享直播</button>
+    <view  style="margin:0rpx 20rpx 20rpx 10rpx;width:90%;padding-bottom: 3rem;margin-top: -750rpx;">
+        <button class="cu-btn round  bg-gradual-green" openType="share" style="margin:10rpx 10rpx 10rpx 10rpx;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:2rpx solid ;width:100%;font-size: 32rpx;"> 分享直播</button>
     </view> 
 <!-- 
     <view class="cu-form-group" style="margin-top: -750rpx;">
         <view class="title icon-title text-orange">输入会员卡号：</view>
         <input bindinput="getvipcode" class="radius dp" name="vipcode" placeholder="请输入会员卡号精准查询" value="{{vipcode}}"></input>
     </view> -->
-    <!-- <view style="display: flex;width: 100%;margin-top: 10px;padding-bottom: 10px;">
+    <!-- <view style="display: flex;width: 100%;margin-top: 20rpx;padding-bottom: 20rpx;">
         <view bindtap="listvipcode" style="margin-left:8rem;width:30%;width:30%;">
             <button class="cu-btn bg-gradual-green shadow-blur round">查询</button>
         </view>
     </view> -->
-    <!-- <view class="cu-form-group" style="padding-top: 20px;">
+    <!-- <view class="cu-form-group" style="padding-top: 40rpx;">
         <view class="title icon-title text-orange up">会员姓名：</view>
         <text class="text-grey">{{vipname}}</text>
     </view> -->
@@ -63,13 +63,13 @@
     </view> -->
 
 
-    <!-- <view  wx:if="{{fxtag2}}"   style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 3rem;padding-top: 1rem;">
-        <button class="cu-btn round  bg-gradual-green" openType="share" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 分享直播给此客户</button>
+    <!-- <view  wx:if="{{fxtag2}}"   style="margin:0rpx 20rpx 20rpx 10rpx;width:90%;padding-bottom: 3rem;padding-top: 1rem;">
+        <button class="cu-btn round  bg-gradual-green" openType="share" style="margin:10rpx 10rpx 10rpx 10rpx;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:2rpx solid ;width:100%;font-size: 32rpx;"> 分享直播给此客户</button>
     </view> -->
    
 
     <!-- <view wx:if="{{fxtag1}}"  style="display: flex;width: 100%;margin-top: 1rem;margin-bottom: 3rem;">
-        <view bindtap="checkzf" style="margin-left:8rem;width:60%;margin-top:5px;width:30%;">
+        <view bindtap="checkzf" style="margin-left:8rem;width:60%;margin-top:10rpx;width:30%;">
             <button class="cu-btn bg-gradual-blue shadow-blur round">核验信息</button>
         </view>    
     </view> -->

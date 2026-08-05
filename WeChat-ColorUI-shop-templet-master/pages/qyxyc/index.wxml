@@ -29,9 +29,9 @@
 </view>
 <view hidden="{{d}}" style="width:100%;background-color: white;margin-top: -1rem;">
     <button bindtap="qy" class="cu-btn icon-write" style="height: 70rpx; display: inline-flex; box-sizing: border-box; left: 31rpx; top: -77rpx; color: #436EEE; position: relative; width: 643rpx">
-        <text style="margin-left: 5px;">点击开始手写签名</text>
+        <text style="margin-left: 10rpx;">点击开始手写签名</text>
     </button>
 </view>
-<view style="width:90px;background-color: white;margin-top: -150px;margin-left: auto;">
-    <image src="data:image/png;base64,{{imgurl}}" style="width:90px;height: 50px;"></image>
+<view style="width:180rpx;background-color: white;margin-top: -300rpx;margin-left: auto;">
+    <image src="data:image/png;base64,{{imgurl}}" style="width:180rpx;height: 100rpx;"></image>
 </view>

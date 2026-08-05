@@ -1,0 +1,236 @@
+page {
+  padding-bottom: 20rpx;
+  padding-top: 50px;
+}
+.head-title {
+  margin: 0 auto;
+}
+.cu-custom .cu-bar {
+  background-color: #fff;
+  padding-right: inherit;
+}
+.line-green,
+.lines-green,
+.text-green {
+  color: #e45c5c;
+}
+.swiperitem {
+  background: #fff;
+  height: 55px;
+}
+.canui-video {
+  height: 425rpx;
+  width: 100%;
+}
+.nav-li,
+.nav-list {
+  padding: 0;
+  z-index: 0;
+}
+.canui-yx-url {
+  margin: 0 2% 30rpx !important;
+  width: 46% !important;
+}
+.canui-flex-car {
+  padding-top: 10px;
+}
+.canui-flex-car .cu-card > .cu-item {
+  margin: 0;
+  position: relative;
+}
+.canui-flex-car .cu-list.menu-avatar > .cu-item {
+  height: 180rpx;
+  padding-left: 15rpx;
+}
+.canui-flex-car .cu-card .cu-avatar {
+  bottom: 72rpx;
+  position: absolute;
+  right: 10px;
+}
+.canui-flex-car .shadow-warp {
+  box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.1);
+}
+.canui-flex-car .cu-list.menu > .cu-item .content {
+  font-size: 26rpx;
+}
+.canui-flex-car .text-sm {
+  font-size: 20rpx;
+}
+.canui-flex-car .text-grey {
+  color: #000;
+}
+.canui-flex-car image {
+  height: 173px !important;
+}
+.canui-gps .justify-between {
+  padding: 0 10px;
+}
+.content .text-sm {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100px;
+}
+.canui-fixed {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 999999;
+}
+.tt {
+  margin: 0 0 50px;
+}
+.pt {
+  margin: 0 0 15px px;
+}
+.is_checked {
+  background-color: #c3a769;
+  border-radius: 5000rpx;
+  color: #fff;
+}
+.normal {
+  background: #fff;
+}
+.textuser {
+  font-size: 30rpx;
+  font-weight: 800;
+  height: 50rpx;
+  line-height: 50rpx;
+  margin: -145px 0 0 120px;
+  position: absolute;
+  width: 300rpx;
+  z-index: 1;
+}
+.bgvip {
+  background-image: linear-gradient(45deg, #422b07, #0f0e0f);
+  border-radius: 8px;
+  margin-top: -50px;
+  width: 95%;
+}
+.bgtx,
+.bgvip {
+  align-items: center;
+  display: -webkit-flex;
+  display: flex;
+  height: 3rem;
+  position: absolute;
+  z-index: 1;
+}
+.bgtx {
+  margin-top: -160px;
+  width: 45%;
+}
+button::after {
+  border: none;
+}
+.view_qipao {
+  align-items: center;
+  background-color: red;
+  border-radius: 50%;
+  display: -webkit-flex;
+  display: flex;
+  height: 35rpx;
+  justify-content: center;
+  width: 35rpx;
+}
+.text_qipao {
+  color: #fff;
+  font-size: 25rpx;
+}
+
+.avatar-wrapper {
+  padding: 0;
+  width: 56px !important;
+  border-radius: 8px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  display: block;
+  width: 56px;
+  height: 56px;
+}
+/* 整体页面 */
+.live-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #f7f8fa;
+  padding-bottom: 40rpx;
+}
+
+/* 直播封面 */
+.live-cover {
+  width: 100%;
+  height: 620rpx;
+  position: relative;
+}
+.cover-img {
+  width: 100%;
+  height: 100%;
+}
+
+/* 直播信息 */
+.live-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20rpx 30rpx;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
+  color: #fff;
+  box-sizing: border-box;
+}
+.live-status {
+  display: inline-block;
+  background: #ff4444;
+  color: #fff;
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 30rpx;
+  margin-bottom: 10rpx;
+}
+.live-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+/* 中间提示 */
+.live-box {
+  padding: 60rpx 30rpx;
+  text-align: center;
+}
+.tips {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 50rpx;
+}
+
+/* 进入直播间按钮 */
+.enter-btn {
+  width: 100%;
+  height: 88rpx;
+  background: linear-gradient(90deg, #1677ff, #40a9ff);
+  border-radius: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 20rpx rgba(22, 119, 255, 0.3);
+}
+.btn-text {
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+/* 加载 */
+.loading {
+  text-align: center;
+  padding: 30rpx;
+  color: #999;
+  font-size: 26rpx;
+}
+

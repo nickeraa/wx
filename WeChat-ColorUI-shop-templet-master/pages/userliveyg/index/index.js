@@ -19,20 +19,16 @@ Page({
     lines: 0,
     banner: e.globalData.zbimgurl,
     swiperList: [],
-    resultdt: {},
     replu: {},
     replus: {},
     index2: null,
     picker2: [],
     itemname: "",
-    current: 0,
-    lines: 0,
     sku: "",
     stock: "",
     select_all: !1,
     choseNames: "",
     flag: !0,
-    vipcode: "",
     vipname: "",
     grade: "",
     store: "",
@@ -78,8 +74,7 @@ Page({
       },
       dataType: "json",
       success: function (a) {
-        console.log(a)
-        if (a.data.length > 0) {
+        if (a.data && a.data.length > 0 && a.data[0]) {
 
           t.setData({
             vipname: a.data[0].XF_SURNAME,
@@ -91,15 +86,14 @@ Page({
             fxtag1: true
           })
 
-
-          // 匹配末尾中文/字符
-          let reg = /\S+$/;
-          let name = t.data.xf_name.match(reg)[0];
-          console.log(name); // 
-          t.setData({
-            xf_name: name
-
-          })
+          // 匹配末尾中文/字符（match 可能返回 null，需兜底）
+          var reg = /\S+$/;
+          var matched = (t.data.xf_name || "").match(reg);
+          if (matched) {
+            t.setData({
+              xf_name: matched[0]
+            });
+          }
 
         } else {
 
@@ -119,64 +113,55 @@ Page({
 
         }
 
-
+      },
+      fail: function () {
+        wx.showToast({ title: "查询失败，请重试", icon: "none" });
       },
     });
   },
 
 
   onLoad: function (a) {
-     console.log(a.yguserid)
-    // if (a.yguserid) {
-    //   wx.setStorageSync("yguserid", a.yguserid)
-    // }
+    // 朋友圈分享进入：onShareTimeline 只能落地当前页，识别参数后跳转客户版直播页
+    if (a.yguserid) {
+      wx.redirectTo({
+        url: "/pages/userlive/index/index?vipcode=" + (a.vipcode || "") + "&yguserid=" + a.yguserid,
+      });
+      return;
+    }
 
-var that=this;
+    // 显式开启「发送给朋友」和「分享到朋友圈」菜单
+    wx.showShareMenu({
+      menus: ['shareAppMessage', 'shareTimeline']
+    });
+
+    var that = this;
     wx.request({
       url: "https://widesky.work/HKback/wx_state.ashx",
       data: {},
       header: {
         "content-type": "application/json"
       },
+      timeout: 10000,
       success: (res) => {
-
-        console.log(res.data)
-
-        if (res.data[0].STARTS == "0") {
-
-           wx.switchTab({
-
-             url:'/pages/home/index/index'
-           })
-        
-          
-        } 
-
-        else{
-
+        if (res.data && res.data.length > 0 && res.data[0] && res.data[0].STARTS == "0") {
+          wx.switchTab({
+            url: '/pages/home/index/index'
+          });
+        } else {
           that.setData({
-
-            state:1
-            
-            })
+            state: 1
+          });
 
           wx.navigateTo({
             url: '/pages/relogin/index',
-          })
-
+          });
         }
-        
-        
-
       },
-      complete: () => {
-
+      fail: () => {
+        wx.showToast({ title: "网络异常，请重试", icon: "none" });
       }
-    })
-
-
-
-
+    });
   },
 
 
@@ -191,8 +176,11 @@ var that=this;
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (a) {
-        console.log(a), that.setData({
+        if (!a.data || !a.data.length || !a.data[0]) return;
+
+        that.setData({
           resultdt: a.data,
           liveTitle: a.data[0].TITLE,
           fximg: a.data[0].FXIMG
@@ -228,10 +216,10 @@ var that=this;
           swiperList: swiperData
         });
 
-        console.log("最终轮播数据：", swiperData);
-
       },
-      complete: function () {},
+      fail: function () {
+        wx.showToast({ title: "加载失败，请重试", icon: "none" });
+      },
     })
   },
 
@@ -281,64 +269,31 @@ var that=this;
 
   },
 
-/*
   onShareAppMessage: function (e) {
-
+    // vipcode 有意置空：分享链接不带特定客户卡号，仅标识分享员工
+    // 注：小程序分享返回对象不支持 success/fail 回调，请勿添加
+    var ygname = wx.getStorageSync('yguserid') != 'GTZB'
+      ? wx.getStorageSync("ygname")
+      : "";
     return {
-      title: "广天藏品 " + this.data.xf_name + " 向您最新分享了直播",
-      path: "/pages/userlive/index/index?vipcode=" +
-        this.data.vipcode + "&yguserid=" + wx.getStorageSync("yguserid"),
+      title: "广天藏品 " + ygname + " 向您分享了最新直播",
+      path: "/pages/userlive/index/index?vipcode=&yguserid=" + wx.getStorageSync("yguserid"),
       imageUrl: this.data.banner + this.data.fximg,
-      success: function (e) {
-        console.log("转发成功:" + JSON.stringify(e));
-      },
-      fail: function (e) {
-        console.log("转发失败:" + JSON.stringify(e));
-      },
     };
-
-  },
-  */
-
-  onShareAppMessage: function (e) {
-if(wx.getStorageSync('yguserid')!='GTZB')
-{
-
-  return {
-    title: "广天藏品 " + wx.getStorageSync("ygname") + " 向您分享了最新直播",
-    path: "/pages/userlive/index/index?vipcode=" +
-      "" + "&yguserid=" + wx.getStorageSync("yguserid"),
-    imageUrl: this.data.banner + this.data.fximg,
-    success: function (e) {
-      console.log("转发成功:" + JSON.stringify(e));
-    },
-    fail: function (e) {
-      console.log("转发失败:" + JSON.stringify(e));
-    },
-  };
-
-}
-else{
-
-
-  return {
-    title: "广天藏品 " + " 向您分享了最新直播",
-    path: "/pages/userlive/index/index?vipcode=" +
-      "" + "&yguserid=" + wx.getStorageSync("yguserid"),
-    imageUrl: this.data.banner + this.data.fximg,
-    success: function (e) {
-      console.log("转发成功:" + JSON.stringify(e));
-    },
-    fail: function (e) {
-      console.log("转发失败:" + JSON.stringify(e));
-    },
-  };
-
-
-}
-
-
   },
 
+  // 分享到朋友圈（基础库 2.11.3+）：定义后胶囊菜单自动出现入口
+  // 注意：朋友圈分享只能落地当前页，参数用 query 传递（不支持 path），
+  // 因此 onLoad 中识别 yguserid 参数后跳转到客户版直播页 userlive
+  onShareTimeline: function () {
+    var ygname = wx.getStorageSync('yguserid') != 'GTZB'
+      ? wx.getStorageSync("ygname")
+      : "";
+    return {
+      title: "广天藏品 " + ygname + " 向您分享了最新直播",
+      query: "vipcode=&yguserid=" + wx.getStorageSync("yguserid"),
+      imageUrl: this.data.banner + this.data.fximg,
+    };
+  },
 
 });

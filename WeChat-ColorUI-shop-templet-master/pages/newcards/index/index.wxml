@@ -35,11 +35,11 @@
         </view>
     </picker>
 </view>
-<view class="cu-form-group" style="margin-top: 20px;">
+<view class="cu-form-group" style="margin-top: 40rpx;">
     <view class="title icon-title text-orange">输入跟进员工ID：</view>
     <input bindinput="getstaff" class="radius dp" name="staffcode" placeholder="请输入员工ID" value="{{staffcode}}"></input>
-    <view bindtap="check" style="margin:10px 10px 10px 5px;">
-        <text class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 确认</text>
+    <view bindtap="check" style="margin:20rpx 20rpx 20rpx 10rpx;">
+        <text class="cu-btn round " style="margin:10rpx 10rpx 10rpx 10rpx;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:2rpx solid ;width:100%;font-size: 32rpx;"> 确认</text>
     </view>
 </view>
 <view class="cu-form-group">
@@ -50,6 +50,6 @@
     <view class="title icon-title text-orange">输入会员地址：</view>
     <input bindinput="getvipaddr" class="radius dp" name="vipaddr" placeholder="不提供则不输入" value="{{vipaddr}}"></input>
 </view>
-<view bindtap="fx" style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 3rem;padding-top: 2rem;">
-    <text class="cu-btn round  bg-gradual-green" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 保存信息</text>
+<view bindtap="fx" style="margin:0rpx 20rpx 20rpx 10rpx;width:90%;padding-bottom: 3rem;padding-top: 2rem;">
+    <text class="cu-btn round  bg-gradual-green" style="margin:10rpx 10rpx 10rpx 10rpx;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:2rpx solid ;width:100%;font-size: 32rpx;"> 保存信息</text>
 </view>

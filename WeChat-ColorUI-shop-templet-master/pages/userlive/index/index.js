@@ -32,6 +32,9 @@ Page({
     //没有选择头像和昵称
 
     if (!wx.getStorageSync('wximg') || !wx.getStorageSync('wxuser')) {
+      this.setData({
+        loading: false
+      })
       wx.redirectTo({
         url: "/pages/wxloginzb/index"
       });
@@ -87,7 +90,7 @@ Page({
 
         console.log(res.data)
 
-        if (res.data[0].STARTS == "0") {
+        if (res.data && res.data[0] && res.data[0].STARTS == "0") {
 
           wx.switchTab({
 
@@ -95,6 +98,11 @@ Page({
           })
 
         }
+
+      },
+      fail: () => {
+
+        console.log('wx_state 请求失败')
 
       },
       complete: () => {
@@ -218,6 +226,9 @@ Page({
       },
       dataType: "json",
       success: function (a) {
+        if (!a.data || !a.data[0]) {
+          return;
+        }
         console.log(a), that.setData({
           resultdt: a.data,
           liveTitle: a.data[0].TITLE,
@@ -277,6 +288,10 @@ Page({
         "content-type": "application/json"
       },
       success: (res) => {
+
+        if (!res.data || !res.data.data || !res.data.data[0]) {
+          return;
+        }
 
         console.log(res.data.data[0].liveStatus)
 

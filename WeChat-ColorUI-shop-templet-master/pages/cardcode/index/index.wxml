@@ -9,5 +9,5 @@
         <image class="" mode="widthFix" src="{{image}}"></image>
         <canvasdrawer bind:getImage="eventGetImage" painting="{{painting}}"></canvasdrawer>
     </view>
-    <canvas canvasId="mycanvas" style="margin-left: 12rem;margin-top:-18.5rem; width:200px;height:200px;"></canvas>
+    <canvas canvasId="mycanvas" style="margin-left: 12rem;margin-top:-18.5rem; width:400rpx;height:400rpx;"></canvas>
 </view>

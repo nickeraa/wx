@@ -1,6 +1,6 @@
 page {
   padding-bottom: 20rpx;
-  padding-top: 50px;
+  padding-top: 100rpx;
 }
 .head-title {
   margin: 0 auto;
@@ -16,7 +16,7 @@ page {
 }
 .swiperitem {
   background: #fff;
-  height: 55px;
+  height: 110rpx;
 }
 .canui-video {
   height: 425rpx;
@@ -32,7 +32,7 @@ page {
   width: 46% !important;
 }
 .canui-flex-car {
-  padding-top: 10px;
+  padding-top: 20rpx;
 }
 .canui-flex-car .cu-card > .cu-item {
   margin: 0;
@@ -45,7 +45,7 @@ page {
 .canui-flex-car .cu-card .cu-avatar {
   bottom: 72rpx;
   position: absolute;
-  right: 10px;
+  right: 20rpx;
 }
 .canui-flex-car .shadow-warp {
   box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.1);
@@ -60,10 +60,10 @@ page {
   color: #000;
 }
 .canui-flex-car image {
-  height: 173px !important;
+  height: 346rpx !important;
 }
 .canui-gps .justify-between {
-  padding: 0 10px;
+  padding: 0 20rpx;
 }
 .content .text-sm {
   -webkit-box-orient: vertical;
@@ -71,7 +71,7 @@ page {
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 100px;
+  width: 200rpx;
 }
 button::after {
   border: none;
@@ -82,14 +82,14 @@ button::after {
 .submitbtn {
   background-color: #c3a769;
   border: none;
-  border-radius: 35px;
+  border-radius: 70rpx;
   color: #fff;
   float: right;
-  font-size: 15px;
+  font-size: 30rpx;
   font-weight: 700;
 }
 .tp {
-  margin: 10px 5px 5px;
+  margin: 20rpx 10rpx 10rpx;
 }
 .canui-fixed {
   bottom: 0;
@@ -98,10 +98,10 @@ button::after {
   z-index: 999999;
 }
 .tt {
-  margin: 0 0 50px;
+  margin: 0 0 100rpx;
 }
 .pt {
-  margin: 0 0 15px px;
+  margin: 0 0 30rpx;
 }
 .Grid-sku {
   display: -webkit-flex;
@@ -135,9 +135,9 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 .resetbtn {
   background-color: #c3a769;
   color: #fff;
-  font-size: 12px;
+  font-size: 24rpx;
   font-weight: 700;
-  margin-bottom: 30px;
+  margin-bottom: 60rpx;
   width: 50% !important;
 }
 .text_qipao {
@@ -145,7 +145,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   font-size: 25rpx;
 }
 .radio {
-  padding: 5px;
+  padding: 10rpx;
 }
 .is_checked {
   color: #c3a769;

@@ -4,9 +4,9 @@
             <text class="icon-back"></text>隐私条款 </navigator>
     </view>
 </view>
-<view class="cu-form-group text-xxl" style="margin:0px 5px 0px 5px;margin-top:6rem;white-space:pre-wrap;"> 广天藏品客户隐私条款
+<view class="cu-form-group text-xxl" style="margin:0rpx 10rpx 0rpx 10rpx;margin-top:6rem;white-space:pre-wrap;"> 广天藏品客户隐私条款
 </view>
-<view class="cu-form-group" style="margin:0px 5px 10px 5px;white-space:pre-wrap;">
+<view class="cu-form-group" style="margin:0rpx 10rpx 20rpx 10rpx;white-space:pre-wrap;">
     <text>
  
 在使用本系统的所有功能之前，请您务必仔细阅读并透彻理解本声明。您可以选择不使用本系统，但如果您使用本系统，您的使用行为将被视为对本声明全部内容的认可。

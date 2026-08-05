@@ -1,10 +1,10 @@
-var a = getApp();
+var app = getApp();
 Page({
   data: {
-    StatusBar: a.globalData.StatusBar,
-    CustomBar: a.globalData.CustomBar,
+    StatusBar: app.globalData.StatusBar,
+    CustomBar: app.globalData.CustomBar,
     replu: [],
-    scimgurl: a.globalData.scimgurl,
+    scimgurl: app.globalData.scimgurl,
     edit: "完成",
     is: !0,
     do: "删除",
@@ -20,98 +20,88 @@ Page({
     p: "",
     arrs: "",
   },
-  onLoad: function () {},
   gm: function () {
     this.setData({ issum: !0, choseNames: [] });
     var t = this.data.replu;
     if (!t || !t.length) return;
     for (var e = 0; e < t.length; e++) t[e].checked = !1;
-    this.setData({ replu: t, select_all: !1 }),
-      "完成" == this.data.edit
-        ? (this.setData({ edit: "编辑", do: "去结算" }),
-          0 == this.data.choseNames.length
-            ? this.setData({ is: !0 })
-            : this.setData({ is: !1 }))
-        : (this.setData({ edit: "完成", do: "删除" }),
-          0 == this.data.choseNames.length
-            ? this.setData({ is: !0 })
-            : this.setData({ is: !1 }));
-  },
-  checkboxChange: function (a) {
-    var replu = this.data.replu;
-    var choseNames = a.detail.value;
-    var isAll = replu && replu.length > 0 && choseNames.length === replu.length;
+    var isEdit = "完成" == this.data.edit;
     this.setData({
+      replu: t,
+      select_all: !1,
+      edit: isEdit ? "编辑" : "完成",
+      do: isEdit ? "去结算" : "删除",
+      is: !0,
+    });
+  },
+  checkboxChange: function (e) {
+    var replu = this.data.replu;
+    var choseNames = e.detail.value;
+    var isAll = replu && replu.length > 0 && choseNames.length === replu.length;
+    var isEdit = "编辑" == this.data.edit;
+    var updateData = {
       choseNames: choseNames,
-      sumprice: "",
+      sumprice: 0,
       select_all: isAll,
-    }),
-      "编辑" == this.data.edit && this.setData({ issum: !1 }),
-      0 == this.data.choseNames.length
-        ? this.setData({ is: !0, issum: !0 })
-        : this.setData({ is: !1 });
-    if ("编辑" == this.data.edit) {
-      "" == this.data.sumprice && this.setData({ sumprice: 0 });
-      for (var t = 0; t < this.data.choseNames.length; t++) {
-        var e = parseFloat(
-            this.data.choseNames[t]
-              .replace("[", "")
-              .replace("]", "")
-              .split(",")[1]
-          ).toFixed(3),
-          s = parseInt(
-            this.data.choseNames[t]
-              .replace("[", "")
-              .replace("]", "")
-              .split(",")[2]
-          );
-        this.setData({ sumprice: this.data.sumprice + e * s });
+    };
+    if (isEdit) updateData.issum = !1;
+    0 == choseNames.length
+      ? (updateData.is = !0, updateData.issum = !0)
+      : (updateData.is = !1);
+    if (isEdit && choseNames.length > 0) {
+      var sum = 0;
+      for (var t = 0; t < choseNames.length; t++) {
+        var parts = choseNames[t].replace("[", "").replace("]", "").split(",");
+        sum += (parseFloat(parts[1]) || 0) * (parseInt(parts[2]) || 0);
       }
-      this.setData({ sumprice: parseFloat(this.data.sumprice).toFixed(2) });
+      updateData.sumprice = parseFloat(sum).toFixed(2);
     }
+    this.setData(updateData);
   },
   selectall: function () {
     if (!this.data.replu || !this.data.replu.length) return;
+    var sum = 0;
+    var isEdit = "编辑" == this.data.edit;
     this.setData({ sumprice: 0, issum: !0 });
     for (var t = [], e = 0; e < this.data.replu.length; e++) {
       this.data.replu[e].checked = !this.data.select_all;
-      if (1 == this.data.replu[e].checked) {
-        t = t.concat(
+      if (this.data.replu[e].checked) {
+        t.push(
           this.data.replu[e].XF_PLU +
             "," +
             this.data.replu[e].REALPRICE +
             "," +
             this.data.replu[e].QTY
         );
-        if ("编辑" == this.data.edit) {
-          var s = parseFloat(this.data.replu[e].REALPRICE).toFixed(3),
-            i = parseInt(this.data.replu[e].QTY);
-          this.setData({
-            sumprice: parseFloat(
-              parseFloat(this.data.sumprice) + parseFloat(s * i)
-            ).toFixed(2),
-            issum: !1,
-          });
+        if (isEdit) {
+          var unitPrice = parseFloat(this.data.replu[e].REALPRICE) || 0;
+          var qty = parseInt(this.data.replu[e].QTY) || 0;
+          sum += unitPrice * qty;
         }
       }
     }
-    this.setData({
+    var newData = {
       replu: this.data.replu,
       select_all: !this.data.select_all,
       choseNames: t,
-    }),
-      0 == this.data.choseNames.length
-        ? this.setData({ is: !0, sumprice: 0 })
-        : this.setData({ is: !1 });
+    };
+    if (isEdit && t.length > 0) {
+      newData.sumprice = parseFloat(sum).toFixed(2);
+      newData.issum = !1;
+    }
+    this.setData(newData);
+    0 == t.length
+      ? this.setData({ is: !0, sumprice: 0 })
+      : this.setData({ is: !1 });
   },
   onShow: function () {
-    this.setData({ select_all: !1, issum: !0, choseNames: [] }),
+    this.setData({ select_all: !1, issum: !0, choseNames: [], _stockChecking: !1 }),
       wx.removeTabBarBadge({ index: 3 }),
       wx.setStorageSync("n", "0"),
       wx.setStorageSync("p", "");
     var t = this;
     wx.request({
-      url: a.globalData.api + "wx_listyd.ashx",
+      url: app.globalData.api + "wx_listyd.ashx",
       data: {
         vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
@@ -133,7 +123,7 @@ Page({
   shuaxin: function () {
     var t = this;
     wx.request({
-      url: a.globalData.api + "wx_listyd.ashx",
+      url: app.globalData.api + "wx_listyd.ashx",
       data: {
         vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
@@ -144,17 +134,34 @@ Page({
       timeout: 10000,
       success: function (a) {
         a.data && a.data.length > 0
-          ? t.setData({ replu: a.data, flag: !0, sumprice: 0, is: !0 })
+          ? t.setData({
+              replu: a.data,
+              flag: !0,
+              sumprice: 0,
+              is: !0,
+              select_all: !1,
+              choseNames: [],
+              issum: !0,
+            })
           : t.setData({
               replu: [],
               select_all: !1,
               is: !0,
               flag: !1,
               sumprice: 0,
+              choseNames: [],
+              issum: !0,
             });
       },
       fail: function () {
-        t.setData({ replu: [], flag: !1 });
+        t.setData({
+          replu: [],
+          flag: !1,
+          select_all: !1,
+          choseNames: [],
+          issum: !0,
+          sumprice: 0,
+        });
       },
     });
   },
@@ -164,19 +171,14 @@ Page({
   jian: function (t) {
     var r = this.data.replu;
     if (!r || !r.length) return;
-    this.setData({ id: t.currentTarget.dataset.index });
-    var e = r[this.data.id];
+    var idx = t.currentTarget.dataset.index;
+    var e = r[idx];
     if (!e) return;
-    if (
-      ("编辑" == this.data.edit &&
-        ((e.checked = !1),
-        this.setData({ is: !0, issum: !0 })),
-      "1" == e.QTY)
-    )
+    if ("1" == e.QTY)
       return wx.showToast({ title: "该商品1件起订哦", icon: "none" }), !1;
     var s = this;
     wx.request({
-      url: a.globalData.api + "wx_jianskuyd.ashx",
+      url: app.globalData.api + "wx_jianskuyd.ashx",
       data: {
         vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
@@ -185,40 +187,66 @@ Page({
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
       timeout: 10000,
-      success: function (a) {
-        "error" != a.data
-          ? "编辑" == s.data.edit
-            ? (s.setData({
-                sumprice:
-                  s.data.sumprice - 1 * parseInt(e.REALPRICE),
-              }),
-              (e.QTY = parseInt(e.QTY) - 1),
-              s.setData({ replu: s.data.replu }))
-            : s.shuaxin()
-          : wx.showToast({ title: "数据出错", icon: "none" });
+      success: function (res) {
+        if (null == res.data) {
+          wx.showToast({ title: "数据出错", icon: "none" });
+          return;
+        }
+        if ("error" != res.data) {
+          var newQty = parseInt(e.QTY) - 1;
+          var updateData = {};
+          updateData["replu[" + idx + "].QTY"] = newQty;
+          // 同步 choseNames 中的 qty，避免脏数据
+          var synced = s.data.choseNames.map(function (cn) {
+            var p = cn.replace("[", "").replace("]", "").split(",");
+            if (p[0] === e.XF_PLU) { p[2] = String(newQty); return p.join(","); }
+            return cn;
+          });
+          updateData.choseNames = synced;
+          // 编辑模式下有选中项时，重新计算合计
+          if ("编辑" == s.data.edit && s.data.choseNames.length > 0) {
+            var sum = 0;
+            s.data.replu.forEach(function (item, i) {
+              if (item.checked) {
+                var itemQty = i == idx ? newQty : (parseInt(item.QTY) || 0);
+                sum += (parseFloat(item.REALPRICE) || 0) * itemQty;
+              }
+            });
+            updateData.sumprice = parseFloat(sum).toFixed(2);
+            updateData.is = !1;
+          }
+          s.setData(updateData);
+        } else {
+          wx.showToast({ title: "数据出错", icon: "none" });
+        }
       },
       fail: function () {
         wx.showToast({ title: "操作失败", icon: "none", duration: 1500 });
       },
     });
   },
-  selectsku: function (a) {
+  selectsku: function (e) {
     wx.navigateTo({
-      url: "/pages/ydshop/index?xf_plu=" + a.currentTarget.dataset.xf_plu,
+      url: "/pages/ydshop/index?xf_plu=" + encodeURIComponent(e.currentTarget.dataset.xf_plu),
     });
   },
   jia: function (t) {
     var r = this.data.replu;
     if (!r || !r.length) return;
-    this.setData({ id: t.currentTarget.dataset.index });
-    var e = r[this.data.id];
+    var idx = t.currentTarget.dataset.index;
+    var e = r[idx];
     if (!e) return;
-    "编辑" == this.data.edit &&
-      ((e.checked = !1),
-      this.setData({ is: !0, issum: !0 }));
+    // 如果接口返回了库存字段，则校验上限
+    if (e.XSTOCK !== undefined && e.XSTOCK !== null) {
+      var stock = parseInt(e.XSTOCK) || 0;
+      if (stock > 0 && parseInt(e.QTY) + 1 > stock) {
+        wx.showToast({ title: "超出库存数量", icon: "none" });
+        return;
+      }
+    }
     var s = this;
     wx.request({
-      url: a.globalData.api + "wx_insertyd.ashx",
+      url: app.globalData.api + "wx_insertyd.ashx",
       data: {
         vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
@@ -229,28 +257,46 @@ Page({
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
       timeout: 10000,
-      success: function (a) {
-        "ok" == a.data
-          ? (s.setData({
-              sumprice:
-                s.data.sumprice + 1 * parseInt(e.REALPRICE),
-            }),
-            (e.QTY = parseInt(e.QTY) + 1),
-            s.setData({ replu: s.data.replu }))
-          : wx.showToast({ title: "数据出错", icon: "none" });
+      success: function (res) {
+        if (null == res.data) {
+          wx.showToast({ title: "数据出错", icon: "none" });
+          return;
+        }
+        if ("ok" == res.data) {
+          var newQty = parseInt(e.QTY) + 1;
+          var updateData = {};
+          updateData["replu[" + idx + "].QTY"] = newQty;
+          // 同步 choseNames 中的 qty，避免脏数据
+          var synced = s.data.choseNames.map(function (cn) {
+            var p = cn.replace("[", "").replace("]", "").split(",");
+            if (p[0] === e.XF_PLU) { p[2] = String(newQty); return p.join(","); }
+            return cn;
+          });
+          updateData.choseNames = synced;
+          // 编辑模式下有选中项时，重新计算合计
+          if ("编辑" == s.data.edit && s.data.choseNames.length > 0) {
+            var sum = 0;
+            s.data.replu.forEach(function (item, i) {
+              if (item.checked) {
+                var itemQty = i == idx ? newQty : (parseInt(item.QTY) || 0);
+                sum += (parseFloat(item.REALPRICE) || 0) * itemQty;
+              }
+            });
+            updateData.sumprice = parseFloat(sum).toFixed(2);
+            updateData.is = !1;
+          }
+          s.setData(updateData);
+        } else {
+          wx.showToast({ title: "数据出错", icon: "none" });
+        }
       },
       fail: function () {
         wx.showToast({ title: "操作失败", icon: "none", duration: 1500 });
       },
     });
   },
-  seid: function (a) {
-    this.setData({
-      id: a.currentTarget.dataset.index,
-      xf_plu: a.currentTarget.dataset.title,
-    });
-  },
   del: function () {
+    if (this.data._stockChecking) return;
     if ("去结算" == this.data.do) {
       var t = this;
       var choseNames = t.data.choseNames;
@@ -258,28 +304,58 @@ Page({
         wx.showToast({ title: "请先选择商品", icon: "none" });
         return;
       }
-      // 解析选中商品，提取 XF_PLU 和下单 QTY
+      // 从 choseNames 提取 PLU，从 replu 取实时 QTY（choseNames 中 qty 可能已过期）
       var items = [];
+      var parseErr = [];
       for (var i = 0; i < choseNames.length; i++) {
         var parts = choseNames[i].replace("[", "").replace("]", "").split(",");
-        items.push({ xf_plu: parts[0], qty: parseInt(parts[2]) || 0 });
+        var plu = parts[0];
+        if (!plu) {
+          parseErr.push("商品编号缺失（索引" + i + "）");
+          continue;
+        }
+        // 在 replu 中查找当前商品的实时数量
+        var qty = 0;
+        for (var j = 0; j < t.data.replu.length; j++) {
+          if (t.data.replu[j].XF_PLU === plu) {
+            qty = parseInt(t.data.replu[j].QTY) || 0;
+            break;
+          }
+        }
+        if (qty <= 0) {
+          parseErr.push("货品" + plu + "数量异常，请重新选择");
+          continue;
+        }
+        items.push({ xf_plu: plu, qty: qty });
+      }
+      if (parseErr.length > 0) {
+        wx.showModal({ title: "提示", content: parseErr.join("\n"), showCancel: !1 });
+        return;
+      }
+      if (items.length === 0) {
+        wx.showToast({ title: "请先选择有效商品", icon: "none" });
+        return;
       }
       // 并发检查库存
+      this.setData({ _stockChecking: !0 });
       wx.showLoading({ title: "检查库存中...", mask: !0 });
       var checked = 0,
         allPassed = !0,
         errList = [];
       items.forEach(function (e) {
         wx.request({
-          url: a.globalData.api + "wx_checkxstock.ashx",
+          url: app.globalData.api + "wx_checkxstock.ashx",
           data: { xf_plu: e.xf_plu },
           header: { "content-type": "application/x-www-form-urlencoded" },
           dataType: "json",
           timeout: 10000,
           success: function (r) {
+            // 后端对零库存商品返回空数据，统一按库存为 0 处理
             var stock = 0;
-            if (r.data && Array.isArray(r.data) && r.data.length > 0 && r.data[0])
-              stock = parseInt(r.data[0].XSTOCK) || 0;
+            if (r.data && Array.isArray(r.data) && r.data.length > 0 && r.data[0]) {
+              stock = parseInt(r.data[0].XSTOCK);
+              if (isNaN(stock)) stock = 0;
+            }
             if (stock < e.qty) {
               allPassed = !1;
               errList.push(
@@ -297,9 +373,12 @@ Page({
             checked++;
             if (checked >= items.length) {
               wx.hideLoading();
+              t.setData({ _stockChecking: !1 });
               if (allPassed) {
+                var pluList = items.map(function (it) { return it.xf_plu; }).join(",");
+                // 不做 encodeURIComponent：微信 onLoad 不会自动解码，会导致后端收到双重编码值
                 wx.navigateTo({
-                  url: "/pages/depositgwcyd/index/index?xf_plu=" + t.data.choseNames,
+                  url: "/pages/depositgwcyd/index/index?xf_plu=" + pluList,
                 });
               } else {
                 wx.showModal({
@@ -322,22 +401,31 @@ Page({
       return;
     }
     var e = this;
+    // 从 choseNames 中提取 XF_PLU 并拼接为逗号分隔字符串
+    var xfPluList = e.data.choseNames.map(function (item) {
+      var parts = item.replace("[", "").replace("]", "").split(",");
+      return parts[0];
+    }).join(",");
     wx.showLoading({ title: "正在加载" });
     wx.request({
-      url: a.globalData.api + "wx_delskuyd.ashx",
+      url: app.globalData.api + "wx_delskuyd.ashx",
       data: {
         vipcode: wx.getStorageSync("vipcode"),
-        xf_plu: e.data.choseNames,
+        xf_plu: xfPluList,
         wxuserid: wx.getStorageSync("wxuserid"),
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
       timeout: 10000,
-      success: function (a) {
-        wx.hideLoading(),
-          "error" != a.data
-            ? e.shuaxin()
-            : wx.showToast({ title: "数据错误", icon: "none" });
+      success: function (res) {
+        wx.hideLoading();
+        if (null == res.data) {
+          wx.showToast({ title: "数据错误", icon: "none" });
+          return;
+        }
+        "error" != res.data
+          ? e.shuaxin()
+          : wx.showToast({ title: "数据错误", icon: "none" });
       },
       fail: function () {
         wx.hideLoading();

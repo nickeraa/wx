@@ -17,26 +17,16 @@ Page({
       header: {
         "content-type": "application/json"
       },
+      timeout: 10000,
       success: (res) => {
-
-        console.log(res.data)
-
-        if (res.data[0].STARTS == "0") {
-
+        if (res.data && res.data.length > 0 && res.data[0] && res.data[0].STARTS == "0") {
           wx.switchTab({
-
-            url:'/pages/home/index/index'
-          })
-
-         
-          
-        } 
-        
-        
-
+            url: '/pages/home/index/index'
+          });
+        }
       },
-      complete: () => {
-
+      fail: () => {
+        wx.showToast({ title: "网络异常，请重试", icon: "none" });
       }
     })
     let That = this
@@ -46,7 +36,6 @@ Page({
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称
           wx.getUserInfo({
             success: function (res) {
-              console.log('用户信息', res.userInfo)
               if (res.userInfo.nickName == '微信用户') {
 
                 That.setData({
@@ -81,41 +70,19 @@ Page({
       avatarUrl
     } = e.detail
 
-
     this.setData({
       avatarUrl,
     })
-    console.log(this.data.avatarUrl)
-
-
   },
   bindKeyInput(e) {
-
-    console.log(this.data.nickName)
-
     this.setData({
       nickName: e.detail.value
     })
-
-    console.log(this.data.nickName)
-
   },
 
   lq(e) {
-
-
-    console.log(this.data.avatarUrl)
-    /*
-        if(this.data.avatarUrl.indexOf("jpeg") < 0)
-        {
-
-          this.setData({
-            avatarUrl:this.data.avatarUrl+'jpeg'
-          })
-
-        }
-    */
-    if (this.data.avatarUrl.indexOf("https") >= 0) {
+    // 未选择头像（空值）或使用了微信默认头像（https 网络 URL，uploadFile 无法上传）都拦截
+    if (!this.data.avatarUrl || this.data.avatarUrl.indexOf("https") >= 0) {
 
       wx.showToast({
         title: '请选择头像', // 提示的内容
@@ -163,37 +130,29 @@ Page({
           method: "POST"
         },
         success: function (a) {
-          console.log(a),
+          t.setData({
+            imgurl: "wximg/" + a.data
+          });
 
-            t.setData({
-              imgurl: "wximg/" + a.data
-            }),
-            console.log(t.data.imgurl)
+          wx.setStorageSync('wximg', t.data.imgurl);
+          wx.setStorageSync('wxuser', t.data.nickName);
+          wx.hideLoading();
 
-         //   t.invip();
-
-         wx.setStorageSync('wximg', t.data.imgurl),
-         wx.setStorageSync('wxuser', t.data.nickName)
-        wx.hideLoading();
-           // t.loginzb();
-         //  wx.redirectTo({ url: "/pages/userlive/index/index?user=1" });
-
-         wx.showModal({
-          title: "提示",
-          content: "预约成功！",
-          showCancel: !1,
-          success: function (a) {
-            a.confirm;
-            wx.navigateBack({ delta: 1 })
-
-          },
-        })
+          wx.showModal({
+            title: "提示",
+            content: "预约成功！",
+            showCancel: !1,
+            success: function (a) {
+              a.confirm;
+              wx.navigateBack({ delta: 1 })
+            },
+          })
 
         },
         fail: function (a) {
-
+          wx.hideLoading();
           wx.showToast({
-            title: 'error', // 提示的内容
+            title: '上传失败，请重试', // 提示的内容
             icon: 'error', // 提示图标
             duration: 1000, // 提示的延迟时间
             mask: true // 是否显示透明蒙层，防止触摸穿透
@@ -210,34 +169,5 @@ Page({
 
 
   },
-
-// loginzb()
-// {
-
-//   wx.request({
-//     url: "https://widesky.work/HKback/live_cn.aspx",
-//     data: {
-//       openid: wx.getStorageSync('openid'),
-//       nickName:wx.getStorageSync('wxuser'),
-//       avatarUrl:wx.getStorageSync('wximg')
-//     },
-//     header: {
-//       "content-type": "application/json"
-//     },
-//     success: (res) => {
-//       let liveUrl = res.data
-//       console.log(liveUrl)
-//       // 2. 跳转到web-view打开直播间
-//       wx.navigateTo({
-//         url: `/pages/webview/index?url=${encodeURIComponent(liveUrl)}`
-//       })
-
-//     },
-//     complete: () => {
-
-//     }
-//   })
-
-// },
 
 });

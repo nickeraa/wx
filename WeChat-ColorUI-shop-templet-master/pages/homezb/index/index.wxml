@@ -7,14 +7,14 @@
     <image mode="widthFix" src="{{iconurl}}logo.jpg"></image>
 </view>
 <view style="display: flex;width:100%;background-color: white;margin-top: 3rem;">
-    <image src="{{iconurlhot}}" style="width: 40px;height: 40px;margin:10px 0px 0px 10px;"></image>
-    <view style="width:60%;margin-top: 25px;">
-        <text style="font-size: 15px;font-weight: 600;">热门推荐 >>></text>
+    <image src="{{iconurlhot}}" style="width: 80rpx;height: 80rpx;margin:20rpx 0rpx 0rpx 20rpx;"></image>
+    <view style="width:60%;margin-top: 50rpx;">
+        <text style="font-size: 30rpx;font-weight: 600;">热门推荐 >>></text>
       
     </view>
 </view>
 
-<view class="" style="padding-bottom: 20rpx;padding-top: 15px;">
+<view class="" style="padding-bottom: 20rpx;padding-top: 30rpx;">
     <view class="nav-list canui-flex-car">
         <block wx:for="{{replu}}" wx:key="index">
             <navigator class="nav-li canui-yx-url" url="/pages/shopcg/goods/index?xf_plu={{item.XF_PLU}}" wx:if="{{item.SALESTYPES=='0'}}">
@@ -28,10 +28,10 @@
                                 <view class="content ">
                                     <view class="text-grey" style="font-weight: 700;height:3rem;">{{item.XF_DESCI}}</view>
                                     <view class="" style="display: flex;width:100%;">
-                                        <view style="width:20%;font-size: 9px;color:rgb(195,167,105);"> 当前</view>
-                                        <view style="width:50%;color:red;font-weight: 700;font-size: 15px;" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
-                                        <view style="width:50%;color:rgb(195,167,105);font-weight: 700;font-size: 15px;" wx:else> ¥ {{item.XF_ORGUPRICE}}</view>
-                                        <view class="container icon-cart" style="height:30px;width:50%; color: rgb(195,167,105);;margin-top:-5px;font-weight: 700;font-size: 17px;"></view>
+                                        <view style="width:20%;font-size: 18rpx;color:rgb(195,167,105);"> 当前</view>
+                                        <view style="width:50%;color:red;font-weight: 700;font-size: 30rpx;" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
+                                        <view style="width:50%;color:rgb(195,167,105);font-weight: 700;font-size: 30rpx;" wx:else> ¥ {{item.XF_ORGUPRICE}}</view>
+                                        <view class="container icon-cart" style="height:60rpx;width:50%; color: rgb(195,167,105);;margin-top:-10rpx;font-weight: 700;font-size: 34rpx;"></view>
                                     </view>
                                 </view>
                             </view>
@@ -50,10 +50,10 @@
                                 <view class="content ">
                                     <view class="text-grey" style="font-weight: 700;height:3rem;">{{item.XF_DESCI}}</view>
                                     <view class="" style="display: flex;width:100%;">
-                                        <view style="width:20%;font-size: 9px;color:rgb(195,167,105);"> 当前</view>
-                                        <view style="width:50%;color:red;font-weight: 700;font-size: 15px;" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
-                                        <view style="width:50%;color:rgb(195,167,105);font-weight: 700;font-size: 15px;" wx:else> ¥ {{item.XF_ORGUPRICE}}</view>
-                                        <view class="container" style="height:30px;width:50%;background-image:linear-gradient(45deg, #ff9700, #ed1c24); color: white;border-radius: 10px;margin-top:-5px;">{{item.SALESTATE}}</view>
+                                        <view style="width:20%;font-size: 18rpx;color:rgb(195,167,105);"> 当前</view>
+                                        <view style="width:50%;color:red;font-weight: 700;font-size: 30rpx;" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
+                                        <view style="width:50%;color:rgb(195,167,105);font-weight: 700;font-size: 30rpx;" wx:else> ¥ {{item.XF_ORGUPRICE}}</view>
+                                        <view class="container" style="height:60rpx;width:50%;background-image:linear-gradient(45deg, #ff9700, #ed1c24); color: white;border-radius: 20rpx;margin-top:-10rpx;">{{item.SALESTATE}}</view>
                                     </view>
                                 </view>
                             </view>
@@ -65,7 +65,7 @@
     </view>
 
  
-    <view class="nav-list canui-flex-car" style="margin-top: 50px;">
+    <view class="nav-list canui-flex-car" style="margin-top: 100rpx;">
         <block wx:for="{{replus}}" wx:key="index">
             <navigator class="nav-li canui-yx-url" url="/pages/shopcg/goods/index?xf_plu={{item.XF_PLU}}" wx:if="{{item.SALESTYPES=='0'}}">
                 <view class="flex-sub cu-card case shadow-warp bg-white ">
@@ -78,10 +78,10 @@
                                 <view class="content ">
                                     <view class="text-grey" style="font-weight: 700;height:3rem;">{{item.XF_DESCI}}</view>
                                     <view class="" style="display: flex;width:100%;">
-                                        <view style="width:20%;font-size: 9px;color:rgb(195,167,105);"> 当前</view>
-                                        <view style="width:50%;color:red;font-weight: 700;font-size: 15px;" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
-                                        <view style="width:50%;color:rgb(195,167,105);font-weight: 700;font-size: 15px;" wx:else> ¥ {{item.XF_ORGUPRICE}}</view>
-                                        <view class="container icon-cart" style="height:30px;width:50%; color: rgb(195,167,105);;margin-top:-5px;font-weight: 700;font-size: 17px;"></view>
+                                        <view style="width:20%;font-size: 18rpx;color:rgb(195,167,105);"> 当前</view>
+                                        <view style="width:50%;color:red;font-weight: 700;font-size: 30rpx;" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
+                                        <view style="width:50%;color:rgb(195,167,105);font-weight: 700;font-size: 30rpx;" wx:else> ¥ {{item.XF_ORGUPRICE}}</view>
+                                        <view class="container icon-cart" style="height:60rpx;width:50%; color: rgb(195,167,105);;margin-top:-10rpx;font-weight: 700;font-size: 34rpx;"></view>
                                     </view>
                                 </view>
                             </view>
@@ -100,10 +100,10 @@
                                 <view class="content ">
                                     <view class="text-grey" style="font-weight: 700;height:3rem;">{{item.XF_DESCI}}</view>
                                     <view class="" style="display: flex;width:100%;">
-                                        <view style="width:20%;font-size: 9px;color:rgb(195,167,105);"> 当前</view>
-                                        <view style="width:50%;color:red;font-weight: 700;font-size: 15px;" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
-                                        <view style="width:50%;color:rgb(195,167,105);font-weight: 700;font-size: 15px;" wx:else> ¥ {{item.XF_ORGUPRICE}}</view>
-                                        <view class="container" style="height:30px;width:50%;background-image:linear-gradient(45deg, #ff9700, #ed1c24); color: white;border-radius: 10px;margin-top:-5px;">{{item.SALESTATE}}</view>
+                                        <view style="width:20%;font-size: 18rpx;color:rgb(195,167,105);"> 当前</view>
+                                        <view style="width:50%;color:red;font-weight: 700;font-size: 30rpx;" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
+                                        <view style="width:50%;color:rgb(195,167,105);font-weight: 700;font-size: 30rpx;" wx:else> ¥ {{item.XF_ORGUPRICE}}</view>
+                                        <view class="container" style="height:60rpx;width:50%;background-image:linear-gradient(45deg, #ff9700, #ed1c24); color: white;border-radius: 20rpx;margin-top:-10rpx;">{{item.SALESTATE}}</view>
                                     </view>
                                 </view>
                             </view>

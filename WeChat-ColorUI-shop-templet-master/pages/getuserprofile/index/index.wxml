@@ -1,8 +1,8 @@
 <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed none-bg bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <view class="head-title canui-head-title" style="font-weight:550;">
-            <text bindtap="back" class="icon-back" style="width:20px;margin-left:-9rem;"></text>
-            <text style="font-size:16px;font-weight:800;color:black;margin-left:7rem;">完善资料</text>
+            <text bindtap="back" class="icon-back" style="width:40rpx;margin-left:-9rem;"></text>
+            <text style="font-size:32rpx;font-weight:800;color:black;margin-left:7rem;">完善资料</text>
         </view>
     </view>
 </view>

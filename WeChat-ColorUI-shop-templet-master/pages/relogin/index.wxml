@@ -1,7 +1,7 @@
 <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <navigator class="action canui-head-title">
-            <text style="margin-left: 150px;"> 员工登录绑定</text>
+            <text style="margin-left: 300rpx;"> 员工登录绑定</text>
         </navigator>
     </view>
 </view>
@@ -23,8 +23,8 @@
                 <view class="cu-form-group"></view>
             </view>
    
-            <view style="width:80%;margin:40px 0px 10px 50px;">
-                <button bindtap="qy" class="cu-btn round" style="margin: 5px 5px 5px 5px; height: 2rem; border-radius: 0.8rem;font-weight: 500; background-color: white; border: 1px solid #436EEE; width: 90%; position: relative; left: -10rpx; top: -31rpx">确认登录</button>
+            <view style="width:80%;margin:80rpx 0rpx 20rpx 100rpx;">
+                <button bindtap="qy" class="cu-btn round" style="margin: 10rpx 10rpx 10rpx 10rpx; height: 2rem; border-radius: 0.8rem;font-weight: 500; background-color: white; border: 2rpx solid #436EEE; width: 90%; position: relative; left: -10rpx; top: -31rpx">确认登录</button>
             </view>
         </view>
     </view>

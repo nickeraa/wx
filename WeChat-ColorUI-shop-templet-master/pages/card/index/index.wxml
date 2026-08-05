@@ -25,9 +25,9 @@
         <text class="text-grey">{{xf_name}}</text>
     </view>
 </view>
-<view bindtap="fx" style="margin:0px 10px 10px 5px;width:90%;padding-bottom: 0px;padding-top: 2rem;">
-    <text class="cu-btn round" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: rgb(195, 167, 105);border:1px solid ;width:100%;font-size: 16px;"> 生成会员卡二维码</text>
+<view bindtap="fx" style="margin:0rpx 20rpx 20rpx 10rpx;width:90%;padding-bottom: 0rpx;padding-top: 2rem;">
+    <text class="cu-btn round" style="margin:10rpx 10rpx 10rpx 10rpx;height:2.5rem;border-radius: 0.8rem;color:white;background-color: rgb(195, 167, 105);border:2rpx solid ;width:100%;font-size: 32rpx;"> 生成会员卡二维码</text>
 </view>
-<view bindtap="tc" style="margin:0px 10px 10px 5px;width:90%;">
-    <text class="cu-btn round" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: rgb(195, 167, 105);border:1px solid ;width:100%;font-size: 16px;"> 返回商城首页</text>
+<view bindtap="tc" style="margin:0rpx 20rpx 20rpx 10rpx;width:90%;">
+    <text class="cu-btn round" style="margin:10rpx 10rpx 10rpx 10rpx;height:2.5rem;border-radius: 0.8rem;color:white;background-color: rgb(195, 167, 105);border:2rpx solid ;width:100%;font-size: 32rpx;"> 返回商城首页</text>
 </view>

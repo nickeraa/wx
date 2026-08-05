@@ -1,25 +1,23 @@
- var a = getApp();
-require("../../../utils/util.js");
+var a = getApp();
 Page({
   data: {
     StatusBar: a.globalData.StatusBar,
     CustomBar: a.globalData.CustomBar,
-    banner: a.globalData.imgUrl,
     scimgurl: a.globalData.scimgurl,
-    flag: !0,
+    flag: false,
     xf_plu: "",
     xf_desci: "",
-    replu: {},
-    ck: 0,
+    replu: [],
+    ck: "",
     setype: "0",
-    flags: !1,
-    ret: {},
+    flags: false,
+    ret: [],
     address1: "",
     address2: "",
     phone: "",
     body: "",
     tag: "",
-    tags: !1,
+    tags: false,
     qty: 1,
     sumprice: 0,
     realprice: 0,
@@ -38,28 +36,36 @@ Page({
     salestypeswx: "",
     xishu: 0,
     sorts: "",
-    xiaoshu: !1,
     xf_docno: "",
     userid: "",
     yk: false,
     stop: false,
-    xstock:0
+    xstock: 0
   },
   back: function () {
     wx.navigateBack({
-      delta: 0
+      delta: 1
     });
   },
   jia: function () {
+    if (!this.data.realprice) {
+      wx.showToast({ title: '商品价格加载中', icon: 'none' });
+      return;
+    }
     var newQty = this.data.qty + 1;
     if (newQty > 999) {
       wx.showToast({ title: '已超过最大数量', icon: 'none' });
       return;
     }
+    if (this.data.xstock > 0 && newQty > this.data.xstock) {
+      wx.showToast({ title: '超出库存数量', icon: 'none' });
+      return;
+    }
+    var newSumprice = Number((this.data.realprice * newQty + this.data.wlprice).toFixed(2));
     this.setData({
       qty: newQty,
-      sumprice: this.data.realprice * newQty + this.data.wlprice,
-      sumrealprice: this.data.realprice * newQty,
+      sumprice: newSumprice,
+      sumrealprice: Number((this.data.realprice * newQty).toFixed(2)),
     });
   },
   jian: function () {
@@ -72,16 +78,17 @@ Page({
       return;
     }
     var newQty = this.data.qty - 1;
+    var newSumprice = Number((this.data.realprice * newQty + this.data.wlprice).toFixed(2));
     this.setData({
       qty: newQty,
-      sumprice: this.data.realprice * newQty + this.data.wlprice,
-      sumrealprice: this.data.realprice * newQty,
+      sumprice: newSumprice,
+      sumrealprice: Number((this.data.realprice * newQty).toFixed(2)),
     });
   },
   showModal: function (t) {
     this.setData({
       modalName: t.currentTarget.dataset.target,
-      flags: !0
+      flags: true
     });
     var e = this;
     wx.request({
@@ -94,12 +101,13 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
-      success: function (a) {
-        var data = a.data;
-        if (Array.isArray(data) && data.length > 0) {
-          e.setData({ ret: data });
+      timeout: 10000,
+      success: function (res) {
+        var list = res.data;
+        if (Array.isArray(list) && list.length > 0) {
+          e.setData({ ret: list });
         } else {
-          e.setData({ ret: null });
+          e.setData({ ret: [] });
         }
       },
       fail: function () {
@@ -111,7 +119,7 @@ Page({
       },
     });
   },
-  hideModal: function (a) {
+  hideModal: function () {
     this.setData({
       modalName: null,
       flags: false
@@ -129,24 +137,20 @@ Page({
   },
   checkboxChange: function (a) {
     this.setData({
-        address1: a.currentTarget.dataset.address1,
-        address2: a.currentTarget.dataset.address2,
-        phone: a.currentTarget.dataset.phone,
-        body: a.currentTarget.dataset.body,
-        ck: a.currentTarget.dataset.id,
-        id: a.currentTarget.dataset.id,
-      }),
-      console.log(a.currentTarget.dataset.tag),
-      "1" == a.currentTarget.dataset.tag ?
-      this.setData({
-        tags: !1
-      }) :
-      this.setData({
-        tags: !0
-      }),
-      console.log(this.data.tags),
-      this.hideModal(),
-      this.sewlprice();
+      address1: a.currentTarget.dataset.address1,
+      address2: a.currentTarget.dataset.address2,
+      phone: a.currentTarget.dataset.phone,
+      body: a.currentTarget.dataset.body,
+      ck: a.currentTarget.dataset.id,
+      id: a.currentTarget.dataset.id,
+    });
+    if (a.currentTarget.dataset.tag === "1") {
+      this.setData({ tags: false });
+    } else {
+      this.setData({ tags: true });
+    }
+    this.hideModal();
+    this.sewlprice();
   },
   sewlprice: function () {
     var t = this;
@@ -159,11 +163,19 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (a) {
-        console.log(a.data),
+        if (a.data && Array.isArray(a.data) && a.data.length > 0 && a.data[0].WLPRICE !== undefined) {
+          var newWlprice = Number((parseFloat(a.data[0].WLPRICE || 0) * (t.data.xishu || 0)).toFixed(2));
+          var newSumprice = Number((t.data.realprice * t.data.qty + newWlprice).toFixed(2));
           t.setData({
-            wlprice: a.data[0].WLPRICE * t.data.xishu
+            wlprice: newWlprice,
+            sumprice: newSumprice,
           });
+        }
+      },
+      fail: function () {
+        wx.showToast({ title: "运费查询失败", icon: "none" });
       },
     });
   },
@@ -183,7 +195,6 @@ Page({
     var newSetype = a.detail.value;
     this.setData({
       setype: newSetype,
-      yk: newSetype === "1",
     });
 
     if (newSetype === "0") {
@@ -207,7 +218,7 @@ Page({
   },
   selectsku: function (a) {
     wx.navigateTo({
-      url: "/pages/shopcg/goods/index?xf_plu=" + (a.currentTarget.dataset.xf_plu || ""),
+      url: "/pages/shopcg/goods/index?xf_plu=" + (a.currentTarget.dataset.XF_PLU || ""),
       fail: function () {
         wx.showToast({
           title: "页面跳转失败",
@@ -240,9 +251,12 @@ Page({
       data: { vipcode: vipcode },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
+      timeout: 10000,
       success: function (res) {
         if (Array.isArray(res.data) && res.data.length > 0) {
           t.setData({
+            flag: true,
+            yk: false,
             address1: res.data[0].ADDRESS1,
             address2: res.data[0].ADDRESS2,
             telphone: res.data[0].TELPHONE,
@@ -255,6 +269,7 @@ Page({
       },
       fail: function () {
         wx.showToast({ title: "门店信息加载失败", icon: "none" });
+        t.setData({ flag: false, wlprice: 0 });
       },
     });
   },
@@ -269,23 +284,28 @@ Page({
         "content-type": "application/x-www-form-urlencoded"
       },
       dataType: "json",
+      timeout: 10000,
       success: function (res) {
         if (!Array.isArray(res.data) || res.data.length === 0) {
+          t.setData({ flag: false });
           wx.showToast({ title: "默认地址获取失败", icon: "none" });
           return;
         }
         var item = res.data[0];
         t.setData({
+          flag: true,
           address1: item.ADDRESS1 || "",
           address2: item.ADDRESS2 || "",
           telphone: item.TELPHONE || "",
           dpid: item.ID || "",
           fg: 1,
+        // NOTE: yk（到店可取）依赖地址名称判断，若地址库变更需同步修改
           yk: item.ADDRESS1 === "广天藏品深圳办公室",
         });
       },
       fail: function () {
         wx.showToast({ title: "默认地址加载失败", icon: "none" });
+        t.setData({ flag: false, wlprice: 0 });
       },
     });
   },
@@ -304,21 +324,25 @@ address: function () {
       "content-type": "application/x-www-form-urlencoded"
     },
     dataType: "json",
+    timeout: 10000,
     success: function (res) {
       if (!Array.isArray(res.data) || res.data.length === 0) {
         t.setData({ flag: false });
         return;
       }
       var item = res.data[0];
+      var realPrice = t.data.sumrealprice || 0;
+      var wlFee = parseFloat(item.WLPRICE || 0) * (t.data.xishu || 0);
       t.setData({
         address1: item.ADDRESS1,
         address2: item.ADDRESS2,
+        // phone: 快递地址收件人电话；telphone: 到店取货门店电话，两个字段互不干扰
         phone: item.PHONE,
         body: item.BODY,
         tag: item.TAG,
         ck: item.ID,
-        wlprice: (item.WLPRICE || 0) * (t.data.xishu || 0),
-        sumprice: Number(((t.data.sumrealprice || 0) + (item.WLPRICE || 0) * (t.data.xishu || 0)).toFixed(2)),
+        wlprice: Number(wlFee.toFixed(2)),
+        sumprice: Number((realPrice + wlFee).toFixed(2)),
         flag: true,
         tags: item.TAG !== "1",
         salestypes: item.SALESTYPES,
@@ -349,36 +373,59 @@ onShow: function () {
       "content-type": "application/x-www-form-urlencoded"
     },
     dataType: "json",
+    timeout: 10000,
     success: function (res) {
       if (!Array.isArray(res.data) || res.data.length === 0) {
         t.setData({
-          replu: null,
+          replu: [],
           sumprice: 0,
           realprice: 0,
           sumrealprice: 0,
-          xiaoshu: false,
+          wlprice: 0,
         });
         t.data.setype === "0" && t.address();
         return;
       }
       var item = res.data[0];
-      var total = parseFloat((parseFloat(item.REALPRICE) * t.data.qty).toFixed(2));
+      var perUnitPrice = parseFloat(item.REALPRICE || 0);
+      var total = Number((perUnitPrice * t.data.qty).toFixed(2));
       t.setData({
         replu: res.data,
         sumprice: total,
-        realprice: total,
+        realprice: perUnitPrice,
         sumrealprice: total,
         xishu: item.XISHU || 0,
         xf_desci: item.XF_DESCI || "",
         sorts: item.SORTS || "",
         grade: item.GRADE || "",
-        xiaoshu: total % 1 !== 0,
       });
       t.data.setype === "0" && t.address();
+      t._loadStock();
     },
     fail: function () {
+      t.setData({ replu: [], sumprice: 0, realprice: 0, sumrealprice: 0, wlprice: 0 });
       wx.showToast({ title: "商品信息加载失败", icon: "none" });
     },
+  });
+},
+
+// 页面加载时获取库存，使 jia() 的库存上限校验即时生效
+_loadStock: function () {
+  var t = this;
+  if (!t.data.xf_plu) return;
+  wx.request({
+    url: a.globalData.api + "wx_checkxstock.ashx",
+    data: { xf_plu: t.data.xf_plu },
+    header: { "content-type": "application/x-www-form-urlencoded" },
+    dataType: "json",
+    timeout: 10000,
+    success: function (res) {
+      if (res.data && Array.isArray(res.data) && res.data.length > 0 && res.data[0]) {
+        var stock = Number(res.data[0].XSTOCK || 0);
+        if (!isNaN(stock)) t.setData({ xstock: stock });
+      }
+    },
+    fail: function () {},
   });
 },
 
@@ -404,8 +451,6 @@ onShow: function () {
       },
       timeout: 10000,
       success: function (res) {
-        console.log("库存查询结果:", res);
-
         // 2. 校验响应数据结构
         if (!res.data || !Array.isArray(res.data) || res.data.length === 0) {
           wx.hideLoading();
@@ -415,7 +460,7 @@ onShow: function () {
         }
 
         // 3. 用局部变量存储库存值，避免 setData 异步竞态
-        var xstock = res.data[0].XSTOCK;
+        var xstock = Number(res.data[0].XSTOCK || 0);
         that.setData({ xstock: xstock });
         wx.hideLoading();
 
@@ -433,22 +478,32 @@ onShow: function () {
           return;
         }
 
-        // 5. 未填收货地址 → 跳转添加
-        if (!that.data.flag && that.data.setype == "0") {
+        // 5. 下单数量 > 库存数量，拦截并提示
+        if (that.data.qty > xstock) {
+          that.setData({ stop: false });
+          wx.showModal({
+            title: "提示",
+            content: "下单数量超出库存，当前库存：" + xstock,
+            showCancel: false,
+          });
+          return;
+        }
+
+        // 6. 未填收货地址 → 跳转添加
+        if ((!that.data.flag || !that.data.address1) && that.data.setype == "0") {
           that.setData({ stop: false });
           that.add();
           return;
         }
 
-        // 6. 金额校验
-        console.log("当前订单金额:", that.data.sumprice);
-        if (!that.data.sumprice || that.data.sumprice <= 0) {
+        // 7. 金额校验
+        if (that.data.sumprice <= 0) {
           that.setData({ stop: false });
           wx.showToast({ title: "订单金额异常", icon: "error", duration: 2000 });
           return;
         }
 
-        // 7. 重新显示 Loading，进入登录 & 支付流程
+        // 8. 重新显示 Loading，进入登录 & 支付流程
         wx.showLoading({ title: "正在处理…", mask: true });
 
         wx.login({
@@ -457,7 +512,6 @@ onShow: function () {
             if (!code) {
               wx.hideLoading();
               that.setData({ stop: false });
-              console.error("获取用户登录 code 失败！");
               wx.showToast({ title: "登录验证失败", icon: "error", duration: 2000 });
               return;
             }
@@ -468,10 +522,9 @@ onShow: function () {
               header: { "content-type": "application/json" },
               timeout: 10000,
               success: function (openidRes) {
-                console.log("获取openid成功:", openidRes.data);
-                var parts = openidRes.data.split(",");
+                var parts = (openidRes.data || "").split(",");
 
-                // 8. 校验 openid 返回值
+                // 9. 校验 openid 返回值
                 if (!parts[0]) {
                   wx.hideLoading();
                   that.setData({ stop: false });
@@ -480,31 +533,27 @@ onShow: function () {
                 }
 
                 that.setData({ openid: parts[0] });
-                console.log("当前openid:", that.data.openid);
 
-                // 9. 进入下单支付
+                // 10. 进入下单支付
                 that.generateOrder(parts[0]);
               },
-              fail: function (err) {
+              fail: function () {
                 wx.hideLoading();
                 that.setData({ stop: false });
-                console.error("wxzf.aspx 请求失败:", err);
                 wx.showToast({ title: "网络异常，请重试", icon: "error", duration: 2000 });
               },
             });
           },
-          fail: function (err) {
+          fail: function () {
             wx.hideLoading();
             that.setData({ stop: false });
-            console.error("微信登录失败:", err);
             wx.showToast({ title: "登录失败，请重试", icon: "error", duration: 2000 });
           },
         });
       },
-      fail: function (err) {
+      fail: function () {
         wx.hideLoading();
         that.setData({ stop: false });
-        console.error("库存查询失败:", err);
         wx.showToast({ title: "网络异常，请重试", icon: "error", duration: 2000 });
       },
     });
@@ -520,14 +569,12 @@ onShow: function () {
       success: function (s) {
         // 校验订单号
         var docno = s.data;
-        console.log(docno);
         if (!docno || typeof docno !== "string" || docno.trim() === "") {
           wx.hideLoading();
           e.setData({ stop: false });
           wx.showToast({ title: "订单号获取异常", icon: "error", duration: 2000 });
           return;
         }
-        console.log("订单号:", docno);
         e.setData({ xf_docno: docno });
 
         wx.request({
@@ -541,22 +588,19 @@ onShow: function () {
           header: { "content-type": "application/json" },
           timeout: 10000,
           success: function (a) {
-            wx.hideLoading();
-            console.log("支付配置:", a.data);
+            // hideLoading 已在 zf() 中调用，避免重复
             e.zf(a.data);
           },
-          fail: function (err) {
+          fail: function () {
             wx.hideLoading();
             e.setData({ stop: false });
-            console.error("支付配置请求失败:", err);
             wx.showToast({ title: "数据异常", icon: "error", duration: 2000 });
           },
         });
       },
-      fail: function (err) {
+      fail: function () {
         wx.hideLoading();
         e.setData({ stop: false });
-        console.error("获取订单号失败:", err);
         wx.showToast({ title: "网络异常", icon: "error", duration: 2000 });
       },
     });
@@ -569,8 +613,6 @@ onShow: function () {
  */
 zf: function (a) {
     var t = this;
-    console.log("发起支付");
-    console.log(a);
 
     // 关闭 loading 遮罩，避免阻塞原生支付弹窗
     wx.hideLoading();
@@ -578,7 +620,6 @@ zf: function (a) {
     // 参数类型校验
     if (!a || typeof a !== "string") {
       t.setData({ stop: false });
-      console.error("支付参数类型异常:", a);
       wx.showToast({ title: "支付参数异常，请重试", icon: "error", duration: 2000 });
       return;
     }
@@ -588,7 +629,6 @@ zf: function (a) {
     // 参数完整性校验
     if (e.length < 5 || !e[0] || !e[1] || !e[2] || !e[3] || !e[4]) {
       t.setData({ stop: false });
-      console.error("支付参数不完整:", e);
       wx.showToast({ title: "支付参数不完整，请重试", icon: "error", duration: 2000 });
       return;
     }
@@ -600,46 +640,55 @@ zf: function (a) {
       paySign: e[3],
       signType: e[4],
 
-      /**
- * 微信支付成功回调：隐藏加载遮罩，释放防重复提交锁，记录日志并调用已付款处理
- * @param {Object} a - wx.requestPayment 的成功返回对象
- * @param {string} a.errMsg - 支付成功的错误信息描述（如 "requestPayment:ok"）
- */
-success: function (a) {
+      success: function (res) {
         wx.hideLoading();
-        t.setData({ stop: false });
-        console.log("success");
-        console.log(a);
-        t.yfk(a.errMsg);
+        if ("requestPayment:ok" === res.errMsg) {
+          t.yfk(res.errMsg);
+        } else {
+          t.setData({ stop: false });
+        }
       },
 
-      fail: function (a) {
+      fail: function (res) {
         wx.hideLoading();
-        t.setData({ stop: false });
-        console.log("fail");
-        console.log(a);
-        wx.showToast({
-          title: "付款失败",
-          icon: "error",
-          duration: 2000
-        });
-        t.dfk(a.errMsg);
+        if (res.errMsg && res.errMsg.indexOf("cancel") !== -1) {
+          // 用户主动取消支付：提示后停留本页，可重新发起
+          t.setData({ stop: false });
+          wx.showModal({
+            title: "提示",
+            content: "您已取消支付，订单未提交，可重新发起支付",
+            showCancel: false,
+            confirmText: "知道了",
+          });
+        } else {
+          // 支付失败：提示确认后保存为待付款订单并跳转
+          t.setData({ stop: false });
+          wx.showModal({
+            title: "支付失败",
+            content: "支付未完成，订单将保存为待付款，可稍后继续支付",
+            showCancel: false,
+            confirmText: "查看订单",
+            success: function () {
+              t.dfk(res.errMsg);
+            },
+          });
+        }
       },
     });
   },
-  yfk: function (k) {
-    // 计算 id 时避免 setData 异步竞态，直接用局部变量
-    var id = this.data.setype === "0" ? this.data.ck : this.data.dpid;
-    this.setData({ id: id });
+  _submitOrder: function (tag, payAmtsold, successUrl, pass) {
+    var t = this;
+    var id = t.data.setype === "0" ? t.data.ck : t.data.dpid;
 
+    var updateData = { id: id };
     if (!wx.getStorageSync("vipcode")) {
-      this.setData({ xf_vipcode: "", xf_storecode: "", salesman: "" });
+      Object.assign(updateData, { xf_vipcode: "", xf_storecode: "", salesman: "" });
     }
     if (!wx.getStorageSync("wxuserid")) {
-      this.setData({ wxuserid: "" });
+      updateData.wxuserid = "";
     }
+    t.setData(updateData);
 
-    var t = this;
     wx.showLoading({ title: "订单处理中...", mask: true });
 
     wx.request({
@@ -656,135 +705,56 @@ success: function (a) {
         salestypes: "0",
         shtype: t.data.setype,
         shid: id,
-        tag: "1",
+        tag: tag,
         xf_storecode: t.data.xf_storecode,
         salesman: wx.getStorageSync("yguserid"),
-        pay_amtsold: t.data.sumprice,
+        pay_amtsold: payAmtsold,
         xf_docno: t.data.xf_docno,
-        pass: k
+        pass: pass
       },
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
+      header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
-
+      timeout: 10000,
       success: function (a) {
         wx.hideLoading();
-        console.log(a.data);
-
         if (typeof a.data === "string" && a.data !== "error" && a.data.length > 0) {
           wx.redirectTo({
-            url: "/pages/fkcg/index/index?sorts=" +
-              t.data.sorts +
-              "&tag=0&xf_docno=" +
-              a.data,
+            url: successUrl + a.data,
+            fail: function () { wx.navigateBack({ delta: 1 }); },
           });
         } else {
           wx.showModal({
             title: "提示",
             content: "订单提交异常，请联系客服",
             showCancel: true,
-            success: function (res) {
-              if (res.confirm) {
-                wx.navigateBack({ delta: 1 });
-              }
-            },
+            success: function (res) { if (res.confirm) wx.navigateBack({ delta: 1 }); },
           });
         }
       },
-
-      fail: function (err) {
+      fail: function () {
         wx.hideLoading();
-        console.error("订单提交失败:", err);
-        wx.showModal({
-          title: "提示",
-          content: "网络异常，订单可能未提交成功，请联系客服",
-          showCancel: true,
-          success: function (res) {
-            if (res.confirm) {
-              wx.navigateBack({ delta: 1 });
-            }
-          },
-        });
-      },
-    });
-  },
-
-  getremark: function (a) {
-    console.log("picker发送选择改变，携带值为", a.detail.value),
-      this.setData({
-        remark: a.detail.value
-      });
-  },
-  dfk: function (k) {
-    // 用局部变量避免 setData 异步竞态
-    var id = this.data.setype === "0" ? this.data.ck : this.data.dpid;
-    var t = this;
-
-    var updateData = { id: id };
-    if (!wx.getStorageSync("vipcode")) {
-      Object.assign(updateData, { xf_vipcode: "", xf_storecode: "", salesman: "" });
-    }
-    if (!wx.getStorageSync("wxuserid")) {
-      updateData.wxuserid = "";
-    }
-    this.setData(updateData);
-
-    wx.request({
-      url: a.globalData.api + "wx_dfksku.ashx",
-      data: {
-        xf_vipcode: wx.getStorageSync("vipcode") || "",
-        wxuserid: wx.getStorageSync("wxuserid") || "",
-        xf_plu: t.data.xf_plu,
-        xf_price: t.data.realprice,
-        xf_qty: t.data.qty,
-        xf_amtsold: t.data.sumrealprice,
-        sumwlprice: t.data.wlprice,
-        remark: t.data.remark,
-        salestypes: "0",
-        shtype: t.data.setype,
-        shid: id,
-        tag: "0",
-        xf_storecode: t.data.xf_storecode,
-        salesman: wx.getStorageSync("yguserid"),
-        pay_amtsold: 0,
-        xf_docno: t.data.xf_docno,
-        pass: k
-      },
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
-      dataType: "json",
-
-      success: function (a) {
-        console.log(a.data);
-
-        if (typeof a.data === "string" && a.data !== "error" && a.data.length > 0) {
-          wx.redirectTo({
-            url: "/pages/dfdeposit/index/index?xf_docno=" + a.data,
-            fail: function () {
-              wx.navigateBack({ delta: 1 });
-            },
-          });
+        if (tag === "0") {
+          wx.showToast({ title: "支付失败记录保存异常,请联系客服", icon: "none", duration: 2000 });
+          setTimeout(function () { wx.navigateBack({ delta: 1 }); }, 2000);
         } else {
           wx.showModal({
             title: "提示",
-            content: "订单记录异常，请联系客服",
+            content: "网络异常，订单可能未提交成功，请联系客服",
             showCancel: true,
-            success: function (res) {
-              if (res.confirm) {
-                wx.navigateBack({ delta: 1 });
-              }
-            },
+            success: function (res) { if (res.confirm) wx.navigateBack({ delta: 1 }); },
           });
         }
       },
-
-      fail: function (err) {
-        console.error("支付失败记录提交异常:", err);
-        wx.navigateBack({ delta: 1 });
-      },
     });
+  },
+  yfk: function (k) {
+    this._submitOrder("1", this.data.sumprice, "/pages/fkcg/index/index?sorts=" + this.data.sorts + "&tag=0&xf_docno=", k);
+  },
+  dfk: function (k) {
+    this._submitOrder("0", 0, "/pages/dfdeposit/index/index?xf_docno=", k);
+  },
+  getremark: function (a) {
+    this.setData({ remark: a.detail.value });
   },
 
 });

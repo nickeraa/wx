@@ -1,0 +1,279 @@
+page {
+  padding-bottom: 20rpx;
+  padding-top: 100rpx;
+}
+
+.head-title {
+  margin: 0 auto;
+}
+
+.cu-custom .cu-bar {
+  background-color: #fff;
+  padding-right: inherit;
+}
+
+/* ====== User Page Styles ====== */
+
+/* Header bar */
+.head-title {
+  margin: 0 auto;
+  font-size: 36rpx;
+}
+
+.user-top-bar {
+  height: 100rpx;
+}
+
+/* Banner image */
+.user-banner {
+  width: 100%;
+  height: 400rpx;
+}
+
+/* VIP card wrap */
+.user-vip-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* VIP card background */
+.bgvip {
+  background-image: linear-gradient(45deg, #422b07, #0f0e0f);
+  border-radius: 16rpx;
+  margin-top: -100rpx;
+  width: 95%;
+}
+
+.bgtx,
+.bgvip {
+  align-items: center;
+  display: flex;
+  height: 120rpx;
+  position: absolute;
+  z-index: 1;
+}
+
+.bgtx {
+  margin-top: -320rpx;
+  width: 100%;
+}
+
+/* VIP card text */
+.vip-label {
+  color: gray;
+  font-size: 32rpx;
+  font-weight: 400;
+  margin-left: 40rpx;
+  width: 50%;
+}
+
+.vip-grade {
+  color: white;
+  font-size: 32rpx;
+  font-weight: 500;
+  width: 50%;
+}
+
+.vip-arrow {
+  color: white;
+  margin-right: 40rpx;
+  margin-top: 6rpx;
+}
+
+/* User avatar (gold VIP badge image on left) */
+.user-avatar-img {
+  border-radius: 50rpx;
+  height: 100rpx;
+  margin-left: 30rpx;
+  width: 100rpx;
+}
+
+/* Get card button */
+.get-card-wrap {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-left: 0;
+  width: 100%;
+}
+
+.get-card-btn {
+  border: 2rpx solid red;
+  border-radius: 100rpx;
+  width: auto;
+}
+
+.get-card-text {
+  font-size: 32rpx;
+  font-weight: 750;
+  margin-left: 10rpx;
+}
+
+/* VIP info display (NO.xxxx + avatar + nickname) */
+.vip-info-wrap {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-weight: 600;
+  justify-content: flex-start;
+  margin-left: 0;
+  padding: 0 30rpx;
+  width: 100%;
+}
+
+.vip-no-block {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  margin-left: -60rpx;
+}
+
+.vip-no-label {
+  font-size: 36rpx;
+}
+
+.vip-no-code {
+  font-size: 36rpx;
+}
+
+.vip-avatar-row {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-left: 0;
+  margin-top: 0;
+  padding-right: 20rpx;
+}
+
+.vip-nick-badge {
+  align-items: center;
+  background-image: linear-gradient(45deg, #383736, #444244);
+  border-radius: 20rpx;
+  display: flex;
+  height: 40rpx;
+  justify-content: center;
+  margin-top: 10rpx;
+  padding: 0 16rpx;
+  white-space: nowrap;
+}
+
+.vip-nick-text {
+  color: #c3a769;
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+/* Menu cards - shared */
+.menu-card {
+  background-color: white;
+  height: 160rpx;
+  margin-top: 20rpx;
+}
+
+.menu-card-order {
+  background-color: white;
+  height: 240rpx;
+  margin-top: 40rpx;
+}
+
+/* Order stats grid */
+.menu-grid {
+  margin-top: 40rpx;
+  width: 100%;
+}
+
+.menu-grid-item {
+  margin-top: -30rpx;
+}
+
+.menu-grid-icon {
+  font-size: 36rpx;
+}
+
+.menu-grid-text {
+  color: black;
+  font-size: 40rpx;
+}
+
+/* Menu item image area */
+.menu-img-wrap {
+  margin-left: 40rpx;
+}
+
+.menu-img {
+  height: 100rpx;
+  margin-left: -8rpx;
+  margin-top: 40rpx;
+  width: 100rpx;
+}
+
+.menu-img-sm {
+  height: 80rpx;
+  margin-top: 40rpx;
+  width: 80rpx;
+}
+
+/* Menu item text + arrow */
+.menu-content {
+  margin-left: 240rpx;
+  margin-top: -88rpx;
+}
+
+.menu-content-sm {
+  margin-left: 240rpx;
+  margin-top: -80rpx;
+}
+
+/* Menu right arrow */
+.text-black {
+  font-size: 32rpx;
+}
+
+.menu-arrow {
+  color: rgb(200, 200, 200);
+  float: right;
+  margin-right: 40rpx;
+  margin-top: 6rpx;
+}
+
+/* Address section */
+.menu-img-addr {
+  height: 100rpx;
+  margin-left: 24rpx;
+  margin-top: 32rpx;
+  width: 100rpx;
+}
+
+.menu-btn-addr {
+  background-color: white;
+  font-size: 32rpx;
+  margin-left: 192rpx;
+  margin-top: -100rpx;
+  width: 240rpx;
+}
+
+.menu-arrow-row {
+  margin-top: -60rpx;
+}
+
+/* Button reset */
+button::after {
+  border: none;
+}
+
+/* Avatar */
+.avatar-wrapper {
+  border-radius: 16rpx;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+  width: 100rpx !important;
+}
+
+.avatar {
+  border-radius: 16rpx;
+  display: block;
+  height: 100rpx;
+  width: 100rpx;
+}

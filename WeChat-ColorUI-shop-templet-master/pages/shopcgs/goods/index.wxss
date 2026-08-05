@@ -1,6 +1,6 @@
 page {
   padding-bottom: 20rpx;
-  padding-top: 50px;
+  padding-top: 100rpx;
 }
 .head-title {
   margin: 0 auto;
@@ -16,7 +16,7 @@ page {
 }
 .swiperitem {
   background: #fff;
-  height: 55px;
+  height: 110rpx;
 }
 .canui-video {
   height: 425rpx;
@@ -32,7 +32,7 @@ page {
   width: 46% !important;
 }
 .canui-flex-car {
-  padding-top: 10px;
+  padding-top: 20rpx;
 }
 .canui-flex-car .cu-card > .cu-item {
   margin: 0;
@@ -45,7 +45,7 @@ page {
 .canui-flex-car .cu-card .cu-avatar {
   bottom: 72rpx;
   position: absolute;
-  right: 10px;
+  right: 20rpx;
 }
 .canui-flex-car .shadow-warp {
   box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.1);
@@ -60,10 +60,10 @@ page {
   color: #000;
 }
 .canui-flex-car image {
-  height: 173px !important;
+  height: 346rpx !important;
 }
 .canui-gps .justify-between {
-  padding: 0 10px;
+  padding: 0 20rpx;
 }
 .content .text-sm {
   -webkit-box-orient: vertical;
@@ -71,7 +71,7 @@ page {
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 100px;
+  width: 200rpx;
 }
 .canui-fixed {
   bottom: 0;
@@ -80,10 +80,10 @@ page {
   z-index: 999999;
 }
 .tt {
-  margin: 0 0 50px;
+  margin: 0 0 100rpx;
 }
 .pt {
-  margin: 0 0 15px px;
+  margin: 0 0 30rpx;
 }
 .is_checked {
   background-color: #c3a769;
@@ -121,12 +121,12 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 }
 .resetbtn,
 .submitbtn {
-  font-size: 12px;
-  margin-bottom: 10px;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
 }
 .resetbtn {
   background-color: gray;
-  width: 80px;
+  width: 160rpx;
 }
 .normal {
   background: #fff;
@@ -150,13 +150,13 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   color: #fff;
 }
 .del {
-  margin-top: 40px;
+  margin-top: 80rpx;
   position: absolute;
   z-index: 1;
 }
 .cp {
   background: #fff;
-  height: 88px;
+  height: 176rpx;
 }
 .up {
   text-transform: Uppercase;
@@ -177,12 +177,12 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   width: 100%;
 }
 .video_play_icon {
-  height: 40px;
+  height: 80rpx;
   left: 50%;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 40px;
+  width: 80rpx;
   z-index: 5;
 }
 .video_bg_black {
@@ -210,5 +210,5 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   width: 30rpx;
 }
 .video_txt {
-  margin: 10px 70px 0 20px;
+  margin: 20rpx 140rpx 0 40rpx;
 }

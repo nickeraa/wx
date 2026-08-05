@@ -1,0 +1,76 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">广天藏品</view>
+    </view>
+</view>
+<view class="cu-bar bg-white fixed" style="top:{{CustomBar}}px;">
+    <image mode="widthFix" src="{{iconurl}}logo.jpg"></image>
+</view>
+<view class="hot-header">
+    <image src="{{iconurlhot}}" class="hot-icon"></image>
+    <view class="hot-text-wrap">
+        <text class="hot-text">热门推荐 >>></text>
+    </view>
+</view>
+
+<template name="productCard">
+    <navigator class="nav-li canui-yx-url" url="/pages/shopcg/goods/index?xf_plu={{item.XF_PLU}}" wx:if="{{item.SALESTYPES=='0'}}">
+        <view class="flex-sub cu-card case shadow-warp bg-white ">
+            <view class="cu-item shadow">
+                <view class="image">
+                    <image mode="widthFix" src="{{scimgurl}}{{item.XF_PLU}}/{{item.IMAGESSL}}" class="product-img"></image>
+                </view>
+                <view class="cu-list menu menu-avatar">
+                    <view class="cu-item">
+                        <view class="content ">
+                            <view class="text-grey product-title">{{item.XF_DESCI}}</view>
+                            <view class="product-info-row">
+                                <view class="product-label"> 当前</view>
+                                <view class="product-price product-price-red" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
+                                <view class="product-price product-price-gold" wx:else> ¥ {{item.XF_ORGUPRICE}}</view>
+                                <view class="container icon-cart product-badge"></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </navigator>
+    <navigator class="nav-li canui-yx-url" url="/pages/ydshop/index?xf_plu={{item.XF_PLU}}" wx:else>
+        <view class="flex-sub cu-card case shadow-warp bg-white ">
+            <view class="cu-item shadow">
+                <view class="image">
+                    <image mode="widthFix" src="{{scimgurl}}{{item.XF_PLU}}/{{item.IMAGESSL}}" class="product-img"></image>
+                </view>
+                <view class="cu-list menu menu-avatar">
+                    <view class="cu-item">
+                        <view class="content ">
+                            <view class="text-grey product-title">{{item.XF_DESCI}}</view>
+                            <view class="product-info-row">
+                                <view class="product-label"> 当前</view>
+                                <view class="product-price product-price-red" wx:if="{{item.XF_ORGUPRICE=='999,999'}}">未定价 </view>
+                                <view class="product-price product-price-gold" wx:else> ¥ {{item.XF_ORGUPRICE}}</view>
+                                <view class="container product-badge product-badge-state">{{item.SALESTATE}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </navigator>
+</template>
+
+<view class="product-list-wrap">
+    <block wx:if="{{replu.length > 0}}">
+        <view class="nav-list canui-flex-car">
+            <block wx:for="{{replu}}" wx:key="index">
+                <template is="productCard" data="{{item, scimgurl}}" />
+            </block>
+        </view>
+    </block>
+
+    <view wx:else class="home-empty">
+        <view class="home-empty-icon">📦</view>
+        <view class="home-empty-text">暂无商品推荐</view>
+    </view>
+</view>

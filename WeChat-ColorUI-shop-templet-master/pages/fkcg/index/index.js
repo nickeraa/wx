@@ -6,11 +6,12 @@ Page({
     banner: a.globalData.imgUrl,
     scimgurl: a.globalData.scimgurl,
     iconurlok: a.globalData.iconurl + 'ok.jpg',
-    replu: {},
+    replu: [],
     sorts: "",
     tag: "",
     xf_docno: "",
-    flag: false
+    flag: false,
+    zb: false
   },
   back: function () {
     wx.switchTab({
@@ -84,7 +85,11 @@ Page({
   },
   onShow: function () {
     var t = this;
-    if (!wx.getStorageSync('zb')) {
+    var isLive = !!wx.getStorageSync('zb');
+    t.setData({ zb: isLive, flag: false });
+    // 清理本订单对应的购物车条目：与推荐接口解耦，任何来源都执行
+    t.delgwc();
+    if (!isLive) {
       wx.request({
         url: a.globalData.api + "wx_likesorts.ashx",
         data: {
@@ -96,25 +101,16 @@ Page({
         dataType: "json",
         timeout: 10000,
         success: function (a) {
-          a.data.length > 0 && t.setData({
+          if (a.data && a.data.length > 0) {
+            t.setData({
               replu: a.data,
               flag: true
-            }),
-            t.delgwc();
+            });
+          }
         },
         fail: function () {},
-        complete: function () {},
       });
-
-    } else {
-
-      t.setData({
-        flag: false
-
-      })
-
     }
-
   },
 
   enterLive() {
@@ -124,6 +120,7 @@ Page({
       mask: !0
     })
     if (!wx.getStorageSync('wximg') || !wx.getStorageSync('wxuser')) {
+      wx.hideLoading();
       wx.navigateTo({
         url: "/pages/wxloginzb/index"
       });

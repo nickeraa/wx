@@ -18,7 +18,7 @@ page {
 }
 .swiperitem {
   background: #fff;
-  height: 55px;
+  height: 110rpx;
 }
 .canui-video {
   height: 425rpx;
@@ -34,7 +34,7 @@ page {
   width: 46% !important;
 }
 .canui-flex-car {
-  padding-top: 10px;
+  padding-top: 20rpx;
 }
 .canui-flex-car .cu-card > .cu-item {
   margin: 0;
@@ -47,7 +47,7 @@ page {
 .canui-flex-car .cu-card .cu-avatar {
   bottom: 72rpx;
   position: absolute;
-  right: 10px;
+  right: 20rpx;
 }
 .canui-flex-car .shadow-warp {
   box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.1);
@@ -62,10 +62,10 @@ page {
   color: #000;
 }
 .canui-flex-car image {
-  height: 90px !important;
+  height: 180rpx !important;
 }
 .canui-gps .justify-between {
-  padding: 0 10px;
+  padding: 0 20rpx;
 }
 .content .text-sm {
   -webkit-box-orient: vertical;
@@ -168,7 +168,7 @@ page {
 .btn2 {
   -webkit-appearance: none;
   -moz-appearance: none;
-  border: 1px solid transparent;
+  border: 2rpx solid transparent;
   border-radius: 60rpx;
   color: #fff;
   cursor: pointer;
@@ -198,14 +198,14 @@ page {
 }
 .avatar-wrapper {
   padding: 0;
-  width: 56px !important;
-  border-radius: 8px;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  width: 112rpx !important;
+  border-radius: 16rpx;
+  margin-top: 80rpx;
+  margin-bottom: 80rpx;
 }
 
 .avatar {
   display: block;
-  width: 56px;
-  height: 56px;
+  width: 112rpx;
+  height: 112rpx;
 }

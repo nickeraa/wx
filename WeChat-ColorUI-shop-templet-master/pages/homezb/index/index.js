@@ -75,6 +75,8 @@ Page({
       console.log(wx.getStorageSync("vipcode")),
       console.log(wx.getStorageSync("fxuserid"))
 
+   //   wx.setStorageSync("vipcode", "800880008168")
+
    
   },
   ykdata: function () {

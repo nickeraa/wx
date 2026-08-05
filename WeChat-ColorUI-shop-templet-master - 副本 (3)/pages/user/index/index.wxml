@@ -1,0 +1,88 @@
+<view class="cu-custom bg-white user-top-bar">
+    <view class="cu-bar fixed none-bg bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">会员中心</view>
+    </view>
+</view>
+<view>
+    <image mode="widthFix" src="{{iconurl}}bg.png" class="user-banner"></image>
+</view>
+<view class="user-vip-wrap">
+    <view class="bgvip">
+        <text class="vip-label">广天藏品</text>
+        <text class="vip-grade">{{vip}}</text>
+        <text class="icon-right vip-arrow"></text>
+    </view>
+</view>
+<view class="bgtx">
+    <image src="{{tximg}}" class="user-avatar-img"></image>
+</view>
+
+<view class="bgtx get-card-wrap" hidden="{{flag}}">
+    <button bindgetphonenumber="onGetPhoneNumber" class="submitbtn icon-goodsfavor get-card-btn" openType="getPhoneNumber">
+        <text class="get-card-text">领取会员卡</text>
+    </button>
+</view>
+
+<view class="bgtx vip-info-wrap" hidden="{{flags}}">
+    <view class="vip-no-block">
+        <text class="vip-no-label">NO</text>
+        <text class="vip-no-code">.{{vipcode}}</text>
+    </view>
+    <view class="vip-avatar-row">
+      <image class="avatar avatar-wrapper" src="{{avatarUrl}}"></image>
+      <view class="vip-nick-badge">
+        <text class="vip-nick-text">{{nickName}}</text>
+      </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl shadow-lg menu-card-order">
+    <view class="cu-list grid col-{{gridCol}} {{gridBorder?'':'no-border'}} menu-grid">
+        <view class="cu-item menu-grid-item" wx:for="{{iconList}}" wx:key="icon">
+            <view bindtap="setype" class="icon-{{item.icon}} menu-grid-icon" data-index="{{index}}" style='font-size: 50rpx;'>
+                <text class="menu-grid-text" style='font-size: 32rpx;'>{{item.name}}</text>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl shadow-lg menu-card">
+    <view bindtap="qh">
+        <view class="menu-img-wrap">
+            <image src="/img/component.png" class="menu-img"></image>
+        </view>
+        <view class="menu-content">
+            <text class="text-black">我的购物车</text>
+            <text class="icon-right menu-arrow"></text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl shadow-lg menu-card">
+    <view bindtap="mydj">
+        <view class="menu-img-wrap">
+            <image src="/img/my.png" class="menu-img"></image>
+        </view>
+        <view class="menu-content">
+            <text class="text-black">我的预定单</text>
+            <text class="icon-right menu-arrow"></text>
+        </view>
+    </view>
+</view>
+<view class="cu-list menu card-menu margin-top-xl shadow-lg menu-card">
+    <view bindtap="scj">
+        <view class="menu-img-wrap">
+            <image src="/img/home.png" class="menu-img-sm"></image>
+        </view>
+        <view class="menu-content-sm">
+            <text class="text-black">我的收藏</text>
+            <text class="icon-right menu-arrow"></text>
+        </view>
+    </view>
+</view>
+<view bindtap="address" class="cu-list menu card-menu margin-top-xl shadow-lg menu-card">
+    <image src="/img/basics.png" class="menu-img-addr"></image>
+    <button class="menu-btn-addr">
+        <text class="text-black">收货地址</text>
+    </button>
+    <view class="menu-arrow-row">
+        <text class="icon-right menu-arrow"></text>
+    </view>
+</view>

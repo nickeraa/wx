@@ -21,7 +21,7 @@ Page({
 
         console.log(res.data)
 
-        if (res.data[0].STARTS == "0") {
+        if (res.data && res.data[0] && res.data[0].STARTS == "0") {
 
           wx.switchTab({
 
@@ -35,44 +35,15 @@ Page({
         
 
       },
+      fail: () => {
+
+        console.log('wx_state 请求失败')
+
+      },
       complete: () => {
 
       }
     })
-    let That = this
-    wx.getSetting({
-      success(res) {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo({
-            success: function (res) {
-              console.log('用户信息', res.userInfo)
-              if (res.userInfo.nickName == '微信用户') {
-
-                That.setData({
-                  avatarUrl: res.userInfo.avatarUrl,
-                  nickName: ''
-                })
-
-              } else {
-
-                That.setData({
-                  avatarUrl: res.userInfo.avatarUrl,
-                  nickName: res.userInfo.nickName
-                })
-
-              }
-
-
-
-
-            }
-          })
-        }
-      }
-    })
-
-
 
   },
 
@@ -115,7 +86,7 @@ Page({
 
         }
     */
-    if (this.data.avatarUrl.indexOf("https") >= 0) {
+    if (this.data.avatarUrl == '') {
 
       wx.showToast({
         title: '请选择头像', // 提示的内容
@@ -182,6 +153,7 @@ Page({
         },
         fail: function (a) {
 
+          wx.hideLoading();
           wx.showToast({
             title: 'error', // 提示的内容
             icon: 'error', // 提示图标

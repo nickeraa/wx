@@ -76,6 +76,9 @@ Page({
               success: function (e) {
                 console.log("获取授权openid，session_key", e),
                   console.log(e.data);
+                if (!e.data || typeof e.data.split !== "function") {
+                  return;
+                }
                 var t = e.data.split(",");
                 i.setData({
                   arr: [t]
@@ -124,7 +127,7 @@ Page({
       success: function (e) {
         wx.hideLoading(),
           console.log(e.data),
-          e.data.length > 0 &&
+          e.data && e.data.length > 0 &&
           t.setData({
             sumdfk: e.data[0].SUMDFK,
             sumdfh: e.data[0].SUMDFH
@@ -222,7 +225,7 @@ Page({
         success: function (e) {
           console.log(e),
             console.log("fffffffffff"),
-            e.data.length > 0 ?
+            e.data && e.data.length > 0 ?
             (a.setData({
               vip: e.data[0].GRADE,
               flag: !0,
@@ -303,6 +306,10 @@ tz()
                     header: { "content-type": "application/json" },
                     timeout: 10000,
                     success: function (resp) {
+                      if (!resp.data || typeof resp.data.split !== "function") {
+                        wx.showToast({ title: "授权状态异常，请重试", icon: "none" });
+                        return;
+                      }
                       var arr = resp.data.split(",");
                       wx.setStorageSync("openid", arr[0]),
                       wx.setStorageSync("sessionID", arr[1]),
@@ -374,7 +381,7 @@ tz()
                 timeout: 10000,
                 success: function (e) {
                   console.log(e),
-                    e.data.length > 0 ?
+                    e.data && e.data.length > 0 ?
                     n.setData({
                       vip: e.data[0].GRADE,
                       flag: !0,
@@ -413,7 +420,7 @@ tz()
   },
   inphone: function () {
 
-    if (!wx.getStorageSync("vip_id")) {
+    if (!wx.getStorageSync("vip_id")||!wx.getStorageSync("vipcode")){
 
       console.log('ggggggggggg')
       wx.navigateTo({
@@ -457,7 +464,7 @@ tz()
                 timeout: 10000,
                 success: function (e) {
                   console.log(e),
-                    e.data.length > 0 ?
+                    e.data && e.data.length > 0 ?
                     (t.setData({
                         vip: e.data[0].GRADE,
                         flag: !0,
