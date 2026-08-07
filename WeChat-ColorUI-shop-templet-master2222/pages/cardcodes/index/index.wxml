@@ -1,0 +1,21 @@
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view bindtap="back" class="action canui-head-title">
+            <text class="icon-back"></text>客户信息 </view>
+    </view>
+</view>
+<view>
+    <view style="margin-top: 10rem;display:flex;justify-content:center;">
+        <image hidden="{{flagx}}" mode="widthFix" src="{{image}}"></image>
+        <canvasdrawer bind:getImage="eventGetImage" painting="{{painting}}"></canvasdrawer>
+    </view>
+    <view hidden="{{flagp}}">
+        <canvas id="myCanvas" style="margin-left: 3rem;margin-top:1rem;width: 300px; height: 300px;" type="2d"></canvas>
+    </view>
+    <view hidden="{{flagx}}">
+        <canvas canvasId="qrcode" style="margin-left: 14rem;margin-top:-17.5rem;"></canvas>
+    </view>
+</view>
+<view bindtap="fx" style="margin:0px 5px 10px 10px;width:90%;padding-bottom: 3rem;padding-top: 2rem;">
+    <text class="cu-btn round  bg-gradual-green" style="margin:5px 5px 5px 5px;height:2.5rem;border-radius: 0.8rem;color:white;background-color: #03a9f4;border:1px solid ;width:100%;font-size: 16px;"> 保存小程序二维码</text>
+</view>

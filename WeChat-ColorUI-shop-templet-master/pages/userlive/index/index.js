@@ -19,7 +19,7 @@ Page({
     lines: 0,
     banner: e.globalData.zbimgurl,
     swiperList: [],
-   
+    swiperHeight: 422, // 16:9 = 750 * 9 / 16
 
   },
 
@@ -32,9 +32,6 @@ Page({
     //没有选择头像和昵称
 
     if (!wx.getStorageSync('wximg') || !wx.getStorageSync('wxuser')) {
-      this.setData({
-        loading: false
-      })
       wx.redirectTo({
         url: "/pages/wxloginzb/index"
       });
@@ -90,7 +87,7 @@ Page({
 
         console.log(res.data)
 
-        if (res.data && res.data[0] && res.data[0].STARTS == "0") {
+        if (res.data[0].STARTS == "0") {
 
           wx.switchTab({
 
@@ -98,11 +95,6 @@ Page({
           })
 
         }
-
-      },
-      fail: () => {
-
-        console.log('wx_state 请求失败')
 
       },
       complete: () => {
@@ -226,9 +218,6 @@ Page({
       },
       dataType: "json",
       success: function (a) {
-        if (!a.data || !a.data[0]) {
-          return;
-        }
         console.log(a), that.setData({
           resultdt: a.data,
           liveTitle: a.data[0].TITLE,
@@ -256,10 +245,16 @@ Page({
         }
 
         // ============= 2. 转成 轮播图需要的【对象数组】 =============
+        let banner = that.data.banner;
         let swiperData = imgArr.map(item => {
-          return {
-            img: item
-          };
+          // 后端可能返回相对路径、完整URL 或 带/开头的路径，统一处理
+          let img = item.trim();
+          if (!/^https?:\/\//i.test(img) && !img.startsWith('//')) {
+            // 去掉前导斜杠，避免和 banner 末尾斜杠重复
+            img = img.replace(/^\/+/, '');
+            img = banner + img;
+          }
+          return { img: img };
         });
 
         // ============= 3. 赋值给轮播 =============
@@ -267,6 +262,7 @@ Page({
           swiperList: swiperData
         });
 
+        console.log("banner前缀：", banner);
         console.log("最终轮播数据：", swiperData);
 
         that.getstate()
@@ -276,6 +272,10 @@ Page({
       complete: function () {},
     })
 
+  },
+
+  imgError(e) {
+    console.log("海报图加载失败，索引:", e.currentTarget.dataset.idx, "地址:", this.data.swiperList[e.currentTarget.dataset.idx].img);
   },
 
   getstate() {
@@ -288,10 +288,6 @@ Page({
         "content-type": "application/json"
       },
       success: (res) => {
-
-        if (!res.data || !res.data.data || !res.data.data[0]) {
-          return;
-        }
 
         console.log(res.data.data[0].liveStatus)
 

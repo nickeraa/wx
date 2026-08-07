@@ -2,7 +2,7 @@ page {
   background-color: #fff;
   overflow-x: hidden;
   padding-bottom: 20rpx;
-  padding-top: 50px;
+  padding-top: 100rpx;
   width: 100%;
 }
 .canui-flex-car .text-grey {
@@ -25,7 +25,7 @@ page {
 }
 .swiperitem {
   background: #fff;
-  height: 55px;
+  height: 110rpx;
 }
 .canui-video {
   height: 425rpx;
@@ -41,7 +41,7 @@ page {
   width: 46% !important;
 }
 .canui-flex-car {
-  padding-top: 10px;
+  padding-top: 20rpx;
 }
 .canui-flex-car .cu-card > .cu-item {
   margin: 0;
@@ -54,7 +54,7 @@ page {
 .canui-flex-car .cu-card .cu-avatar {
   bottom: 72rpx;
   position: absolute;
-  right: 10px;
+  right: 20rpx;
 }
 .canui-flex-car .shadow-warp {
   box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.1);
@@ -69,10 +69,10 @@ page {
   color: #000;
 }
 .canui-flex-car image {
-  height: 90px !important;
+  height: 180rpx !important;
 }
 .canui-gps .justify-between {
-  padding: 0 10px;
+  padding: 0 20rpx;
 }
 .content .text-sm {
   -webkit-box-orient: vertical;
@@ -91,7 +91,7 @@ page {
   width: 100%;
 }
 .cu-left {
-  bottom: 10px;
+  bottom: 20rpx;
 }
 .Grid-sku {
   display: -webkit-flex;
@@ -99,29 +99,29 @@ page {
   width: 100%;
 }
 .Item-top {
-  margin: 10px;
+  margin: 20rpx;
 }
 .sp {
-  margin: 0 5px;
+  margin: 0 10rpx;
 }
 .sku-sp {
   display: block;
   float: left;
   font-size: 26rpx;
   font-weight: 700;
-  margin: 0 10px;
-  padding: 0 10px;
+  margin: 0 20rpx;
+  padding: 0 20rpx;
 }
 .Grid-cell {
   background-color: #efefef;
   flex: 1;
-  margin: 5px;
+  margin: 10rpx;
   text-align: center;
   width: 30%;
 }
 .Grid-img {
   flex: 0 0 25%;
-  margin: 5px 5px 2px;
+  margin: 10rpx 10rpx 4rpx;
 }
 .Grid-name {
   flex: 0 0 70%;
@@ -129,8 +129,8 @@ page {
 .sp-num {
   display: block;
   font-size: 25rpx;
-  margin: 60px 5px 5px 10px;
-  padding: 0 10px;
+  margin: 120rpx 10rpx 10rpx 20rpx;
+  padding: 0 20rpx;
 }
 .sp-font {
   color: red;
@@ -143,6 +143,6 @@ page {
   display: block;
   float: left;
   font-size: 28rpx;
-  margin: -35px 10px 5px 148px;
-  padding: 0 10px;
+  margin: -70rpx 20rpx 10rpx 296rpx;
+  padding: 0 20rpx;
 }

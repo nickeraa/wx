@@ -31,7 +31,7 @@ Page({
     }, {
       icon: "favor",
       color: "gray",
-      name: "收藏"
+      name: "点击收藏"
     }, {
       icon: "cart",
       color: "gray",
@@ -99,6 +99,7 @@ Page({
         vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
         xf_plu: this.data.xf_plu,
+        openid:wx.getStorageSync("openid"),
       },
       header: {
         "content-type": "application/x-www-form-urlencoded"
@@ -185,7 +186,7 @@ Page({
         wx.switchTab({
           url: "/pages/home/index/index"
         })) :
-      "收藏" == s ?
+      "点击收藏" == s ?
       (this.setData(
           t(
             t(
@@ -201,7 +202,7 @@ Page({
       "已收藏" == s ?
       (this.setData(
           t(
-            t(t({}, "iconList[1].name", "收藏"), "iconList[1].color", "gray"),
+            t(t({}, "iconList[1].name", "点击收藏"), "iconList[1].color", "gray"),
             "iconList[1].icon",
             "favor"
           )
@@ -218,7 +219,7 @@ Page({
     if (a.detail.errMsg != "getPhoneNumber:ok") {
       console.log("getPhoneNumber fail:", a.detail.errMsg);
       var msg = a.detail.errMsg.indexOf("user deny") >= 0 || a.detail.errMsg.indexOf("cancel") >= 0
-        ? "请选择手机号，注册登录喔"
+        ? "请选择手机号，才能购买喔"
         : "授权太频繁或已受限，请稍后再试";
       wx.showToast({ title: msg, icon: "none", duration: 2000 });
       return;
@@ -272,7 +273,7 @@ Page({
     });
   },
   deciyptiongm: function (a, t, s) {
-    wx.showLoading({ title: '解密中...' });
+    wx.showLoading({ title: '加载中...' });
     var e = this;
     wx.request({
         url: i.globalData.api + "wx_getvipphone.ashx",
@@ -300,7 +301,7 @@ Page({
         fail: function () {
           wx.hideLoading();
           e.setData({ stop: false });
-          wx.showToast({ title: "解密失败，请重试", icon: "none", duration: 2000 });
+          wx.showToast({ title: "加载失败，请重试", icon: "none", duration: 2000 });
         },
       });
   },
@@ -308,7 +309,7 @@ Page({
     if (a.detail.errMsg != "getPhoneNumber:ok") {
       console.log("getPhoneNumber fail:", a.detail.errMsg);
       var msg = a.detail.errMsg.indexOf("user deny") >= 0 || a.detail.errMsg.indexOf("cancel") >= 0
-        ? "请选择手机号，注册登录喔"
+        ? "请选择手机号，才能购买喔"
         : "授权太频繁或已受限，请稍后再试";
       wx.showToast({ title: msg, icon: "none", duration: 2000 });
       return;
@@ -334,6 +335,11 @@ Page({
                   return;
                 }
                 var s = i.data.split(",");
+                if(!wx.getStorageSync('openid'))
+                {
+                  wx.setStorageSync('openid', s[0]);
+          
+                }
                 var d = s[1];
                 var n = a.detail.encryptedData,
                   h = a.detail.iv;
@@ -361,7 +367,7 @@ Page({
     });
   },
   deciyptiongwc: function (a, t, s) {
-    wx.showLoading({ title: '解密中...' });
+    wx.showLoading({ title: '加载中...' });
     var e = this;
     wx.request({
         url: i.globalData.api + "wx_getvipphone.ashx",
@@ -389,10 +395,94 @@ Page({
         fail: function () {
           wx.hideLoading();
           e.setData({ stop: false });
-          wx.showToast({ title: "解密失败，请重试", icon: "none", duration: 2000 });
+          wx.showToast({ title: "加载失败，请重试", icon: "none", duration: 2000 });
         },
       });
   },
+  onGetPhoneNumbersc: function (a) {
+    if (a.detail.errMsg != "getPhoneNumber:ok") {
+      console.log("getPhoneNumber fail:", a.detail.errMsg);
+      var msg = a.detail.errMsg.indexOf("user deny") >= 0 || a.detail.errMsg.indexOf("cancel") >= 0
+        ? "请选择手机号，才能购买喔"
+        : "授权太频繁或已受限，请稍后再试";
+      wx.showToast({ title: msg, icon: "none", duration: 2000 });
+      return;
+    }
+    wx.showLoading({ title: '连接中...' });
+    var r = this;
+    wx.login({
+      success: function (s) {
+        s.code ?
+          wx.request({
+              url: i.globalData.api + "wx_getphone.ashx",
+              data: { code: s.code },
+              header: { "content-type": "application/json" },
+              timeout: 10000,
+              success: function (i_res) {
+                if (typeof i_res.data !== "string" || i_res.data.indexOf(",") < 0) {
+                  wx.hideLoading();
+                  wx.showToast({ title: "授权数据异常，请重试", icon: "none", duration: 2000 });
+                  return;
+                }
+                var s_arr = i_res.data.split(",");
+                if (!wx.getStorageSync('openid')) {
+                  wx.setStorageSync('openid', s_arr[0]);
+                }
+                var d = s_arr[1];
+                var n = a.detail.encryptedData,
+                  h = a.detail.iv;
+                wx.hideLoading();
+                wx.checkSession({
+                  success: function () {
+                    r.deciyptionsc(d, n, h);
+                  },
+                  fail: function () {
+                    wx.showToast({ title: "登录已过期，请重试", icon: "none", duration: 2000 });
+                  },
+                });
+              },
+              fail: function () {
+                wx.hideLoading();
+                wx.showToast({ title: "获取授权失败，请重试", icon: "none", duration: 2000 });
+              },
+            }) :
+          (wx.hideLoading(), wx.showToast({ title: "获取授权失败，请重试", icon: "none", duration: 2000 }));
+      },
+      fail: function () {
+        wx.hideLoading();
+        wx.showToast({ title: "登录失败，请重试", icon: "none", duration: 2000 });
+      },
+    });
+  },
+  deciyptionsc: function (a, e_data, iv_data) {
+    wx.showLoading({ title: '加载中...' });
+    var e = this;
+    wx.request({
+        url: i.globalData.api + "wx_getvipphone.ashx",
+        data: { sessionID: a, encryptedData: e_data, iv: iv_data },
+        header: { "content-type": "application/json" },
+        timeout: 10000,
+        success: function (r) {
+          if (r.data && r.data.phoneNumber) {
+            wx.setStorageSync("wxuserid", r.data.phoneNumber);
+            e.setData({ wxuserid: r.data.phoneNumber });
+            wx.hideLoading();
+            e.setData(
+              t(t(t({}, "iconList[1].name", "已收藏"), "iconList[1].color", "red"), "iconList[1].icon", "favorfill")
+            );
+            e.insc();
+          } else {
+            wx.hideLoading();
+            wx.showToast({ title: "获取手机号失败，请重试", icon: "none", duration: 2000 });
+          }
+        },
+        fail: function () {
+          wx.hideLoading();
+          wx.showToast({ title: "加载失败，请重试", icon: "none", duration: 2000 });
+        },
+      });
+  },
+
   gwjs: function () {
     if (this.data.stop) return;
     wx.showLoading({ title: '连接中...' });
@@ -462,6 +552,7 @@ Page({
         xf_plu: a.data.xf_plu,
         qty: "1",
         fxuserid: fxuserid,
+        openid:wx.getStorageSync('openid')
       },
       header: {
         "content-type": "application/x-www-form-urlencoded"

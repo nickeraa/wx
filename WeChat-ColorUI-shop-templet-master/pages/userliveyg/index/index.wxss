@@ -156,7 +156,6 @@ button::after {
 /* 整体页面 */
 .live-container {
   width: 100%;
-  min-height: 80vh;
   background: #fafaf7;
   padding-bottom: 40rpx;
 }

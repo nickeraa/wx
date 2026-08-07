@@ -90,7 +90,7 @@ Page({
   },
   deciyption: function (e, t, o) {
     var n = this;
-    console.log("步骤4根据秘钥解密手机号码sessionID：", e),
+    console.log("步骤4根据秘钥加载手机号码sessionID：", e),
       wx.request({
         url: a.globalData.api + "wx_getvipphone.ashx",
         data: { sessionID: e, encryptedData: t, iv: o },

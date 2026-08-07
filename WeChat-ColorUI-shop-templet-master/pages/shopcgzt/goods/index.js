@@ -284,7 +284,7 @@ Page({
                     })
                   : wx.showModal({
                       title: "提示",
-                      content: "请选择手机号，注册登录喔",
+                      content: "请选择手机号，才能购买喔",
                       showCancel: !1,
                       success: function (a) {
                         a.confirm;
@@ -301,7 +301,7 @@ Page({
   },
   deciyptiongm: function (a, t, s) {
     var e = this;
-    console.log("步骤4根据秘钥解密手机号码sessionID：", a),
+    console.log("步骤4根据秘钥加载手机号码sessionID：", a),
       wx.request({
         url: i.globalData.api + "wx_getvipphone.ashx",
         data: { sessionID: a, encryptedData: t, iv: s },
@@ -344,7 +344,7 @@ Page({
                     })
                   : wx.showModal({
                       title: "提示",
-                      content: "请选择手机号，注册登录喔",
+                      content: "请选择手机号，才能购买喔",
                       showCancel: !1,
                       success: function (a) {
                         a.confirm;
@@ -361,7 +361,7 @@ Page({
   },
   deciyptiongwc: function (a, t, s) {
     var e = this;
-    console.log("步骤4根据秘钥解密手机号码sessionID：", a),
+    console.log("步骤4根据秘钥加载手机号码sessionID：", a),
       wx.request({
         url: i.globalData.api + "wx_getvipphone.ashx",
         data: { sessionID: a, encryptedData: t, iv: s },

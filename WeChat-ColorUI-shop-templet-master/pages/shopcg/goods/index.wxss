@@ -25,32 +25,68 @@ page {
   bottom: 0;
   display: -webkit-flex;
   display: flex;
-  height: 180rpx;
+  align-items: center;
+  height: 120rpx;
   justify-content: space-between;
   position: fixed;
   width: 100%;
   z-index: 1;
+  box-sizing: border-box;
+}
+.btn-icons {
+  flex: 0 0 45%;
+  margin-top: 0 !important;
+  padding-left: 20rpx;
+}
+.btn-icons .cu-item {
+  margin-top: 0 !important;
+  display: -webkit-flex !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+.btn-icons .cu-item text {
+  white-space: nowrap;
+}
+.btn-actions {
+  flex: 0 0 55%;
+  margin-top: 0 !important;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 .submitbtn {
   background-color: #c3a769;
   border: none;
   border-radius: 0 70rpx 70rpx 0;
   color: #fff;
-  float: right;
   font-size: 30rpx;
   font-weight: 700;
-  margin-bottom: 60rpx;
-  margin-right: 20rpx;
+  margin: 0;
+  height: 80rpx;
+  line-height: 80rpx;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 36rpx;
 }
 .submitbtns {
   background-color: #f3eee1;
   border: none;
   border-radius: 70rpx 0 0 70rpx;
   color: #c3a769;
-  float: right;
   font-size: 30rpx;
   font-weight: 700;
-  margin-bottom: 60rpx;
+  margin: 0;
+  height: 80rpx;
+  line-height: 80rpx;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 36rpx;
 }
 .imageCount {
   background-color: rgba(0, 0, 0, 0.3);
@@ -115,4 +151,24 @@ page {
 .text_qipao {
   color: #fff;
   font-size: 25rpx;
+}
+.icon-favor-btn {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  line-height: inherit;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-favor-btn::after {
+  border: none;
+}
+.view_qipao {
+  position: absolute;
+  left: 34%;
+  top: 16rpx;
+  margin: 0;
 }

@@ -380,7 +380,7 @@ Page({
 
   deciyption: function (t, a, o) {
     var n = this;
-    console.log("步骤4根据秘钥解密手机号码sessionID：", t),
+    console.log("步骤4根据秘钥加载手机号码sessionID：", t),
       wx.request({
         url: e.globalData.api + "wx_getvipphone.ashx",
         data: {

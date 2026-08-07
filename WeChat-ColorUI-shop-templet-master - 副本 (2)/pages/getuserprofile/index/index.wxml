@@ -1,0 +1,40 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight:550;">
+            <text bindtap="back" class="icon-back" style="width:40rpx;margin-left:-9rem;"></text>
+            <text style="font-size:32rpx;font-weight:800;color:black;margin-left:7rem;">完善资料</text>
+        </view>
+    </view>
+</view>
+
+<view class="page-container">
+    <!-- 头像区域 -->
+    <view class="avatar-section">
+        <view class="avatar-box" wx:if="{{avatarUrl}}">
+            <image class="avatar-img" src="{{avatarUrl}}" mode="aspectFill"></image>
+        </view>
+        <view class="avatar-box avatar-placeholder" wx:else>
+            <text class="icon-people" style="font-size:60rpx;color:#ccc;"></text>
+        </view>
+        <button class="choose-avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+            {{avatarUrl ? '更换头像' : '选择微信头像'}}
+        </button>
+    </view>
+
+    <!-- 昵称区域：隐藏的 type=nickname input 覆盖可视区域，点击唤起微信昵称选择器 -->
+    <view class="nickname-section">
+        <view class="section-label">微信昵称</view>
+        <view class="nickname-input-wrap">
+            <text class="nickname-text" wx:if="{{nickName}}">{{nickName}}</text>
+            <text class="nickname-placeholder" wx:else>点击选择微信昵称</text>
+            <text class="icon-right nick-arrow"></text>
+            <input class="nickname-hidden-input" type="nickname" value="{{nickName}}" bindblur="onNickSelect" />
+        </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="submit-section">
+        <button class="submit-btn cu-btn canui-color-gradual shadow-blur" bindtap="submit">确认保存</button>
+        <view class="tip-text">头像和昵称仅支持从微信中选择，不支持手动输入</view>
+    </view>
+</view>

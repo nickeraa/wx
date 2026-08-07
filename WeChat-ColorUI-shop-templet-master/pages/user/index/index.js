@@ -337,7 +337,7 @@ tz()
   },
   deciyption: function (t, a, o) {
     var n = this;
-    console.log("步骤4根据秘钥解密手机号码sessionID：", t),
+    console.log("步骤4根据秘钥加载手机号码sessionID：", t),
       wx.showLoading({ title: "正在加载..." }),
       wx.request({
         url: e.globalData.api + "wx_getvipphone.ashx",
@@ -410,9 +410,9 @@ tz()
         },
         fail: function (e) {
           wx.hideLoading(),
-            console.log("手机号解密失败", e),
+            console.log("手机号加载失败", e),
             wx.showToast({
-              title: "手机号解密失败，请重试",
+              title: "手机号加载失败，请重试",
               icon: "none"
             });
         },

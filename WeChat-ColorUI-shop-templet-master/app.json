@@ -1,12 +1,10 @@
 {
   "pages": [
-
     "pages/home/index/index",
     "pages/homezb/index/index",
-   
-    "pages/userlive/index/index",
+    "pages/shopcg/goods/index",
     "pages/userliveyg/index/index",
-
+    "pages/userlive/index/index",
     "pages/wxloginzb/index",
     "pages/homerm/index/index",
     "pages/wxloginzbs/index",
@@ -63,7 +61,6 @@
     "pages/cards/index/index",
     "pages/cardcode/index/index",
     "pages/cardcodes/index/index",
-    "pages/shopcg/goods/index",
     "pages/jhlogin/index/index"
   ],
   "window": {

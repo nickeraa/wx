@@ -115,33 +115,40 @@
                 <image bindtap="previewZwImage" data-src="{{pict}}{{item.XF_PLU}}//{{item.ZWIMAGES10}}" class="imgs" mode="widthFix" src="{{pict}}{{item.XF_PLU}}//{{item.ZWIMAGES10}}" style="width:650rpx"></image>
             </view>
         </view>
-        <view style="background-color: white;height: 120rpx;margin-top: 280rpx;"></view>
-        <view class="btns">
-            <view class="cu-list  grid col-{{gridCol}} {{gridBorder?'':'no-border'}}" style="width: 50%;margin-top: 10rpx;">
-                <view class="cu-item" style="margin-top: -30rpx;" wx:for="{{iconList}}" wx:key="icon">
-                    <view catchtap="setype" class="icon-{{item.icon}} text-{{item.color}}" data-name="{{item.name}}" style="font-size: 32rpx;">
+        <view style="background-color: white;height: 260rpx;"></view>
+    </view>
+    <view class="btns" style="height: 256rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 1368rpx">
+        <view class="cu-list  grid col-{{gridCol}} {{gridBorder?'':'no-border'}} btn-icons" style="height: 124rpx; display: flex; box-sizing: border-box">
+            <view class="cu-item" wx:for="{{iconList}}" wx:key="icon" style="position: relative; left: 1rpx; top: -25rpx">
+                <block wx:if="{{index == 1 && !vipcode && !wxuserid}}">
+                    <button openType="getPhoneNumber" bindgetphonenumber="onGetPhoneNumbersc" class="icon-favor-btn icon-{{item.icon}} text-{{item.color}}" style="font-size: 32rpx; position: relative; left: 0rpx; top: -46rpx">
+                        <text style="font-size: 24rpx;color:{{item.color}}">{{item.name}}</text>
+                    </button>
+                </block>
+                <block wx:else>
+                    <view catchtap="setype" class="icon-{{item.icon}} text-{{item.color}}" data-name="{{item.name}}" style="font-size: 32rpx; position: relative; left: 0rpx; top: -46rpx">
                         <text style="font-size: 24rpx;color:{{item.color}}">{{item.name}}</text>
                     </view>
-                </view>
+                </block>
             </view>
-            <view class="view_qipao" style="width: 4.5%;margin-left: -80rpx;margin-top: 8rpx;" wx:if="{{n>0}}">
-                <text class="text_qipao">{{n}}</text>
-            </view>
-            <view style="width:60%;margin-top: 10rpx;" wx:if="{{vipcode||wxuserid}}">
-                <button bindtap="gwjs" disabled="{{stop}}" class="submitbtn" style="margin-top: 20rpx;">
-                    <text> 立即购买</text>
-                </button>
-                <button bindtap="gw" class="submitbtns" style="margin-top: 20rpx;">
-                    <text> 加入购物车 </text>
-                </button>
-            </view>
-            <view style="width:60%;margin-top: 10rpx;" wx:else>
-                <button bindgetphonenumber="onGetPhoneNumbergm" disabled="{{stop}}" class="submitbtn" openType="getPhoneNumber" style="margin-top: 20rpx;">
-                    <text> 立即购买 </text>
-                </button>
-                <button bindgetphonenumber="onGetPhoneNumbergwc" class="submitbtns" openType="getPhoneNumber" style="margin-top: 20rpx;">
-                    <text> 加入购物车 </text>
-                </button>
-            </view>
+        </view>
+        <view class="view_qipao" wx:if="{{n>0}}">
+            <text class="text_qipao">{{n}}</text>
+        </view>
+        <view class="btn-actions" wx:if="{{vipcode||wxuserid}}">
+            <button bindtap="gw" class="submitbtns" style="position: relative; left: -44rpx; top: -40rpx">
+                <text> 点击关注 </text>
+            </button>
+            <button bindtap="gwjs" disabled="{{stop}}" class="submitbtn" style="position: relative; left: -43rpx; top: -40rpx">
+                <text> 立即购买</text>
+            </button>
+        </view>
+        <view class="btn-actions" wx:else>
+            <button bindgetphonenumber="onGetPhoneNumbergwc" class="submitbtns" openType="getPhoneNumber" style="position: relative; left: -22rpx; top: -39rpx">
+                <text> 点击关注 </text>
+            </button>
+            <button bindgetphonenumber="onGetPhoneNumbergm" disabled="{{stop}}" class="submitbtn" openType="getPhoneNumber" style="position: relative; left: -22rpx; top: -40rpx">
+                <text> 立即购买 </text>
+            </button>
         </view>
     </view>

@@ -19,6 +19,7 @@ Page({
     lines: 0,
     banner: e.globalData.zbimgurl,
     swiperList: [],
+    swiperHeight: 422, // 16:9 = 750 * 9 / 16
     replu: {},
     replus: {},
     index2: null,
@@ -205,10 +206,16 @@ Page({
         }
 
         // ============= 2. 转成 轮播图需要的【对象数组】 =============
+        let banner = that.data.banner;
         let swiperData = imgArr.map(item => {
-          return {
-            img: item
-          };
+          // 后端可能返回相对路径、完整URL 或 带/开头的路径，统一处理
+          let img = item.trim();
+          if (!/^https?:\/\//i.test(img) && !img.startsWith('//')) {
+            // 去掉前导斜杠，避免和 banner 末尾斜杠重复
+            img = img.replace(/^\/+/, '');
+            img = banner + img;
+          }
+          return { img: img };
         });
 
         // ============= 3. 赋值给轮播 =============
@@ -216,11 +223,18 @@ Page({
           swiperList: swiperData
         });
 
+        console.log("banner前缀：", banner);
+        console.log("最终轮播数据：", swiperData);
+
       },
       fail: function () {
         wx.showToast({ title: "加载失败，请重试", icon: "none" });
       },
     })
+  },
+
+  imgError(e) {
+    console.log("海报图加载失败，索引:", e.currentTarget.dataset.idx, "地址:", this.data.swiperList[e.currentTarget.dataset.idx].img);
   },
 
   checkzf: function () {
@@ -275,10 +289,16 @@ Page({
     var ygname = wx.getStorageSync('yguserid') != 'GTZB'
       ? wx.getStorageSync("ygname")
       : "";
+    // fximg 未加载时用固定分享图兜底，避免 imageUrl 为无效目录地址
+    // 文件名含中文必须编码，否则微信客户端下载分享图失败
+    var shareImg = this.data.fximg
+      ? this.data.banner + encodeURIComponent(this.data.fximg)
+      : this.data.iconurlfx;
+    console.log("分享图地址:", shareImg);
     return {
       title: "广天藏品 " + ygname + " 向您分享了最新直播",
       path: "/pages/userlive/index/index?vipcode=&yguserid=" + wx.getStorageSync("yguserid"),
-      imageUrl: this.data.banner + this.data.fximg,
+      imageUrl: shareImg,
     };
   },
 
@@ -289,10 +309,15 @@ Page({
     var ygname = wx.getStorageSync('yguserid') != 'GTZB'
       ? wx.getStorageSync("ygname")
       : "";
+    // 文件名含中文必须编码，否则微信客户端下载分享图失败
+    var shareImg = this.data.fximg
+      ? this.data.banner + encodeURIComponent(this.data.fximg)
+      : this.data.iconurlfx;
+    console.log("分享图地址:", shareImg);
     return {
       title: "广天藏品 " + ygname + " 向您分享了最新直播",
       query: "vipcode=&yguserid=" + wx.getStorageSync("yguserid"),
-      imageUrl: this.data.banner + this.data.fximg,
+      imageUrl: shareImg,
     };
   },
 

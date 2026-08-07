@@ -21,7 +21,7 @@
                 <view class="flex-sub cu-card case shadow-warp bg-white ">
                     <view class="cu-item shadow">
                         <view class="image">
-                            <image mode="widthFix" src="{{scimgurl}}{{item.XF_PLU}}/{{item.IMAGESSL}}" style="position: relative; left: 0rpx; top: -2rpx"></image>
+                            <image mode="widthFix" src="{{scimgurl}}{{item.XF_PLU}}/{{item.IMAGESSL}}" style="position: relative; left: 0rpx; top: 0rpx"></image>
                         </view>
                         <view class="cu-list menu menu-avatar">
                             <view class="cu-item">

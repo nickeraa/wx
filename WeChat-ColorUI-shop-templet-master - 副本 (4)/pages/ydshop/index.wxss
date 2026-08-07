@@ -1,0 +1,133 @@
+page {
+  padding-bottom: 20rpx;
+  padding-top: 100rpx;
+}
+
+.head-title {
+  margin: 0 auto;
+}
+
+.cu-custom .cu-bar {
+  background-color: #fff;
+  padding-right: inherit;
+}
+
+.del {
+  margin-top: 80rpx;
+  position: absolute;
+  z-index: 1;
+}
+
+.imgs {
+  height: auto;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+}
+
+.btns {
+  background-color: #fff;
+  bottom: 0;
+  display: -webkit-flex;
+  display: flex;
+  height: 180rpx;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.submitbtn {
+  background-color: #c3a769;
+  border: none;
+  border-radius: 0 70rpx 70rpx 0;
+  color: #fff;
+  float: right;
+  font-size: 30rpx;
+  font-weight: 700;
+  margin-bottom: 60rpx;
+  margin-right: 20rpx;
+}
+
+.submitbtns {
+  background-color: #f3eee1;
+  border: none;
+  border-radius: 70rpx 0 0 70rpx;
+  color: #c3a769;
+  float: right;
+  font-size: 30rpx;
+  font-weight: 700;
+  margin-bottom: 60rpx;
+}
+
+.imageCount {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 40rpx;
+  color: #fff;
+  float: right;
+  font-size: 26rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  margin: -60rpx 0 0 600rpx;
+  position: absolute;
+  text-align: center;
+  width: 120rpx;
+  z-index: 1;
+}
+
+.video_cover {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.video_play_icon {
+  height: 80rpx;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80rpx;
+  z-index: 5;
+}
+
+.video_bg_black {
+  background: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.video_cover_txt {
+  align-items: center;
+  color: #fff;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 28rpx;
+  height: 90rpx;
+  justify-content: flex-end;
+  margin-top: 35rpx;
+  text-align: right;
+}
+
+.video_txt {
+  margin: 20rpx 140rpx 0 40rpx;
+}
+
+.view_qipao {
+  align-items: center;
+  background-color: red;
+  border-radius: 50%;
+  display: -webkit-flex;
+  display: flex;
+  height: 35rpx;
+  justify-content: center;
+  width: 35rpx;
+}
+
+.text_qipao {
+  color: #fff;
+  font-size: 25rpx;
+}

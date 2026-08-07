@@ -2,12 +2,12 @@
   "pages": [
 
 
- 
+  "pages/userliveyg/index/index",
     "pages/home/index/index",
     "pages/hofman/goods/index",
     "pages/userlive/index/index",
    
-    "pages/userliveyg/index/index",
+   
     "pages/wxlogin/index",
     "pages/acxpexl/index/index",
     "pages/homerm/index/index",
