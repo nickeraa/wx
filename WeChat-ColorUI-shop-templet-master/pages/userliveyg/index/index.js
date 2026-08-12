@@ -44,6 +44,7 @@ Page({
     fxtag2: false,
     state:0,
     qrcodeImg: "", // 生成的二维码图片
+    posterImg: "", // 合成的分享海报图（海报背景+二维码）
     showQrcode: false // 是否显示二维码弹窗
 
 
@@ -371,6 +372,8 @@ Page({
               qrcodeImg: filePath,
               showQrcode: true
             });
+            // 二维码就绪后合成分享海报
+            that.generatePoster();
           },
           fail: function () {
             wx.hideLoading();
@@ -393,15 +396,130 @@ Page({
   // 阻止点击冒泡
   noop: function () {},
 
-  // 保存二维码到相册
+  // 合成分享海报：背景海报图 + 直播标题 + 员工编号 + 小程序码
+  generatePoster: function () {
+    var that = this;
+    var qrPath = that.data.qrcodeImg;
+    if (!qrPath) return;
+    // 背景图：与「分享直播」按钮同一张正方形分享图 fximg（文件名含中文必须编码），
+    // 取不到时回退到固定分享图 iconurlfx，与 onShareAppMessage 完全一致
+    var bgSrc = that.data.fximg
+      ? that.data.banner + encodeURIComponent(that.data.fximg)
+      : that.data.iconurlfx;
+    if (!bgSrc) return;
+    wx.getImageInfo({
+      src: bgSrc,
+      success: function (info) {
+        that._drawPoster(info.path, info.width, info.height);
+      },
+      fail: function () {
+        that._drawPoster("", 0, 0);
+      },
+    });
+  },
+  // 离屏绘制海报（背景图为正方形，完整显示不裁剪）
+  _drawPoster: function (bgPath, bgW, bgH) {
+    var that = this;
+    var canvasW = 600;
+    var canvasH = 1000;
+    var cardH = 360;
+    var ctx = wx.createCanvasContext("posterCanvas", that);
+
+    // 全画布白色打底
+    ctx.setFillStyle("#ffffff");
+    ctx.fillRect(0, 0, canvasW, canvasH);
+
+    // 顶部品牌栏：醒目的金色渐变
+    var goldGrad = ctx.createLinearGradient(0, 0, canvasW, 0);
+    goldGrad.addColorStop(0, "#FFF8DC");   // 淡金
+    goldGrad.addColorStop(0.25, "#FFD700"); // 亮金
+    goldGrad.addColorStop(0.5, "#FFC125");  // 金黄
+    goldGrad.addColorStop(0.75, "#F59E0B"); // 深金
+    goldGrad.addColorStop(1, "#B8860B");    // 暗金
+    ctx.setFillStyle(goldGrad);
+    ctx.fillRect(0, 0, canvasW, 70);
+    // 底部细阴影，增强层次
+    var shadowGrad = ctx.createLinearGradient(0, 70, 0, 76);
+    shadowGrad.addColorStop(0, "rgba(0,0,0,0.25)");
+    shadowGrad.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.setFillStyle(shadowGrad);
+    ctx.fillRect(0, 70, canvasW, 6);
+    ctx.setFillStyle("#4A2800"); // 深棕文字，在金色背景上更清晰
+    ctx.setFontSize(30);
+    ctx.setTextAlign("left");
+    ctx.fillText("广天藏品 · 直播分享", 24, 46);
+
+    // 中间正方形海报图区域：完整显示，不裁剪（contain 居中）
+    var imgAreaY = 70;
+    var imgAreaH = canvasH - imgAreaY - cardH; // 570
+    var imgAreaW = imgAreaH;                     // 570x570 正方形
+    var imgAreaX = (canvasW - imgAreaW) / 2;
+    // 图片区背景色（若图片非 1:1 时露底）
+    ctx.setFillStyle("#f8f8f8");
+    ctx.fillRect(imgAreaX, imgAreaY, imgAreaW, imgAreaH);
+    if (bgPath && bgW > 0 && bgH > 0) {
+      var imgScale = Math.min(imgAreaW / bgW, imgAreaH / bgH);
+      var drawW = bgW * imgScale;
+      var drawH = bgH * imgScale;
+      var drawX = imgAreaX + (imgAreaW - drawW) / 2;
+      var drawY = imgAreaY + (imgAreaH - drawH) / 2;
+      ctx.drawImage(bgPath, drawX, drawY, drawW, drawH);
+    }
+
+    // 底部信息卡：替换为小程序码展示（白底卡片 + 居中二维码 + 提示）
+    var cardY = canvasH - cardH;
+    ctx.setFillStyle("rgba(255,255,255,0.96)");
+    ctx.fillRect(0, cardY, canvasW, cardH);
+    // 顶部金色装饰线
+    var lineGrad = ctx.createLinearGradient(0, cardY, canvasW, cardY);
+    lineGrad.addColorStop(0, "#B8860B");
+    lineGrad.addColorStop(0.5, "#FFD700");
+    lineGrad.addColorStop(1, "#B8860B");
+    ctx.setFillStyle(lineGrad);
+    ctx.fillRect(0, cardY, canvasW, 5);
+
+    // 小程序码居中显示，放大以醒目突出
+    var qrSize = 220;
+    var qrX = (canvasW - qrSize) / 2;
+    var qrY = cardY + 40;
+    ctx.setFillStyle("#ffffff");
+    ctx.fillRect(qrX - 8, qrY - 8, qrSize + 16, qrSize + 16);
+    ctx.drawImage(that.data.qrcodeImg, qrX, qrY, qrSize, qrSize);
+
+    // 提示文字：加大字号、加深颜色，醒目突出
+    ctx.setFillStyle("#333333");
+    ctx.setFontSize(30);
+    ctx.setTextAlign("center");
+    ctx.fillText("进入直播间，长按识别小程序码", canvasW / 2, cardY + qrSize + 85);
+
+    ctx.draw(false, function () {
+      // 绘制完成后再导出，延迟避免部分基础库导出白图
+      setTimeout(function () {
+        wx.canvasToTempFilePath({
+          canvasId: "posterCanvas",
+          width: canvasW,
+          height: canvasH,
+          destWidth: canvasW * 2,
+          destHeight: canvasH * 2,
+          fileType: "png",
+          success: function (res) {
+            that.setData({ posterImg: res.tempFilePath });
+          },
+        }, that);
+      }, 300);
+    });
+  },
+
+  // 保存海报/二维码到相册（优先保存合成海报）
   saveQrcode: function () {
     var that = this;
-    if (!that.data.qrcodeImg) return;
+    var filePath = that.data.posterImg || that.data.qrcodeImg;
+    if (!filePath) return;
     wx.getSetting({
       success: function (res) {
         if (res.authSetting["scope.writePhotosAlbum"]) {
           wx.saveImageToPhotosAlbum({
-            filePath: that.data.qrcodeImg,
+            filePath: filePath,
             success: function () {
               wx.showToast({ title: "保存成功", icon: "success" });
             },
@@ -414,7 +532,7 @@ Page({
             scope: "scope.writePhotosAlbum",
             success: function () {
               wx.saveImageToPhotosAlbum({
-                filePath: that.data.qrcodeImg,
+                filePath: filePath,
                 success: function () {
                   wx.showToast({ title: "保存成功", icon: "success" });
                 },
@@ -426,7 +544,7 @@ Page({
             fail: function () {
               wx.showModal({
                 title: "提示",
-                content: "需要相册权限才能保存二维码",
+                content: "需要相册权限才能保存海报",
                 confirmText: "去设置",
                 success: function (r) {
                   if (r.confirm) {

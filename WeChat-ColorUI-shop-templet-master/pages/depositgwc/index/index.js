@@ -426,8 +426,10 @@ Page({
               if (!t.data || typeof t.data !== "string") return wx.hideLoading(), a.setData({ stop: !1 }), wx.showToast({ title: "数据异常", icon: "none" });
               var p = t.data.split(",");
               if (!p[0]) return wx.hideLoading(), a.setData({ stop: !1 }), wx.showToast({ title: "数据异常", icon: "none" });
-              a.setData({ openid: p[0] }),
-                a.generateOrder(a.data.openid);
+              a.setData({ openid: p[0] });
+              // 同步写入 storage，供 yfk/dfk 提交订单时使用
+              wx.setStorageSync("openid", p[0]);
+              a.generateOrder(a.data.openid);
             },
             fail: function () {
               wx.hideLoading(),

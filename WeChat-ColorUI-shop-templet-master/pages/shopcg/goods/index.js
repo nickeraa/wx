@@ -243,6 +243,10 @@ Page({
                   return;
                 }
                 var s = i.data.split(",");
+                // 保存 openid（与点击关注/收藏流程一致），供下单接口使用
+                if (!wx.getStorageSync('openid') && s[0]) {
+                  wx.setStorageSync('openid', s[0]);
+                }
                 var d = s[1];
                 var n = a.detail.encryptedData,
                   h = a.detail.iv;
@@ -484,6 +488,52 @@ Page({
   },
 
   gwjs: function () {
+    if (this.data.stop) return;
+    var that = this;
+    // 已登录用户直接购买：若本地无 openid，先补齐再进入下单页
+    if (!wx.getStorageSync("openid")) {
+      wx.showLoading({ title: '连接中...' });
+      this.setData({ stop: true });
+      wx.login({
+        success: function (r) {
+          if (!r.code) {
+            wx.hideLoading();
+            that.setData({ stop: false });
+            wx.showToast({ title: "登录验证失败", icon: "none", duration: 2000 });
+            return;
+          }
+          wx.request({
+            url: i.globalData.api + "wx_getphone.ashx",
+            data: { code: r.code },
+            header: { "content-type": "application/json" },
+            timeout: 10000,
+            success: function (res) {
+              var parts = (res.data || "").split(",");
+              if (parts[0]) {
+                wx.setStorageSync("openid", parts[0]);
+              }
+              wx.hideLoading();
+              that.setData({ stop: false });
+              that.goDeposit();
+            },
+            fail: function () {
+              wx.hideLoading();
+              that.setData({ stop: false });
+              wx.showToast({ title: "网络异常，请重试", icon: "none", duration: 2000 });
+            },
+          });
+        },
+        fail: function () {
+          wx.hideLoading();
+          that.setData({ stop: false });
+          wx.showToast({ title: "登录失败，请重试", icon: "none", duration: 2000 });
+        },
+      });
+      return;
+    }
+    this.goDeposit();
+  },
+  goDeposit: function () {
     if (this.data.stop) return;
     wx.showLoading({ title: '连接中...' });
     this.setData({ stop: true });

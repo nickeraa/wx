@@ -374,6 +374,10 @@ this.shows();
             success: function (t) {
               var parts = t.data ? t.data.split(",") : [];
               that.setData({ openid: parts[0] || "" });
+              // 同步写入 storage，供 dfk/yfk 提交订单时使用
+              if (parts[0]) {
+                wx.setStorageSync("openid", parts[0]);
+              }
               that.generateOrder(that.data.openid);
             },
             fail: function () {

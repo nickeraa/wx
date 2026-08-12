@@ -275,6 +275,12 @@ button::after {
   height: 400rpx;
   margin-bottom: 40rpx;
 }
+.poster-img {
+  width: 480rpx;
+  height: 800rpx;
+  margin-bottom: 40rpx;
+  border-radius: 12rpx;
+}
 .qrcode-btn {
   width: 100%;
   height: 80rpx;

@@ -533,6 +533,8 @@ _loadStock: function () {
                 }
 
                 that.setData({ openid: parts[0] });
+                // 同步写入 storage，供 _submitOrder 提交订单时使用
+                wx.setStorageSync("openid", parts[0]);
 
                 // 10. 进入下单支付
                 that.generateOrder(parts[0]);
