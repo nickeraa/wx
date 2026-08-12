@@ -233,3 +233,65 @@ button::after {
   font-size: 26rpx;
 }
 
+/* 生成二维码弹窗 */
+.qrcode-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qrcode-pop {
+  width: 560rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx 40rpx 50rpx;
+  box-sizing: border-box;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.qrcode-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+.qrcode-subtitle {
+  font-size: 28rpx;
+  color: #e64340;
+  font-weight: 700;
+  margin-bottom: 30rpx;
+}
+.qrcode-img {
+  width: 400rpx;
+  height: 400rpx;
+  margin-bottom: 40rpx;
+}
+.qrcode-btn {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  color: #fff;
+  background-color: #03a9f4;
+  font-size: 30rpx;
+  font-weight: 700;
+  border: none;
+}
+.qrcode-btn::after {
+  border: none;
+}
+.qrcode-btn-close {
+  margin-top: 20rpx;
+  background-color: #f0f0f0;
+  color: #666;
+}
+

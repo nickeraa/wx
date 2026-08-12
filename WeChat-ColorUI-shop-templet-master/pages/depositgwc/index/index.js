@@ -557,7 +557,9 @@ Page({
         salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: a.data.sumprice,
         xf_docno: a.data.xf_docno,
-        pass: k
+        pass: k,
+        openid:wx.getStorageSync("openid")
+        
       },
       header: {
         "content-type": "application/x-www-form-urlencoded"
@@ -634,7 +636,8 @@ Page({
         salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: 0,
         xf_docno: a.data.xf_docno,
-        pass: k
+        pass: k,
+        openid:wx.getStorageSync("openid")
       },
       header: {
         "content-type": "application/x-www-form-urlencoded"

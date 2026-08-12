@@ -710,7 +710,8 @@ zf: function (a) {
         salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: payAmtsold,
         xf_docno: t.data.xf_docno,
-        pass: pass
+        pass: pass,
+        openid:wx.getStorageSync('openid')
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",

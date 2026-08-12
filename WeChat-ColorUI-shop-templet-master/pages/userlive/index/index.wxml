@@ -21,7 +21,7 @@
       </swiper-item>
     </swiper>
 
-    <view wx:if="{{isLiving=='直播中'}}">
+    <view wx:if="{{isLiving=='直播中'||isLiving=='回放中'}}">
       <view class="live-info">
         <text class="live-status">{{isLiving}}</text>
         <text class="live-title" style='margin-top: 2rpx;'>{{liveTitle}}</text>

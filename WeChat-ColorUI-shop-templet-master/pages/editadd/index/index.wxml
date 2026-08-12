@@ -35,8 +35,4 @@
         <text> 保存并使用</text>
     </button>
 </view>
-<view style="width:100%;height:2.5rem;margin-top: 40rpx;  display: flex;align-items: center;justify-content: center;">
-    <button bindtap="del" style="width:80%; border-radius: 20rpx;background-color: rgb(195, 167, 105);color: white;">
-        <text> 删除收货地址</text>
-    </button>
-</view>
+

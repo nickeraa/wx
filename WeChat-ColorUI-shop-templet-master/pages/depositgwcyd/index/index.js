@@ -530,7 +530,8 @@ this.shows();
         salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: 0,
         xf_docno: that.data.xf_docno,
-        pass: k
+        pass: k,
+        openid:wx.getStorageSync("openid")
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",
@@ -580,7 +581,8 @@ this.shows();
         salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: that.data.sumydprice,
         xf_docno: that.data.xf_docno,
-        pass: k
+        pass: k,
+        openid:wx.getStorageSync("openid")
       },
       header: { "content-type": "application/x-www-form-urlencoded" },
       dataType: "json",

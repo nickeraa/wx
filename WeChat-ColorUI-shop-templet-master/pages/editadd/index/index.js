@@ -33,9 +33,15 @@ Page({
     {}
   ),
   back: function () {
-    var a = getCurrentPages();
-    a[a.length - 2].setData({ ret: this.data.ret }),
-      wx.navigateBack({ delta: 1 });
+    var pages = getCurrentPages();
+    if (pages.length < 2) return;
+    var prev = pages[pages.length - 2];
+    // 保存成功时回写最新列表到上一页（列表页字段是 replu）
+    // 直接返回未保存时 ret 为空，不回写，让上一页 onShow 自行重新拉取，避免空数据覆盖列表
+    if (this.data.ret && this.data.ret.length > 0) {
+      prev.setData({ replu: this.data.ret });
+    }
+    wx.navigateBack({ delta: 1 });
   },
   onLoad: function (a) {
     a.id && this.setData({ id: a.id });
@@ -155,23 +161,5 @@ Page({
       },
     });
   },
-  del: function () {
-    var a = this;
-    wx.request({
-      url: t.globalData.api + "wx_deladdress.ashx",
-      data: { id: a.data.id },
-      header: { "content-type": "application/x-www-form-urlencoded" },
-      dataType: "json",
-      success: function (t) {
-        "ok" == t.data
-          ? (wx.showToast({
-              title: "删除成功",
-              icon: "success",
-              duration: 2e3,
-            }),
-            a.shows())
-          : wx.showToast({ title: "数据错误", icon: "error", duration: 2e3 });
-      },
-    });
-  },
+
 });

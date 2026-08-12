@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/home/index/index",
-    "pages/homezb/index/index",
-    "pages/shopcg/goods/index",
     "pages/userliveyg/index/index",
+    "pages/homezb/index/index",
     "pages/userlive/index/index",
+    "pages/shopcg/goods/index",
     "pages/wxloginzb/index",
     "pages/homerm/index/index",
     "pages/wxloginzbs/index",
@@ -81,12 +81,6 @@
         "text": "首页",
         "iconPath": "img/home.png",
         "selectedIconPath": "img/home1.png"
-      },
-      {
-        "pagePath": "pages/homerm/index/index",
-        "text": "我的推荐",
-        "iconPath": "img/basics.png",
-        "selectedIconPath": "img/basics_cur.png"
       },
       {
         "pagePath": "pages/bags/index/index",

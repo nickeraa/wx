@@ -1,4 +1,5 @@
 var e = getApp()
+var butil = require("../../../utils/butil")
 
 Page({
   data: {
@@ -41,8 +42,10 @@ Page({
     xf_name: '',
     fxtag1: false,
     fxtag2: false,
-    state:0
- 
+    state:0,
+    qrcodeImg: "", // 生成的二维码图片
+    showQrcode: false // 是否显示二维码弹窗
+
 
   },
   getvipcode: function (a) {
@@ -123,10 +126,12 @@ Page({
 
 
   onLoad: function (a) {
+
+    wx.removeStorageSync('vipcode')
     // 朋友圈分享进入：onShareTimeline 只能落地当前页，识别参数后跳转客户版直播页
     if (a.yguserid) {
       wx.redirectTo({
-        url: "/pages/userlive/index/index?vipcode=" + (a.vipcode || "") + "&yguserid=" + a.yguserid,
+        url: "/pages/userlive/index/index?yguserid=" + a.yguserid,
       });
       return;
     }
@@ -168,7 +173,7 @@ Page({
 
 
   onShow: function (t) {
-
+    wx.removeStorageSync('vipcode')
     var that = this
     wx.request({
       url: e.globalData.api + "wx_zbindex.ashx",
@@ -297,7 +302,7 @@ Page({
     console.log("分享图地址:", shareImg);
     return {
       title: "广天藏品 " + ygname + " 向您分享了最新直播",
-      path: "/pages/userlive/index/index?vipcode=&yguserid=" + wx.getStorageSync("yguserid"),
+      path: "/pages/userlive/index/index?yguserid=" + wx.getStorageSync("yguserid"),
       imageUrl: shareImg,
     };
   },
@@ -316,9 +321,124 @@ Page({
     console.log("分享图地址:", shareImg);
     return {
       title: "广天藏品 " + ygname + " 向您分享了最新直播",
-      query: "vipcode=&yguserid=" + wx.getStorageSync("yguserid"),
+      query: "yguserid=" + wx.getStorageSync("yguserid"),
       imageUrl: shareImg,
     };
+  },
+
+  // 生成带 yguserid 参数的小程序码（走后端 wxacode.ashx，前端无 appid/secret）
+  createQrcode: function () {
+    var yguserid = wx.getStorageSync("yguserid") || "";
+    if (!yguserid) {
+      wx.showToast({ title: "员工编号为空，无法生成", icon: "none" });
+      return;
+    }
+    var that = this;
+    that.setData({ yguserid: yguserid });
+    wx.showLoading({ title: "生成中..." });
+    wx.request({
+      url: e.globalData.api + "wxacode.ashx",
+      data: { yguserid: yguserid },
+      header: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      success: function (res) {
+        var data = res.data;
+        // 兼容后端返回字符串 JSON（带 BOM 时先剔除）
+        if (typeof data === "string") {
+          try {
+            data = JSON.parse(data.replace(/\ufeff/g, ""));
+          } catch (err) {
+            wx.hideLoading();
+            wx.showToast({ title: "返回数据异常", icon: "none" });
+            return;
+          }
+        }
+        if (!data || data.errcode !== 0) {
+          wx.hideLoading();
+          wx.showToast({ title: (data && data.errmsg) || "生成失败", icon: "none" });
+          return;
+        }
+        // base64 写文件（保存相册需要本地文件路径，文件名带时间戳避免覆盖）
+        var filePath = wx.env.USER_DATA_PATH + "/live_qrcode_" + Date.now() + ".png";
+        wx.getFileSystemManager().writeFile({
+          filePath: filePath,
+          data: data.buffer,
+          encoding: "base64",
+          success: function () {
+            wx.hideLoading();
+            that.setData({
+              qrcodeImg: filePath,
+              showQrcode: true
+            });
+          },
+          fail: function () {
+            wx.hideLoading();
+            wx.showToast({ title: "图片写入失败", icon: "none" });
+          }
+        });
+      },
+      fail: function () {
+        wx.hideLoading();
+        wx.showToast({ title: "网络异常，请重试", icon: "none" });
+      }
+    });
+  },
+
+  // 关闭二维码弹窗
+  closeQrcode: function () {
+    this.setData({ showQrcode: false });
+  },
+
+  // 阻止点击冒泡
+  noop: function () {},
+
+  // 保存二维码到相册
+  saveQrcode: function () {
+    var that = this;
+    if (!that.data.qrcodeImg) return;
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting["scope.writePhotosAlbum"]) {
+          wx.saveImageToPhotosAlbum({
+            filePath: that.data.qrcodeImg,
+            success: function () {
+              wx.showToast({ title: "保存成功", icon: "success" });
+            },
+            fail: function () {
+              wx.showToast({ title: "保存失败，请重试", icon: "none" });
+            },
+          });
+        } else {
+          wx.authorize({
+            scope: "scope.writePhotosAlbum",
+            success: function () {
+              wx.saveImageToPhotosAlbum({
+                filePath: that.data.qrcodeImg,
+                success: function () {
+                  wx.showToast({ title: "保存成功", icon: "success" });
+                },
+                fail: function () {
+                  wx.showToast({ title: "保存失败，请重试", icon: "none" });
+                },
+              });
+            },
+            fail: function () {
+              wx.showModal({
+                title: "提示",
+                content: "需要相册权限才能保存二维码",
+                confirmText: "去设置",
+                success: function (r) {
+                  if (r.confirm) {
+                    wx.openSetting();
+                  }
+                },
+              });
+            },
+          });
+        }
+      },
+    });
   },
 
 });

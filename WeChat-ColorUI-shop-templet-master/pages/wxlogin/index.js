@@ -176,8 +176,9 @@ Page({
     console.log(t.data.nickName)
     console.log(t.data.imgurl)
     //return false
-
-    if (wx.getStorageSync('vipcode')||wx.getStorageSync("vip_id")) {
+console.log(wx.getStorageSync('vipcode'))
+console.log('11111111')
+    if (wx.getStorageSync('vipcode')) {
 
       wx.request({
         url: a.globalData.api + "wx_customer_oldvip.ashx",
@@ -196,11 +197,11 @@ Page({
             a.data == 'ok' ?
             wx.showModal({
               title: "提示",
-              content: "领取会员卡成功",
+              content: "读取会员卡成功",
               showCancel: !1,
               success: function (a) {
 
-                //     t.checkvip();
+                   //  t.checkvip();
 
                 wx.setStorageSync('wximg', t.data.imgurl),
                   wx.setStorageSync('wxuser', t.data.nickName)

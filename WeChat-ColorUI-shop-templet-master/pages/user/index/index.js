@@ -4,15 +4,15 @@ Page({
   data: {
     StatusBar: e.globalData.StatusBar,
     CustomBar: e.globalData.CustomBar,
-    iconurlfx:e.globalData.iconurl+'fx.jpg',
+    iconurlfx: e.globalData.iconurl + 'fx.jpg',
     vip: "您还没有登录哦 ~",
     vipcode: "",
     wxuserid: "",
     flag: !1,
     flags: !0,
-    tximg: e.globalData.imgUrl+'yk.jpg',
-    vipimg:e.globalData.imgUrl+'vip.png',
-    iconurl:e.globalData.iconurl,
+    tximg: e.globalData.imgUrl + 'yk.jpg',
+    vipimg: e.globalData.imgUrl + 'vip.png',
+    iconurl: e.globalData.iconurl,
     arr: [],
     phone: "",
     yguserid: "",
@@ -58,7 +58,7 @@ Page({
         wx.setStorageSync("vip_id", decodeURIComponent(a.scene)));
 
 
-     //   wx.setStorageSync("vip_id", '2637');
+    //   wx.setStorageSync("vip_id", '2637');
     var i = this;
     wx.login({
       success: function (t) {
@@ -112,37 +112,39 @@ Page({
   },
   tjtypes: function () {
     var t = this;
-    wx.showLoading({ title: "加载中..." }),
-    wx.request({
-      url: e.globalData.api + "wx_tjtags.ashx",
-      data: {
-        vipcode: wx.getStorageSync("vipcode"),
-        wxuserid: wx.getStorageSync("wxuserid"),
-      },
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
-      dataType: "json",
-      timeout: 10000,
-      success: function (e) {
-        wx.hideLoading(),
-          console.log(e.data),
-          e.data && e.data.length > 0 &&
-          t.setData({
-            sumdfk: e.data[0].SUMDFK,
-            sumdfh: e.data[0].SUMDFH
-          }),
-          console.log(t.data.sumdfk);
-      },
-      fail: function (e) {
-        wx.hideLoading(),
-          console.log("订单统计加载失败", e),
-          wx.showToast({
-            title: "订单统计加载失败",
-            icon: "none"
-          });
-      },
-    });
+    wx.showLoading({
+        title: "加载中..."
+      }),
+      wx.request({
+        url: e.globalData.api + "wx_tjtags.ashx",
+        data: {
+          vipcode: wx.getStorageSync("vipcode"),
+          wxuserid: wx.getStorageSync("wxuserid"),
+        },
+        header: {
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        dataType: "json",
+        timeout: 10000,
+        success: function (e) {
+          wx.hideLoading(),
+            console.log(e.data),
+            e.data && e.data.length > 0 &&
+            t.setData({
+              sumdfk: e.data[0].SUMDFK,
+              sumdfh: e.data[0].SUMDFH
+            }),
+            console.log(t.data.sumdfk);
+        },
+        fail: function (e) {
+          wx.hideLoading(),
+            console.log("订单统计加载失败", e),
+            wx.showToast({
+              title: "订单统计加载失败",
+              icon: "none"
+            });
+        },
+      });
   },
   seall: function () {
     wx.navigateTo({
@@ -181,7 +183,7 @@ Page({
     });
   },
   onShow: function (t) {
-    console.log(e.globalData.wximgurl+wx.getStorageSync("wximg")),
+    console.log(e.globalData.wximgurl + wx.getStorageSync("wximg")),
       wx.getStorageSync("yguserid") &&
       this.setData({
         yguserid: wx.getStorageSync("yguserid")
@@ -194,7 +196,7 @@ Page({
           flag: !0,
           flags: !1,
           tximg: this.data.vipimg,
-          avatarUrl: e.globalData.wximgurl+wx.getStorageSync('wximg'),
+          avatarUrl: e.globalData.wximgurl + wx.getStorageSync('wximg'),
           nickName: wx.getStorageSync('wxuser')
         })) :
       this.setData({
@@ -210,8 +212,8 @@ Page({
       });
     var a = this;
     console.log(wx.getStorageSync("vipcode")),
-      wx.getStorageSync("vipcode")?
-   
+      wx.getStorageSync("vipcode") ?
+
       wx.request({
         url: e.globalData.api + "wx_checkvip.ashx",
         data: {
@@ -232,7 +234,7 @@ Page({
               flags: !1,
               tximg: a.data.vipimg,
 
-            }),a.tz() ) :
+            }), a.tz()) :
             a.setData({
               vip: "您还没有登录哦 ~",
               flag: !1,
@@ -257,18 +259,16 @@ Page({
       this.tjtypes();
   },
 
-tz()
-{
+  tz() {
 
-  if(this.data.nickName=='')
-  {
+    if (this.data.nickName == '') {
 
-    wx.navigateTo({
-      url: "/pages/wxlogin/index"
-    });
-  }
+      wx.navigateTo({
+        url: "/pages/wxlogin/index"
+      });
+    }
 
-},
+  },
 
   onGetPhoneNumber: function (e) {
     /*
@@ -302,26 +302,39 @@ tz()
                 res.code &&
                   wx.request({
                     url: e.globalData.api + "wx_getphone.ashx",
-                    data: { code: res.code },
-                    header: { "content-type": "application/json" },
+                    data: {
+                      code: res.code
+                    },
+                    header: {
+                      "content-type": "application/json"
+                    },
                     timeout: 10000,
                     success: function (resp) {
                       if (!resp.data || typeof resp.data.split !== "function") {
-                        wx.showToast({ title: "授权状态异常，请重试", icon: "none" });
+                        wx.showToast({
+                          title: "授权状态异常，请重试",
+                          icon: "none"
+                        });
                         return;
                       }
                       var arr = resp.data.split(",");
                       wx.setStorageSync("openid", arr[0]),
-                      wx.setStorageSync("sessionID", arr[1]),
-                      t.deciyption(wx.getStorageSync("sessionID"), o, n);
+                        wx.setStorageSync("sessionID", arr[1]),
+                        t.deciyption(wx.getStorageSync("sessionID"), o, n);
                     },
                     fail: function () {
-                      wx.showToast({ title: "授权状态异常，请重试", icon: "none" });
+                      wx.showToast({
+                        title: "授权状态异常，请重试",
+                        icon: "none"
+                      });
                     },
                   });
               },
               fail: function () {
-                wx.showToast({ title: "授权状态异常，请重试", icon: "none" });
+                wx.showToast({
+                  title: "授权状态异常，请重试",
+                  icon: "none"
+                });
               },
             });
         },
@@ -338,7 +351,9 @@ tz()
   deciyption: function (t, a, o) {
     var n = this;
     console.log("步骤4根据秘钥加载手机号码sessionID：", t),
-      wx.showLoading({ title: "正在加载..." }),
+      wx.showLoading({
+        title: "正在加载..."
+      }),
       wx.request({
         url: e.globalData.api + "wx_getvipphone.ashx",
         data: {
@@ -364,9 +379,11 @@ tz()
             });
           }
           n.setData({
-            phone: t.data.phoneNumber
-          }),
-          wx.setStorageSync('phone', t.data.phoneNumber);
+              phone: t.data.phoneNumber
+            }),
+            wx.setStorageSync('phone', t.data.phoneNumber);
+            console.warn(wx.getStorageSync("vipcode"))
+           
           t.data.phoneNumber && wx.getStorageSync("vipcode") ?
             (wx.setStorageSync("wxuserid", t.data.phoneNumber),
               wx.request({
@@ -380,7 +397,9 @@ tz()
                 dataType: "json",
                 timeout: 10000,
                 success: function (e) {
-                  console.log(e),
+             
+                  console.warn(e),
+
                     e.data && e.data.length > 0 ?
                     n.setData({
                       vip: e.data[0].GRADE,
@@ -420,7 +439,7 @@ tz()
   },
   inphone: function () {
 
-    if (!wx.getStorageSync("vip_id")||!wx.getStorageSync("vipcode")){
+    if (!wx.getStorageSync("vip_id")) {
 
       console.log('ggggggggggg')
       wx.navigateTo({
@@ -472,17 +491,17 @@ tz()
                         tximg: t.data.vipimg,
                         vipcode: e.data[0].XF_VIPCODE,
                       }),
-                      wx.setStorageSync("vipcode", e.data[0].XF_VIPCODE),
+             //         wx.setStorageSync("vipcode", e.data[0].XF_VIPCODE),
                       t.setData({
                         vipcode: e.data[0].XF_VIPCODE,
                         flag: !0,
                         flags: !1,
                         tximg: t.data.vipimg,
                       }),
-                      wx.redirectTo({
-                        url: '/pages/wxlogin/index',
-                      })
-                      // wx.showToast({ title: "会员卡领取成功！" })
+                       wx.redirectTo({
+                         url: '/pages/wxlogin/index',
+                       })
+                     //  wx.showToast({ title: "会员卡领取成功！" })
                     ) :
                     (t.setData({
                         vip: "您还没有登录哦 ~",
@@ -503,14 +522,14 @@ tz()
                 },
               });
           },
-        fail: function (e) {
-          wx.hideLoading(),
-            console.log("数据请求失败", e),
-            wx.showToast({
-              title: "数据请求失败",
-              icon: "none"
-            });
-        },
+          fail: function (e) {
+            wx.hideLoading(),
+              console.log("数据请求失败", e),
+              wx.showToast({
+                title: "数据请求失败",
+                icon: "none"
+              });
+          },
         });
 
     }

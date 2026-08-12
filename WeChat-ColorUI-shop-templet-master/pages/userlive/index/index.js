@@ -28,7 +28,7 @@ Page({
     this.setData({
       loading: true
     })
-   
+
     //没有选择头像和昵称
 
     if (!wx.getStorageSync('wximg') || !wx.getStorageSync('wxuser')) {
@@ -75,7 +75,16 @@ Page({
 
 
   onLoad: function (a) {
+    wx.removeStorageSync('vipcode')
 
+    // 小程序码落地：参数通过 scene 传递（微信会自动 URL 编码，需解码还原）
+    if (a.scene) {
+      var sceneStr = decodeURIComponent(a.scene);
+      if (sceneStr) {
+        wx.setStorageSync('yguserid', sceneStr);
+      }
+      console.warn(sceneStr)
+    }
 
     wx.request({
       url: "https://widesky.work/HKback/wx_state.ashx",
@@ -102,14 +111,14 @@ Page({
       }
     })
 
-//判断是否直播间进入商城
+    //判断是否直播间进入商城
     // if (a.zb) {
 
     //   wx.setStorageSync('zb', a.zb)
 
     // }
 
-//直选头像昵称
+    //直选头像昵称
     if (a.user == '1') {
 
       this.loginzb();
@@ -208,7 +217,7 @@ Page({
   },
 
   onShow: function (t) {
-
+    wx.removeStorageSync('vipcode')
     var that = this
     wx.request({
       url: e.globalData.api + "wx_zbindex.ashx",
@@ -254,7 +263,9 @@ Page({
             img = img.replace(/^\/+/, '');
             img = banner + img;
           }
-          return { img: img };
+          return {
+            img: img
+          };
         });
 
         // ============= 3. 赋值给轮播 =============
@@ -303,7 +314,16 @@ Page({
             isLiving: '直播中'
           })
 
-        } else {
+        }
+        else if (res.data.data[0].liveStatus == "playback") {
+
+          that.setData({
+            isLiving: '回放中'
+          })
+
+        }
+        
+        else {
           that.setData({
             isLiving: ''
           })

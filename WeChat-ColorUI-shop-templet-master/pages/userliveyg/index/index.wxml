@@ -31,9 +31,28 @@
 </view>
 
 
-    <view style="margin:60rpx auto 20rpx;width:90%;padding-bottom:96rpx;">
+    <view style="margin:60rpx auto 20rpx;width:90%;padding-bottom:26rpx;">
         <button class="cu-btn round  bg-gradual-green" openType="share" style="margin:10rpx;height:80rpx;line-height:80rpx;border-radius:40rpx;color:white;background-color:#03a9f4;width:100%;font-size:32rpx;"> 分享直播</button>
     </view> 
+
+    <view style="margin:0rpx auto 20rpx;width:90%;padding-bottom:96rpx;">
+        <button class="cu-btn round  " bindtap="createQrcode" style="margin:10rpx;height:80rpx;line-height:80rpx;border-radius:40rpx;color:white;background-color:#073950a9;width:100%;font-size:32rpx;"> 生成二维码</button>
+    </view> 
+
+    <!-- 生成二维码弹窗 -->
+    <view class="qrcode-mask" wx:if="{{showQrcode}}" bindtap="closeQrcode">
+        <view class="qrcode-pop" catchtap="noop">
+            <view class="qrcode-title">直播间分享二维码</view>
+            <view class="qrcode-subtitle">二维码绑定员工：{{yguserid}}</view>
+            <image class="qrcode-img" src="{{qrcodeImg}}" mode="aspectFit" show-menu-by-longpress="{{true}}"></image>
+            <button class="qrcode-btn" bindtap="saveQrcode">保存到相册</button>
+            <button class="qrcode-btn qrcode-btn-close" bindtap="closeQrcode">关闭</button>
+        </view>
+    </view>
+
+    <!-- 二维码绘制用 canvas（隐藏） -->
+    <canvas canvas-id="qrcode" style="width:200px;height:200px;position:fixed;left:-9999px;top:-9999px;"></canvas>
+
 <!-- 
     <view class="cu-form-group" style="margin-top: -750rpx;">
         <view class="title icon-title text-orange">输入会员卡号：</view>
