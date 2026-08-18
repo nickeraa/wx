@@ -1,0 +1,73 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>货品销售明细
+        </navigator>
+    </view>
+</view>
+<view style="height:{{CustomBar}}px;background-color:white;"></view>
+
+<view class="canui-order-item " hidden="{{rv}}">
+
+    <!-- 货品信息卡 -->
+    <view style="margin:20rpx;background:white;border-radius:16rpx;padding:24rpx;display:flex;align-items:center;">
+        <image wx:if="{{imgFull}}" src="{{imgFull}}" mode="aspectFill" style="width:120rpx;height:120rpx;border-radius:12rpx;margin-right:20rpx;"></image>
+        <view wx:else style="width:120rpx;height:120rpx;border-radius:12rpx;margin-right:20rpx;background:#f0f0f0;color:#bbb;font-size:24rpx;display:flex;align-items:center;justify-content:center;">无图</view>
+        <view style="flex:1;">
+            <view style="font-size:32rpx;font-weight:bold;">{{desci}}</view>
+            <view style="font-size:24rpx;color:#999;margin-top:6rpx;">编码：{{plu}}</view>
+            <view wx:if="{{hasStore}}" style="font-size:24rpx;color:#999;margin-top:6rpx;">店铺：{{storeName}}</view>
+            <view style="font-size:24rpx;color:#056b6b;margin-top:6rpx;">共 {{totalQty}} 件　金额 ¥{{totalAmt}}</view>
+        </view>
+    </view>
+
+    <!-- 表头 -->
+    <view style="margin-top: 0.6rem;">
+        <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 3rem;padding: 0.6rem;box-sizing:border-box;">
+            <view class="stp" style="width:26%;margin-left:0;margin-right:0;">
+                <text>单号</text>
+            </view>
+            <view class="stp" style="width:22%;margin-left:0;margin-right:0;">
+                <text>日期</text>
+            </view>
+            <view class="stp" style="width:14%;margin-left:0;margin-right:0;">
+                <text>员工</text>
+            </view>
+            <view class="stp" style="width:10%;margin-left:0;margin-right:0;">
+                <text>数量</text>
+            </view>
+            <view class="stp" style="width:14%;margin-left:0;margin-right:0;">
+                <text>单价</text>
+            </view>
+            <view class="stp" style="width:14%;margin-left:0;margin-right:0;">
+                <text>金额</text>
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- 明细行 -->
+<view hidden="{{rv}}" style="background-color:#E0EEEE;" wx:for="{{rows}}" wx:key="_key">
+    <view class="Grid-sku" style="min-height:4rem;padding: 0.6rem;box-sizing:border-box;">
+        <view class="stp" style="width:26%;margin-left:0;margin-right:0;word-break:break-all;">
+            <text class="">{{item.XF_DOCNO}}</text>
+        </view>
+        <view class="stp" style="width:22%;margin-left:0;margin-right:0;">
+            <view class="">{{item.DATE_F}}</view>
+            <view class="" style="color:#666;font-size:22rpx;">{{item.TIME_F}}</view>
+        </view>
+        <view class="stp" style="width:14%;margin-left:0;margin-right:0;">
+            <text class="">{{item.XF_NAME}}</text>
+        </view>
+        <view class="stp" style="width:10%;margin-left:0;margin-right:0;">
+            <text class="">{{item.XF_QTY}}</text>
+        </view>
+        <view class="stp" style="width:14%;margin-left:0;margin-right:0;">
+            <text class="">{{item.PRICE_F}}</text>
+        </view>
+        <view class="stp" style="width:14%;margin-left:0;margin-right:0;">
+            <text class="" style="font-weight:bold;">{{item.AMT_F}}</text>
+        </view>
+    </view>
+    <view style="height:3px;background-color:white;"></view>
+</view>

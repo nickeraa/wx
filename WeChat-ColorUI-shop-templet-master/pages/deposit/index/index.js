@@ -696,7 +696,7 @@ zf: function (a) {
     wx.request({
       url: a.globalData.api + "wx_dfksku.ashx",
       data: {
-        xf_vipcode: wx.getStorageSync("vipcode") || "",
+    //    xf_vipcode: wx.getStorageSync("vipcode") || "",
         wxuserid: wx.getStorageSync("wxuserid") || "",
         xf_plu: t.data.xf_plu,
         xf_price: t.data.realprice,
@@ -708,7 +708,7 @@ zf: function (a) {
         shtype: t.data.setype,
         shid: id,
         tag: tag,
-        xf_storecode: t.data.xf_storecode,
+      //  xf_storecode: t.data.xf_storecode,
         salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: payAmtsold,
         xf_docno: t.data.xf_docno,

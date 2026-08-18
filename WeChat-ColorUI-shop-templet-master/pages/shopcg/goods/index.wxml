@@ -28,7 +28,7 @@
                 <text>货号：{{item.XF_PLU}}</text>
             </view>
             <view class="padding-sm " style="width:50%;">
-                <text>数量：{{item.XSTOCK}}</text>
+                <text>数量：<text style="color:red;font-size:40rpx;font-weight:700;">{{item.XSTOCK}}</text></text>
             </view>
         </view>
         <view class="bg-white canui-goods-box canui-xzwz text-black" style="display:flex;width:100%;margin-top:-10rpx;">

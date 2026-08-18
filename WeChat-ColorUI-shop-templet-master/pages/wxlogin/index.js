@@ -177,7 +177,7 @@ Page({
     console.log(t.data.imgurl)
     //return false
 console.log(wx.getStorageSync('vipcode'))
-console.log('11111111')
+
     if (wx.getStorageSync('vipcode')) {
 
       wx.request({

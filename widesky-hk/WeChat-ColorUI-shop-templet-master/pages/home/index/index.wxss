@@ -39,13 +39,43 @@
 .UCenter-bg text {
   opacity: 0.8;
 }
-.UCenter-bg .gif-wave {
+/* 纯CSS水波动画（替代 wave.gif）：三个大圆角块以不同速度/方向旋转，露出部分形成流动波浪；mix-blend-mode 与原GIF融合方式一致 */
+.UCenter-bg .css-wave {
   bottom: 0;
   height: 60rpx;
+  left: 0;
+  mix-blend-mode: screen;
+  overflow: hidden;
   position: absolute;
   width: 100%;
+  z-index: 99;
 }
-.UCenter-bg .gif-wave,
+.UCenter-bg .css-wave .wave {
+  animation: wave-rotate 10s linear infinite;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 43%;
+  bottom: -930rpx;
+  height: 1000rpx;
+  left: 50%;
+  margin-left: -500rpx;
+  position: absolute;
+  width: 1000rpx;
+}
+.UCenter-bg .css-wave .wave2 {
+  animation-duration: 14s;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 47%;
+}
+.UCenter-bg .css-wave .wave3 {
+  animation-direction: reverse;
+  animation-duration: 7s;
+  background-color: rgba(255, 255, 255, 0.35);
+  border-radius: 40%;
+}
+@keyframes wave-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 .mapBox,
 map {
   left: 0;

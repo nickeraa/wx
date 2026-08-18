@@ -1,0 +1,64 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>观看直播客户查询
+        </navigator>
+    </view>
+</view>
+<view style="height:{{CustomBar}}px;background-color:white;"></view>
+
+<view style="background-color: white;padding-bottom: 10px;">
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">选择直播场次：</view>
+        <picker bindchange="bindPickerChange3" range="{{picker3}}" rangeKey="TITLE" value="{{index3}}">
+            <view class="picker dp ">
+                <text>{{index3 !== null ? picker3[index3].TITLE : '请选择直播活动'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+</view>
+
+<view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+    <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">实时汇总查询</button>
+</view>
+<view class="canui-order-item " hidden="{{rv}}">
+
+    <view style='margin-left: 30rpx; margin-top: 60rpx;'><text>分享到直播间总人数：</text><text style='color:red;font-size: 60rpx;'> {{sumbody}}  </text></view>
+
+    <view style="margin-top: 0.6rem;">
+        <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 3rem;padding: 0.6rem;box-sizing:border-box;">
+
+            <view class="stp" style="width:20%;margin-left:0;margin-right:0;">
+                <text>排行</text>
+            </view>
+
+            <view class="stp" style="width:40%;margin-left:0;margin-right:0;">
+                <text>分享员工</text>
+            </view>
+
+            <view class="stp" style="width:40%;margin-left:0;margin-right:0;">
+                <text style="white-space:nowrap;font-size:26rpx;">到达直播间的客户数量</text>
+            </view>
+
+        </view>
+    </view>
+</view>
+<view hidden="{{rv}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="RN" data-yguserid="{{item.YGUSERID}}" data-counts="{{item.COUNTS}}"
+bindtap="listzb"
+>
+    <view class="Grid-sku" style="height:4rem;padding: 0.6rem;box-sizing:border-box;">
+        <view class="stp" style="width:20%;margin-left:0;margin-right:0;">
+            <text class=""> {{item.RN}}</text>
+        </view>
+
+        <view class="stp" style="width:40%;margin-left:0;margin-right:0;">
+            <text class=""> {{item.XF_NAME}} </text>
+        </view>
+
+        <view class="stp" style="width:40%;margin-left:0;margin-right:0;">
+            <text class=""> {{item.COUNTS}} </text>
+        </view>
+    </view>
+    <view style="height:3px;background-color:white;"></view>
+</view>

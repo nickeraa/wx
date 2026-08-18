@@ -520,7 +520,7 @@ this.shows();
     wx.request({
       url: app.globalData.api + "wx_dfkyd.ashx",
       data: {
-        xf_vipcode: wx.getStorageSync("vipcode"),
+     //   xf_vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
         xf_plu: that._buildPluDetail() || that.data.xf_plu,
         xf_amtsold: that.data.sumydprice,
@@ -530,7 +530,7 @@ this.shows();
         shtype: that.data.setype,
         shid: that.data.id,
         tag: "0",
-        xf_storecode: that.data.xf_storecode,
+   //     xf_storecode: that.data.xf_storecode,
         salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: 0,
         xf_docno: that.data.xf_docno,
@@ -571,7 +571,7 @@ this.shows();
     wx.request({
       url: app.globalData.api + "wx_dfkyd.ashx",
       data: {
-        xf_vipcode: wx.getStorageSync("vipcode"),
+   //     xf_vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
         xf_plu: that._buildPluDetail() || that.data.xf_plu,
         xf_amtsold: that.data.sumydprice,
@@ -581,7 +581,7 @@ this.shows();
         shtype: that.data.setype,
         shid: that.data.id,
         tag: "1",
-        xf_storecode: that.data.xf_storecode,
+   //     xf_storecode: that.data.xf_storecode,
         salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: that.data.sumydprice,
         xf_docno: that.data.xf_docno,

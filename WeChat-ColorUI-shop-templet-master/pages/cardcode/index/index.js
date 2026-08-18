@@ -97,11 +97,26 @@ Page({
       data: { vipcode: wx.getStorageSync("vipcode") },
       success: function (e) {
         console.log(e);
-        var a = e.data.replace(" ", "");
-        a = a.replace(/\ufeff/g, "");
-        var o = JSON.parse(a);
-        console.log("fffffff");
-        var i = o.buffer;
+        var o;
+        if ("string" == typeof e.data) {
+          var a = e.data.replace(" ", "");
+          a = a.replace(/\ufeff/g, "");
+          o = JSON.parse(a);
+        } else o = e.data || {};
+        if ((console.log("fffffff", o), o.errcode))
+          return (
+            console.error("getqcode 返回错误", o),
+            void wx.showToast({
+              title: o.errmsg || "二维码获取失败",
+              icon: "none",
+            })
+          );
+        var i = o.buffer || o.base64img || o.data || "";
+        if (!i)
+          return (
+            console.error("未获取到二维码数据", o),
+            void wx.showToast({ title: "二维码数据为空", icon: "none" })
+          );
         t.setData({ erweima: "data:image/png;base64," + i });
         var s = wx.env.USER_DATA_PATH + "/code.png",
           n = t.data.erweima.replace(/^data:image\/\w+;base64,/, "");
@@ -111,12 +126,16 @@ Page({
           encoding: "base64",
           success: function () {},
           fail: function (e) {
-            console.log(e);
+            console.log(e),
+              wx.showToast({ title: "二维码保存失败", icon: "none" });
           },
         }),
           t.setData({ erweima: s }),
           console.log(t.data.erweima),
           t.eventDraw();
+      },
+      fail: function (e) {
+        console.log(e), wx.showToast({ title: "网络请求失败", icon: "none" });
       },
     });
   },

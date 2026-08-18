@@ -16,6 +16,7 @@ Page({
       wx.request({
         url: a.globalData.api + "wx_listnewvip.ashx",
         data: { userid: wx.getStorageSync("yguserid") },
+
         header: { "content-type": "application/x-www-form-urlencoded" },
         dataType: "json",
         success: function (a) {

@@ -1,9 +1,13 @@
 {
   "pages": [
-    "pages/home/index/index",
-    "pages/userliveyg/index/index",
+
     "pages/homezb/index/index",
     "pages/userlive/index/index",
+
+    "pages/home/index/index",
+    "pages/sendcard/index/index",
+    "pages/userliveyg/index/index",
+
     "pages/shopcg/goods/index",
     "pages/wxloginzb/index",
     "pages/homerm/index/index",
@@ -44,7 +48,7 @@
     "pages/fkdeposit/index/index",
     "pages/fkdepositfx/index/index",
     "pages/qhdeposit/index/index",
-    "pages/sendcard/index/index",
+
     "pages/newcards/index/index",
     "pages/fkcg/index/index",
     "pages/wlstate/index/index",

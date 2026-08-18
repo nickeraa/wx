@@ -545,7 +545,7 @@ Page({
     wx.request({
       url: e.globalData.api + "wx_yfksc.ashx",
       data: {
-        xf_vipcode: wx.getStorageSync("vipcode"),
+     //   xf_vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
         xf_plu: a._buildPluDetail() || a.data.xf_plu,
         xf_amtsold: Number(a.data.sumrealprice),
@@ -555,7 +555,7 @@ Page({
         shtype: a.data.setype,
         shid: a.data.id,
         tag: "1",
-        xf_storecode: a.data.xf_storecode,
+    //    xf_storecode: a.data.xf_storecode,
         salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: a.data.sumprice,
         xf_docno: a.data.xf_docno,
@@ -624,7 +624,7 @@ Page({
     wx.request({
       url: e.globalData.api + "wx_dfksc.ashx",
       data: {
-        xf_vipcode: wx.getStorageSync("vipcode"),
+     //   xf_vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
         xf_plu: a._buildPluDetail() || a.data.xf_plu,
         xf_amtsold: Number(a.data.sumrealprice),
@@ -634,7 +634,7 @@ Page({
         shtype: a.data.setype,
         shid: a.data.id,
         tag: "0",
-        xf_storecode: a.data.xf_storecode,
+      //  xf_storecode: a.data.xf_storecode,
         salesman: wx.getStorageSync("yguserid"),
         pay_amtsold: 0,
         xf_docno: a.data.xf_docno,

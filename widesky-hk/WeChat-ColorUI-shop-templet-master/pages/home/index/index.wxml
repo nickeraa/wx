@@ -4,7 +4,12 @@
     </view>
 </view>
 <view class="UCenter-bg" style="padding-bottom:150px;">
-    <image class="gif-wave" mode="scaleToFill" src="{{bgimages}}wave.gif"></image>
+    <!-- 纯CSS水波动画，替代 wave.gif -->
+    <view class="css-wave">
+        <view class="wave wave1"></view>
+        <view class="wave wave2"></view>
+        <view class="wave wave3"></view>
+    </view>
 </view>
 <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">

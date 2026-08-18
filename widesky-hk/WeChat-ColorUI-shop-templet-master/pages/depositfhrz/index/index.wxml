@@ -1,0 +1,286 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>商城订单快递发货
+        </navigator>
+    </view>
+</view>
+<view style="width:100%;overflow-x:hidden;">
+
+    <view style="padding-top: {{CustomBar}}px;">
+        <view class="cu-form-group">
+            <view class="title icon-title text-orange">查询店铺：</view>
+            <picker bindchange="bindPickerChange3" range="{{picker3}}" rangeKey="LCCODE"
+                value="{{index3}}">
+                <view class="picker dp ">
+                    <text>{{index3 !== null ? picker3[index3].LCCODE : '请选择店铺'}}</text>
+                    <text class="cuIcon-triangledownfill"></text>
+                </view>
+            </picker>
+        </view>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">查询员工：</view>
+        <picker bindchange="bindPickerChange4" range="{{picker4}}" rangeKey="XF_NAME"
+            value="{{index4}}">
+            <view class="picker dp ">
+                <text>{{index4 !== null ? picker4[index4].XF_NAME : '选择员工'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+    <view class="page" style="margin-top:5px;background-color:white;">
+        <view class="picker_group " style="margin-left:-12px;">
+            <view class="title icon-title text-orange up" style="font-size:15px;">商城下单日期：</view>
+            <picker bindchange="bindDateChange" end="{{date2}}" mode="date" value="{{date}}">
+                <view class="picker"> {{date}} </view>
+            </picker> 至 <picker bindchange="bindDateChange2" end="2050-01-01" mode="date" start="{{date}}"
+                value="{{date2}}">
+                <view class="picker"> {{date2}} </view>
+            </picker>
+        </view>
+    </view>
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">查询分类：</view>
+        <picker bindchange="bindPickerChange" range="{{array}}" value="{{index}}">
+            <view class="picker dp"> {{array[index]}} </view>
+        </picker>
+    </view>
+    <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+        <button bindtap="checkinput" class="cu-btn round "
+            style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询明细</button>
+    </view>
+
+    <view class="cu-list menu card-menu margin-top-xl  shadow-lg" style="margin-top: 2rem;" data-kcnumber="{{item.KCXF_DOCNO}}"
+    data-xf_docno='{{item.XF_DOCNO}}'   wx:for="{{replu}}"
+        wx:key="index">
+        <view class="canui-order-item bg-white">
+            <view class="head-title-box" style="margin: 0px 0px 0px 20px;">
+                <view style="height: 10px;"></view>
+                <text class="icon-shop"></text>
+                <text style="margin-left: 5px;">广天藏品</text>
+            </view>
+            <view catchtap='selectsku' data-XF_PLU="{{shopItem.XF_PLU}}"  wx:for="{{item.shop}}" wx:for-item="shopItem"
+                wx:key="index">
+                <view class="Grid-sku" style="border-radius:8px;background-color:white;margin:5px 0px 5px 0px;">
+                    <view style="margin-left:10px;margin-top:15px;height:100px;width:100px;">
+                        <image mode="widthFix" src="{{scimgurl}}{{shopItem.XF_PLU}}/{{shopItem.IMAGESSL}}"
+                            style="border-radius: 5px;"></image>
+                    </view>
+                    <view style="margin-left:15px;width:70%;margin-top:10px;">
+                        <view>
+                            <text>{{shopItem.XF_DESCI}}</text>
+                        </view>
+                        <view>
+                            <text>编号：{{shopItem.XF_PLU}}</text>
+                        </view>
+                        <view style="display: flex;width:100%;">
+                            <view style="color:rgb(195,167,105);margin-top:8px;width:30%;margin-left:3px;">
+                                <text class="text-price"
+                                    style="font-size: 18px;color:rgb(195,167,105);">{{shopItem.XF_PRICE}}</text>
+                            </view>
+                            <view style="width: 70%;margin-top:2px;text-align: right;margin-right: 8px;">
+                                <view class="cu-btn"
+                                    style="background-color:rgb(243, 244, 246);height: 25px;width:10%;font-size: 12px;">
+                                    X</view>
+                                <view class="cu-btn"
+                                    style="background-color:rgb(243, 244, 246);height: 25px;margin-left: 3px;margin-top:5px;width:10%;">
+                                    {{shopItem.XF_QTY}}
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 共 <text
+                            style="font-weight: 700;color:rgb(195,167,105);">{{item.SUMQTY}}</text> 件商品 </view>
+                    <view class="action"> 小计： <text class="text-price"
+                            style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.SUMPRICE}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 入账金额： </view>
+                    <view class="action">
+                        <text class="text-price"
+                            style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.YFAMTSOLD}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 腾讯单号： </view>
+                    <view class="action">
+                        <text 
+                            style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.TX_DOCNO}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 尚欠金额： </view>
+                    <view class="action">
+                        <text class="text-price"
+                            style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.SUMSQPRICE}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 商城单号： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:green;font-weight: 700;">{{item.XF_DOCNO}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 销售类型： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:red;font-weight: 700;">{{item.SALESTYPES}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 下单时间： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:red;">{{item.XF_TXDATE}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 微信头像： </view>
+                    <view class="action">
+                        <image wx:if="{{item.WXIMG_FULL}}" style='width: 50rpx;height: 50rpx;border-radius:50%;' src='{{item.WXIMG_FULL}}' mode="aspectFill"></image>
+                        <text wx:else style="font-size: 15px;color:#999;"></text>
+                    </view>
+                </view>
+            </view>
+
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 微信昵称： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:rgb(195,167,105);">{{item.WXNAME}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 收货人： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:rgb(195,167,105);">{{item.BODY}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content">联系电话：</view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:rgb(195,167,105);">{{item.PHONE}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 收货地址： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:rgb(195,167,105);">{{item.ADDRESS}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 分享员工： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:rgb(195,167,105);">{{item.XF_NAME}}</text>
+                    </view>
+                </view>
+            </view>
+
+
+            <view wx:if="{{qindex==0}}">
+                <view class="cu-list menu bg-white solid-bottom canui-selet">
+                    <view class="cu-item">
+                        <view class="content"> 科传单号： </view>
+                        <view class="action" >
+                            <text style="font-size: 15px;color:red;">{{item.KCXF_DOCNO}}</text>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="cu-form-group">
+                    <view class="title icon-title text-orange">发货方式：</view>
+                    <radio-group bindchange="bindSendtypeChange" style="display:flex;align-items:center;">
+                        <label style="margin-right:40rpx;display:flex;align-items:center;">
+                            <radio value="kd" checked="{{sendtype=='kd'}}" color="#ed1c24"></radio>快递发货
+                        </label>
+                        <label style="display:flex;align-items:center;">
+                            <radio value="zt" checked="{{sendtype=='zt'}}" color="#ed1c24"></radio>自提
+                        </label>
+                    </radio-group>
+                </view>
+
+                <block wx:if="{{sendtype=='kd'}}">
+                    <view class="cu-form-group">
+                        <view class="title icon-title text-orange">快递公司：</view>
+                        <picker bindchange="bindPickerChange1" range="{{array1}}" value="{{index1}}">
+                            <view class="picker dp">{{index1 !== null ? array1[index1] : '请选择快递公司'}}</view>
+                        </picker>
+                    </view>
+
+                    <view class="cu-form-group">
+                        <view class="title icon-title text-orange up">快递单号：</view>
+                        <input bindinput="getkdnumber" class="radius up" name="kdnumber" placeholder="请输入快递单号"
+                            value="{{kdnumber}}"></input>
+                    </view>
+                </block>
+                <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+                    <button bindtap="send" data-kcnumber="{{item.KCXF_DOCNO}}" data-xf_docno="{{item.XF_DOCNO}}" class="cu-btn round "
+                        style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">{{sendtype=='zt'?'确认自提':'提交快递单号'}}</button>
+                </view>
+            </view>
+        </view>
+
+        <view wx:if="{{qindex==1}}">
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 科传单号： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:red;">{{item.KCXF_DOCNO}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 发货方式： </view>
+                    <view class="action">
+                        <text style="font-size: 15px;color:green;font-weight: 700;">{{item.WLNUMBER=='自提'?'自提':'快递发货'}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <block wx:if="{{item.WLNUMBER!='自提'}}">
+                <view class="cu-form-group">
+                    <view class="title icon-title text-orange">快递公司：</view>
+                    <text>{{item.WLNUMBER}}</text>
+                </view>
+                <view class="cu-form-group">
+                    <view class="title icon-title text-orange up">快递单号：</view>
+                    <text>{{item.KDNUMBER}}</text>
+                </view>
+            </block>
+
+        </view>
+    </view>
+</view>

@@ -1,0 +1,105 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>直播销售查询
+        </navigator>
+    </view>
+</view>
+<view style="height:{{CustomBar}}px;background-color:white;"></view>
+
+<view style="background-color: white;padding-bottom: 10px;">
+    <view class="cu-form-group">
+        <view class="title icon-title text-orange">选择直播场次：</view>
+        <picker bindchange="bindPickerChange3" range="{{picker3}}" rangeKey="TITLE" value="{{index3}}">
+            <view class="picker dp ">
+                <text>{{index3 !== null ? picker3[index3].TITLE : '请选择直播活动'}}</text>
+                <text class="cuIcon-triangledownfill"></text>
+            </view>
+        </picker>
+    </view>
+</view>
+
+<view style="margin:20px 10px 10px 10px;height:3rem;">
+    <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">实时汇总明细查询</button>
+</view>
+<!-- 分类切换按钮：初始化常显，带背景容器方便查看 -->
+<view style="margin:24rpx 30rpx 10rpx;background:#eaf6f6;border:1rpx solid #056b6b;border-radius:40rpx;padding:10rpx;display:flex;">
+    <view bindtap="setView" data-v="plu" style="flex:1;text-align:center;padding:14rpx 0;border-radius:32rpx;font-size:26rpx;margin-right:10rpx;{{view=='plu'?'background:#056b6b;color:#fff;box-shadow:0 4rpx 12rpx rgba(5,107,107,0.35);':'background:#fff;color:#333;border:1rpx solid #ddd;'}}">按货品分类</view>
+    <view bindtap="setView" data-v="store" style="flex:1;text-align:center;padding:14rpx 0;border-radius:32rpx;font-size:26rpx;{{view=='store'?'background:#056b6b;color:#fff;box-shadow:0 4rpx 12rpx rgba(5,107,107,0.35);':'background:#fff;color:#333;border:1rpx solid #ddd;'}}">按店铺分类</view>
+</view>
+
+<view class="canui-order-item " hidden="{{rv}}">
+
+    <!-- 总销售额：所有视图一直显示 -->
+    <view style='margin-left: 30rpx; margin-top: 60rpx;'><text>总销售额：</text><text style='color:red;font-size: 60rpx;'> {{amtsold}}  </text></view>
+
+</view>
+
+<!-- 按货品分类列表（用wx:if控制：行内display:flex会使hidden失效） -->
+<block wx:if="{{!rv && view=='plu'}}">
+    <view wx:for="{{plus}}" wx:key="_key" bindtap="goPluDetail" data-plu="{{item.XF_PLU}}" data-desci="{{item.XF_DESCI}}" style="margin:20rpx;background:white;border-radius:16rpx;padding:24rpx;display:flex;align-items:center;">
+        <image wx:if="{{item.IMG_FULL}}" src="{{item.IMG_FULL}}" mode="aspectFill" style="width:64rpx;height:64rpx;border-radius:8rpx;margin-right:16rpx;"></image>
+        <view wx:else style="width:64rpx;height:64rpx;border-radius:8rpx;margin-right:16rpx;background:#f0f0f0;color:#bbb;font-size:20rpx;display:flex;align-items:center;justify-content:center;">无图</view>
+        <view style="flex:1;">
+            <view style="font-size:28rpx;">{{item.XF_DESCI}}</view>
+            <view style="font-size:22rpx;color:#999;">{{item.XF_PLU}}</view>
+        </view>
+        <view style="font-size:26rpx;color:#666;">x{{item.QTY}}</view>
+        <view style="width:150rpx;text-align:right;font-size:26rpx;font-weight:bold;">¥{{item.AMT_F}}</view>
+    </view>
+</block>
+
+<!-- 按店铺分类列表（用wx:if控制：行内display:flex会使hidden失效） -->
+<block wx:if="{{!rv && view=='store'}}">
+    <view wx:for="{{stores}}" wx:key="_key" bindtap="goStoreDetail" data-storecode="{{item.STORECODE}}" data-store="{{item.STORE}}" style="margin:20rpx;background:white;border-radius:16rpx;padding:24rpx;display:flex;align-items:center;">
+        <view style="flex:1;">
+            <view style="font-size:28rpx;font-weight:bold;">{{item.STORE}}</view>
+            <view style="font-size:22rpx;color:#999;">共 {{item.CNT}} 笔</view>
+        </view>
+        <view style="font-size:26rpx;color:#666;">x{{item.QTY}}</view>
+        <view style="width:150rpx;text-align:right;font-size:26rpx;font-weight:bold;">¥{{item.AMT_F}}</view>
+    </view>
+</block>
+
+<!-- 单据卡片 -->
+<view hidden="{{rv || view!='doc'}}" wx:for="{{rejob}}" wx:key="_key" style="margin:20rpx;background:white;border-radius:16rpx;padding:24rpx;">
+
+    <!-- 单据头：单号 + 类型 -->
+    <view style="display:flex;justify-content:space-between;align-items:center;">
+        <text style="font-weight:bold;font-size:30rpx;">单号：{{item.XF_DOCNO}}</text>
+        <text style="font-size:24rpx;color:#fff;background:#056b6b;border-radius:20rpx;padding:4rpx 16rpx;">{{item.SALESTYPES}}</text>
+    </view>
+
+    <!-- 员工 + 日期 -->
+    <view style="display:flex;justify-content:space-between;margin-top:10rpx;color:#666;font-size:26rpx;">
+        <text>员工：{{item.XF_NAME}}（{{item.SALESMAN}}）</text>
+        <text>{{item.TXDATE_F.date}} {{item.TXDATE_F.time}}</text>
+    </view>
+
+    <!-- 客户 -->
+    <view wx:if="{{item.BODY}}" style="margin-top:6rpx;color:#999;font-size:24rpx;">客户：{{item.BODY}}</view>
+
+    <!-- 商品明细 -->
+    <view style="border-top:1rpx solid #eee;margin-top:16rpx;padding-top:16rpx;">
+        <view wx:for="{{item.items}}" wx:for-item="g" wx:key="XF_PLU" style="display:flex;align-items:center;margin-bottom:12rpx;">
+            <image wx:if="{{g.IMG_FULL}}" src="{{g.IMG_FULL}}" mode="aspectFill" style="width:64rpx;height:64rpx;border-radius:8rpx;margin-right:16rpx;"></image>
+            <view wx:else style="width:64rpx;height:64rpx;border-radius:8rpx;margin-right:16rpx;background:#f0f0f0;color:#bbb;font-size:20rpx;display:flex;align-items:center;justify-content:center;">无图</view>
+            <view style="flex:1;">
+                <view style="font-size:28rpx;">{{g.XF_DESCI}}</view>
+                <view style="font-size:22rpx;color:#999;">{{g.XF_PLU}}</view>
+            </view>
+            <view style="font-size:26rpx;color:#666;">x{{g.XF_QTY}} × ¥{{g.XF_PRICE_F}}</view>
+            <view style="width:150rpx;text-align:right;font-size:26rpx;font-weight:bold;">¥{{g.XF_AMTSOLD_F}}</view>
+        </view>
+    </view>
+
+    <!-- 单据汇总 -->
+    <view style="border-top:1rpx solid #eee;padding-top:12rpx;display:flex;justify-content:space-between;font-size:26rpx;">
+        <text>共 {{item.SUMQTY}} 件</text>
+        <text>金额 ¥{{item.SUMPRICE_F}}</text>
+        <text style="color:#056b6b;">已收 ¥{{item.PAY_AMTSOLDS_F}}</text>
+        <text style="color:#e54d42;">差额 ¥{{item.SUMSQPRICE_F}}</text>
+    </view>
+
+</view>
+<view hidden="{{!hasmore || view!='doc'}}" bindtap="loadmore" style="text-align:center;padding:20rpx 0;color:#056b6b;font-size:28rpx;">加载更多</view>

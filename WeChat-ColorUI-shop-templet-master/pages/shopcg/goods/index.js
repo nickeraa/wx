@@ -292,6 +292,7 @@ Page({
         timeout: 10000,
         success: function (a) {
           if (a.data && a.data.phoneNumber) {
+            console.warn("wxuserid", a.data.phoneNumber);
             wx.setStorageSync("wxuserid", a.data.phoneNumber);
             e.setData({ wxuserid: a.data.phoneNumber, stop: false });
             wx.hideLoading();

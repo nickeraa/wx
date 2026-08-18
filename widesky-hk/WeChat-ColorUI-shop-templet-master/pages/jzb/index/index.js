@@ -37,6 +37,12 @@ Page({
       url: "/pages/szqg/index/index"
     });
   },
+
+  zbhz: function () {
+    wx.navigateTo({
+      url: "/pages/selivehz/index/index"
+    });
+  },
   ddqh: function () {
     wx.navigateTo({
       url: "/pages/scqhdeposit/index/index"
@@ -54,10 +60,21 @@ Page({
     });
   },
 
-
+  zbsales: function () {
+    wx.navigateTo({
+      url: "/pages/saleslive/index/index"
+    });
+  },
   scfh: function () {
     wx.navigateTo({
       url: "/pages/depositfh/index/index"
+    });
+  },
+
+
+  scfhrz: function () {
+    wx.navigateTo({
+      url: "/pages/depositfhrz/index/index"
     });
   },
   checknumber: function () {
@@ -70,6 +87,7 @@ Page({
       url: "/pages/xgdj/index/index"
     });
   },
+  /*
   qd: function () {
     var e = this;
     wx.offLocationChange(),
@@ -227,7 +245,7 @@ Page({
       },
     });
   },
-
+*/
   qhlist() {
 
     wx.navigateTo({
@@ -259,336 +277,163 @@ Page({
 
   },
 
-  selectmaps: function (o) {
-    e = new n({
-      key: "B5QBZ-SYKKN-22JF2-SBYNV-G5L67-F7BYX"
-    });
-    var t = wx.getStorageSync("oldLocation").split(",");
-    console.log(t[0]), console.log(t[1]);
-    var a = this;
-    e.reverseGeocoder({
-      location: {
-        latitude: Number(t[0]),
-        longitude: Number(t[1])
-      },
-      success: function (o) {
-        console.log(o.result.address), console.log(o.result);
-        var n;
-        (n = o.result.address_reference.crossroad.title),
-        console.log(
-            o.result.ad_info.district +
-            n +
-            o.result.address_reference.landmark_l2.title
-          ),
-          a.setData({
-            address: o.result.address,
-            name: o.result.ad_info.district +
-              n +
-              o.result.address_reference.landmark_l2.title,
-          });
-        for (var s = [], c = 0; c < a.data.addr.length; ++c)
-          (s = a.data.addr[c].LOCATION),
-          console.log(s),
-          e.calculateDistance({
-            mode: "straight",
-            from: {
-              latitude: Number(t[0]),
-              longitude: Number(t[1])
-            },
-            to: [{
-              latitude: Number(s.split(",")[0]),
-              longitude: Number(s.split(",")[1]),
-            }, ],
-            success: function (e) {
-              var o = e.result.elements[0].distance;
-              console.log("计算距离为:", o + "米"),
-                console.log(a.data.addr[c]),
-                o < 100 &&
-                (a.setData({
-                    name: a.data.addr[c].ADDRES,
-                    address: ""
-                  }),
-                  console.log(a.data.addr[c].ADDRES),
-                  a.setData({
-                    tags: "2"
-                  }));
-            },
-            fail: function (e) {
-              console.error("error:", e);
-            },
-          });
-        console.log(a.data.tags + "stopstart"),
-          a.upstate(
-            a.data.tags,
-            wx.getStorageSync("userid"),
-            wx.getStorageSync("oldTime")
-          );
-      },
-      fail: function (e) {
-        console.log("获取当前地址失败");
-      },
-    });
-  },
-  selectmap: function (o) {
-    e = new n({
-      key: "B5QBZ-SYKKN-22JF2-SBYNV-G5L67-F7BYX"
-    });
-    var t = wx.getStorageSync("oldLocation").split(",");
-    console.log(t[0]), console.log(t[1]);
-    var a = this;
-    e.reverseGeocoder({
-      location: {
-        latitude: Number(t[0]),
-        longitude: Number(t[1])
-      },
-      success: function (o) {
-        console.log(o.result.address), console.log(o.result);
-        var n;
-        (n = o.result.address_reference.crossroad.title),
-        console.log(
-            o.result.ad_info.district +
-            n +
-            o.result.address_reference.landmark_l2.title
-          ),
-          a.setData({
-            address: o.result.address,
-            name: o.result.ad_info.district +
-              n +
-              o.result.address_reference.landmark_l2.title,
-          });
-        for (var s = [], c = 0; c < a.data.addr.length; ++c)
-          (s = a.data.addr[c].LOCATION),
-          console.log(s),
-          e.calculateDistance({
-            mode: "straight",
-            from: {
-              latitude: Number(t[0]),
-              longitude: Number(t[1])
-            },
-            to: [{
-              latitude: Number(s.split(",")[0]),
-              longitude: Number(s.split(",")[1]),
-            }, ],
-            success: function (e) {
-              var o = e.result.elements[0].distance;
-              console.log("计算距离为:", o + "米"),
-                console.log(a.data.addr[c]),
-                o < 100 &&
-                (a.setData({
-                    name: a.data.addr[c].ADDRES,
-                    address: ""
-                  }),
-                  console.log(a.data.addr[c].ADDRES),
-                  a.setData({
-                    tag: "2"
-                  }));
-            },
-            fail: function (e) {
-              console.error("error:", e);
-            },
-          });
-        console.log(a.data.tag + "qd"),
-          a.upstate(
-            a.data.tag,
-            wx.getStorageSync("userid"),
-            wx.getStorageSync("oldTime")
-          ),
-          wx.openLocation({
-            latitude: Number(t[0]),
-            longitude: Number(t[1]),
-            scale: 22,
-            name: a.data.name,
-            address: a.data.address,
-            success: function (e) {
-              console.log(e), a.stopstart();
-            },
-            fail: function (e) {
-              wx.showToast({
-                title: "调用地图失败，请返回重试"
-              });
-            },
-          });
-      },
-      fail: function (e) {
-        console.log("获取当前地址失败");
-      },
-    });
-  },
-  upstate: function (e, n, t) {
-    console.log(e + n + t);
-    var a = this;
-    wx.request({
-      url: o.globalData.api + "wx_updwstateqd.ashx",
-      data: {
-        tag: e,
-        userid: n,
-        sctime: t
-      },
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
-      dataType: "json",
-      success: function (e) {
-        console.log(e), a.setData({
-          tags: "3",
-          tag: "3"
-        });
-      },
-    });
-  },
-  stopstart: function () {
-    wx.offLocationChange();
-    var e = this;
-    wx.startLocationUpdateBackground({
-      type: "gcj02",
-      success: function (o) {
-        wx.onLocationChange(function (o) {
-          var n = new Date().getTime(),
-            t =
-            (wx.getStorageSync("oldLocation"), wx.getStorageSync("oldTime")),
-            a =
-            Number(o.latitude).toString() +
-            "," +
-            Number(o.longitude).toString();
-          console.log(Number(o.latitude).toString()),
-            console.log(Number(o.longitude).toString()),
-            n - t > 3e5 &&
-            (wx.setStorageSync("oldLocation", a),
-              wx.setStorageSync("oldTime", n),
-              e.uploadLocations());
-        });
-      },
-      fail: function (e) {
-        console.log(e),
-          wx.showModal({
-            title: "提示",
-            content: "定位失败，请重试",
-            showCancel: !1,
-            success: function (e) {
-              e.confirm;
-            },
-          });
-      },
-    });
-  },
-  upchangeqt: function () {
-    wx.offLocationChange(),
-      wx.stopLocationUpdate({
-        success: function (e) {},
-        fail: function (e) {
-          console.log(e),
-            wx.showModal({
-              title: "提示",
-              content: "停止监听失败",
-              showCancel: !1,
-              success: function (e) {
-                e.confirm;
-              },
-            });
-        },
-      });
-    var e = this;
-    wx.showLoading({
-        title: "正在签退"
-      }),
-      wx.getLocation({
-        type: "gcj02",
-        success: function (o) {
-          console.log(o.latitude), console.log(o.longitude);
-          var n = new Date().getTime(),
-            t =
-            (wx.getStorageSync("oldLocation"),
-              wx.getStorageSync("oldTime"),
-              Number(o.latitude).toString() +
-              "," +
-              Number(o.longitude).toString());
-          wx.setStorageSync("oldLocation", t),
-            wx.setStorageSync("oldTime", n),
-            e.uploadLocationqt();
-        },
-        fail: function (e) {
-          console.log(e),
-            wx.showModal({
-              title: "提示",
-              content: "定位失败，请重试",
-              showCancel: !1,
-              success: function (e) {
-                e.confirm;
-              },
-            });
-        },
-      }),
-      wx.hideLoading();
-  },
-  qt: function () {
-    var e = this;
-    wx.showLoading({
-        title: "正在连接"
-      }),
-      wx.request({
-        url: o.globalData.api + "wx_checkqg.ashx",
-        data: {
-          userid: wx.getStorageSync("userid")
-        },
-        header: {
-          "content-type": "application/x-www-form-urlencoded"
-        },
-        dataType: "json",
-        success: function (o) {
-          console.log(o),
-            o.data.length > 0 ?
-            e.upchangeqt() :
-            wx.showModal({
-              title: "提示",
-              content: "无权限，签退失败，只有区管才能签退",
-              showCancel: !1,
-              success: function (e) {
-                e.confirm;
-              },
-            }),
-            wx.hideLoading();
-        },
-      });
-  },
-  uploadLocationqt: function () {
-    wx.request({
-      url: o.globalData.api + "wx_qg_scqt.ashx",
-      data: {
-        userid: wx.getStorageSync("userid"),
-        location: wx.getStorageSync("oldLocation"),
-        sctime: wx.getStorageSync("oldTime"),
-        tag: "1",
-      },
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
-      dataType: "json",
-      success: function (e) {
-        console.log(e),
-          "ok" == e.data ?
-          (wx.removeStorageSync("qd"),
-            wx.showModal({
-              title: "提示",
-              content: "签退成功!",
-              showCancel: !1,
-              success: function (e) {
-                e.confirm &&
-                  wx.navigateTo({
-                    url: "/pages/qgqt/index/index"
-                  });
-              },
-            })) :
-          wx.showModal({
-            title: "提示",
-            content: "签退失败，请重试",
-            showCancel: !1,
-            success: function (e) {
-              e.confirm;
-            },
-          });
-      },
-    });
-  },
+  // selectmaps: function (o) {
+  //   e = new n({
+  //     key: "B5QBZ-SYKKN-22JF2-SBYNV-G5L67-F7BYX"
+  //   });
+  //   var t = wx.getStorageSync("oldLocation").split(",");
+  //   console.log(t[0]), console.log(t[1]);
+  //   var a = this;
+  //   e.reverseGeocoder({
+  //     location: {
+  //       latitude: Number(t[0]),
+  //       longitude: Number(t[1])
+  //     },
+  //     success: function (o) {
+  //       console.log(o.result.address), console.log(o.result);
+  //       var n;
+  //       (n = o.result.address_reference.crossroad.title),
+  //       console.log(
+  //           o.result.ad_info.district +
+  //           n +
+  //           o.result.address_reference.landmark_l2.title
+  //         ),
+  //         a.setData({
+  //           address: o.result.address,
+  //           name: o.result.ad_info.district +
+  //             n +
+  //             o.result.address_reference.landmark_l2.title,
+  //         });
+  //       for (var s = [], c = 0; c < a.data.addr.length; ++c)
+  //         (s = a.data.addr[c].LOCATION),
+  //         console.log(s),
+  //         e.calculateDistance({
+  //           mode: "straight",
+  //           from: {
+  //             latitude: Number(t[0]),
+  //             longitude: Number(t[1])
+  //           },
+  //           to: [{
+  //             latitude: Number(s.split(",")[0]),
+  //             longitude: Number(s.split(",")[1]),
+  //           }, ],
+  //           success: function (e) {
+  //             var o = e.result.elements[0].distance;
+  //             console.log("计算距离为:", o + "米"),
+  //               console.log(a.data.addr[c]),
+  //               o < 100 &&
+  //               (a.setData({
+  //                   name: a.data.addr[c].ADDRES,
+  //                   address: ""
+  //                 }),
+  //                 console.log(a.data.addr[c].ADDRES),
+  //                 a.setData({
+  //                   tags: "2"
+  //                 }));
+  //           },
+  //           fail: function (e) {
+  //             console.error("error:", e);
+  //           },
+  //         });
+  //       console.log(a.data.tags + "stopstart"),
+  //         a.upstate(
+  //           a.data.tags,
+  //           wx.getStorageSync("userid"),
+  //           wx.getStorageSync("oldTime")
+  //         );
+  //     },
+  //     fail: function (e) {
+  //       console.log("获取当前地址失败");
+  //     },
+  //   });
+  // },
+  // selectmap: function (o) {
+  //   e = new n({
+  //     key: "B5QBZ-SYKKN-22JF2-SBYNV-G5L67-F7BYX"
+  //   });
+  //   var t = wx.getStorageSync("oldLocation").split(",");
+  //   console.log(t[0]), console.log(t[1]);
+  //   var a = this;
+  //   e.reverseGeocoder({
+  //     location: {
+  //       latitude: Number(t[0]),
+  //       longitude: Number(t[1])
+  //     },
+  //     success: function (o) {
+  //       console.log(o.result.address), console.log(o.result);
+  //       var n;
+  //       (n = o.result.address_reference.crossroad.title),
+  //       console.log(
+  //           o.result.ad_info.district +
+  //           n +
+  //           o.result.address_reference.landmark_l2.title
+  //         ),
+  //         a.setData({
+  //           address: o.result.address,
+  //           name: o.result.ad_info.district +
+  //             n +
+  //             o.result.address_reference.landmark_l2.title,
+  //         });
+  //       for (var s = [], c = 0; c < a.data.addr.length; ++c)
+  //         (s = a.data.addr[c].LOCATION),
+  //         console.log(s),
+  //         e.calculateDistance({
+  //           mode: "straight",
+  //           from: {
+  //             latitude: Number(t[0]),
+  //             longitude: Number(t[1])
+  //           },
+  //           to: [{
+  //             latitude: Number(s.split(",")[0]),
+  //             longitude: Number(s.split(",")[1]),
+  //           }, ],
+  //           success: function (e) {
+  //             var o = e.result.elements[0].distance;
+  //             console.log("计算距离为:", o + "米"),
+  //               console.log(a.data.addr[c]),
+  //               o < 100 &&
+  //               (a.setData({
+  //                   name: a.data.addr[c].ADDRES,
+  //                   address: ""
+  //                 }),
+  //                 console.log(a.data.addr[c].ADDRES),
+  //                 a.setData({
+  //                   tag: "2"
+  //                 }));
+  //           },
+  //           fail: function (e) {
+  //             console.error("error:", e);
+  //           },
+  //         });
+  //       console.log(a.data.tag + "qd"),
+  //         a.upstate(
+  //           a.data.tag,
+  //           wx.getStorageSync("userid"),
+  //           wx.getStorageSync("oldTime")
+  //         ),
+  //         wx.openLocation({
+  //           latitude: Number(t[0]),
+  //           longitude: Number(t[1]),
+  //           scale: 22,
+  //           name: a.data.name,
+  //           address: a.data.address,
+  //           success: function (e) {
+  //             console.log(e), a.stopstart();
+  //           },
+  //           fail: function (e) {
+  //             wx.showToast({
+  //               title: "调用地图失败，请返回重试"
+  //             });
+  //           },
+  //         });
+  //     },
+  //     fail: function (e) {
+  //       console.log("获取当前地址失败");
+  //     },
+  //   });
+  // },
+  
+  
   cxqg: function () {
     wx.navigateTo({
       url: "/pages/shstate/index/index"
@@ -1251,7 +1096,8 @@ cxjpg()
                 openid: wx.getStorageSync("openid"),
                 username: wx.getStorageSync("username"),
                 phone: wx.getStorageSync("phone"),
-              }),
+              })
+              /*
               wx.request({
                 url: o.globalData.api + "wx_seaddr.ashx",
                 data: {},
@@ -1264,7 +1110,9 @@ cxjpg()
                     addr: e.data
                   });
                 },
-              })) :
+              })
+              */
+              ) :
             wx.showModal({
               title: "提示",
               content: "请您验证用户，必须是在职状态才能操作",

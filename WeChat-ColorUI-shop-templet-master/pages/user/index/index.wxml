@@ -28,7 +28,7 @@
         <text class="vip-no-label">NO</text>
         <text class="vip-no-code">.{{vipcode}}</text>
     </view>
-    <view class="vip-avatar-row">
+    <view class="vip-avatar-row" hidden="{{flag}}">
       <image class="avatar avatar-wrapper" src="{{avatarUrl}}"></image>
       <view class="vip-nick-badge">
         <text class="vip-nick-text">{{nickName}}</text>

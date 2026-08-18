@@ -4,21 +4,17 @@ Page({
   data: {
     StatusBar: a.globalData.StatusBar,
     CustomBar: a.globalData.CustomBar,
-    TabbarBot: a.globalData.tabbar_bottom,
     scimgurl: a.globalData.scimgUrl,
-    TabCur: 0,
-    scrollLeft: 0,
+    weburl:"https://widesky.work/",
     replu: {},
     i: "",
-    userid: "",
-    array: ["已付款没发货", "已付款已发货", "待付款"],
+    array: ["已付款没发货", "已付款已发货"],
     array1: ["京东快递", "顺丰快递", "中通快递", "圆通快递"],
     p: "",
     date: "",
     date2: "",
     index: 0,
     index1: null,
-    snumber: "",
     store: "",
     storename: "",
     picker4: [],
@@ -26,8 +22,7 @@ Page({
     picker3: [],
     index3: null,
     xf_staffcode: "",
-    kdnumber: '',
-    kcnumber: ''
+    kdnumber: ''
   },
   bindPickerChange: function (a) {
     console.log("picker发送选择改变，携带值为", a.detail.value),
@@ -60,7 +55,7 @@ Page({
   onLoad: function (e) {
     var s = t.formatDate(new Date());
     this.setData({
-        date: "2026-01-01",
+        date: s,
         date2: s
       }),
       e.p && this.setData({
@@ -77,11 +72,11 @@ Page({
         dataType: "json",
         success: function (a) {
           console.log(a);
-          a.data.push({
-            XF_STORECODE: "all",
-            XF_NAME: "所有店铺",
-            LCCODE: "所有店铺",
-          });
+          // a.data.push({
+          //   XF_STORECODE: "all",
+          //   XF_NAME: "所有店铺",
+          //   LCCODE: "所有店铺",
+          // });
           i.setData({
             picker3: a.data
           });
@@ -134,10 +129,11 @@ Page({
             picker4: a.data
           }),
           (wx.getStorageSync("qguserid") || wx.getStorageSync("masterid")) &&
-          (t.data.picker4.push({
-              XF_STAFFCODE: "all",
-              XF_NAME: "所有员工"
-            }),
+          (
+            // t.data.picker4.push({
+            //   XF_STAFFCODE: "all",
+            //   XF_NAME: "所有员工"
+            // }),
             t.setData({
               picker4: t.data.picker4
             })),
@@ -147,7 +143,7 @@ Page({
   },
   back: function () {
     wx.navigateBack({
-      delta: 0
+      delta: 1
     });
   },
   bindPickerChange3: function (a) {
@@ -176,28 +172,35 @@ Page({
       });
   },
   checkinput: function () {
-    return (
-      this.setData({
-        rejob: null
-      }),
-      "" == this.data.store ?
-      (wx.showToast({
-          title: "请选择查询店铺",
-          icon: "none",
-          duration: 2e3,
-        }),
-        !1) :
-      "" == this.data.xf_staffcode ?
-      (wx.showToast({
-          title: "请选择查询员工",
-          icon: "none",
-          duration: 2e3,
-        }),
-        !1) :
-      void this.vip_sort()
-    );
+    if ("" == this.data.store) {
+      wx.showToast({
+        title: "请选择查询店铺",
+        icon: "none",
+        duration: 2e3,
+      });
+      return;
+    }
+    if ("" == this.data.xf_staffcode) {
+      wx.showToast({
+        title: "请选择查询员工",
+        icon: "none",
+        duration: 2e3,
+      });
+      return;
+    }
+    this.vip_sort();
   },
   vip_sort: function (t) {
+
+    var tags = '0'
+    if (this.data.index == 0) {
+      tags = '1'
+
+    } else {
+      tags = '2'
+
+    }
+
     var e = this;
     wx.showLoading({
         title: "正在加载数据",
@@ -207,32 +210,61 @@ Page({
         url: a.globalData.api + "wx_sclist.ashx",
         data: {
           userid: e.data.xf_staffcode,
-          xf_storecode: e.data.store,
+          //  xf_storecode: e.data.store,
           begindate: e.data.date,
           enddate: e.data.date2,
-          tags: e.data.array[e.data.index],
+          tags: tags,
         },
         header: {
           "content-type": "application/x-www-form-urlencoded"
         },
         dataType: "json",
         success: function (a) {
-          console.log(a.data.items),
-            wx.hideLoading(),
-            a.data.items.length > 0 ?
+          var items = a && a.data && a.data.items;
+          // 校验返回格式，避免接口异常时报错
+          if (!Array.isArray(items)) {
+            wx.showToast({
+              title: "数据格式异常",
+              icon: "none",
+              duration: 2e3,
+            });
+            return;
+          }
+          if (items.length > 0) {
+            // 补全微信头像完整地址，空头像前端显示占位
+            items.forEach(function (it) {
+              it.WXIMG_FULL = e.formatImg(it.WXIMG);
+            });
             e.setData({
-              replu: a.data.items
-            }) :
-            (e.setData({
-                replu: null
-              }),
-              wx.showToast({
-                title: "没有符合条件的记录",
-                icon: "none",
-                duration: 2e3,
-              }));
+              replu: items
+            });
+          } else {
+            e.setData({
+              replu: null
+            });
+            wx.showToast({
+              title: "没有符合条件的记录",
+              icon: "none",
+              duration: 2e3,
+            });
+          }
+        },
+        fail: function () {
+          wx.showToast({
+            title: "网络请求失败",
+            icon: "none",
+            duration: 2e3,
+          });
+        },
+        complete: function () {
+          wx.hideLoading();
         },
       });
+  },
+  // 拼接图片完整地址：已带协议或//前缀的按原样返回，其余拼接站点域名
+  formatImg: function (u) {
+    if (!u) return '';
+    return /^(https?:)?\/\//i.test(u) ? u : this.data.weburl + u;
   },
 
 
@@ -253,7 +285,7 @@ Page({
 
     }
 
-    if (!this.data.index1) {
+    if (this.data.index1 == null) {
 
       wx.showModal({
         title: "提示",
@@ -291,9 +323,9 @@ Page({
         data: {
           wlnumber: this.data.array[this.data.index1],
           kdnumber: this.data.kdnumber,
-          xf_docno: t.currentTarget.data.xf_docno,
-          kcxf_docno:t.currentTarget.data.kcnumber,
-     
+          xf_docno: t.currentTarget.dataset.xf_docno,
+          kcxf_docno: t.currentTarget.dataset.kcnumber,
+
 
         },
         header: {

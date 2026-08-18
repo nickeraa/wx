@@ -1,16 +1,14 @@
 App({
   onLaunch: function () {
     var t = this;
-    wx.getSystemInfo({
-      success: function (a) {
-        t.globalData.StatusBar = a.statusBarHeight;
-        var o = wx.getMenuButtonBoundingClientRect();
-        t.globalData.Custom = o;
-        var n = o.bottom + o.top - a.statusBarHeight;
-        (t.globalData.CustomBar = n),
-          n > 75 && (t.globalData.tabbar_bottom = "y");
-      },
-    });
+    // wx.getSystemInfo 已废弃，改用 wx.getWindowInfo
+    var win = wx.getWindowInfo();
+    t.globalData.StatusBar = win.statusBarHeight;
+    var o = wx.getMenuButtonBoundingClientRect();
+    t.globalData.Custom = o;
+    var n = o.bottom + o.top - win.statusBarHeight;
+    (t.globalData.CustomBar = n),
+      n > 75 && (t.globalData.tabbar_bottom = "y");
     var a = wx.getUpdateManager();
     a.onCheckForUpdate(function (t) {}),
       a.onUpdateReady(function () {
@@ -23,7 +21,15 @@ App({
         });
       }),
       a.onUpdateFailed(function () {});
-      this.globalData.sysinfo = wx.getSystemInfoSync()
+      // wx.getSystemInfoSync 已废弃，改用 wx.getDeviceInfo / wx.getAppBaseInfo 组合出兼容的 sysinfo
+      var dev = wx.getDeviceInfo(), base = wx.getAppBaseInfo();
+      this.globalData.sysinfo = {
+        model: dev.model,
+        system: dev.system,
+        platform: dev.platform,
+        version: base.version,
+        SDKVersion: base.SDKVersion
+      }
   },
 
   BLEInformation:{
@@ -56,8 +62,8 @@ App({
   globalData: {
     userInfo: null,
     platform:"",
-    screenWidth:wx.getSystemInfoSync().screenWidth,
-    screenHeight:wx.getSystemInfoSync().screenHeight,
+    screenWidth:wx.getWindowInfo().screenWidth,
+    screenHeight:wx.getWindowInfo().screenHeight,
     appusername: null,
     appuserid: null,
     appopenid: null,

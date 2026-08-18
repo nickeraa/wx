@@ -4,7 +4,12 @@
     </view>
 </view>
 <view class="UCenter-bg" style="padding-bottom:150px;">
-    <image class="gif-wave" mode="scaleToFill" src="{{bgimages}}wave.gif"></image>
+    <!-- 纯CSS水波动画，替代 wave.gif -->
+    <view class="css-wave">
+        <view class="wave wave1"></view>
+        <view class="wave wave2"></view>
+        <view class="wave wave3"></view>
+    </view>
 </view>
 <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">
@@ -47,6 +52,29 @@
 </view>
 
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="zbhz" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{sfimg}}"  style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">直播间客户汇总查询</text>
+        </view>
+    </view>
+</view>
+
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="zbsales" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{rgimg}}"  style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">直播销售汇总查询</text>
+        </view>
+    </view>
+</view>
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="cxjpg" class=" ">
         <view style="margin-left:1rem;">
             <image src="{{zyimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
@@ -59,7 +87,7 @@
 
 
 
-<view class="cu-bar bg-white solid-bottom margin-top">
+<!-- <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">
         <text class="title icon-title text-orange"></text>
         <text style="color:black;font-weight:bold;">龙钞号码登记管理</text>
@@ -74,8 +102,8 @@
             <text class="text-black">号码登记</text>
         </view>
     </view>
-</view>
-<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+</view> -->
+<!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="delwh" class=" ">
         <view style="margin-left:1rem;">
             <image src="{{zyimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
@@ -84,8 +112,8 @@
             <text class="text-black">号码删除</text>
         </view>
     </view>
-</view>
-<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+</view> -->
+<!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="selcwh" class=" ">
         <view style="margin-left:1rem;">
             <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
@@ -94,7 +122,7 @@
             <text class="text-black">号码查询</text>
         </view>
     </view>
-</view>
+</view> -->
 
 <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">
@@ -247,7 +275,7 @@
         </view>
     </view>
 </view>
-<view class="cu-bar bg-white solid-bottom margin-top">
+<!-- <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">
         <text class="title icon-title text-orange"></text>
         <text style="color:black;font-weight:bold;">区管签到签退</text>
@@ -282,7 +310,7 @@
             <text class="text-black">查询</text>
         </view>
     </view>
-</view>
+</view> -->
 <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">
         <text class="title icon-title text-orange"></text>
@@ -309,7 +337,7 @@
         </view>
     </view>
 </view>
-<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+<!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="vip" class=" ">
         <view style="margin-left:1rem;">
             <image src="{{sfimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
@@ -318,7 +346,7 @@
             <text class="text-black">查询货品浏览客户</text>
         </view>
     </view>
-</view>
+</view> -->
 <!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="ch" class=" ">
         <view style="margin-left:1rem;">
@@ -329,12 +357,12 @@
         </view>
     </view>
 </view> -->
-<view class="cu-bar bg-white solid-bottom margin-top">
+<!-- <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">
         <text class="title icon-title text-orange"></text>
         <text style="color:black;font-weight:bold;">发放会员卡</text>
     </view>
-</view>
+</view> -->
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="newvip" class=" ">
         <view style="margin-left:1rem;">
@@ -460,10 +488,23 @@
             <image src="{{rgimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
         </view>
         <view style="margin-top:-2rem;margin-left:6rem;">
-            <text class="text-black">商城销售单订单快递发货</text>
+            <text class="text-black">(供参考未入账)商城销售预定查询</text>
         </view>
     </view>
 </view>
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="scfhrz" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-red">(正式版已入账)</text><text>商城销售快递发货</text>
+        </view>
+    </view>
+</view>
+
+
 
 <view class="cu-bar bg-white solid-bottom margin-top">
     <view class="action">

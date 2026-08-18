@@ -1,0 +1,56 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>店铺货品销售
+        </navigator>
+    </view>
+</view>
+<view style="height:{{CustomBar}}px;background-color:white;"></view>
+
+<view class="canui-order-item " hidden="{{rv}}">
+
+    <!-- 店铺信息卡 -->
+    <view style="margin:20rpx;background:white;border-radius:16rpx;padding:24rpx;">
+        <view style="font-size:32rpx;font-weight:bold;">{{storeName}}</view>
+        <view style="font-size:24rpx;color:#056b6b;margin-top:6rpx;">共 {{totalQty}} 件　金额 ¥{{totalAmt}}</view>
+    </view>
+
+    <!-- 表头 -->
+    <view style="margin-top: 0.6rem;">
+        <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 3rem;padding: 0.6rem;box-sizing:border-box;">
+            <view class="stp" style="width:12%;margin-left:0;margin-right:0;">
+                <text>图片</text>
+            </view>
+            <view class="stp" style="width:46%;margin-left:0;margin-right:0;">
+                <text>货品</text>
+            </view>
+            <view class="stp" style="width:12%;margin-left:0;margin-right:0;">
+                <text>数量</text>
+            </view>
+            <view class="stp" style="width:30%;margin-left:0;margin-right:0;">
+                <text>金额</text>
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- 数据行 -->
+<view hidden="{{rv}}" style="background-color:#E0EEEE;" wx:for="{{plus}}" wx:key="_key" bindtap="goPluDetail" data-plu="{{item.XF_PLU}}" data-desci="{{item.XF_DESCI}}">
+    <view class="Grid-sku" style="min-height:4.6rem;padding: 0.6rem;box-sizing:border-box;">
+        <view class="stp" style="width:12%;margin-left:0;margin-right:0;">
+            <image wx:if="{{item.IMG_FULL}}" src="{{item.IMG_FULL}}" mode="aspectFill" style="width:72rpx;height:72rpx;border-radius:8rpx;"></image>
+            <view wx:else style="width:72rpx;height:72rpx;border-radius:8rpx;background:#d0e0e0;color:#999;font-size:20rpx;display:flex;align-items:center;justify-content:center;">无图</view>
+        </view>
+        <view class="stp" style="width:46%;margin-left:0;margin-right:0;">
+            <view class="">{{item.XF_DESCI}}</view>
+            <view class="" style="color:#666;font-size:22rpx;">{{item.XF_PLU}}</view>
+        </view>
+        <view class="stp" style="width:12%;margin-left:0;margin-right:0;">
+            <text class="">{{item.QTY}}</text>
+        </view>
+        <view class="stp" style="width:30%;margin-left:0;margin-right:0;">
+            <text class="" style="font-weight:bold;">¥{{item.AMT_F}}</text>
+        </view>
+    </view>
+    <view style="height:3px;background-color:white;"></view>
+</view>

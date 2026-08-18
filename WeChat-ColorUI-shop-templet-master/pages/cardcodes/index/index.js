@@ -180,11 +180,26 @@ Page({
         url: t.globalData.api + "getqcodes.ashx",
         data: { vip_id: wx.getStorageSync("vip_id") },
         success: function (t) {
-          var a = t.data.replace(" ", "");
-          a = a.replace(/\ufeff/g, "");
-          var o = JSON.parse(a);
-          console.log("fffffff");
-          var i = o.buffer;
+          var o;
+          if ("string" == typeof t.data) {
+            var a = t.data.replace(" ", "");
+            a = a.replace(/\ufeff/g, "");
+            o = JSON.parse(a);
+          } else o = t.data || {};
+          if ((console.log("fffffff", o), o.errcode))
+            return (
+              console.error("getqcodes 返回错误", o),
+              void wx.showToast({
+                title: o.errmsg || "二维码获取失败",
+                icon: "none",
+              })
+            );
+          var i = o.buffer || o.base64img || o.data || "";
+          if (!i)
+            return (
+              console.error("未获取到二维码数据", o),
+              void wx.showToast({ title: "二维码数据为空", icon: "none" })
+            );
           e.setData({ erweima: "data:image/png;base64," + i });
           var n = wx.env.USER_DATA_PATH + "/code.png",
             s = e.data.erweima.replace(/^data:image\/\w+;base64,/, "");
@@ -200,9 +215,14 @@ Page({
                 e.createNewImg1();
             },
             fail: function (e) {
-              console.log(e);
+              console.log(e),
+                wx.showToast({ title: "二维码保存失败", icon: "none" });
             },
           });
+        },
+        fail: function (e) {
+          console.log(e),
+            wx.showToast({ title: "网络请求失败", icon: "none" });
         },
       });
   },

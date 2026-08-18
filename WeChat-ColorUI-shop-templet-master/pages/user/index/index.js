@@ -42,7 +42,7 @@ Page({
 
   onLoad: function (a) {
     if ((console.log(a), console.log(wx.getStorageSync("vipcode")), a.q)) {
-      console.log("dfsdfsdfsadf"),
+    
         console.log("index 生命周期 onload" + JSON.stringify(a));
       var o = decodeURIComponent(a.q),
         n = t.urlToObj(o);
@@ -53,7 +53,8 @@ Page({
     } else
       a.scene &&
       (console.log("gggggggggg"),
-        console.log(a.scene),
+        console.warn(a.scene),
+        console.warn(wx.getStorageSync('vipcode')),
         wx.removeStorageSync("vip_id"),
         wx.setStorageSync("vip_id", decodeURIComponent(a.scene)));
 
@@ -188,7 +189,7 @@ Page({
       this.setData({
         yguserid: wx.getStorageSync("yguserid")
       }),
-      console.log(wx.getStorageSync("vipcode")),
+      console.warn(wx.getStorageSync("vipcode")),
       wx.getStorageSync("vipcode") ?
       (console.log("hhhhhhh"),
         this.setData({
@@ -261,7 +262,7 @@ Page({
 
   tz() {
 
-    if (this.data.nickName == '') {
+    if (this.data.nickName == ''&&!wx.getStorageSync('vipcode')) {
 
       wx.navigateTo({
         url: "/pages/wxlogin/index"
@@ -439,15 +440,19 @@ Page({
   },
   inphone: function () {
 
-    if (!wx.getStorageSync("vip_id")) {
 
-      console.log('ggggggggggg')
+    //外围客户
+    if (!wx.getStorageSync("vip_id")&&!wx.getStorageSync("vipcode")) {
+
+
       wx.navigateTo({
         url: "/pages/wxlogin/index"
       });
 
 
-    } else {
+    }
+    //开卡新客
+    else {
 
       var t = this;
       wx.showLoading({
@@ -491,17 +496,17 @@ Page({
                         tximg: t.data.vipimg,
                         vipcode: e.data[0].XF_VIPCODE,
                       }),
-             //         wx.setStorageSync("vipcode", e.data[0].XF_VIPCODE),
+                     wx.setStorageSync("vipcode", e.data[0].XF_VIPCODE),
                       t.setData({
                         vipcode: e.data[0].XF_VIPCODE,
                         flag: !0,
                         flags: !1,
                         tximg: t.data.vipimg,
                       }),
-                       wx.redirectTo({
-                         url: '/pages/wxlogin/index',
-                       })
-                     //  wx.showToast({ title: "会员卡领取成功！" })
+                      //  wx.redirectTo({
+                      //    url: '/pages/wxlogin/index',
+                      //  })
+                       wx.showToast({ title: "会员卡领取成功！" })
                     ) :
                     (t.setData({
                         vip: "您还没有登录哦 ~",

@@ -597,7 +597,7 @@ Page({
     wx.request({
       url: app.globalData.api + "wx_dfkskuyd.ashx",
       data: {
-        xf_vipcode: wx.getStorageSync("vipcode"),
+    //    xf_vipcode: wx.getStorageSync("vipcode"),
         wxuserid: wx.getStorageSync("wxuserid"),
         xf_plu: that.data.xf_plu,
         xf_price: that.data.realprice,
@@ -609,7 +609,7 @@ Page({
         shtype: that.data.setype,
         shid: id,
         tag: tag,
-        xf_storecode: that.data.xf_storecode,
+    //    xf_storecode: that.data.xf_storecode,
         salesman: wx.getStorageSync('yguserid'),
         pay_amtsold: payAmtsold,
         xf_docno: that.data.xf_docno,

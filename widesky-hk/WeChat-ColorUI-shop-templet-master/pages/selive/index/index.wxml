@@ -1,87 +1,76 @@
 <view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
         <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
-            <text class="icon-back"></text>客户查询 </navigator>
+            <text class="icon-back"></text>观看直播客户查询
+        </navigator>
     </view>
 </view>
-<view style="height:7rem;background-color:white;"></view>
+<view style="height:{{CustomBar}}px;background-color:white;"></view>
 
 <view style="background-color: white;padding-bottom: 10px;">
     <view class="cu-form-group">
-        <view class="title icon-title text-orange">观看直播客户查询：</view>
-        <picker bindchange="bindPickerChange3" range="{{picker3}}" rangeKey="TITLE" value="{{picker3[index3].TITLE}}">
+        <view class="title icon-title text-orange">选择直播场次：</view>
+        <picker bindchange="bindPickerChange3" range="{{picker3}}" rangeKey="TITLE" value="{{index3}}">
             <view class="picker dp ">
-                <text>{{index3?picker3[index3].TITLE:'请选择直播活动'}}</text>
+                <text>{{index3 !== null ? picker3[index3].TITLE : '请选择直播活动'}}</text>
                 <text class="cuIcon-triangledownfill"></text>
             </view>
         </picker>
     </view>
 </view>
 
-
-<view class="cu-form-group" >
-        <view class="title icon-title text-orange">输入员工ID：</view>
-        <input bindinput="getyguserid" class="radius dp" name="yguserid" placeholder="" value="{{yguserid}}"></input>
-    </view>
-
-
+<view class="cu-form-group">
+    <view class="title icon-title text-orange">输入员工ID：</view>
+    <input bindinput="getyguserid" class="radius dp" name="yguserid" placeholder="" value="{{yguserid}}"></input>
+</view>
 
 <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
     <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">查询数据</button>
 </view>
+
 <view class="canui-order-item " hidden="{{rv}}">
- 
+
+    <view style='margin-left: 30rpx; margin-top: 30rpx;'><text>分享到直播间总人数：</text><text style='color:red;font-size: 60rpx;'> {{counts}}  </text></view>
 
     <view style="margin-top: 0.6rem;">
-        <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 3rem;padding: 0.6rem;">
-            <view class="stp" style="margin-left:0.5rem;width:30%;">
-                <text> 微信昵称</text>
-            </view>
-            <view class="stp" style="margin-left:1rem;width:20%;">
-                <text> 微信头像</text>
+        <view class="Grid-sku" style="background-color:#056b6b;color:white;height: 3rem;padding: 0.6rem;box-sizing:border-box;">
+
+            <view class="stp" style="width:28%;margin-left:0;margin-right:0;">
+                <text>微信昵称</text>
             </view>
 
-            <view class="stp" style="width:20%;">
+            <view class="stp" style="width:18%;margin-left:0;margin-right:0;">
+                <text>微信头像</text>
+            </view>
+
+            <view class="stp" style="width:28%;margin-left:0;margin-right:0;">
                 <text>登录时间</text>
             </view>
 
-            <view class="stp" style="width:20%;margin-left:1rem;">
+            <view class="stp" style="width:22%;margin-left:0;margin-right:0;">
                 <text>转发员工</text>
             </view>
 
-
         </view>
     </view>
 </view>
-<view  hidden="{{rv}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}">
-    <view class="Grid-sku" style="height:4rem;padding: 0.6rem;">
-        <view class="stp" style="margin-left:0.5rem;width:50%;margin-top: 10px;">
+<view hidden="{{rv}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="_key">
+    <view class="Grid-sku" style="height:4rem;padding: 0.6rem;box-sizing:border-box;">
+        <view class="stp" style="width:28%;margin-left:0;margin-right:0;">
             <text class=""> {{item.WXNAME}}</text>
         </view>
-        <view class="stp" style="margin-left:1.5rem;width:20%;margin-top: 10px;">
-
-        <image style='width: 50rpx;height: 50rpx;'  src='{{weburl}}{{item.WXIMG}} '></image>
-        
+        <view class="stp" style="width:18%;margin-left:0;margin-right:0;">
+            <image wx:if="{{item.WXIMG_FULL}}" style="width:50rpx;height:50rpx;border-radius:50%;" src="{{item.WXIMG_FULL}}" mode="aspectFill"></image>
+            <text wx:else class="" style="color:#999;">无</text>
         </view>
-        <view class="stp" style="margin-left:1rem;width:30%;margin-top: 10px;">
-            <text class=""> {{item.LOGIN_TIME}} </text>
+        <view class="stp" style="width:28%;margin-left:0;margin-right:0;">
+            <view class="">{{item.LOGIN_TIME_DATE}}</view>
+            <view class="" style="color:#666;font-size:22rpx;">{{item.LOGIN_TIME_CLOCK}}</view>
         </view>
-        <view class="stp" style="margin-left:2rem;width:30%;margin-top: 10px;">
+        <view class="stp" style="width:22%;margin-left:0;margin-right:0;">
             <text class=""> {{item.XF_NAME}} </text>
         </view>
-    
     </view>
     <view style="height:3px;background-color:white;"></view>
 </view>
-<wxs module="subData">
-module.exports = (function(val) {
-    if (val == undefined || val == '' || val == null) {
-        return
-    };
-    if (val.length > 10) {
-        return (val.substring(0, 10))
-    } else {
-        return (val)
-    }
-});
-</wxs>
+<view hidden="{{!hasmore}}" bindtap="loadmore" style="text-align:center;padding:20rpx 0;background:#E0EEEE;color:#056b6b;font-size:28rpx;">加载更多</view>

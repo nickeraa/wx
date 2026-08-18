@@ -46,31 +46,10 @@
                 </view>
             </view>
         </view>
-        <view class="cu-list menu bg-white solid-bottom canui-selet" wx:if="{{item.XF_VIPCODE}}">
-            <view class="cu-item">
-                <view class="content"> 客户卡号： </view>
-                <view class="action">
-                    <text style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.XF_VIPCODE}}</text>
-                </view>
-            </view>
-        </view>
-        <view class="cu-list menu bg-white solid-bottom canui-selet" wx:else>
-            <view class="cu-item">
-                <view class="content"> 客户卡号： </view>
-                <view class="action">
-                    <text style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">非会员</text>
-                </view>
-            </view>
-        </view>
-        <view class="cu-list menu bg-white solid-bottom canui-selet" wx:if="{{item.VIPNAME}}">
-            <view class="cu-item">
-                <view class="content"> 客户姓名： </view>
-                <view class="action">
-                    <text style="font-size: 18px;color:rgb(195,167,105);font-weight: 700;">{{item.VIPNAME}}</text>
-                </view>
-            </view>
-        </view>
-        <view class="cu-list menu bg-white solid-bottom canui-selet" wx:else>
+
+
+
+        <view class="cu-list menu bg-white solid-bottom canui-selet">
             <view class="cu-item">
                 <view class="content"> 客户姓名： </view>
                 <view class="action">
