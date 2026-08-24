@@ -5,6 +5,7 @@
         </navigator>
     </view>
 </view>
+<view style="width:100%;overflow-x:hidden;">
 <view style="height:{{CustomBar}}px;background-color:white;"></view>
 
 <view style="background-color: white;padding-bottom: 10px;">
@@ -19,7 +20,7 @@
     </view>
 </view>
 
-<view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
+<view style="margin:20px 10px 10px 10px;height:3rem;">
     <button bindtap="checkinput" class="cu-btn round " style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">实时汇总查询</button>
 </view>
 <view class="canui-order-item " hidden="{{rv}}">
@@ -61,4 +62,5 @@ bindtap="listzb"
         </view>
     </view>
     <view style="height:3px;background-color:white;"></view>
+</view>
 </view>

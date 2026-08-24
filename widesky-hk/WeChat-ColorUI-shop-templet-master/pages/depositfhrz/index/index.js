@@ -8,7 +8,8 @@ Page({
     weburl:"https://widesky.work/",
     replu: {},
     i: "",
-    array: ["已付款没发货", "已付款已发货"],
+   // array: ["已付款没发货", "已付款已发货"],
+   array: ["已付款"],
     array1: ["京东快递", "顺丰快递", "中通快递", "圆通快递"],
     p: "",
     date: "",
@@ -228,6 +229,9 @@ Page({
         },
         dataType: "json",
         success: function (a) {
+
+console.warn(a)
+
           var items = a && a.data && a.data.items;
           // 校验返回格式，避免接口异常时报错
           if (!Array.isArray(items)) {
@@ -239,9 +243,23 @@ Page({
             return;
           }
           if (items.length > 0) {
-            // 补全微信头像完整地址，空头像前端显示占位
+            // 补全微信头像完整地址，空头像前端显示占位；并规范化入账状态供颜色判断
             items.forEach(function (it) {
               it.WXIMG_FULL = e.formatImg(it.WXIMG);
+              // 是否入账：按后端 BIZ_STATUS 字段规范化（值如"00 已入账"/"00 未入账"）
+              var st = String(it.BIZ_STATUS || '');
+              it.RZTEXT = st.indexOf('未入账') >= 0 ? '未入账' : (st.indexOf('已入账') >= 0 ? '已入账' : '未入账');
+              // 商品行去重：后端shop数组可能因联表产生同一商品重复行，按货品编码去重
+              if (Array.isArray(it.shop)) {
+                var seen = {};
+                it.shop = it.shop.filter(function (g) {
+                  var k = g.XF_PLU;
+                  if (k == null) return true;
+                  if (seen[k]) return false;
+                  seen[k] = 1;
+                  return true;
+                });
+              }
             });
             // 记录本次查询的分类，列表按查询分类渲染（不依赖后端TAGS字段）
             e.setData({

@@ -65,11 +65,11 @@ Page({
       url: "/pages/saleslive/index/index"
     });
   },
-  scfh: function () {
-    wx.navigateTo({
-      url: "/pages/depositfh/index/index"
-    });
-  },
+  // scfh: function () {
+  //   wx.navigateTo({
+  //     url: "/pages/depositfh/index/index"
+  //   });
+  // },
 
 
   scfhrz: function () {

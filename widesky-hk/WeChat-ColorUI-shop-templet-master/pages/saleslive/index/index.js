@@ -16,7 +16,8 @@ Page({
         amtsold: '0.00',
         view: 'doc',
         plus: [],
-        stores: []
+        stores: [],
+        bodyDocs: []
     },
 
     onLoad: function () {
@@ -131,6 +132,7 @@ Page({
             },
             dataType: "json",
             success: function (res) {
+                console.log(res.data);
                 var list = res && res.data;
                 // 校验返回格式，避免非数组数据被误判为“没有记录”
                 if (!Array.isArray(list)) {
@@ -150,7 +152,8 @@ Page({
                         p: 0,
                         view: 'doc',
                         plus: [],
-                        stores: []
+                        stores: [],
+                        bodyDocs: []
                     });
                     wx.showToast({
                         title: "没有记录",
@@ -254,6 +257,11 @@ Page({
                 stores.forEach(function (s) {
                     s.AMT_F = t.formatAmt(s.AMT);
                 });
+                // 按客户分类：不聚合（同名可能是不同客户），单据按客户名字排序后显示，卡片样式与实时汇总明细一致
+                var bodyDocs = docs.slice();
+                bodyDocs.sort(function (a, b) {
+                    return String(a.BODY || '').localeCompare(String(b.BODY || ''), 'zh-Hans-CN');
+                });
                 // 保存全量数据，前端分页渲染，避免一次性渲染大量节点
                 t._allList = docs;
                 var pageSize = t.data.pageSize;
@@ -266,7 +274,8 @@ Page({
                     p: slice.length,
                     view: 'doc',
                     plus: plus,
-                    stores: stores
+                    stores: stores,
+                    bodyDocs: bodyDocs
                 });
             },
             fail: function () {

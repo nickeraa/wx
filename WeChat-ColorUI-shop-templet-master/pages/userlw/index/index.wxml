@@ -68,10 +68,10 @@
 
 
 <view wx:if="{{flagcard!=true}}" class="cu-list menu card-menu margin-top-xl  shadow-lg" style="background-color:white;margin-top:0.5rem;">
-    <view class="cu-form-group" style="height:5rem;margin-left:-1rem;width: 100%;">
-        <view class="cu-form-group" style="width:75%;">
-            <view class="title icon-title text-orange">会员卡号：</view>
-            <input  style='margin-left: -30rpx;'  bindinput="getvipcode" name="qdvipcode" placeholder="请输入卡号查询" value="{{qdvipcode}}"></input>
+    <view class="cu-form-group" style="height:5rem;width:100%;padding:0 20rpx;box-sizing:border-box;display:flex;align-items:center;">
+        <view style="width:75%;display:flex;align-items:center;">
+            <view class="title icon-title text-orange" style="white-space:nowrap;">会员卡号：</view>
+            <input style="flex:1;min-width:0;margin-left:10rpx;" bindinput="getvipcode" name="qdvipcode" placeholder="请输入卡号查询" value="{{qdvipcode}}"></input>
         </view>
         <view style="width:25%;">
             <button bindtap="search" class="cu-btn bg-gradual-orange shadow-blur round" style="width:100%;height: 2.8rem;font-size: 40rpx;">搜索</button>
@@ -90,7 +90,9 @@
     </view>
     <view wx:else class="cu-form-group">
         <view class="title icon-title text-orange up">会员等级：</view>
-        <input class=" radius cu-btn bg-gradual-pink" style="float: right;margin-right: 1rem;margin-top: 6rpx;" name="grade"  value="{{grade}} {{xf_address1}}"></input>
+        <view class="radius" style="flex:1;height:76rpx;display:flex;align-items:center;margin-left:20rpx;background-image:linear-gradient(45deg,#c8a045,#d4af37);color:#000;">
+            <input style="flex:1;height:100%;color:#000;text-align:left;padding-left:20rpx;" name="grade" value="{{grade}} {{xf_address1}}"></input>
+        </view>
     </view>
     <view class="cu-form-group">
         <view class="title icon-title text-orange up">注册店铺：</view>

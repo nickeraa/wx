@@ -15,6 +15,9 @@
             <text style="color:green;">支付成功</text>
         </view>
     </view>
+    <view wx:if="{{!zb}}" style="text-align:center;padding:40rpx 30rpx 50rpx 30rpx;color:red;font-size:34rpx;font-weight:700;line-height:1.6;">
+        感谢惠顾！稍后会有公司客服，联系您提供服务，请您留意，谢谢！
+    </view>
 </view>
 <view wx:if="{{flag}}"  class="cu-list menu card-menu margin-top-xl  shadow-lg">
     <view class="canui-order-item bg-white">

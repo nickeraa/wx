@@ -482,7 +482,7 @@
     </view>
 </view> -->
 
-<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+<!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="scfh" class=" ">
         <view style="margin-left:1rem;">
             <image src="{{rgimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
@@ -491,7 +491,7 @@
             <text class="text-black">(供参考未入账)商城销售预定查询</text>
         </view>
     </view>
-</view>
+</view> -->
 
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="scfhrz" class=" ">
@@ -499,7 +499,7 @@
             <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
         </view>
         <view style="margin-top:-2rem;margin-left:6rem;">
-            <text class="text-red">(正式版已入账)</text><text>商城销售快递发货</text>
+           <text>直播商城销售查询</text>
         </view>
     </view>
 </view>

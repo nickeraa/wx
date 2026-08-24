@@ -1,11 +1,12 @@
 {
   "pages": [
-   
-     "pages/home/index/index",
-     "pages/selive/index/index",
-     "pages/saleslive/index/index",
-     "pages/listselive/index/index",
-     "pages/selivehz/index/index",
+    "pages/jiang/index",
+    "pages/home/index/index",
+
+    "pages/selive/index/index",
+    "pages/saleslive/index/index",
+    "pages/listselive/index/index",
+    "pages/selivehz/index/index",
     "pages/fhstocks/index/index",
     "pages/dslist/index/index",
     "pages/boder/index/index",
@@ -71,7 +72,6 @@
     "pages/wxcz/index/index",
     "pages/joinus/index",
     "pages/joinuss/index",
-
     "pages/joinusstp/index",
     "pages/joinussth/index",
     "pages/kqlogin/index",
@@ -202,7 +202,6 @@
   "requiredBackgroundModes": [
     "location"
   ],
-
   "requiredPrivateInfos": [
     "getLocation",
     "chooseLocation",

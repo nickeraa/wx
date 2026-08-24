@@ -1,0 +1,56 @@
+<!--状态栏区域-->
+<view class="cu-custom bg-white" style="height:100rpx;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">会员幸运大抽奖</view>
+    </view>
+</view>
+<view class="container" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 160rpx);">
+  <view style="width:590rpx;background-image:linear-gradient(45deg,#ff9700,#ed1c24);color:#fff;text-align:center;padding:20rpx 0;border-radius:16rpx;font-size:30rpx;font-weight:700;margin-bottom:30rpx;">
+    <text style="display:block;">广天藏品30周年，百万奖品回馈会员</text>
+    <text style="display:block;font-size:26rpx;font-weight:500;margin-top:6rpx;">百分百中奖，iphone手机，熊猫金币</text>
+    <text style="display:block;font-size:26rpx;font-weight:500;margin-top:6rpx;">大奖等您拿！</text>
+  </view>
+  <view class='frame_view'>
+<view class='frame_row'>
+<image class='frame_item' style='opacity:{{color[0]}}' src='{{images[0]}}'></image>
+<image class='frame_item' style='opacity:{{color[1]}}' src='{{images[1]}}'></image>
+<image class='frame_item' style='opacity:{{color[2]}}' src='{{images[2]}}'></image>
+</view>
+
+<view class='frame_row'>
+<image class='frame_item' style='opacity:{{color[7]}}' src='{{images[7]}}'></image>
+<image class='frame_item' src='{{btnconfirm}}' bindtap='{{clickLuck}}'></image>
+<image class='frame_item' style='opacity:{{color[3]}}' src='{{images[3]}}'></image>
+</view>
+
+<view class='frame_row'>
+<image class='frame_item' style='opacity:{{color[6]}}' src='{{images[6]}}'></image>
+<image class='frame_item' style='opacity:{{color[5]}}' src='{{images[5]}}'></image>
+<image class='frame_item' style='opacity:{{color[4]}}' src='{{images[4]}}'></image>
+</view>
+</view>
+  <view style="text-align:center;padding-top:30rpx;width:590rpx;box-sizing:border-box;color:#666;font-size:22rpx;line-height:1.5;"><text style="color:#c3a769;font-weight:700;">温馨提醒：</text>每个会员卡号，每个微信号仅能抽奖<text style="color:#c3a769;font-weight:700;font-size:30rpx;">1</text>次喔</view>
+</view>
+
+<!--中奖结果弹窗：奖品展示 + 订阅号关注引导（纯引导、无校验、不影响领奖）-->
+<view class="cu-modal {{showWin?'show':''}}" bindtap="closeWin">
+  <view class="cu-dialog" catchtap="">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">恭喜中奖</view>
+      <view class="action" bindtap="closeWin">
+        <text class="icon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="text-xl text-red text-bold">{{prizeName}}</view>
+      <view class="margin-top-sm" wx:if="{{prizeCode}}">中奖码：{{prizeCode}}</view>
+      <view class="margin-top text-grey text-sm">欢迎关注订阅号领取更多活动福利，请前往门店出示小程序核销领奖（是否关注不影响领奖）</view>
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-green round" bindtap="goPrize">我的奖品</button>
+        <button class="cu-btn bg-green margin-left round" bindtap="openOfficial">关注订阅号</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,14 @@
+<view class="cu-custom bg-white" style="height:100rpx;">
+    <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <view class="head-title canui-head-title" style="font-weight: 550;">中标客户领取赠品</view>
+    </view>
+</view>
+
+
+
+<view class="btn-actions">
+
+            <button bindgetphonenumber="onGetPhoneNumbergm" disabled="{{stop}}" class="submitbtn" openType="getPhoneNumber">
+                <text> 领取赠品 </text>
+            </button>
+        </view>

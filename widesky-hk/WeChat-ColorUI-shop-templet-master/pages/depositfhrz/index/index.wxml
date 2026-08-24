@@ -112,6 +112,16 @@
                 </view>
             </view>
 
+
+            <view class="cu-list menu bg-white solid-bottom canui-selet">
+                <view class="cu-item">
+                    <view class="content"> 是否入账： </view>
+                    <view class="action">
+                        <text
+                            style="font-size: 18px;color:{{item.RZTEXT=='已入账'?'rgb(195,167,105)':'red'}};font-weight: 700;">{{item.BIZ_STATUS}}</text>
+                    </view>
+                </view>
+            </view>
             <view class="cu-list menu bg-white solid-bottom canui-selet">
                 <view class="cu-item">
                     <view class="content"> 腾讯单号： </view>
@@ -218,7 +228,7 @@
                     </view>
                 </view>
 
-                <view class="cu-form-group">
+                <!-- <view class="cu-form-group">
                     <view class="title icon-title text-orange">发货方式：</view>
                     <radio-group bindchange="bindSendtypeChange" style="display:flex;align-items:center;">
                         <label style="margin-right:40rpx;display:flex;align-items:center;">
@@ -247,7 +257,7 @@
                 <view style="width:100%;margin:20px 0px 10px 10px;height:3rem;">
                     <button bindtap="send" data-kcnumber="{{item.KCXF_DOCNO}}" data-xf_docno="{{item.XF_DOCNO}}" class="cu-btn round "
                         style="margin:5px 5px 5px 5px;height:2.2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:90%">{{sendtype=='zt'?'确认自提':'提交快递单号'}}</button>
-                </view>
+                </view> -->
             </view>
         </view>
 
@@ -261,14 +271,14 @@
                 </view>
             </view>
 
-            <view class="cu-list menu bg-white solid-bottom canui-selet">
+            <!-- <view class="cu-list menu bg-white solid-bottom canui-selet">
                 <view class="cu-item">
                     <view class="content"> 发货方式： </view>
                     <view class="action">
                         <text style="font-size: 15px;color:green;font-weight: 700;">{{item.WLNUMBER=='自提'?'自提':'快递发货'}}</text>
                     </view>
                 </view>
-            </view>
+            </view> -->
 
             <block wx:if="{{item.WLNUMBER!='自提'}}">
                 <view class="cu-form-group">
@@ -281,6 +291,6 @@
                 </view>
             </block>
 
-        </view>
+        </view> 
     </view>
 </view>
