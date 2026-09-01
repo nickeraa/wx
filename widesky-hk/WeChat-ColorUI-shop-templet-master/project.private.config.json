@@ -21,11 +21,18 @@
         "miniprogram": {
             "list": [
                 {
+                    "name": "抽奖参数",
+                    "pathName": "pages/jiang/index",
+                    "query": "staff=YuXiangYang&ext=wmUrBnGgAAOZIhWIcwYzo1TNp4jkAk0w",
+                    "scene": null,
+                    "launchMode": "default"
+                },
+                {
                     "name": "员工打开订单通知",
                     "pathName": "pages/deposit/index/index",
                     "query": "xf_docno=DSC0000042",
-                    "scene": null,
-                    "launchMode": "default"
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

@@ -557,6 +557,27 @@
 </view>
 
 
+<view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+        <text class="title icon-title text-orange"></text>
+        <text style="color:black;font-weight:bold;">企微客户管理</text>
+    </view>
+</view>
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="creatqw" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{sfimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">制作个人企业微信码</text>
+        </view>
+    </view>
+</view>
+
+
+
+
 
 <view class="cu-form-group sp">
     <button bindtap="gzmessage" class="cu-btn canui-color-gradual shadow-blur round lg sp"> 关注公众号接收微信通知</button>

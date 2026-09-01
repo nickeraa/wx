@@ -1,11 +1,12 @@
 {
   "pages": [
-
-    "pages/home/index/index",
-    "pages/userlive/index/index",
     "pages/userliveyg/index/index",
-    "pages/homezb/index/index",
+    "pages/home/index/index",
     "pages/userlw/index/index",
+    "pages/userqd/index/index",
+    "pages/userlive/index/index",
+  
+    "pages/homezb/index/index",
     "pages/sendcard/index/index",
     "pages/shopcg/goods/index",
     "pages/wxloginzb/index",
@@ -18,7 +19,7 @@
     "pages/hofman/goods/index",
     "pages/shopcghfm/goods/index",
     "pages/webview/index",
-    "pages/userqd/index/index",
+ 
     "pages/party/index/index",
     "pages/zthome/index/index",
     "pages/reloginc/index",

@@ -65,6 +65,13 @@ Page({
       url: "/pages/saleslive/index/index"
     });
   },
+
+
+    creatqw: function () {
+    wx.navigateTo({
+      url: "/pages/poster/index/index"
+    });
+  },
   // scfh: function () {
   //   wx.navigateTo({
   //     url: "/pages/depositfh/index/index"

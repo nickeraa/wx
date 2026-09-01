@@ -1,8 +1,10 @@
 {
   "pages": [
-    "pages/jiang/index",
     "pages/home/index/index",
-
+    "pages/lqjp/index/index",
+    "pages/hx/index/index",
+    "pages/jiang/index",
+    "pages/poster/index/index",
     "pages/selive/index/index",
     "pages/saleslive/index/index",
     "pages/listselive/index/index",

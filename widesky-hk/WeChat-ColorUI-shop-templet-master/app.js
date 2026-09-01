@@ -73,6 +73,7 @@ App({
     hkimgUrl: "https://widesky.work/hkimg/",
     scimgUrl: "https://widesky.work/scimg/",
     api: "https://widesky.work/HKback/",
+    cjimg:"https://widesky.work/HKback/cjimages/",
   },
 
 

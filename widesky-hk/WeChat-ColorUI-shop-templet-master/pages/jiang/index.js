@@ -1,5 +1,6 @@
 const app = getApp();
-const API_BIND = 'https://widesky.work/HKback/qybind.ashx'; // 替换为你的域名
+const API_BIND = 'https://widesky.work/HKback/qywxbind.ashx'; // 新绑定接口（微信/企微双通道）
+const bg = 'https://widesky.work/HKback/images/cjbg.png';
 //计数器
 var interval = null;
 //值越大旋转时间越长 即旋转速度
@@ -8,9 +9,11 @@ Page({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
+    bg: bg,   // 背景图（注入 data，wxml {{bg}} 绑定，换图只改顶部 const）
     color: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
-    //8张奖品图片（位置0-7），后端返回的position需与此对应
-    images: ['/images/iphone.png', '/images/x1000.png', '/images/cat.png', '/images/x500.png', '/images/bjt.png', '/images/x50.png', '/images/ma.png', '/images/x200.png'],
+    //8张奖品图片（位置0-7），图片文件名与礼物表 acj_plu 的 PLU_ID 相同（0.png=PLU0苹果 ... 7.png=PLU7二百券）
+    images: [app.globalData.cjimg + '0.png', app.globalData.cjimg + '1.png', app.globalData.cjimg + '2.png', app.globalData.cjimg + '3.png', app.globalData.cjimg + '4.png', app.globalData.cjimg + '5.png', app.globalData.cjimg + '6.png', app.globalData.cjimg + '7.png'],
+
     btnconfirm: '/images/dianjichoujiang.png',
     clickLuck: 'clickLuck',
     luckPosition: 0,
@@ -19,30 +22,317 @@ Page({
     //中奖结果弹窗
     showWin: false,
     prizeName: '',
-    prizeCode: '',
+    //中奖飞入动画
+    showFly: false,
+    flyImg: '',
+    //温馨提醒卡片（领奖方式提示）
+    showNotice: false,
+    noticeReady: false,
+    //通用美化提示弹窗
+    showTip: false,
+    tipTitle: '提示',
+    tipContent: '',
+    //核验抽奖资格加载弹窗
+    showChecking: false,
+    //烟花粒子（飞散方向/颜色/延迟）
+    sparks: [{
+        x: '-280rpx',
+        y: '-300rpx',
+        c: '#ffd95e',
+        d: '0.75s'
+      },
+      {
+        x: '280rpx',
+        y: '-300rpx',
+        c: '#ff5a5f',
+        d: '0.8s'
+      },
+      {
+        x: '-320rpx',
+        y: '-100rpx',
+        c: '#b06cff',
+        d: '0.85s'
+      },
+      {
+        x: '320rpx',
+        y: '-100rpx',
+        c: '#ffd95e',
+        d: '0.78s'
+      },
+      {
+        x: '-280rpx',
+        y: '120rpx',
+        c: '#ff5a5f',
+        d: '0.82s'
+      },
+      {
+        x: '280rpx',
+        y: '120rpx',
+        c: '#b06cff',
+        d: '0.76s'
+      },
+      {
+        x: '-160rpx',
+        y: '-340rpx',
+        c: '#b06cff',
+        d: '0.88s'
+      },
+      {
+        x: '160rpx',
+        y: '-340rpx',
+        c: '#ffd95e',
+        d: '0.8s'
+      },
+      {
+        x: '-160rpx',
+        y: '260rpx',
+        c: '#ffd95e',
+        d: '0.84s'
+      },
+      {
+        x: '160rpx',
+        y: '260rpx',
+        c: '#ff5a5f',
+        d: '0.79s'
+      },
+      {
+        x: '0rpx',
+        y: '-360rpx',
+        c: '#ff5a5f',
+        d: '0.83s'
+      },
+      {
+        x: '0rpx',
+        y: '300rpx',
+        c: '#b06cff',
+        d: '0.77s'
+      },
+      {
+        x: '-340rpx',
+        y: '-220rpx',
+        c: '#ff5a5f',
+        d: '0.81s'
+      },
+      {
+        x: '340rpx',
+        y: '-220rpx',
+        c: '#b06cff',
+        d: '0.86s'
+      },
+      {
+        x: '-340rpx',
+        y: '40rpx',
+        c: '#ffd95e',
+        d: '0.74s'
+      },
+      {
+        x: '340rpx',
+        y: '40rpx',
+        c: '#ff5a5f',
+        d: '0.87s'
+      },
+      {
+        x: '-80rpx',
+        y: '-380rpx',
+        c: '#ffd95e',
+        d: '0.9s'
+      },
+      {
+        x: '80rpx',
+        y: '340rpx',
+        c: '#b06cff',
+        d: '0.73s'
+      }
+    ],
+    //彩带纸屑：从屏幕顶部纷纷落下（左偏移/颜色/延迟/宽高错落）
+    confettis: [{
+        l: '3%',
+        c: '#ff5a5f',
+        d: '0.1s',
+        w: '16rpx',
+        h: '30rpx'
+      },
+      {
+        l: '9%',
+        c: '#ffd95e',
+        d: '0.5s',
+        w: '12rpx',
+        h: '22rpx'
+      },
+      {
+        l: '15%',
+        c: '#b06cff',
+        d: '0.3s',
+        w: '20rpx',
+        h: '34rpx'
+      },
+      {
+        l: '21%',
+        c: '#ff5a5f',
+        d: '0.7s',
+        w: '14rpx',
+        h: '26rpx'
+      },
+      {
+        l: '27%',
+        c: '#ffd95e',
+        d: '0.2s',
+        w: '18rpx',
+        h: '32rpx'
+      },
+      {
+        l: '33%',
+        c: '#b06cff',
+        d: '0.9s',
+        w: '12rpx',
+        h: '24rpx'
+      },
+      {
+        l: '39%',
+        c: '#ff5a5f',
+        d: '0.4s',
+        w: '16rpx',
+        h: '28rpx'
+      },
+      {
+        l: '45%',
+        c: '#ffd95e',
+        d: '1.1s',
+        w: '14rpx',
+        h: '30rpx'
+      },
+      {
+        l: '51%',
+        c: '#b06cff',
+        d: '0.6s',
+        w: '20rpx',
+        h: '26rpx'
+      },
+      {
+        l: '57%',
+        c: '#ff5a5f',
+        d: '0.15s',
+        w: '12rpx',
+        h: '22rpx'
+      },
+      {
+        l: '63%',
+        c: '#ffd95e',
+        d: '0.8s',
+        w: '18rpx',
+        h: '34rpx'
+      },
+      {
+        l: '69%',
+        c: '#b06cff',
+        d: '0.35s',
+        w: '14rpx',
+        h: '26rpx'
+      },
+      {
+        l: '75%',
+        c: '#ff5a5f',
+        d: '1.0s',
+        w: '16rpx',
+        h: '30rpx'
+      },
+      {
+        l: '81%',
+        c: '#ffd95e',
+        d: '0.25s',
+        w: '12rpx',
+        h: '24rpx'
+      },
+      {
+        l: '87%',
+        c: '#b06cff',
+        d: '0.65s',
+        w: '18rpx',
+        h: '28rpx'
+      },
+      {
+        l: '93%',
+        c: '#ff5a5f',
+        d: '0.45s',
+        w: '14rpx',
+        h: '32rpx'
+      },
+      {
+        l: '97%',
+        c: '#ffd95e',
+        d: '0.85s',
+        w: '16rpx',
+        h: '26rpx'
+      },
+      {
+        l: '12%',
+        c: '#ffd95e',
+        d: '1.2s',
+        w: '14rpx',
+        h: '28rpx'
+      },
+      {
+        l: '52%',
+        c: '#ffd95e',
+        d: '0.95s',
+        w: '16rpx',
+        h: '24rpx'
+      },
+      {
+        l: '78%',
+        c: '#ff5a5f',
+        d: '1.3s',
+        w: '12rpx',
+        h: '30rpx'
+      }
+    ],
+    //会员卡号输入弹窗
+    showCardInput: false,
+    member_card: '',
     //订阅号原始ID（gh_开头），用于中奖后打开订阅号资料页，上线前替换
-    ghId: 'gh_xxxxxxxxxxxx',
+    ghId: 'gh_9e94bc24ff17',
     staff: '',
     ext: '',
     openid: '',
     unionid: '',
     userid: '',
+    env: '', // wxwork=企业微信环境  wx=微信环境
     bindState: 'pending' // pending | success | fail
   },
 
   onLoad: function (options) {
-
+    // 禁止分享/转发（隐藏右上角"发送给朋友"和"分享到朋友圈"）
+    if (wx.hideShareMenu) {
+      wx.hideShareMenu({
+        menus: ['shareAppMessage', 'shareTimeline']
+      });
+    }
+    //奖品图链接加时间戳：防 CDN/微信缓存，服务器换图即时生效
+    var imgT = Date.now();
+    var imgs = [];
+    for (var i = 0; i < this.data.images.length; i++) {
+      imgs.push(this.data.images[i] + '?t=' + imgT);
+    }
+    this.setData({
+      images: imgs
+    });
+    //加载九宫格有效奖品：超量奖品自动显示备选图
+    this.loadPrizes();
+    this.loadAnimation();
     // 欢迎语小程序卡片跳转进入，staff=员工ID，ext=客户ID
     const staff = this.safeDecode(options.staff);
     const ext = this.safeDecode(options.ext);
-    this.setData({ staff, ext });
+    console.warn(staff, ext)
+    this.setData({
+      staff,
+      ext
+    });
 
-    if (!staff || !ext) {
-      this.setData({ bindState: 'fail' });
-      return;
-    }
+    // 无论是否带 staff/ext 都执行登录：
+    // 带参数（企微欢迎语卡片）：换取身份并回填绑定关系
+    // 无参数（扫码/直接打开）：也换取 openid/unionid 用于资格核验与防重，后端空 ext 不写库
     this.bindUser();
-   
+
   },
 
   // 参数可能已被企微自动解码，二次 decode 需防重复解码报错
@@ -56,149 +346,342 @@ Page({
   },
 
   bindUser() {
-    const { staff, ext } = this.data;
+    const {
+      staff,
+      ext
+    } = this.data;
 
-    wx.login({
+    // 企微环境用 wx.qy.login 拿企微 code；普通微信环境才用 wx.login
+    const isQy = !!(wx.qy && wx.qy.login);
+    const login = isQy ? wx.qy.login : wx.login;
+    // 记录环境，供后续核验传参
+    this.setData({ env: isQy ? 'wxwork' : 'wx' });
+
+    login({
       success: (res) => {
         if (!res.code) {
-          this.setData({ bindState: 'fail' });
+          this.setData({
+            bindState: 'fail'
+          });
           return;
         }
         wx.request({
           url: API_BIND,
-          data: { code: res.code, staff, ext },
+          data: {
+            code: res.code,
+            staff,
+            ext,
+            loginType: isQy ? 'qy' : 'wx'
+          },
           success: (resp) => {
             const d = resp.data || {};
             if (d.errcode === 0) {
+              // 企微环境拿到 userid = 本企业员工，直接拦截
+              if (isQy && d.userid) {
+                this.setData({
+                  bindState: 'fail',
+                  userid: d.userid || ''
+                });
+                this.showTipModal('提示', '企业员工不能参与抽奖喔');
+                return;
+              }
               this.setData({
                 bindState: 'success',
                 openid: d.openid || '',
                 unionid: d.unionid || '',
                 userid: d.userid || ''
               });
+              console.warn(d);
             } else {
-              this.setData({ bindState: 'fail' });
+              this.setData({
+                bindState: 'fail'
+              });
+              console.warn(d);
             }
-            this.loadAnimation();
-
           },
-          fail: () => this.setData({ bindState: 'fail' })
+          fail: () => this.setData({
+            bindState: 'fail'
+          })
         });
       },
-      fail: () => this.setData({ bindState: 'fail' })
+      fail: () => this.setData({
+        bindState: 'fail'
+      })
     });
   },
 
-
-  onShow: function () {
-   // var that = this;
-    //that.checkStatus();
-  },
-
-  onHide: function () {
-    clearInterval(interval);
-  },
-
-  onUnload: function () {
-    clearInterval(interval);
-  },
-
-  //查询抽奖状态（次数/是否已抽过）
-  /*
-  checkStatus: function () {
-    var that = this;
-    wx.request({
-      url: app.globalData.api + 'wx/wx_draw.ashx',
-      data: {
-        unionid: wx.getStorageSync('unionid'),
-        member_card: wx.getStorageSync('member_card'),
-        i: '0'
+  // ===== 新增：重新获取 code（code 一次性，用完作废，需重新 login）=====
+  getCode(cb) {
+    const isQy = !!(wx.qy && wx.qy.login);
+    const login = isQy ? wx.qy.login : wx.login;
+    login({
+      success: (res) => {
+        if (!res.code) { cb(null); return; }
+        cb(res.code);
       },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      dataType: 'json',
-      success: function (res) {
-        var d = res.data || {};
-        if (d.code == 'no_bind') {
-          wx.removeStorageSync('member_card');
-          wx.redirectTo({
-            url: '/pages/scoupon/index/index'
-          });
-          return;
-        }
-        if (d.code == 'ok') {
-          that.setData({
-            counts: d.counts || 0,
-            drawn: d.drawn == 1
-          })
-        }
-      }
-    })
+      fail: () => cb(null)
+    });
   },
-*/
-  //点击抽奖按钮：结果由后端决定，前端只播动画
+
+  // ===== 新增：统一核验请求（员工/客户核验 + 会员查询，一次完成）=====
+  // cb(d)：d 为后端返回；errcode=-9 员工 / -10 客户校验失败
+  reqCheck(extraData, cb) {
+    const e = this;
+    this.getCode((code) => {
+      const data = {
+        code: code || '',
+        env: e.data.env,
+        unionid: e.data.unionid,
+        cj_openid: e.data.openid
+      };
+      // 合并额外参数（如 vip_code）
+      for (let k in (extraData || {})) data[k] = extraData[k];
+      wx.request({
+        url: app.globalData.api + 'wx_draw.ashx',
+        data: data,
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        dataType: 'json',
+        success: (res) => cb(res.data),
+        fail: () => cb(null)
+      });
+    });
+  },
+
+  //点击抽奖按钮：先显示核验进度条，再核验（员工/客户）+预检是否已参与，通过后弹卡号输入
   clickLuck: function () {
     var e = this;
-
-    if (e.data.counts == 0) {
-      wx.showModal({
-        title: '提示',
-        content: e.data.drawn ? '您已参与过抽奖，可在"我的奖品"中查看' : '暂无抽奖次数',
-        showCancel: false
-      })
-      return false;
+    // 员工拦截前置：企微环境已确认 userid（员工）直接拒绝，不再请求
+    if (e.data.userid) {
+      e.showTipModal('提示', '企业员工不能参与抽奖');
+      return;
     }
-
-    //设置按钮不可点击
+    //显示核验进度条（至少500ms，保证客户感知核验过程）
     e.setData({
-      btnconfirm: '/images/dianjichoujiangd.png',
+      showChecking: true
+    });
+    var checkStart = Date.now();
+    e.reqCheck({}, function (d) {
+      var delay = Math.max(0, 500 - (Date.now() - checkStart));
+      setTimeout(function () {
+        e.setData({
+          showChecking: false
+        });
+        // 身份换取异常（-8）
+        if (d && d.errcode === -8) {
+          e.showTipModal('提示', d.errmsg || '身份校验异常，请稍后重试');
+          return;
+        }
+        // 员工拦截
+        if (d && d.errcode === -9) {
+          e.showTipModal('提示', d.errmsg || '企业员工不能参与抽奖');
+          return;
+        }
+        // 客户核验失败（没加企微/已删企微）
+        if (d && d.errcode === -10) {
+          e.showTipModal('提示', d.errmsg || '无法参与抽奖');
+          return;
+        }
+        // 已参与过（后端查重拦截 -6）
+        if (d && d.errcode === -6) {
+          e.showTipModal('提示', d.errmsg || '每个会员仅限抽奖1次');
+          return;
+        }
+        // 核验失败（网络等）不阻断，后端抽奖时兜底
+        e.openCardInput();
+      }, delay);
+    });
+  },
+
+  //加载九宫格奖品列表：超量奖品自动显示备选图（后端校验限量并替换）
+  loadPrizes: function () {
+    var e = this;
+    wx.request({
+      url: app.globalData.api + 'wx_cj_prizes.ashx',
+      dataType: 'json',
+      success: function (res) {
+        var list = res.data || [];
+        if (list.length !== 8) return;   // 数据异常保持默认图
+        var t = Date.now();
+        var imgs = [];
+        for (var i = 0; i < 8; i++) {
+          imgs.push(app.globalData.cjimg + list[i].plu_id + '.png?t=' + t);
+        }
+        e.setData({
+          images: imgs
+        });
+      }
+      // fail 静默：保持默认图（时间戳版）
+    });
+  },
+
+  //弹出会员卡号输入界面（预填已保存卡号）
+  openCardInput: function () {
+    this.setData({
+      showCardInput: true,
+      inputCard: wx.getStorageSync('member_card') || this.data.member_card || ''
+    });
+  },
+
+  //会员卡号输入
+  onCardInput: function (e) {
+    this.setData({
+      member_card: e.detail.value
+    });
+    console.warn(this.data.member_card)
+  },
+  //关闭卡号弹窗
+  closeCardInput: function () {
+    this.setData({
+      showCardInput: false
+    });
+  },
+  //确认卡号并开始抽奖
+  confirmCard: function () {
+    var card = String(this.data.member_card || '').trim();
+    if (!card) {
+      wx.showToast({
+        title: '请输入会员卡号',
+        icon: 'none'
+      });
+      return;
+    }
+    wx.setStorageSync('member_card', card);
+    this.setData({
+      showCardInput: false,
+      member_card: card
+    });
+
+    var e = this;
+    //显示核验进度条（至少500ms，卡号核验期间展示）
+    e.setData({
+      showChecking: true
+    });
+    var checkStart = Date.now();
+    // 带核验 + 卡号校验
+    e.reqCheck({ vip_code: card }, function (d) {
+      var delay = Math.max(0, 500 - (Date.now() - checkStart));
+      setTimeout(function () {
+        e.setData({
+          showChecking: false
+        });
+        // 身份换取异常（-8）
+        if (d && d.errcode === -8) {
+          e.showTipModal('提示', d.errmsg || '身份校验异常，请稍后重试');
+          return;
+        }
+        // 员工拦截
+        if (d && d.errcode === -9) {
+          e.showTipModal('提示', d.errmsg || '企业员工不能参与抽奖');
+          return;
+        }
+        // 客户核验失败
+        if (d && d.errcode === -10) {
+          e.showTipModal('提示', d.errmsg || '无法参与抽奖');
+          return;
+        }
+        // 已参与过（后端第一顺位查重拦截 -6）
+        if (d && d.errcode === -6) {
+          e.showTipModal('提示', d.errmsg || '每个会员仅限抽奖1次');
+          return;
+        }
+        // 卡号不存在（-5）：清空输入框并保持输入界面
+        if (d && d.errcode === -5) {
+          wx.removeStorageSync('member_card');
+          e.setData({
+            showCardInput: true,
+            inputCard: '',
+            member_card: ''
+          });
+          e.showTipModal('提示', d.errmsg || '您输入的会员卡号不存在，请您检查后再输入');
+          return;
+        }
+        // 该卡号已参与过抽奖（-3）
+        if (d && d.errcode === -3) {
+          e.showTipModal('提示', d.errmsg || '此会员卡号已经参与过抽奖');
+          return;
+        }
+        // 网络失败不阻断（d为null），核验通过且卡号存在（数组有记录）→ 抽奖
+        e.doDraw();
+      }, delay);
+    });
+  },
+
+  //执行抽奖：结果由后端决定，前端只播动画
+  doDraw: function () {
+    var e = this;
+
+    //设置按钮不可点击（不更换图片，仅禁用点击）
+    e.setData({
       clickLuck: ''
     })
     clearInterval(interval);
 
-    //请求后端执行抽奖（专属大奖名单优先，其次按会员等级奖品池）
-    wx.request({
-      url: app.globalData.api + 'wx/wx_draw.ashx',
-      data: {
-        unionid: wx.getStorageSync('unionid'),
-        member_card: wx.getStorageSync('member_card'),
-        i: '1'
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      dataType: 'json',
-      success: function (res) {
-        var d = res.data || {};
-        if (d.code != 'ok') {
-          e.recoverBtn();
-          if (d.code == 'no_bind') {
-            wx.removeStorageSync('member_card');
-            wx.redirectTo({
-              url: '/pages/scoupon/index/index'
-            });
-          } else {
-            wx.showModal({
-              title: '提示',
-              content: d.msg || '抽奖失败，请重试',
-              showCancel: false
-            })
-          }
-          return;
-        }
+    //重新登录取新 code：openid/unionid 由后端兑换（防伪造），再执行抽奖
+    e.getCode(function (code) {
+      //请求后端执行抽奖（三维查重 + 中奖逻辑 + 写中奖记录）
+      wx.request({
+        url: app.globalData.api + 'wx_cj_draw.ashx',
+        data: {
+          code: code || '',
+          env: e.data.env,
+          vip_code: e.data.member_card,
+          staff: e.data.staff
+        },
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        dataType: 'json',
+        success: function (res) {
+          var d = res.data || {};
 
+          //已参与过抽奖（-3）：恢复按钮并提示
+          if (d.errcode === -3) {
+            e.recoverBtn();
+            e.showTipModal('提示', d.errmsg || '此会员卡号已经参与过抽奖');
+            return;
+          }
+
+          //未中奖（-4）：奖品不在内定名单/概率池/礼物表
+          if (d.errcode === -4) {
+            e.recoverBtn();
+            e.showTipModal('提示', d.errmsg || '很遗憾，本次未中奖');
+            return;
+          }
+
+          //卡号不存在（-5）
+          if (d.errcode === -5) {
+            e.recoverBtn();
+            e.showTipModal('提示', d.errmsg || '会员卡号不存在或输入错误');
+            return;
+          }
+
+          //操作太频繁（-7）：频率限制拦截
+          if (d.errcode === -7) {
+            e.recoverBtn();
+            e.showTipModal('提示', d.errmsg || '操作太频繁，请稍后再试');
+            return;
+          }
+
+          //其他错误统一拦截（-1缺code/-2缺卡号/-8系统繁忙等）：防止错误响应误入中奖动画
+          if (d.errcode && d.errcode !== 0) {
+            e.recoverBtn();
+            e.showTipModal('提示', d.errmsg || '系统繁忙，请稍后重试');
+            return;
+          }
+
+        //后端返回中奖结果，前端只播动画
         var luckPosition = parseInt(d.position);
         if (isNaN(luckPosition) || luckPosition < 0 || luckPosition > 7) {
-          luckPosition = 0;
+          luckPosition = 5;
         }
+        console.warn(luckPosition)
         e.setData({
           luckPosition: luckPosition,
           counts: 0,
           drawn: true,
           prizeName: d.prize_name || '',
-          prizeCode: d.prize_code || '',
-          isWin: d.is_win == 1
         })
 
         //启动跑马灯
@@ -229,7 +712,8 @@ Page({
           icon: 'none'
         });
       }
-    })
+      })
+    });
   },
 
   stop: function (which) {
@@ -270,49 +754,90 @@ Page({
         index++;
         e.stopLuck(which, index, time, splittime);
       } else {
-        //1秒后展示结果
+        //1秒后展示结果：先播中奖飞入动画，再展示中奖弹窗
         setTimeout(function () {
-          if (e.data.isWin) {
-            //中奖：展示奖品 + 订阅号关注引导（纯引导，不校验、不拦截领奖）
-            e.setData({
-              showWin: true
-            })
-          } else {
-            wx.showModal({
-              title: '提示',
-              content: '谢谢您的参与',
-              showCancel: false,
-              success: function () {
-                e.recoverBtn();
-                e.loadAnimation();
-              }
-            })
+          //奖品图从顶部飞入屏幕中央（取中奖格的奖品图）
+          e.setData({
+            showFly: true,
+            flyImg: e.data.images[e.data.luckPosition]
+          });
+          //手机震动（真机生效，提升中奖体感）
+          if (wx.vibrateShort) {
+            setTimeout(function () {
+              wx.vibrateShort({
+                type: 'medium'
+              });
+            }, 800);
+            setTimeout(function () {
+              wx.vibrateShort({
+                type: 'light'
+              });
+            }, 1250);
+            setTimeout(function () {
+              wx.vibrateShort({
+                type: 'light'
+              });
+            }, 2000);
           }
+          //动画结束后奖品停留屏幕中央，点击遮罩关闭（不再自动弹中奖窗）
         }, 1000);
       }
     }, time);
   },
 
-  //恢复按钮状态
+  //恢复按钮状态（不更换图片，仅恢复点击）
   recoverBtn: function () {
     this.setData({
-      btnconfirm: '/images/dianjichoujiang.png',
       clickLuck: 'clickLuck'
     })
   },
 
-  //打开订阅号资料页（纯运营引导，失败不阻断任何流程）
+  //关闭中奖动画（奖品停留屏幕中央，点击遮罩关闭）
+  closeFly: function () {
+    this.setData({
+      showFly: false
+    });
+    this.recoverBtn();
+    this.loadAnimation();
+  },
+
+  //打开订阅号资料页（纯运营引导，失败静默不阻断任何流程）
+  //先弹出领奖方式卡片（无文字），公众号确认弹窗交互完成后再显示文字
   openOfficial: function () {
+    this.setData({
+      showNotice: true,
+      noticeReady: false
+    });
     wx.openOfficialAccountProfile({
       username: this.data.ghId,
-      fail: function () {
-        wx.showModal({
-          title: '提示',
-          content: '可在微信搜索订阅号名称关注，是否关注不影响领奖',
-          showCancel: false
-        })
+      complete: () => {
+        this.setData({
+          noticeReady: true
+        });
       }
     })
+  },
+
+  //关闭温馨提醒卡片
+  closeNotice: function () {
+    this.setData({
+      showNotice: false,
+      noticeReady: false
+    });
+  },
+
+  //通用美化提示弹窗（替代 wx.showModal，样式与领奖方式卡片统一）
+  showTipModal: function (title, content) {
+    this.setData({
+      showTip: true,
+      tipTitle: title,
+      tipContent: content
+    });
+  },
+  closeTip: function () {
+    this.setData({
+      showTip: false
+    });
   },
 
   //前往我的奖品页

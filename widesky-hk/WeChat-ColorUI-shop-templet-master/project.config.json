@@ -15,7 +15,7 @@
     "showShadowRootInWxmlPanel": false,
     "packNpmRelationList": [],
     "compileWorklet": false,
-    "uglifyFileName": false,
+    "uglifyFileName": true,
     "uploadWithSourceMap": true,
     "packNpmManually": false,
     "minifyWXSS": true,
@@ -37,5 +37,7 @@
   },
   "appid": "wx83ab069b06696bf2",
   "libVersion": "3.8.12",
-  "simulatorPluginLibVersion": {}
+  "simulatorPluginLibVersion": {
+    "qywx_simulator_plugin": "2.27.3"
+  }
 }

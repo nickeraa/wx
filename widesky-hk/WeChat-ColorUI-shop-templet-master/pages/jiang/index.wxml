@@ -1,56 +1,126 @@
+<!--全屏背景层：image组件fixed覆盖整个视口，含手机底部安全区-->
+<image class="bg-layer" src="{{bg}}" mode="scaleToFill"></image>
 <!--状态栏区域-->
-<view class="cu-custom bg-white" style="height:100rpx;">
+<view class="cu-custom" style="height:{{CustomBar}}px;">
     <view class="cu-bar fixed none-bg  bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-        <view class="head-title canui-head-title" style="font-weight: 550;">会员幸运大抽奖</view>
+        <view class="head-title canui-head-title"></view>
     </view>
 </view>
 <view class="container" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 160rpx);">
-  <view style="width:590rpx;background-image:linear-gradient(45deg,#ff9700,#ed1c24);color:#fff;text-align:center;padding:20rpx 0;border-radius:16rpx;font-size:30rpx;font-weight:700;margin-bottom:30rpx;">
-    <text style="display:block;">广天藏品30周年，百万奖品回馈会员</text>
-    <text style="display:block;font-size:26rpx;font-weight:500;margin-top:6rpx;">百分百中奖，iphone手机，熊猫金币</text>
-    <text style="display:block;font-size:26rpx;font-weight:500;margin-top:6rpx;">大奖等您拿！</text>
-  </view>
+
   <view class='frame_view'>
 <view class='frame_row'>
-<image class='frame_item' style='opacity:{{color[0]}}' src='{{images[0]}}'></image>
-<image class='frame_item' style='opacity:{{color[1]}}' src='{{images[1]}}'></image>
-<image class='frame_item' style='opacity:{{color[2]}}' src='{{images[2]}}'></image>
+<view class='frame_item' style='opacity:{{color[0]}}'>
+  <image class='frame_img' src='{{images[0]}}'></image>
+</view>
+<view class='frame_item' style='opacity:{{color[1]}}'>
+  <image class='frame_img' src='{{images[1]}}'></image>
+</view>
+<view class='frame_item' style='opacity:{{color[2]}}'>
+  <image class='frame_img' src='{{images[2]}}'></image>
+</view>
 </view>
 
 <view class='frame_row'>
-<image class='frame_item' style='opacity:{{color[7]}}' src='{{images[7]}}'></image>
-<image class='frame_item' src='{{btnconfirm}}' bindtap='{{clickLuck}}'></image>
-<image class='frame_item' style='opacity:{{color[3]}}' src='{{images[3]}}'></image>
+<view class='frame_item' style='opacity:{{color[7]}}'>
+  <image class='frame_img' src='{{images[7]}}'></image>
+</view>
+<view class='frame_item luck_btn {{clickLuck?"":"luck_disabled"}}' bindtap='{{clickLuck}}'>
+  <image class='frame_img' src='{{btnconfirm}}'></image>
+</view>
+<view class='frame_item' style='opacity:{{color[3]}}'>
+  <image class='frame_img' src='{{images[3]}}'></image>
+</view>
 </view>
 
 <view class='frame_row'>
-<image class='frame_item' style='opacity:{{color[6]}}' src='{{images[6]}}'></image>
-<image class='frame_item' style='opacity:{{color[5]}}' src='{{images[5]}}'></image>
-<image class='frame_item' style='opacity:{{color[4]}}' src='{{images[4]}}'></image>
+<view class='frame_item' style='opacity:{{color[6]}}'>
+  <image class='frame_img' src='{{images[6]}}'></image>
+</view>
+<view class='frame_item' style='opacity:{{color[5]}}'>
+  <image class='frame_img' src='{{images[5]}}'></image>
+</view>
+<view class='frame_item' style='opacity:{{color[4]}}'>
+  <image class='frame_img' src='{{images[4]}}'></image>
 </view>
 </view>
-  <view style="text-align:center;padding-top:30rpx;width:590rpx;box-sizing:border-box;color:#666;font-size:22rpx;line-height:1.5;"><text style="color:#c3a769;font-weight:700;">温馨提醒：</text>每个会员卡号，每个微信号仅能抽奖<text style="color:#c3a769;font-weight:700;font-size:30rpx;">1</text>次喔</view>
+</view>
+  <view style="text-align:center;padding-top:30rpx;width:690rpx;box-sizing:border-box;color:#4a2b6b;font-size:30rpx;line-height:1.5;text-shadow:0 2rpx 4rpx rgba(255,255,255,0.6);"><text style="font-weight:700;">温馨提醒：</text>每个会员仅限抽奖<text style="font-weight:700;font-size:38rpx;">1</text>次喔</view>
 </view>
 
-<!--中奖结果弹窗：奖品展示 + 订阅号关注引导（纯引导、无校验、不影响领奖）-->
-<view class="cu-modal {{showWin?'show':''}}" bindtap="closeWin">
+<!--核验抽奖资格加载弹窗：点击抽奖预检期间显示-->
+<view class="cu-modal {{showChecking?'show':''}}" style="z-index:99998;">
+  <view class="cu-dialog notice-dialog" catchtap="">
+    <view class="notice-title title icon-title text-orange">正在核验抽奖资格</view>
+    <view class="notice-loading"></view>
+  </view>
+</view>
+
+<!--通用美化提示弹窗：替代系统showModal，样式与领奖方式卡片统一（z-index最高，不被其他弹窗遮挡）-->
+<view class="cu-modal {{showTip?'show':''}}" style="z-index:99999;">
+  <view class="cu-dialog notice-dialog" catchtap="">
+    <view class="notice-title">{{tipTitle}}</view>
+    <view class="notice-body">
+      <view>{{tipContent}}</view>
+    </view>
+    <view class="notice-btn" bindtap="closeTip">确定</view>
+  </view>
+</view>
+
+<!--会员卡号输入弹窗：点击抽奖先输入卡号，确认后开始抽奖-->
+<view class="cu-modal {{showCardInput?'show':''}}">
   <view class="cu-dialog" catchtap="">
     <view class="cu-bar bg-white justify-end">
-      <view class="content">恭喜中奖</view>
-      <view class="action" bindtap="closeWin">
+      <view class="content title icon-title text-orange" style="background:linear-gradient(180deg,#e9c15c 0%,#b8860b 45%,#6b4e03 100%);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;font-size:36rpx;letter-spacing:4rpx;">广天会员专享</view>
+      <view class="action" bindtap="closeCardInput">
         <text class="icon-close text-red"></text>
       </view>
     </view>
     <view class="padding-xl">
-      <view class="text-xl text-red text-bold">{{prizeName}}</view>
-      <view class="margin-top-sm" wx:if="{{prizeCode}}">中奖码：{{prizeCode}}</view>
-      <view class="margin-top text-grey text-sm">欢迎关注订阅号领取更多活动福利，请前往门店出示小程序核销领奖（是否关注不影响领奖）</view>
+      <input value="{{member_card}}" bindinput="onCardInput" placeholder="请输入会员卡号" style="border:1rpx solid #ddd;border-radius:12rpx;padding:0 24rpx;height:88rpx;line-height:88rpx;font-size:32rpx;text-align:left;box-sizing:border-box;" />
     </view>
     <view class="cu-bar bg-white justify-end">
       <view class="action">
-        <button class="cu-btn line-green round" bindtap="goPrize">我的奖品</button>
-        <button class="cu-btn bg-green margin-left round" bindtap="openOfficial">关注订阅号</button>
+        <button class="cu-btn round" bindtap="closeCardInput" style="background:#fff;color:#b8860b;border:2rpx solid #b8860b;">取消</button>
+        <button class="cu-btn margin-left round" bindtap="confirmCard" style="background:#b8860b;color:#fff;font-weight:700;">确认抽奖</button>
       </view>
     </view>
   </view>
 </view>
+
+<!--中奖飞入动画层：奖品从顶部飞入屏幕中央，烟花粒子+旋转光芒+脉冲光环+彩带-->
+<view wx:if="{{showFly}}" class="fly-mask" bindtap="closeFly">
+  <view class="fly-spot spot-left"></view>
+  <view class="fly-spot spot-right"></view>
+  <view class="fly-glow-floor"></view>
+  <view class="fly-rays"></view>
+  <view class="fly-pulse"></view>
+  <view class="spark" wx:for="{{sparks}}" wx:key="index" style="--x:{{item.x}};--y:{{item.y}};--c:{{item.c}};--d:{{item.d}};"></view>
+  <view class="confetti" wx:for="{{confettis}}" wx:key="index" style="left:{{item.l}};width:{{item.w}};height:{{item.h}};--c:{{item.c}};--d:{{item.d}};"></view>
+  <view class="fly-prize-box">
+    <view class="fly-title">恭喜您中奖！</view>
+    <view class="fly-img-wrap">
+      <image class="fly-prize" src="{{flyImg}}" mode="aspectFit"></image>
+      <view class="fly-close" catchtap="closeFly"><text class="icon-close"></text></view>
+    </view>
+    <view class="fly-follow" catchtap="openOfficial"><text class="icon-right" style="color:#2ee56c;font-size:36rpx;"></text><text class="icon-right" style="color:#2ee56c;font-size:36rpx;margin-left:-12rpx;"></text><text class="icon-right" style="color:#2ee56c;font-size:36rpx;margin-left:-12rpx;margin-right:8rpx;"></text>点击关注公众号，获取兑奖方式</view>
+  </view>
+</view>
+
+<!--温馨提醒弹窗：领奖方式提示（点击关注公众号后展示，返回可见）-->
+<view class="cu-modal {{showNotice?'show':''}}">
+  <view class="cu-dialog notice-dialog" catchtap="">
+    <view class="notice-close" bindtap="closeNotice"><text class="icon-close"></text></view>
+    <view class="notice-title title icon-title text-orange">{{noticeReady ? '领奖方式' : '正在加载'}}</view>
+    <view class="notice-body" wx:if="{{noticeReady}}">
+      <view>亲，奖品已派送至店铺</view>
+      <view>请莅临<text class="notice-hl">广天藏品</text>线下</view>
+      <view><text class="notice-hl">任意门店</text>扫码领取，谢谢！</view>
+    </view>
+    <view class="notice-loading" wx:else></view>
+    <view class="notice-btn" bindtap="closeNotice">我知道了</view>
+  </view>
+</view>
+
+
+

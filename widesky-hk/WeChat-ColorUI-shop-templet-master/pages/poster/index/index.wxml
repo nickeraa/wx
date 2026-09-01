@@ -1,0 +1,46 @@
+<!-- 自定义导航栏（渐变橙红，同 home 风格） -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class="head-title">生成宣传海报</view>
+  </view>
+</view>
+
+<!-- 头部背景 + 水波动画（同 home 风格） -->
+<view class="UCenter-bg">
+  <view class="css-wave">
+    <view class="wave wave1"></view>
+    <view class="wave wave2"></view>
+    <view class="wave wave3"></view>
+  </view>
+</view>
+
+<!-- 上传企微码卡片 -->
+<view class="content-card shadow-lg">
+  <view class="card-title">上传个人企微码</view>
+
+  <!-- 未上传：虚线选择框 -->
+  <view wx:if="{{!qrImage}}" class="qr-empty" bindtap="onChooseQr">
+    <view class="qr-plus">+</view>
+    <view class="qr-tip">点击上传企微码图片</view>
+  </view>
+
+  <!-- 已上传：图片预览 + 重传 -->
+  <block wx:else>
+    <image class="qr-preview" src="{{qrImage}}" mode="aspectFit"></image>
+    <view class="qr-rechoose" bindtap="onChooseQr">重新上传</view>
+  </block>
+
+  <!-- 生成按钮 -->
+  <view class="gen-btn {{generating?'gen-btn-disabled':''}}" bindtap="onGenerate">生成宣传海报</view>
+</view>
+
+<!-- 生成结果卡片 -->
+<view wx:if="{{generatedImg}}" class="content-card shadow-lg">
+  <view class="card-title">制作完成！</view>
+  <image class="result-img" src="{{generatedImg}}" mode="widthFix" bindtap="onPreview"></image>
+  <view class="result-tip">点击图片可预览放大</view>
+  <view class="gen-btn save-btn" bindtap="onSave">保存到相册</view>
+</view>
+
+<!-- 隐藏 canvas（拼接绘制用，移到屏幕外） -->
+<canvas canvas-id="posterCanvas" style="width:{{canvasW}}px;height:{{canvasH}}px;position:fixed;left:-9999px;top:0;"></canvas>

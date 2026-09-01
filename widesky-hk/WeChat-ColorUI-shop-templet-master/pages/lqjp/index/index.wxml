@@ -1,0 +1,106 @@
+<!-- 自定义导航栏（渐变橙红，同 home 风格） -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class="head-title">领取奖品</view>
+  </view>
+</view>
+
+<!-- 头部背景 + 水波动画（同 home 风格） -->
+<view class="UCenter-bg">
+  <view class="css-wave">
+    <view class="wave wave1"></view>
+    <view class="wave wave2"></view>
+    <view class="wave wave3"></view>
+  </view>
+</view>
+
+<!-- 内容卡片 -->
+<view class="content-card shadow-lg">
+
+  <!-- 查询中：文字 + 金色流动进度条 -->
+  <view wx:if="{{!prizeLoaded}}" class="loading-wrap">
+    <view class="state-tip">正在查询奖品</view>
+    <view class="loading-bar"></view>
+  </view>
+
+  <!-- 领取成功（员工已核销） -->
+  <block wx:elif="{{received}}">
+    <view class="recv-wrap">
+      <image class="success-img" src="https://widesky.work/HKback/images/ok.jpg" mode="aspectFit"></image>
+      <view class="success-title">领取成功</view>
+      <view class="state-tip">奖品已核销，感谢参与！</view>
+
+      <!-- 中奖奖品 -->
+      <view class="recv-prize" wx:if="{{prizeName}}">
+        <image class="recv-prize-img" src="{{prizeImg}}" mode="aspectFit"></image>
+        <view class="recv-prize-name">{{prizeName}}</view>
+      </view>
+
+      <!-- 会员信息 + 发放员工（后端返回了才显示对应行） -->
+      <view class="recv-card">
+        <view class="info-row" wx:if="{{memberCard}}">
+          <text class="info-label">会员卡号</text>
+          <text class="info-value">{{memberCard}}</text>
+        </view>
+        <view class="info-row" wx:if="{{vipName}}">
+          <text class="info-label">会员姓名</text>
+          <text class="info-value">{{vipName}}</text>
+        </view>
+        <view class="info-row" wx:if="{{vipLevel}}">
+          <text class="info-label">会员等级</text>
+          <text class="info-value">{{vipLevel}}</text>
+        </view>
+        <view class="info-row" wx:if="{{staffName}}">
+          <text class="info-label">发放员工</text>
+          <text class="info-value">{{staffName}}</text>
+        </view>
+        <view class="info-row" wx:if="{{shopNo}}">
+          <text class="info-label">店铺号</text>
+          <text class="info-value">{{shopNo}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 无待领取奖品 -->
+  <block wx:elif="{{!hasPrize}}">
+    <view class="empty-wrap">
+      <view class="warn-badge">
+        <image class="warn-img" src="https://widesky.work/HKback/images/jg.jpg" mode="aspectFit"></image>
+      </view>
+      <view class="empty-title">{{emptyMsg}}</view>
+      <view class="empty-sub">温馨提醒：每个会员，仅限领奖1次喔</view>
+    </view>
+  </block>
+
+  <!-- 待领取：恭喜标题 + 奖品图 + 立即领取按钮 -->
+  <block wx:else>
+    <view class="fly-title">恭喜您中奖！</view>
+    <image class="prize-show-img" src="{{prizeImg}}" mode="aspectFit"></image>
+    <view class="prize-name">{{prizeName}}</view>
+    <view class="receive-btn" bindtap="onReceive">{{qrcodeLoading?'正在生成二维码...':'立即领取'}}</view>
+  </block>
+
+</view>
+
+<!-- 领奖核销二维码弹窗（员工扫码在自己手机上核销） -->
+<view class="cu-modal {{showQrcode?'show':''}}">
+  <view class="qrcode-dialog" catchtap="">
+    <view class="dialog-close" bindtap="onCloseQrcode">×</view>
+    <view class="dialog-title">领奖核销</view>
+    <image class="qrcode-img" src="{{qrcodeImg}}" mode="aspectFit"></image>
+    <view class="qrcode-tip">请员工使用微信扫描二维码</view>
+    <view class="qrcode-sub">核销完成后本页将自动更新结果</view>
+  </view>
+</view>
+
+<!-- 提示弹窗（企微核验失败等错误提示）：与 jiang/index 的 notice-dialog 样式统一 -->
+<view class="cu-modal {{showModal?'show':''}}" style="z-index:99999;">
+  <view class="cu-dialog notice-dialog" catchtap="">
+    <view class="notice-title">提示</view>
+    <view class="notice-body">
+      <view>{{modalMsg}}</view>
+    </view>
+    <view class="notice-btn" bindtap="onCloseModal">知道了</view>
+  </view>
+</view>

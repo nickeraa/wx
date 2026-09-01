@@ -1,0 +1,157 @@
+/* 海报拼接页：渐变导航 + 水波头 + 白色卡片（同 home 风格） */
+page {
+  overflow-x: hidden;
+  padding-top: 50px;
+  width: 100%;
+  background: #f1f1f1;
+}
+.cu-custom {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.cu-custom .cu-bar {
+  background-image: linear-gradient(45deg, #ff9700, #ed1c24);
+  padding-right: inherit;
+}
+.head-title {
+  margin: 0 auto;
+}
+
+/* 头部背景图 + 水波动画 */
+.UCenter-bg {
+  align-items: center;
+  background-image: url(https://widesky.work/HKback/upload/bg2.jpg);
+  background-size: cover;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 300rpx;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.UCenter-bg .css-wave {
+  bottom: 0;
+  height: 60rpx;
+  left: 0;
+  mix-blend-mode: screen;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 99;
+}
+.UCenter-bg .css-wave .wave {
+  animation: wave-rotate 10s linear infinite;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 43%;
+  bottom: -930rpx;
+  height: 1000rpx;
+  left: 50%;
+  margin-left: -500rpx;
+  position: absolute;
+  width: 1000rpx;
+}
+.UCenter-bg .css-wave .wave2 {
+  animation-duration: 14s;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 47%;
+}
+.UCenter-bg .css-wave .wave3 {
+  animation-direction: reverse;
+  animation-duration: 7s;
+  background-color: rgba(255, 255, 255, 0.35);
+  border-radius: 40%;
+}
+@keyframes wave-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 内容卡片 */
+.content-card {
+  background: #fff;
+  border-radius: 16rpx;
+  margin: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx;
+}
+.card-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #4a2b6b;
+  margin-bottom: 32rpx;
+}
+
+/* 未上传：虚线选择框 */
+.qr-empty {
+  width: 420rpx;
+  height: 420rpx;
+  border: 3rpx dashed #c9b8dc;
+  border-radius: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #faf8fd;
+}
+.qr-plus {
+  font-size: 100rpx;
+  color: #b8860b;
+  line-height: 1;
+}
+.qr-tip {
+  color: #8a6d9b;
+  font-size: 26rpx;
+  margin-top: 16rpx;
+}
+
+/* 已上传：预览 + 重传 */
+.qr-preview {
+  width: 420rpx;
+  height: 420rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 12rpx 40rpx rgba(74, 43, 107, 0.12);
+}
+.qr-rechoose {
+  color: #b8860b;
+  font-size: 26rpx;
+  margin-top: 20rpx;
+  text-decoration: underline;
+}
+
+/* 生成按钮 */
+.gen-btn {
+  width: 440rpx;
+  text-align: center;
+  background: #b8860b;
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: 700;
+  letter-spacing: 6rpx;
+  border-radius: 999rpx;
+  padding: 24rpx 0;
+  margin-top: 40rpx;
+  box-shadow: 0 8rpx 20rpx rgba(184, 134, 11, 0.4);
+}
+.gen-btn-disabled {
+  opacity: 0.6;
+}
+
+/* 生成结果 */
+.result-img {
+  width: 600rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 12rpx 40rpx rgba(74, 43, 107, 0.15);
+}
+.result-tip {
+  color: #9b8bab;
+  font-size: 24rpx;
+  margin-top: 16rpx;
+}
+.save-btn {
+  background: linear-gradient(45deg, #ff9700, #ed1c24);
+}

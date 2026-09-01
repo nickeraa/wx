@@ -84,14 +84,14 @@
         <view class="title icon-title text-orange up">会员姓名：</view>
         <input disabled class="radius dp" style='color:gray;' name="vipname" placeholder="" value="{{vipname}}"></input>
     </view>
-    <view wx:if="{{grade=='银卡贵宾'}}" class="cu-form-group">
+    <view wx:if="{{isYinka}}" class="cu-form-group">
         <view class="title icon-title text-orange up">会员等级：</view>
         <input disabled class="radius dp" name="grade" style='color:gray;' placeholder="" value="{{grade}} {{xf_address1}}"></input>
     </view>
     <view wx:else class="cu-form-group">
         <view class="title icon-title text-orange up">会员等级：</view>
-        <view class="radius" style="flex:1;height:76rpx;display:flex;align-items:center;margin-left:20rpx;background-image:linear-gradient(45deg,#c8a045,#d4af37);color:#000;">
-            <input style="flex:1;height:100%;color:#000;text-align:left;padding-left:20rpx;" name="grade" value="{{grade}} {{xf_address1}}"></input>
+        <view class="radius" style="flex:1;height:76rpx;display:flex;align-items:center;margin-left:20rpx;background-image:linear-gradient(45deg,#b8860b,#c8a045);color:#000;">
+            <input style="flex:1;height:100%;color:#000;text-align:left;padding-left:20rpx;background-color:transparent;" name="grade" value="{{grade}} {{xf_address1}}"></input>
         </view>
     </view>
     <view class="cu-form-group">
