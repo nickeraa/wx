@@ -112,12 +112,15 @@ namespace FineUIPro.EmptyProjectNet40
             // ================================================================
 
             // ========== 客户核验：没加企微 / 已删除企微 不能参与抽奖 ==========
+            // 内部测试期间临时注释（放行非好友），正式上线前恢复
+            /*
             string extErr = "";
             if (!CheckExternal(unionid, openid, out extErr))
             {
                 context.Response.Write("{\"errcode\":-10,\"errmsg\":\"" + extErr + "\"}");
                 return;
             }
+            */
             // ========================================================================
 
             string xf_vipcode = (context.Request["vip_code"] ?? "").Replace(" ", "").Replace("　", "").ToUpper();

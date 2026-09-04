@@ -114,8 +114,8 @@
     <view class="notice-title title icon-title text-orange">{{noticeReady ? '领奖方式' : '正在加载'}}</view>
     <view class="notice-body" wx:if="{{noticeReady}}">
       <view>亲，奖品已派送至店铺</view>
-      <view>请莅临<text class="notice-hl">广天藏品</text>线下</view>
-      <view><text class="notice-hl">任意门店</text>扫码领取，谢谢！</view>
+      <view>请与您的<text class="notice-hl">专属顾问</text>联系</view>
+      <view>预约到店扫码领取，谢谢！</view>
     </view>
     <view class="notice-loading" wx:else></view>
     <view class="notice-btn" bindtap="closeNotice">我知道了</view>

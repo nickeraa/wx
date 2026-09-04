@@ -16,7 +16,7 @@ namespace FineUIPro.EmptyProjectNet40
     ///
     /// 模式A（客户领奖页 lqjp 调用，仅核验返回卡号，不核销）：
     ///   wx_cj_receive.ashx?code=客户微信登录code
-    ///   → code2Session 换 openid/unionid → 好友核验（没加企微/已删除企微 → 拦截 -10，不进入兑奖）
+    ///   → code2Session 换 openid/unionid → 好友核验（测试期间已临时注释放行；上线前恢复：没加企微/已删除企微 → 拦截 -10，不进入兑奖）
     ///   → 返回该客户未领取记录的 xf_vipcode（供生成带参二维码）
     ///   返回：{"errcode":0,"vip_code":"卡号","plu_id":..,"prize_name":..,"vip_name":..,"vip_level":..,"tags":"0"}
     ///         / {"errcode":-8,"errmsg":"身份校验失败"} / {"errcode":-12,"errmsg":"没有可领取的奖品"}
@@ -29,7 +29,8 @@ namespace FineUIPro.EmptyProjectNet40
     ///         "staff_id":..,"staff_name":..,"shop_no":..,"tags":"1","received_time":"yyyy-MM-dd HH:mm:ss"}
     ///         / {"errcode":-2,"errmsg":"工号或密码输入错误！"} / {"errcode":-12,"errmsg":"奖品已领取或不存在"}
     ///
-    /// 注：好友核验已启用——客户未添加企微（-10）或已删除企微（-10）时拦截，不进入兑奖环节
+    /// 注：好友核验测试期间已临时注释（放行非好友），正式上线前必须恢复——
+    ///     客户未添加企微（-10）或已删除企微（-10）时拦截，不进入兑奖环节
     /// </summary>
     public class wx_cj_receive : IHttpHandler
     {
@@ -103,6 +104,8 @@ namespace FineUIPro.EmptyProjectNet40
             }
 
                 // 2) 好友核验：没加企微 / 已删除企微 → 拦截，不进入兑奖环节
+            // 内部测试期间临时注释（放行非好友），正式上线前恢复
+            /*
             string msg = "";
             if (!CheckExternal(unionid, openid, out msg))
             {
@@ -110,6 +113,7 @@ namespace FineUIPro.EmptyProjectNet40
                 context.Response.Write("{\"errcode\":-10,\"errmsg\":\"您还没有添加企业微信，暂不能领奖喔\"}");
                 return;
             }
+            */
 
             // 3) 按 openid 查该客户未领取记录的卡号（espos.wx_cj_vip_byopenid）
             string vipcode = GetVipcodeByOpenid(openid);
