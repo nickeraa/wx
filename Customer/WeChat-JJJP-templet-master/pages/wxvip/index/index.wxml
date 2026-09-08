@@ -13,6 +13,7 @@
         <button bindtap="shuaxin" class="cu-btn bg-gradual-green shadow-blur round">刷新数据</button>
     </view>
 </view>
+<!-- 客户列表 -->
 <view bindtap="sevip" data-xf_vipcode="{{item.XF_VIPCODE}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="XF_VIPCODE">
     <view class="Grid-sku" style="height:2.8rem;margin-top: 3px;">
         <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;">
