@@ -12,27 +12,18 @@
 </view>
 
 <view class='regist'>
-<view class="cu-form-group"
-style='padding-top: 2rem;
-margin-left: 2rem;'>
-		<view class="title cuIcon-title text-orange" 
-    >姓名：</view>
+<view class="cu-form-group" style='padding-top: 2rem;margin-left: 2rem;'>
+		<view class="title cuIcon-title text-orange">姓名：</view>
 		<input bindinput='getusername' placeholder="请输入姓名"></input>
 	</view>
 
-  <view class="cu-form-group"
-style='padding-top: 0.8rem;
-margin-left: 2rem;'>
-		<view class="title cuIcon-title text-orange" 
-    >身份证号码：</view>
+  <view class="cu-form-group" style='padding-top: 0.8rem;margin-left: 2rem;'>
+		<view class="title cuIcon-title text-orange">身份证号码：</view>
 		<input bindinput='getcode' placeholder="请输入完整的身份证号码"></input>
 	</view>
 
-  <view class="cu-form-group"
-style='padding-top: 0.8rem;
-margin-left: 2rem;'>
-<view class="title cuIcon-title text-orange" 
-    >本人照片：</view>
+  <view class="cu-form-group" style='padding-top: 0.8rem;margin-left: 2rem;'>
+<view class="title cuIcon-title text-orange">本人照片：</view>
   <view class="upload-box" bindtap="chooseSingleImg" style='margin-right:3rem;'>
   <image wx:if="{{imgUrl}}" src="{{imgUrl}}" mode="aspectFill"></image>
   <view wx:else class="add-text">
@@ -43,9 +34,7 @@ margin-left: 2rem;'>
 
   <view class="padding-sm" 
   bindtap='apply'>
-    <button class="
-    bg-gradual-blue round
-      text-center shadow-blur">
+    <button class="bg-gradual-blue round text-center shadow-blur">
       <text class="text-lg">确认</text>
 
     </button>
@@ -54,4 +43,3 @@ margin-left: 2rem;'>
 
 
 </view>
-

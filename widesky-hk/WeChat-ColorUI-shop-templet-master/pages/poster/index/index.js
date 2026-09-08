@@ -1,4 +1,10 @@
 const app = getApp();
+
+// 本地临时文件路径可能是 http://tmp/... 形式（微信新版返回），作为图片 src 时会被判定为
+// "不支持 HTTP 协议"而拦截；统一替换成 wxfile://tmp/ 前缀（本地文件不走网络，不触发 HTTPS 校验）
+function fixTmpPath(p) {
+  return (p || '').replace(/^http:\/\/tmp\//, 'wxfile://tmp/');
+}
 Page({
   data: {
     StatusBar: app.globalData.StatusBar,
@@ -39,14 +45,16 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         e.setData({
-          qrImage: res.tempFiles[0].tempFilePath,
+          // 本地临时文件可能被返回成 http://tmp/...，会被判定为不支持 HTTP 协议而拦截；
+          // 统一换成 wxfile://tmp/ 前缀（本地文件不走网络，不会触发 HTTPS 校验）
+          qrImage: fixTmpPath(res.tempFiles[0].tempFilePath),
           generatedImg: ''   // 重新上传后清除旧生成结果
         });
       }
     });
   },
 
-  // 生成宣传海报：9:16 背景底图，海报图画上部、企微码圆形白底居中下部（参考分享海报样式）
+  // 生成宣传海报：9:16 背景底图，海报画上部、企微码圆形白底居中下部（Canvas 2D 稳定版）
   onGenerate: function () {
     var e = this;
     if (!e.data.qrImage) {
@@ -65,89 +73,100 @@ Page({
       mask: true
     });
 
-    // 1) 获取海报底图信息（网络图自动下载）
-    wx.getImageInfo({
-      src: e.data.posterUrl,
-      success: function (p) {
-        // 2) 获取企微码图信息
-        wx.getImageInfo({
-          src: e.data.qrImage,
-          success: function (q) {
-            // 3) 9:16 画布布局（2倍绘制 1500×2666，高清屏不模糊）
-            var scale = 2;
-            var W = 750 * scale, H = 1333 * scale;
-            // 海报图：宽 690 居中，等比高；高度超 800 时按高反算宽度（防超出画布）
-            var posterW = 690 * scale;
-            var posterH = Math.round(p.height * posterW / p.width);
-            var maxPosterH = 800 * scale;
-            if (posterH > maxPosterH) {
-              posterH = maxPosterH;
-              posterW = Math.round(p.width * posterH / p.height);
-            }
-            var posterX = Math.round((W - posterW) / 2);
-            var posterY = 60 * scale;
-            // 企微码：300×300 居中，位于海报图下方
-            var qrSize = 300 * scale;
-            var qrX = Math.round((W - qrSize) / 2);
-            var qrY = posterY + posterH + 50 * scale;
-            // 提示文字位置
-            var tipY = qrY + qrSize + 50 * scale;
+    // 1) 获取 canvas 节点（Canvas 2D）
+    var query = wx.createSelectorQuery().in(e);
+    query.select('#posterCanvas').fields({ node: true, size: true }).exec(function (res) {
+      if (!res || !res[0] || !res[0].node) {
+        e.genFail();
+        return;
+      }
+      var canvas = res[0].node;
+      var ctx = canvas.getContext('2d');
+
+      // 逻辑尺寸 750×1333，物理像素按 dpr 放大，保证清晰度
+      var W = 750, H = 1333;
+      var dpr = 2;
+      try {
+        dpr = ((wx.getWindowInfo ? wx.getWindowInfo().pixelRatio : (wx.getSystemInfoSync ? wx.getSystemInfoSync().pixelRatio : 2)) || 2);
+      } catch (ee) { dpr = 2; }
+      if (dpr < 1) dpr = 1;
+      if (dpr > 2) dpr = 2; // 限制最大 2 倍，避免低端机导出过大
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      ctx.scale(dpr, dpr);
+
+      // 2) 用 canvas.createImage 加载两张图，全部 onload 后再绘制（避免企微码缺失/时序错乱）
+      var poster = canvas.createImage();
+      var qr = canvas.createImage();
+      var loaded = 0;
+
+      function after() {
+        loaded++;
+        if (loaded >= 2) draw();
+      }
+      function draw() {
+        var pw = poster.width || 1, ph = poster.height || 1;
+        // 2.1 背景铺满
+        ctx.fillStyle = '#f8f5f0';
+        ctx.fillRect(0, 0, W, H);
+        // 2.2 海报图：上区等比 contain，水平居中、顶部对齐（顶部不留间隔）
+        var areaX = 0, areaY = 0, areaW = W, areaH = 800;
+        var s = Math.min(areaW / pw, areaH / ph);
+        var dpw = pw * s, dph = ph * s;
+        var dpx = areaX + (areaW - dpw) / 2;
+        var dpy = areaY; // 顶部对齐，顶部不留白
+        try {
+          ctx.save();
+          ctx.shadowColor = 'rgba(0,0,0,0.15)';
+          ctx.shadowBlur = 24;
+          ctx.shadowOffsetY = 8;
+          ctx.drawImage(poster, dpx, dpy, dpw, dph);
+          ctx.restore();
+        } catch (e2) {}
+        // 2.3 企微码：白色底衬 + 码图，固定居中下部（qrY 已上移 50rpx，画布 750px=750rpx）
+        var qrSize = 300;
+        var qrX = (W - qrSize) / 2;
+        var qrY = 850;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(qrX - 20, qrY - 20, qrSize + 40, qrSize + 40);
+        ctx.drawImage(qr, qrX, qrY, qrSize, qrSize);
+        // 2.4 底部提示文字（渐变醒目，文字与二维码图片间距 50rpx，画布 750px=750rpx）
+        var grd = ctx.createLinearGradient(W / 2 - 260, 0, W / 2 + 260, 0);
+        grd.addColorStop(0, '#7c3aed');
+        grd.addColorStop(1, '#d4a017');
+        ctx.fillStyle = grd;
+        ctx.font = 'bold 32px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('长按识别二维码，添加我的企业微信', W / 2, qrY + qrSize + 50);
+
+        // 3) 导出整张画布（Canvas 2D 用 node）
+        wx.canvasToTempFilePath({
+          canvas: canvas,
+          x: 0, y: 0,
+          width: canvas.width,
+          height: canvas.height,
+          destWidth: canvas.width,
+          destHeight: canvas.height,
+          success: function (r) {
+            wx.hideLoading();
             e.setData({
-              canvasW: W,
-              canvasH: H
-            });
-
-            // 4) Canvas 绘制（全部坐标/尺寸 ×2）
-            var ctx = wx.createCanvasContext('posterCanvas', e);
-            // 4.1 背景底图（米白色铺满）
-            ctx.setFillStyle('#f8f5f0');
-            ctx.fillRect(0, 0, W, H);
-            // 4.2 海报图（带阴影）
-            ctx.setShadow(0, 8 * scale, 24 * scale, 'rgba(0,0,0,0.15)');
-            ctx.drawImage(p.path, posterX, posterY, posterW, posterH);
-            ctx.setShadow(0, 0, 0, 'rgba(0,0,0,0)');
-            // 4.3 企微码：白色圆角底衬 + 码图
-            ctx.setFillStyle('#ffffff');
-            ctx.fillRect(qrX - 20 * scale, qrY - 20 * scale, qrSize + 40 * scale, qrSize + 40 * scale);
-            ctx.drawImage(q.path, qrX, qrY, qrSize, qrSize);
-            // 4.4 底部提示文字（紫金渐变，醒目）
-            var grd = ctx.createLinearGradient(W / 2 - 260 * scale, 0, W / 2 + 260 * scale, 0);
-            grd.addColorStop(0, '#7c3aed');
-            grd.addColorStop(1, '#d4a017');
-            ctx.setFillStyle(grd);
-            ctx.setFontSize(32 * scale);
-            ctx.setTextAlign('center');
-            ctx.fillText('长按识别二维码，添加我的企业微信', W / 2, tipY);
-
-            ctx.draw(false, function () {
-              // 5) 导出为图片（750×1333 原尺寸，保证清晰度）
-              wx.canvasToTempFilePath({
-                canvasId: 'posterCanvas',
-                width: W,
-                height: H,
-                destWidth: W,
-                destHeight: H,
-                success: function (r) {
-                  wx.hideLoading();
-                  e.setData({
-                    generatedImg: r.tempFilePath,
-                    generating: false
-                  });
-                },
-                fail: function () {
-                  e.genFail();
-                }
-              }, e);
+              generatedImg: fixTmpPath(r.tempFilePath),
+              generating: false
             });
           },
           fail: function () {
             e.genFail();
           }
         });
-      },
-      fail: function () {
-        e.genFail();
       }
+
+      poster.onload = after;
+      poster.onerror = after; // 某图失败也继续，避免卡在加载中
+      qr.onload = after;
+      qr.onerror = after;
+      poster.src = e.data.posterUrl;
+      qr.src = e.data.qrImage;
     });
   },
 

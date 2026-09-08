@@ -4,16 +4,16 @@
             <text class="icon-back"></text>客户跟进登记 </navigator>
     </view>
 </view>
-<view style="height: 8rem;background-color: white;"></view>
-<view class="canui-order-item bg-white" style="padding-bottom: 1rem;">
+<view style="height: {{CustomBar}}px;background-color: white;padding-top: 7rem;"></view>
+<view wx:if="{{rejob.length > 0}}" class="canui-order-item bg-white" style="padding-bottom: 1rem;">
     <view class="head-title-box" style="height:2rem;">
         <text class="icon-shop" style="margin-left:1rem;"></text>
-        <text calss="sp" style="margin-left:3px;">{{xf_name}}：</text>
+        <text class="sp" style="margin-left:3px;">{{xf_name}}<text wx:if="{{xf_name}}">：</text></text>
         <text class="icon-right"></text>
         <button bindtap="shuaxin" class="cu-btn bg-gradual-green shadow-blur round">刷新数据</button>
     </view>
 </view>
-<view bindtap="sevip" data-xf_vipcode="{{item.XF_VIPCODE}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+<view bindtap="sevip" data-xf_vipcode="{{item.XF_VIPCODE}}" style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="XF_VIPCODE">
     <view class="Grid-sku" style="height:2.8rem;margin-top: 3px;">
         <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;">
             <text class=""> {{item.XF_VIPCODE}} </text>
@@ -22,12 +22,15 @@
             <text>{{item.XF_SURNAME}}</text>
         </view>
         <view catchtap="catchTap" class="stp" style="width:70%;margin-left: -1rem;">
-            <radio-group bindchange="radioChange" class="radio-group dp" id="{{item.XF_VIPCODE}}">
+            <radio-group bindchange="radioChange" class="radio-group dp" data-xf_vipcode="{{item.XF_VIPCODE}}">
                 <label class="radio dp">
-                    <radio checked="{{check}}" class="round red" value="0"></radio>已加微信 </label>
+                    <radio checked="{{item.wxstate == '0'}}" class="round red" value="0"></radio>已加微信 </label>
                 <label class="radio dp">
-                    <radio checked="{{check}}" class="round red" value="1"></radio>未加微信 </label>
+                    <radio checked="{{item.wxstate == '1'}}" class="round red" value="1"></radio>未加微信 </label>
             </radio-group>
         </view>
     </view>
+</view>
+<view wx:if="{{rejob.length === 0}}" style="padding-top: 200rpx; text-align: center; color: #888; font-size: 30rpx;">
+    <text>没有需要跟进登记的客户</text>
 </view>

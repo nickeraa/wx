@@ -42,5 +42,5 @@
   <view class="gen-btn save-btn" bindtap="onSave">保存到相册</view>
 </view>
 
-<!-- 隐藏 canvas（拼接绘制用，移到屏幕外） -->
-<canvas canvas-id="posterCanvas" style="width:{{canvasW}}px;height:{{canvasH}}px;position:fixed;left:-9999px;top:0;"></canvas>
+<!-- 隐藏 canvas（拼接绘制用，移到屏幕外，Canvas 2D 固定逻辑尺寸 750×1333） -->
+<canvas type="2d" id="posterCanvas" style="width:750px;height:1333px;position:fixed;left:-9999px;top:0;"></canvas>

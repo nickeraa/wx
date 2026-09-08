@@ -4,8 +4,11 @@
             <text class="icon-back"></text>客户微信查询 </navigator>
     </view>
 </view>
-<view style="height: 8rem;background-color: #E0EEEE;"></view>
-<view style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="id">
+<view style="height: {{CustomBar}}px;background-color: #E0EEEE;padding-bottom: 1rem;"></view>
+<view wx:if="{{loaded && count > 0}}" style="padding: 10px 0 0 20px;color: #666;font-size: 26rpx;">
+    <text>共 {{count}} 位客户</text>
+</view>
+<view style="background-color:#E0EEEE;" wx:for="{{rejob}}" wx:key="XF_VIPCODE">
     <view class="Grid-sku" style="height:2.8rem;">
         <view class="stp" style="margin-left:1rem;width:25%;margin-top: 10px;">
             <text class=""> {{item.XF_VIPCODE}} </text>
@@ -16,24 +19,24 @@
         <view class="stp" style="width:30%;">
             <text>{{item.GRADE}}</text>
         </view>
-        <view class="stp" style="width:30%;margin-top: 8px;" wx:if="{{item.TAGS=='未加微信'}}">
+        <view class="stp" style="width:30%;margin-top: 8px;" wx:if="{{item.TAGS == '已加微信'}}">
+            <text style="color:green;">{{item.TAGS}}</text>
+        </view>
+        <view class="stp" style="width:30%;margin-top: 8px;" wx:elif="{{item.TAGS == '未加微信'}}">
             <text style="color:red;">{{item.TAGS}}</text>
         </view>
         <view class="stp" style="width:30%;margin-top: 8px;" wx:else>
-            <text style="color:green;">{{item.TAGS}}</text>
+            <text style="color:#888;">未登记</text>
         </view>
     </view>
     <view style="height:3px;background-color:white;"></view>
 </view>
-<wxs module="subData">
-module.exports = (function(val) {
-    if (val == undefined || val == '' || val == null) {
-        return
-    };
-    if (val.length > 10) {
-        return (val.substring(0, 10))
-    } else {
-        return (val)
-    }
-});
-</wxs>
+<view wx:if="{{loaded && count === 0}}" style="padding-top: 150rpx;text-align: center;color: #888;font-size: 30rpx;">
+    <text>没有记录</text>
+</view>
+<view wx:if="{{hasMore}}" bindtap="loadMore" style="width:80%;margin:20rpx auto;height:80rpx;line-height:80rpx;text-align:center;background-color:#ffffff;color:#666;font-size:28rpx;border-radius:40rpx;">
+    <text>{{loadingMore ? '加载中...' : '点击加载更多（' + rejob.length + '/' + count + '）'}}</text>
+</view>
+<view wx:if="{{loaded && !hasMore && count > 0}}" style="padding: 30rpx 0 10rpx;text-align: center;color: #aaa;font-size: 26rpx;">
+    <text>已全部加载</text>
+</view>

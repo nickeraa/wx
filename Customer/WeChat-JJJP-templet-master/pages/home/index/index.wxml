@@ -114,7 +114,7 @@
         </view>
     </view>
 </view>
-<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+<!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="checkwx" class=" ">
         <view style="margin-left:1rem;">
             <image src="{{tzimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
@@ -123,7 +123,7 @@
             <text class="text-black">查看全公司客户微信添加登记</text>
         </view>
     </view>
-</view>
+</view> -->
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
     <view bindtap="cxwx" class=" ">
         <view style="margin-left:1rem;">
