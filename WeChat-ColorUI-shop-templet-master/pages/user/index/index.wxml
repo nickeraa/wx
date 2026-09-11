@@ -18,7 +18,10 @@
 </view>
 
 <view class="bgtx get-card-wrap" hidden="{{flag}}">
-    <button bindgetphonenumber="onGetPhoneNumber" class="submitbtn icon-goodsfavor get-card-btn" openType="getPhoneNumber">
+    <button wx:if="{{canClaim}}" bindgetphonenumber="onGetPhoneNumber" class="submitbtn icon-goodsfavor get-card-btn" openType="getPhoneNumber">
+        <text class="get-card-text">领取会员卡</text>
+    </button>
+    <button wx:else bindtap="onClaimBlocked" class="submitbtn icon-goodsfavor get-card-btn">
         <text class="get-card-text">领取会员卡</text>
     </button>
 </view>
@@ -28,8 +31,8 @@
         <text class="vip-no-label">NO</text>
         <text class="vip-no-code">.{{vipcode}}</text>
     </view>
-    <view class="vip-avatar-row" hidden="{{flag}}">
-      <image class="avatar avatar-wrapper" src="{{avatarUrl}}"></image>
+    <view class="vip-avatar-row" wx:if="{{flag && nickName}}">
+      <image wx:if="{{avatarUrl}}" class="avatar avatar-wrapper" src="{{avatarUrl}}"></image>
       <view class="vip-nick-badge">
         <text class="vip-nick-text">{{nickName}}</text>
       </view>

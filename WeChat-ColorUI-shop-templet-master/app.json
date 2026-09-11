@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/userliveyg/index/index",
+
     "pages/home/index/index",
+    "pages/userliveyg/index/index",
+   
     "pages/userlw/index/index",
     "pages/userqd/index/index",
     "pages/userlive/index/index",

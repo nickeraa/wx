@@ -34,32 +34,43 @@ Page({
     sumdfh: 0,
     vip_id: 0,
     avatarUrl: '',
-    nickName: ''
+    nickName: '',
+    canClaim: !!wx.getStorageSync("vip_id")
   },
 
 
 
 
   onLoad: function (a) {
-    if ((console.log(a), console.log(wx.getStorageSync("vipcode")), a.q)) {
-    
-        console.log("index 生命周期 onload" + JSON.stringify(a));
-      var o = decodeURIComponent(a.q),
-        n = t.urlToObj(o);
-      console.log(n.vipid),
-        wx.removeStorageSync("vip_id"),
-        wx.setStorageSync("vip_id", decodeURIComponent(n.vipid));
-
-    } else
-      a.scene &&
-      (console.log("gggggggggg"),
+    console.log(a), console.log(wx.getStorageSync("vipcode"));
+    var vipId = "";
+    if (a.q) {
+      console.log("index 生命周期 onload" + JSON.stringify(a));
+      try {
+        var n = t.urlToObj(decodeURIComponent(a.q));
+        console.log(n.vipid);
+        vipId = n.vipid ? decodeURIComponent(n.vipid) : "";
+      } catch (err) {
+        console.log("解析 vip_id 失败", err);
+      }
+    } else if (a.scene) {
+      console.log("gggggggggg"),
         console.warn(a.scene),
-        console.warn(wx.getStorageSync('vipcode')),
-        wx.removeStorageSync("vip_id"),
-        wx.setStorageSync("vip_id", decodeURIComponent(a.scene)));
+        console.warn(wx.getStorageSync('vipcode'));
+      try {
+        vipId = decodeURIComponent(a.scene);
+      } catch (err) {
+        console.log("解析 scene 失败", err);
+      }
+    }
+    // 校验通过才写入，避免写入 "undefined" 或非法值
+    if (vipId) {
+      wx.removeStorageSync("vip_id"),
+        wx.setStorageSync("vip_id", vipId);
+    }
 
 
-    //   wx.setStorageSync("vip_id", '2637');
+      // wx.setStorageSync("vip_id", '2637');
     var i = this;
     wx.login({
       success: function (t) {
@@ -130,7 +141,7 @@ Page({
         success: function (e) {
           wx.hideLoading(),
             console.log(e.data),
-            e.data && e.data.length > 0 &&
+            Array.isArray(e.data) && e.data.length > 0 &&
             t.setData({
               sumdfk: e.data[0].SUMDFK,
               sumdfh: e.data[0].SUMDFH
@@ -183,8 +194,14 @@ Page({
       url: "/pages/scitem/index/index"
     });
   },
-  onShow: function (t) {
-    console.log(e.globalData.wximgurl + wx.getStorageSync("wximg")),
+  onShow: function () {
+    this.setData({
+      canClaim: !!wx.getStorageSync("vip_id")
+    });
+    // 头像/昵称有值时才展示（vip-avatar-row 依赖 nickName）
+    var _wximg = wx.getStorageSync('wximg'),
+      _wxnick = wx.getStorageSync('wxuser');
+    console.log(e.globalData.wximgurl + _wximg),
       wx.getStorageSync("yguserid") &&
       this.setData({
         yguserid: wx.getStorageSync("yguserid")
@@ -197,8 +214,8 @@ Page({
           flag: !0,
           flags: !1,
           tximg: this.data.vipimg,
-          avatarUrl: e.globalData.wximgurl + wx.getStorageSync('wximg'),
-          nickName: wx.getStorageSync('wxuser')
+          avatarUrl: _wximg ? e.globalData.wximgurl + _wximg : '',
+          nickName: _wxnick || ''
         })) :
       this.setData({
         wxuserid: wx.getStorageSync("wxuserid")
@@ -212,6 +229,12 @@ Page({
         index: 1
       });
     var a = this;
+    // 节流：5 秒内不重复请求会员信息与订单统计
+    var now = Date.now();
+    if (this._lastFetch && now - this._lastFetch < 5000) {
+      return;
+    }
+    this._lastFetch = now;
     console.log(wx.getStorageSync("vipcode")),
       wx.getStorageSync("vipcode") ?
 
@@ -228,19 +251,20 @@ Page({
         success: function (e) {
           console.log(e),
             console.log("fffffffffff"),
-            e.data && e.data.length > 0 ?
+            Array.isArray(e.data) && e.data.length > 0 ?
             (a.setData({
               vip: e.data[0].GRADE,
               flag: !0,
               flags: !1,
               tximg: a.data.vipimg,
 
-            }), a.tz()) :
+            })) :
+            // vipcode 存在：保持隐藏领取会员卡按钮，显示会员卡信息
             a.setData({
-              vip: "您还没有登录哦 ~",
-              flag: !1,
-              flags: !0,
-              tximg: a.data.tximg,
+              vip: "暂无会员信息",
+              flag: !0,
+              flags: !1,
+              tximg: a.data.vipimg,
             });
         },
         fail: function (e) {
@@ -260,31 +284,31 @@ Page({
       this.tjtypes();
   },
 
-  tz() {
+  onClaimBlocked: function () {
+    wx.showModal({
+      title: "提示",
+      content: "抱歉，积分为0，暂没有达到开卡条件",
+      showCancel: !1,
+      success: function (e) {
+        e.confirm;
+      },
+    });
+  },
+  onGetPhoneNumber: function (e) {
 
-    if (this.data.nickName == ''&&!wx.getStorageSync('vipcode')) {
-
-      wx.navigateTo({
-        url: "/pages/wxlogin/index"
+    // 只有 vip_id 存在才可领取会员卡，否则拦截，不进入正常流程
+    if (!wx.getStorageSync("vip_id")) {
+      wx.showModal({
+        title: "提示",
+        content: "抱歉，积分为0，暂没有达到开卡条件",
+        showCancel: !1,
+        success: function (e) {
+          e.confirm;
+        },
       });
+      return;
     }
 
-  },
-
-  onGetPhoneNumber: function (e) {
-    /*
-    if (!wx.getStorageSync("vipcode") && !wx.getStorageSync("vip_id"))
-      return (
-        wx.showModal({
-          title: "提示",
-          content: "您还没有会员卡，请联系收藏顾问~",
-          showCancel: !1,
-          success: function (e) {
-            e.confirm;
-          },
-        }),
-        !1
-      ); */
     var t = this,
       a = e.detail.errMsg,
       o = e.detail.encryptedData;
@@ -342,7 +366,7 @@ Page({
       }) :
       wx.showModal({
         title: "提示",
-        content: "会员卡领取失败！请重试，选择手机号，会员卡需要绑定您的手机号，才能领取喔~",
+        content: "必须授权手机号，才能领取会员卡喔",
         showCancel: !1,
         success: function (e) {
           e.confirm;
@@ -369,7 +393,7 @@ Page({
         success: function (t) {
           wx.hideLoading();
           console.log(t.data);
-          if ("undefined" == typeof t.data.phoneNumber) {
+          if (!t.data || !t.data.phoneNumber) {
             return wx.showModal({
               title: "提示",
               content: "手机号获取失败，请重试",
@@ -383,11 +407,11 @@ Page({
               phone: t.data.phoneNumber
             }),
             wx.setStorageSync('phone', t.data.phoneNumber);
-            console.warn(wx.getStorageSync("vipcode"))
-           
-          t.data.phoneNumber && wx.getStorageSync("vipcode") ?
-            (wx.setStorageSync("wxuserid", t.data.phoneNumber),
-              wx.request({
+          console.warn(wx.getStorageSync("vipcode"));
+
+          if (wx.getStorageSync("vipcode")) {
+            wx.setStorageSync("wxuserid", t.data.phoneNumber);
+            wx.request({
                 url: e.globalData.api + "wx_checkvip.ashx",
                 data: {
                   vipcode: wx.getStorageSync("vipcode")
@@ -398,16 +422,17 @@ Page({
                 dataType: "json",
                 timeout: 10000,
                 success: function (e) {
-             
+
                   console.warn(e),
 
-                    e.data && e.data.length > 0 ?
-                    n.setData({
+                    Array.isArray(e.data) && e.data.length > 0 ?
+                    (n.setData({
                       vip: e.data[0].GRADE,
                       flag: !0,
                       flags: !1,
                       tximg: n.data.vipimg,
-                    }) :
+                    }),
+                    n.inphone()) :
                     (n.setData({
                         vip: "您还没有登录哦 ~",
                         flag: !1,
@@ -425,8 +450,11 @@ Page({
                       icon: "none"
                     });
                 },
-              })) :
+              });
+          } else {
+            // 有 vip_id、无 vipcode：进入开卡正常流程
             n.inphone();
+          }
         },
         fail: function (e) {
           wx.hideLoading(),
@@ -440,19 +468,18 @@ Page({
   },
   inphone: function () {
 
-
-    //外围客户
-    if (!wx.getStorageSync("vip_id")&&!wx.getStorageSync("vipcode")) {
-
-
-      wx.navigateTo({
-        url: "/pages/wxlogin/index"
-      });
-
-
-    }
-    //开卡新客
-    else {
+      // 只有 vip_id 存在才可开卡，否则拦截，不执行开卡流程
+      if (!wx.getStorageSync("vip_id")) {
+        wx.showModal({
+          title: "提示",
+          content: "抱歉，积分为0，暂没有达到开卡条件",
+          showCancel: !1,
+          success: function (e) {
+            e.confirm;
+          },
+        });
+        return;
+      }
 
       var t = this;
       wx.showLoading({
@@ -488,7 +515,7 @@ Page({
                 timeout: 10000,
                 success: function (e) {
                   console.log(e),
-                    e.data && e.data.length > 0 ?
+                    Array.isArray(e.data) && e.data.length > 0 ?
                     (t.setData({
                         vip: e.data[0].GRADE,
                         flag: !0,
@@ -496,17 +523,15 @@ Page({
                         tximg: t.data.vipimg,
                         vipcode: e.data[0].XF_VIPCODE,
                       }),
-                     wx.setStorageSync("vipcode", e.data[0].XF_VIPCODE),
-                      t.setData({
-                        vipcode: e.data[0].XF_VIPCODE,
-                        flag: !0,
-                        flags: !1,
-                        tximg: t.data.vipimg,
-                      }),
+                      wx.setStorageSync("vipcode", e.data[0].XF_VIPCODE),
                       //  wx.redirectTo({
                       //    url: '/pages/wxlogin/index',
                       //  })
-                       wx.showToast({ title: "会员卡领取成功！" })
+                      wx.showModal({
+                        title: "提示",
+                        content: "会员卡领取成功！",
+                        showCancel: !1
+                      })
                     ) :
                     (t.setData({
                         vip: "您还没有登录哦 ~",
@@ -537,19 +562,13 @@ Page({
           },
         });
 
-    }
+    
   },
-  onShareAppMessage: function (e) {
+  onShareAppMessage: function () {
     return {
       title: "广天藏品始创于1997年",
-      path: "/pages/homerm/index/index",
+      path: "/pages/home/index/index",
       imageUrl: this.data.iconurlfx,
-      success: function (e) {
-        console.log("转发成功:" + JSON.stringify(e));
-      },
-      fail: function (e) {
-        console.log("转发失败:" + JSON.stringify(e));
-      },
     };
   },
 });
