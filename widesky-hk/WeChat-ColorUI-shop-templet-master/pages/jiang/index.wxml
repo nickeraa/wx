@@ -89,7 +89,8 @@
 </view>
 
 <!--中奖飞入动画层：奖品从顶部飞入屏幕中央，烟花粒子+旋转光芒+脉冲光环+彩带-->
-<view wx:if="{{showFly}}" class="fly-mask" bindtap="closeFly">
+<!-- 中奖画面不可关闭：去掉遮罩点击关闭和右上角X，客户只能通过退出小程序离开 -->
+<view wx:if="{{showFly}}" class="fly-mask">
   <view class="fly-spot spot-left"></view>
   <view class="fly-spot spot-right"></view>
   <view class="fly-glow-floor"></view>
@@ -101,7 +102,6 @@
     <view class="fly-title">恭喜您中奖！</view>
     <view class="fly-img-wrap">
       <image class="fly-prize" src="{{flyImg}}" mode="aspectFit"></image>
-      <view class="fly-close" catchtap="closeFly"><text class="icon-close"></text></view>
     </view>
     <view class="fly-follow" catchtap="openOfficial"><text class="icon-right" style="color:#2ee56c;font-size:36rpx;"></text><text class="icon-right" style="color:#2ee56c;font-size:36rpx;margin-left:-12rpx;"></text><text class="icon-right" style="color:#2ee56c;font-size:36rpx;margin-left:-12rpx;margin-right:8rpx;"></text>点击关注公众号，获取兑奖方式</view>
   </view>

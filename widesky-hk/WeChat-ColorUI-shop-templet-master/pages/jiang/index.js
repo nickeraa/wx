@@ -335,6 +335,23 @@ Page({
 
   },
 
+  // 页面显示时重置停止标志（返回页面恢复动画）
+  onShow: function () {
+    this._stopped = false;
+  },
+
+  // 页面隐藏时清理定时器，避免跳转公众号/其他页时定时器仍在跑导致闪退
+  onHide: function () {
+    this._stopped = true;
+    clearInterval(interval);
+  },
+
+  // 页面卸载时清理定时器
+  onUnload: function () {
+    this._stopped = true;
+    clearInterval(interval);
+  },
+
   // 参数可能已被企微自动解码，二次 decode 需防重复解码报错
   safeDecode(val) {
     if (!val) return '';
@@ -633,6 +650,7 @@ Page({
           'content-type': 'application/x-www-form-urlencoded'
         },
         dataType: 'json',
+        timeout: 10000,   // 10秒超时，避免后端卡住时一直打转
         success: function (res) {
           var d = res.data || {};
 
@@ -687,6 +705,11 @@ Page({
         //启动跑马灯
         var index = 0;
         interval = setInterval(function () {
+          // 页面已隐藏/卸载，停止跑马灯
+          if (e._stopped) {
+            clearInterval(interval);
+            return;
+          }
           if (index > 7) {
             index = 0;
             e.data.color[7] = 0.5
@@ -702,11 +725,13 @@ Page({
 
         //两秒后减速停在中奖位置
         setTimeout(function () {
+          if (e._stopped) return;
           e.stop(e.data.luckPosition);
         }, 2000)
       },
       fail: function () {
         e.recoverBtn();
+        clearInterval(interval);
         wx.showToast({
           title: '网络异常，请重试',
           icon: 'none'
@@ -737,6 +762,9 @@ Page({
     var e = this;
     var color = e.data.color;
     setTimeout(function () {
+      // 页面已隐藏/卸载，停止递归，避免残留定时器调 setData 导致闪退
+      if (e._stopped) return;
+
       if (index > 7) {
         index = 0;
         color[7] = 0.5
@@ -756,6 +784,9 @@ Page({
       } else {
         //1秒后展示结果：先播中奖飞入动画，再展示中奖弹窗
         setTimeout(function () {
+          // 页面已隐藏/卸载，不再展示动画和震动
+          if (e._stopped) return;
+
           //奖品图从顶部飞入屏幕中央（取中奖格的奖品图）
           e.setData({
             showFly: true,
@@ -764,19 +795,13 @@ Page({
           //手机震动（真机生效，提升中奖体感）
           if (wx.vibrateShort) {
             setTimeout(function () {
-              wx.vibrateShort({
-                type: 'medium'
-              });
+              if (!e._stopped) wx.vibrateShort({ type: 'medium' });
             }, 800);
             setTimeout(function () {
-              wx.vibrateShort({
-                type: 'light'
-              });
+              if (!e._stopped) wx.vibrateShort({ type: 'light' });
             }, 1250);
             setTimeout(function () {
-              wx.vibrateShort({
-                type: 'light'
-              });
+              if (!e._stopped) wx.vibrateShort({ type: 'light' });
             }, 2000);
           }
           //动画结束后奖品停留屏幕中央，点击遮罩关闭（不再自动弹中奖窗）
@@ -804,12 +829,18 @@ Page({
   //打开订阅号资料页（纯运营引导，失败静默不阻断任何流程）
   //先弹出领奖方式卡片（无文字），公众号确认弹窗交互完成后再显示文字
   openOfficial: function () {
+    // 跳转前先停掉所有动画定时器，避免跳转公众号时定时器仍在跑导致闪退
+    clearInterval(interval);
     this.setData({
       showNotice: true,
       noticeReady: false
     });
     wx.openOfficialAccountProfile({
       username: this.data.ghId,
+      fail: () => {
+        // 跳转失败：直接展示领奖方式，不阻断
+        this.setData({ noticeReady: true });
+      },
       complete: () => {
         this.setData({
           noticeReady: true
@@ -862,6 +893,11 @@ Page({
     clearInterval(interval);
     var index = 0;
     interval = setInterval(function () {
+      // 页面已隐藏/卸载，停止动画
+      if (e._stopped) {
+        clearInterval(interval);
+        return;
+      }
       if (index > 7) {
         index = 0;
         e.data.color[7] = 0.5

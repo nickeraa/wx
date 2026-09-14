@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/home/index/index",
     "pages/jiang/index",
+    "pages/home/index/index",
+
     "pages/lqjp/index/index",
     "pages/hx/index/index",
     "pages/poster/index/index",
