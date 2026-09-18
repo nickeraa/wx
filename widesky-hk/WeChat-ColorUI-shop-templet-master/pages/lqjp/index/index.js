@@ -13,6 +13,7 @@ Page({
     pluId: -1,
     prizeName: '',
     prizeImg: '',
+    tags: '',             // 领取状态：0=待领取 1=已领取
     // 会员信息
     vipcode: '',          // 会员卡号（二维码接口返回，轮询核销状态用）
     memberCard: '',       // 会员卡号（展示用）
@@ -76,7 +77,8 @@ Page({
                 pluId: d.plu_id,
                 prizeName: d.prize_name || '',
                 prizeImg: app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now(),
-                memberCard: d.vip_code || wx.getStorageSync('member_card') || ''
+                memberCard: d.vip_code || wx.getStorageSync('member_card') || '',
+                tags: d.tags != null ? String(d.tags) : '0'
               });
             } else {
               e.setData({

@@ -1,0 +1,55 @@
+<!-- 自定义导航栏 -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class="head-title">我的中奖</view>
+  </view>
+</view>
+
+<!-- 头部背景 + 水波动画 -->
+<view class="UCenter-bg">
+  <view class="css-wave">
+    <view class="wave wave1"></view>
+    <view class="wave wave2"></view>
+    <view class="wave wave3"></view>
+  </view>
+</view>
+
+<!-- 内容卡片 -->
+<view class="content-card shadow-lg">
+
+  <!-- 查询中 -->
+  <view wx:if="{{!loaded}}" class="loading-wrap">
+    <view class="state-tip">正在查询中奖信息</view>
+    <view class="loading-bar"></view>
+  </view>
+
+  <!-- 无中奖记录 -->
+  <block wx:elif="{{!hasPrize}}">
+    <view class="empty-wrap">
+      <view class="warn-badge">
+        <image class="warn-img" src="https://widesky.work/HKback/images/jg.jpg" mode="aspectFit"></image>
+      </view>
+      <view class="empty-title">暂未查到中奖记录</view>
+      <view class="empty-sub">感谢您的参与</view>
+    </view>
+  </block>
+
+  <!-- 中奖信息（仅展示，无任何操作） -->
+  <block wx:else>
+    <view class="fly-title">恭喜您中奖！</view>
+    <image class="prize-show-img" src="{{prizeImg}}" mode="aspectFit"></image>
+    <view class="prize-name">{{prizeName}}</view>
+
+    <view class="recv-card">
+      <view class="info-row" wx:if="{{tags === '1'}}">
+        <text class="info-label">领取状态</text>
+        <text class="info-value status-received">已领取</text>
+      </view>
+      <view class="info-row" wx:else>
+        <text class="info-label">领取状态</text>
+        <text class="info-value status-pending">待领取</text>
+      </view>
+    </view>
+  </block>
+
+</view>

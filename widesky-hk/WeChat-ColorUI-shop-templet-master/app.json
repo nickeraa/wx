@@ -1,9 +1,12 @@
 {
   "pages": [
-    "pages/jiang/index",
     "pages/home/index/index",
-
+    "pages/qyrank/index/index",
     "pages/lqjp/index/index",
+    "pages/jiang/index",
+    "pages/cjfree/index/index",
+    "pages/qystats/index/index",
+    "pages/cyjg/index/index",
     "pages/hx/index/index",
     "pages/poster/index/index",
     "pages/selive/index/index",

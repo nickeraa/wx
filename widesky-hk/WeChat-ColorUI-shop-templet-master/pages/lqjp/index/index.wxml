@@ -74,6 +74,12 @@
   </block>
 
   <!-- 待领取：恭喜标题 + 奖品图 + 立即领取按钮 -->
+  <block wx:elif="{{tags === '1'}}">
+    <view class="fly-title">恭喜您中奖！</view>
+    <image class="prize-show-img" src="{{prizeImg}}" mode="aspectFit"></image>
+    <view class="prize-name">{{prizeName}}</view>
+    <view class="received-tip">该奖品已领取</view>
+  </block>
   <block wx:else>
     <view class="fly-title">恭喜您中奖！</view>
     <image class="prize-show-img" src="{{prizeImg}}" mode="aspectFit"></image>

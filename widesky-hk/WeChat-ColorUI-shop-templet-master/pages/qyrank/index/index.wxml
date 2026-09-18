@@ -1,0 +1,42 @@
+<!-- 导航栏 -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>  添加客户排行榜
+        </navigator>
+    </view>
+</view>
+
+<view class="page-wrap">
+  <view wx:if="{{!loaded}}" class="loading">加载中...</view>
+
+  <block wx:else>
+    <view class="rank-list">
+      <view class="rank-item" wx:for="{{rank}}" wx:key="staff_name" bindtap="showCustomers" data-name="{{item.staff_name}}">
+        <view class="rank-no {{index < 3 ? 'top3' : ''}}">{{index + 1}}</view>
+        <view class="rank-info">
+          <view class="rank-name">{{item.staff_name || '未知员工'}}</view>
+        </view>
+        <view class="rank-cnt">{{item.cnt}} 人</view>
+      </view>
+      <view class="empty" wx:if="{{rank.length === 0}}">暂无数据</view>
+    </view>
+  </block>
+</view>
+
+<!-- 客户明细弹窗 -->
+<view class="detail-mask" wx:if="{{showDetail}}" bindtap="closeDetail">
+  <view class="detail-dialog" catchtap="">
+    <view class="detail-head">
+      <text>{{detailStaff}} 的客户</text>
+      <text class="detail-close" bindtap="closeDetail">✕</text>
+    </view>
+    <scroll-view scroll-y class="detail-scroll">
+      <view class="detail-item" wx:for="{{detailList}}" wx:key="index">
+        <view class="detail-name">{{item.ext_name || '未备注'}}</view>
+        <view class="detail-time">{{item.bind_time}}</view>
+      </view>
+      <view class="empty" wx:if="{{detailList.length === 0}}">暂无客户</view>
+    </scroll-view>
+  </view>
+</view>

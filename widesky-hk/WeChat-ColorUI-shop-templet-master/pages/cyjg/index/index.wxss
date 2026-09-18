@@ -1,4 +1,4 @@
-/* 领奖页面：参考 home/index/index 风格（渐变导航 + 头部背景水波 + 白色卡片） */
+/* 我的中奖页面：参考 lqjp 风格（渐变导航 + 头部背景水波 + 白色卡片） */
 page {
   overflow-x: hidden;
   padding-top: 50px;
@@ -6,7 +6,7 @@ page {
   background: #f1f1f1;
 }
 
-/* 自定义导航栏：渐变橙红（同 home），绝对定位不占文档流 */
+/* 自定义导航栏 */
 .cu-custom {
   position: absolute;
   top: 0;
@@ -20,7 +20,7 @@ page {
   margin: 0 auto;
 }
 
-/* 头部背景图 + 水波动画（同 home） */
+/* 头部背景图 + 水波动画 */
 .UCenter-bg {
   align-items: center;
   background-image: url(https://widesky.work/HKback/upload/bg2.jpg);
@@ -71,7 +71,7 @@ page {
   to { transform: rotate(360deg); }
 }
 
-/* 内容卡片（白色圆角，居中） */
+/* 内容卡片 */
 .content-card {
   background: #fff;
   border-radius: 16rpx;
@@ -84,20 +84,19 @@ page {
   padding: 60rpx 40rpx;
 }
 
-/* 状态提示（领取成功等场景共用） */
+/* 状态提示 */
 .state-tip {
   color: #4a2b6b;
   font-size: 32rpx;
 }
 
-/* 查询中：醒目加载状态（文字放大加粗金色流动 + 进度条加粗发光 + 入场动画） */
+/* 查询中 */
 .loading-wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
   animation: loading-in 0.6s ease-out both;
 }
-/* 查询中文字：放大加粗、紫色、柔光呼吸 */
 .loading-wrap .state-tip {
   color: #4a2b6b;
   font-size: 46rpx;
@@ -106,7 +105,6 @@ page {
   text-shadow: 0 0 16rpx rgba(74, 43, 107, 0.35);
   animation: loading-tip-pulse 1.8s ease-in-out infinite;
 }
-/* 进度条：加宽加粗、高亮金色流动 + 外发光 */
 .loading-bar {
   width: 340rpx;
   height: 18rpx;
@@ -130,13 +128,12 @@ page {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* 无奖品状态：现代化层次设计 */
+/* 无中奖 */
 .empty-wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-/* 警告图标徽章（淡橙圆底托底，现代徽章风） */
 .warn-badge {
   width: 220rpx;
   height: 220rpx;
@@ -157,13 +154,6 @@ page {
   0%, 100% { transform: scale(1); box-shadow: 0 16rpx 60rpx rgba(255, 151, 0, 0.35); }
   50% { transform: scale(1.06); box-shadow: 0 20rpx 72rpx rgba(255, 151, 0, 0.5); }
 }
-
-.empty-img {
-  width: 460rpx;
-  height: 460rpx;
-  border-radius: 24rpx;
-  box-shadow: 0 12rpx 40rpx rgba(74, 43, 107, 0.12);
-}
 .empty-title {
   color: #3d2b52;
   font-size: 36rpx;
@@ -178,13 +168,7 @@ page {
   letter-spacing: 1rpx;
 }
 
-.state-sub {
-  color: #8a6d9b;
-  font-size: 26rpx;
-  margin-top: 16rpx;
-}
-
-/* 恭喜中奖标题（与抽奖页完全一致：入场降落 + 渐变流动 + 脉动缩放） */
+/* 恭喜中奖标题 */
 .fly-title {
   position: relative;
   z-index: 2;
@@ -218,7 +202,7 @@ page {
   50% { transform: scale(1.06); }
 }
 
-/* 待领取 */
+/* 奖品图 */
 .prize-show-img {
   width: 420rpx;
   height: 420rpx;
@@ -229,79 +213,16 @@ page {
   color: #4a2b6b;
   font-size: 44rpx;
   font-weight: 700;
-  margin: 30rpx 0 60rpx;
-}
-.receive-btn {
-  width: 400rpx;
-  text-align: center;
-  background: #b8860b;
-  color: #fff;
-  font-size: 36rpx;
-  font-weight: 700;
-  letter-spacing: 8rpx;
-  border-radius: 999rpx;
-  padding: 24rpx 0;
-  box-shadow: 0 8rpx 20rpx rgba(184, 134, 11, 0.4);
-}
-/* 已领取提示 */
-.received-tip {
-  width: 400rpx;
-  text-align: center;
-  color: #2ee56c;
-  font-size: 36rpx;
-  font-weight: 700;
-  letter-spacing: 8rpx;
-  border-radius: 999rpx;
-  padding: 24rpx 0;
-  border: 2rpx solid #2ee56c;
+  margin: 30rpx 0 40rpx;
 }
 
-/* 领取成功 */
-.recv-wrap {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.success-img {
-  width: 220rpx;
-  height: 220rpx;
-  border-radius: 24rpx;
-  margin-bottom: 20rpx;
-}
-.success-title {
-  font-size: 44rpx;
-  font-weight: 700;
-  color: #b8860b;
-  margin: 20rpx 0;
-  letter-spacing: 6rpx;
-}
-/* 领取成功：中奖奖品 */
-.recv-prize {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 30rpx;
-}
-.recv-prize-img {
-  width: 260rpx;
-  height: 260rpx;
-  border-radius: 20rpx;
-  box-shadow: 0 10rpx 30rpx rgba(74, 43, 107, 0.12);
-}
-.recv-prize-name {
-  color: #4a2b6b;
-  font-size: 34rpx;
-  font-weight: 700;
-  margin-top: 20rpx;
-}
-/* 领取成功：会员/发放员工信息卡片 */
+/* 信息卡片 */
 .recv-card {
   width: 100%;
   background: #faf8fd;
   border-radius: 16rpx;
   padding: 8rpx 30rpx;
-  margin-top: 30rpx;
+  margin-top: 10rpx;
   box-sizing: border-box;
 }
 .info-row {
@@ -323,117 +244,10 @@ page {
   font-size: 28rpx;
   font-weight: 600;
 }
-
-/* 奖品图片弹窗（出示给员工核销） */
-.prize-dialog {
-  background: #fff;
-  border-radius: 24rpx;
-  border: 3rpx solid rgba(255, 217, 94, 0.65);
-  padding: 40rpx;
-  width: 600rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+/* 领取状态颜色：待领取红色，已领取绿色 */
+.status-pending {
+  color: #ed1c24;
 }
-.dialog-close {
-  position: absolute;
-  top: 16rpx;
-  right: 24rpx;
-  color: #999;
-  font-size: 40rpx;
-}
-.dialog-title {
-  font-size: 36rpx;
-  font-weight: 700;
-  color: #b8860b;
-  margin-bottom: 24rpx;
-}
-.dialog-img {
-  width: 480rpx;
-  height: 480rpx;
-}
-.dialog-tip {
-  color: #8a6d9b;
-  font-size: 26rpx;
-  margin-top: 24rpx;
-  text-align: center;
-}
-.confirm-btn {
-  margin-top: 24rpx;
-  width: 320rpx;
-  text-align: center;
-  background: #b8860b;
-  color: #fff;
-  font-size: 32rpx;
-  font-weight: 700;
-  border-radius: 999rpx;
-  padding: 18rpx 0;
-}
-
-/* 领奖核销二维码弹窗 */
-.qrcode-dialog {
-  background: #fff;
-  border-radius: 24rpx;
-  border: 3rpx solid rgba(255, 217, 94, 0.65);
-  padding: 44rpx;
-  width: 600rpx;
-  display: inline-block;
-  vertical-align: middle;
-  text-align: center;
-  position: relative;
-}
-.qrcode-img {
-  width: 420rpx;
-  height: 420rpx;
-  border-radius: 16rpx;
-  box-shadow: 0 10rpx 30rpx rgba(74, 43, 107, 0.12);
-}
-.qrcode-tip {
-  color: #b8860b;
-  font-size: 32rpx;
-  font-weight: 700;
-  margin-top: 28rpx;
-}
-.qrcode-sub {
-  color: #9b8bab;
-  font-size: 24rpx;
-  margin-top: 12rpx;
-  letter-spacing: 1rpx;
-}
-
-/* 提示弹窗：与 jiang/index 的 notice-dialog 样式统一（白底金边 + 金色标题 + 紫色内容） */
-.notice-dialog {
-  width: 560rpx;
-  background: #fff;
-  border-radius: 24rpx;
-  border: 3rpx solid rgba(255, 217, 94, 0.65);
-  padding: 44rpx 32rpx 32rpx;
-  position: relative;
-}
-.notice-title {
-  text-align: center;
-  font-size: 36rpx;
-  font-weight: 700;
-  color: #b8860b;
-  letter-spacing: 4rpx;
-  margin-bottom: 24rpx;
-}
-.notice-body {
-  text-align: center;
-  font-size: 30rpx;
-  color: #4a2b6b;
-  line-height: 1.8;
-  margin-bottom: 34rpx;
-}
-.notice-btn {
-  margin: 0 auto;
-  width: 280rpx;
-  text-align: center;
-  background: #b8860b;
-  color: #fff;
-  font-weight: 700;
-  font-size: 30rpx;
-  border-radius: 999rpx;
-  padding: 16rpx 0;
+.status-received {
+  color: #2ee56c;
 }

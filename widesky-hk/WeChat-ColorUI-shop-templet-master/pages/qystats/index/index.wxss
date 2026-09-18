@@ -1,0 +1,137 @@
+page {
+  background: #f1f1f1;
+  width: 100%;
+}
+.cu-custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+.cu-custom .cu-bar {
+  background-image: linear-gradient(45deg, #ff9700, #ed1c24);
+  padding-right: inherit;
+}
+.head-title {
+  margin: 0 auto;
+  color: #fff;
+}
+.back-btn {
+  position: absolute;
+  left: 24rpx;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 44rpx;
+  padding: 0 10rpx;
+}
+.page-wrap {
+  padding: 40rpx 30rpx 60rpx;
+  margin-top: 130rpx;   /* 距离顶部更多一些 */
+}
+.loading {
+  text-align: center;
+  color: #9b8bab;
+  padding: 100rpx 0;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 40rpx;
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.08);
+}
+.stat-main {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+.stat-label {
+  color: #9b8bab;
+  font-size: 26rpx;
+}
+.stat-number {
+  color: #4a2b6b;
+  font-size: 80rpx;
+  font-weight: 800;
+  margin-top: 10rpx;
+}
+.stat-row {
+  display: flex;
+  justify-content: space-around;
+}
+.stat-item {
+  text-align: center;
+}
+.stat-num-small {
+  color: #3d2b52;
+  font-size: 40rpx;
+  font-weight: 700;
+  margin-top: 10rpx;
+}
+.stat-num-small.up { color: #2ee56c; }
+.stat-num-small.down { color: #ed1c24; }
+
+.detail-toggle {
+  margin: 30rpx 0;
+  text-align: center;
+  color: #b8860b;
+  font-size: 30rpx;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  gap: 10rpx;
+}
+.detail-list {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx 30rpx;
+}
+.detail-item {
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #efe8f7;
+}
+.detail-item:last-child { border-bottom: none; }
+.detail-customer {
+  color: #3d2b52;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+.detail-meta {
+  margin-top: 10rpx;
+  display: flex;
+  gap: 20rpx;
+}
+.dept { color: #b8860b; font-size: 26rpx; }
+.staff { color: #4a2b6b; font-size: 26rpx; }
+.detail-time {
+  margin-top: 8rpx;
+  color: #b0a0c0;
+  font-size: 24rpx;
+}
+.empty {
+  text-align: center;
+  color: #9b8bab;
+  padding: 40rpx 0;
+}
+
+/* 加载更多 */
+.load-more {
+  padding: 24rpx 0;
+  text-align: center;
+}
+.load-more-btn {
+  display: inline-block;
+  color: #b8860b;
+  font-size: 28rpx;
+  font-weight: 600;
+  padding: 12rpx 40rpx;
+  border: 1rpx solid #b8860b;
+  border-radius: 999rpx;
+}
+.load-more-tip {
+  color: #b0a0c0;
+  font-size: 26rpx;
+}

@@ -1,0 +1,63 @@
+<!-- 导航栏 -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>企微客户统计
+        </navigator>
+    </view>
+</view>
+
+<view class="page-wrap">
+  <!-- 加载中 -->
+  <view wx:if="{{!loaded}}" class="loading">加载中...</view>
+
+  <block wx:else>
+    <!-- 汇总卡片 -->
+    <view class="stat-card">
+      <view class="stat-main">
+        <view class="stat-label">当前企微客户总数</view>
+        <view class="stat-number">{{total}}</view>
+      </view>
+      <view class="stat-row">
+        <view class="stat-item">
+          <view class="stat-label">今日新增</view>
+          <view class="stat-num-small">{{todayNew}}</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-label">昨日新增</view>
+          <view class="stat-num-small">{{yesterdayNew}}</view>
+        </view>
+        <view class="stat-item">
+          <view class="stat-label">较昨日</view>
+          <view class="stat-num-small {{diff >= 0 ? 'up' : 'down'}}">{{diff >= 0 ? '+' : ''}}{{diff}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 明细切换 -->
+    <view class="detail-toggle" bindtap="toggleDetail">
+      <text>查看客户明细</text>
+      <text>{{showDetail ? '收起' : '展开'}} ▾</text>
+    </view>
+
+    <!-- 明细列表 -->
+    <view class="detail-list" wx:if="{{showDetail}}">
+      <view class="detail-item" wx:for="{{detail}}" wx:key="index">
+        <view class="detail-customer">{{item.ext_name || '未备注'}}</view>
+        <view class="detail-meta">
+          <text class="dept">{{item.staff_dept || '未知部门'}}</text>
+          <text class="staff">{{item.staff_name || '未知员工'}}</text>
+        </view>
+        <view class="detail-time">{{item.bind_time}}</view>
+      </view>
+      <view class="empty" wx:if="{{detail.length === 0}}">暂无客户数据</view>
+
+      <!-- 加载更多 -->
+      <view class="load-more" wx:if="{{detail.length > 0}}">
+        <view wx:if="{{loadingMore}}" class="load-more-tip">加载中...</view>
+        <view wx:elif="{{hasMore}}" class="load-more-btn" bindtap="loadMore">加载更多</view>
+        <view wx:else class="load-more-tip">已全部加载</view>
+      </view>
+    </view>
+  </block>
+</view>

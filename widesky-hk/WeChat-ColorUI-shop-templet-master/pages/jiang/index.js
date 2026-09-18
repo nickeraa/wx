@@ -625,6 +625,35 @@ Page({
     });
   },
 
+  //异常响应上报：把抽奖接口异常时的原始响应片段发后端留痕（fire-and-forget，不阻断主流程）
+  //用途：定位网关/WAF/IIS错误页等中间层返回的内容，避免再次出现"假中奖"无从查证
+  //scene: bad_response=响应非预期JSON / bad_position=中奖位置非法 / request_fail=请求失败(超时/断网)
+  reportDrawError: function (scene, res) {
+    var raw = '';
+    try {
+      var rd = (res && res.data !== undefined) ? res.data : res;
+      raw = (typeof rd === 'object') ? JSON.stringify(rd) : String(rd);
+    } catch (err) {
+      raw = 'parse_error';
+    }
+    if (raw.length > 500) raw = raw.substring(0, 500);   //截断，防超长上传
+    wx.request({
+      url: app.globalData.api + 'wx_cj_err_report.ashx',
+      method: 'POST',
+      data: {
+        scene: scene || '',
+        vip_code: this.data.member_card || '',
+        env: this.data.env || '',
+        status: (res && res.statusCode) || 0,
+        raw: raw
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      fail: function () { }   //上报失败静默
+    });
+  },
+
   //执行抽奖：结果由后端决定，前端只播动画
   doDraw: function () {
     var e = this;
@@ -683,16 +712,29 @@ Page({
           }
 
           //其他错误统一拦截（-1缺code/-2缺卡号/-8系统繁忙等）：防止错误响应误入中奖动画
-          if (d.errcode && d.errcode !== 0) {
+          if (d && d.errcode && d.errcode !== 0) {
             e.recoverBtn();
             e.showTipModal('提示', d.errmsg || '系统繁忙，请稍后重试');
+            return;
+          }
+
+          //响应异常（非JSON/被网关或WAF拦截/errcode缺失/未返回中奖位置）一律按失败处理
+          //严格校验：仅 errcode===0 且返回有效 position 才播中奖动画，防止错误响应被误判为中奖
+          if (!d || typeof d !== 'object' || d.errcode !== 0 || d.position === undefined || d.position === null || d.position === '') {
+            e.reportDrawError('bad_response', res);   //留痕：记录中间层返回的原始内容
+            e.recoverBtn();
+            e.showTipModal('提示', '抽奖结果获取异常，请稍后重试');
             return;
           }
 
         //后端返回中奖结果，前端只播动画
         var luckPosition = parseInt(d.position);
         if (isNaN(luckPosition) || luckPosition < 0 || luckPosition > 7) {
-          luckPosition = 5;
+          //中奖位置非法视为响应异常，不兜底播放动画（原兜底位置5会造成"假中奖"）
+          e.reportDrawError('bad_position', res);
+          e.recoverBtn();
+          e.showTipModal('提示', '抽奖结果异常，请稍后重试');
+          return;
         }
         console.warn(luckPosition)
         e.setData({
@@ -729,7 +771,8 @@ Page({
           e.stop(e.data.luckPosition);
         }, 2000)
       },
-      fail: function () {
+      fail: function (res) {
+        e.reportDrawError('request_fail', res);   //留痕：超时/断网等请求失败原因(errMsg)
         e.recoverBtn();
         clearInterval(interval);
         wx.showToast({
