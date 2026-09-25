@@ -1,0 +1,131 @@
+<!-- 自定义导航栏 -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class="head-title">员工核销</view>
+  </view>
+</view>
+
+<!-- 头部背景 -->
+<view class="UCenter-bg">
+  <view class="css-wave">
+    <view class="wave wave1"></view>
+    <view class="wave wave2"></view>
+    <view class="wave wave3"></view>
+  </view>
+</view>
+
+<view class="content-card shadow-lg">
+
+  <!-- 查询中 -->
+  <view wx:if="{{!loaded}}" class="loading-wrap">
+    <view class="state-tip">正在查询中奖信息</view>
+    <view class="loading-bar"></view>
+  </view>
+
+  <!-- 查不到记录 -->
+  <block wx:elif="{{notFound}}">
+    <view class="empty-wrap">
+      <view class="warn-badge">
+        <image class="warn-img" src="https://widesky.work/HKback/images/jg.jpg" mode="aspectFit"></image>
+      </view>
+      <view class="empty-title">未找到中奖记录</view>
+      <view class="empty-sub">请核对会员卡号后重新扫码</view>
+    </view>
+  </block>
+
+  <!-- 已核销 -->
+  <block wx:elif="{{alreadyReceived}}">
+    <view class="recv-wrap">
+      <image class="success-img" src="https://widesky.work/HKback/images/ok.jpg" mode="aspectFit"></image>
+      <view class="success-title">该奖品已领取</view>
+      <view class="state-tip">此会员卡号已完成核销</view>
+    </view>
+  </block>
+
+  <!-- 领取成功（凭证页：员工截图自存，作为抽奖领奖凭证） -->
+  <block wx:elif="{{success}}">
+    <view class="recv-wrap">
+      <image class="success-img" src="https://widesky.work/HKback/images/ok.jpg" mode="aspectFit"></image>
+      <view class="success-title">领取成功</view>
+      <view class="state-tip">可截图或保存到相册，作为抽奖领奖凭证</view>
+
+      <view class="recv-prize" wx:if="{{prizeName}}">
+        <image class="recv-prize-img" src="{{prizeImg}}" mode="aspectFit"></image>
+        <view class="recv-prize-name">{{prizeName}}</view>
+      </view>
+
+      <view class="recv-card">
+        <view class="info-row" wx:if="{{memberCard}}">
+          <text class="info-label">会员卡号</text>
+          <text class="info-value">{{memberCard}}</text>
+        </view>
+        <view class="info-row" wx:if="{{vipName}}">
+          <text class="info-label">会员姓名</text>
+          <text class="info-value">{{vipName}}</text>
+        </view>
+        <view class="info-row" wx:if="{{vipLevel}}">
+          <text class="info-label">会员等级</text>
+          <text class="info-value">{{vipLevel}}</text>
+        </view>
+        <view class="info-row" wx:if="{{staffId}}">
+          <text class="info-label">员工工号</text>
+          <text class="info-value">{{staffId}}</text>
+        </view>
+        <view class="info-row" wx:if="{{staffName}}">
+          <text class="info-label">员工姓名</text>
+          <text class="info-value">{{staffName}}</text>
+        </view>
+        <view class="info-row" wx:if="{{shopNo}}">
+          <text class="info-label">店铺号</text>
+          <text class="info-value">{{shopNo}}</text>
+        </view>
+        <view class="info-row" wx:if="{{receivedTime}}">
+          <text class="info-label">核销时间</text>
+          <text class="info-value">{{receivedTime}}</text>
+        </view>
+      </view>
+      <view class="save-btn" bindtap="saveCert">{{saving?'正在生成...':'保存凭证到相册'}}</view>
+    </view>
+  </block>
+
+  <!-- 待核销：中奖信息 + 员工验证 -->
+  <block wx:else>
+    <view class="fly-title">待核销奖品</view>
+    <image class="prize-show-img" src="{{prizeImg}}" mode="aspectFit"></image>
+    <view class="prize-name">{{prizeName}}</view>
+
+    <view class="vip-row">
+      <text class="vip-label">会员卡号</text>
+      <text class="vip-value">{{memberCard}}</text>
+    </view>
+    <view class="vip-row" wx:if="{{vipName}}">
+      <text class="vip-label">会员姓名</text>
+      <text class="vip-value">{{vipName}}</text>
+    </view>
+    <view class="vip-row" wx:if="{{vipLevel}}">
+      <text class="vip-label">会员等级</text>
+      <text class="vip-value">{{vipLevel}}</text>
+    </view>
+
+    <view class="staff-box">
+      <view class="staff-title">员工核销验证</view>
+      <view class="staff-row">
+        <view class="staff-label">员工ID：</view>
+        <input class="staff-input" placeholder="请输入员工工号" value="{{staffId}}" bindinput="onStaffInput" />
+      </view>
+      <view class="staff-row">
+        <view class="staff-label">密码：</view>
+        <input class="staff-input" placeholder="请输入登录密码" password value="{{staffPwd}}" bindinput="onPwdInput" />
+      </view>
+      <view class="loading-wrap" wx:if="{{submitting}}">
+        <view class="state-tip">正在核销</view>
+        <view class="loading-bar"></view>
+      </view>
+      <view class="confirm-btn" wx:else bindtap="onConfirmStaff">确认核销</view>
+    </view>
+  </block>
+
+</view>
+
+<!-- 隐藏画布：生成凭证图（保存到相册）用 -->
+<canvas type="2d" id="certCanvas" class="cert-canvas"></canvas>

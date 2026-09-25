@@ -1,12 +1,18 @@
 {
   "pages": [
+    "pages/jiangjr/index",
     "pages/home/index/index",
-    "pages/qyrank/index/index",
+
+    "pages/lqjpjr/index/index",
+    "pages/hxjr/index/index",
     "pages/lqjp/index/index",
     "pages/jiang/index",
+    "pages/cxzj/index/index",
+    "pages/cxzjjr/index/index",
+    "pages/cyjg/index/index",
+    "pages/qyrank/index/index",
     "pages/cjfree/index/index",
     "pages/qystats/index/index",
-    "pages/cyjg/index/index",
     "pages/hx/index/index",
     "pages/poster/index/index",
     "pages/selive/index/index",

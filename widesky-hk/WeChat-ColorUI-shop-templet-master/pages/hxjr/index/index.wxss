@@ -1,0 +1,334 @@
+/* 员工核销页：复用领奖页风格 */
+page {
+  overflow-x: hidden;
+  padding-top: 50px;
+  width: 100%;
+  background: #f1f1f1;
+}
+
+.cu-custom {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.cu-custom .cu-bar {
+  background-image: linear-gradient(45deg, #ff9700, #ed1c24);
+  padding-right: inherit;
+}
+.head-title {
+  margin: 0 auto;
+}
+
+.UCenter-bg {
+  align-items: center;
+  background-image: url(https://widesky.work/HKback/upload/bg2.jpg);
+  background-size: cover;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 400rpx;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.UCenter-bg .css-wave {
+  bottom: 0;
+  height: 60rpx;
+  left: 0;
+  mix-blend-mode: screen;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 99;
+}
+.UCenter-bg .css-wave .wave {
+  animation: wave-rotate 10s linear infinite;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 43%;
+  bottom: -930rpx;
+  height: 1000rpx;
+  left: 50%;
+  margin-left: -500rpx;
+  position: absolute;
+  width: 1000rpx;
+}
+.UCenter-bg .css-wave .wave2 {
+  animation-duration: 14s;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 47%;
+}
+.UCenter-bg .css-wave .wave3 {
+  animation-direction: reverse;
+  animation-duration: 7s;
+  background-color: rgba(255, 255, 255, 0.35);
+  border-radius: 40%;
+}
+@keyframes wave-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.content-card {
+  background: #fff;
+  border-radius: 16rpx;
+  margin: 30rpx;
+  min-height: 860rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 40rpx;
+}
+
+.state-tip {
+  color: #4a2b6b;
+  font-size: 32rpx;
+}
+
+.loading-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loading-bar {
+  width: 200rpx;
+  height: 6rpx;
+  margin-top: 24rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(90deg, #e8dcc8, #b8860b, #e8dcc8);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.2s linear infinite;
+}
+@keyframes loading-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+.empty-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.warn-badge {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fff7e6, #ffeec2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 30rpx rgba(255, 151, 0, 0.18);
+  margin-bottom: 36rpx;
+}
+.warn-img {
+  width: 90rpx;
+  height: 90rpx;
+}
+.empty-title {
+  color: #3d2b52;
+  font-size: 36rpx;
+  font-weight: 700;
+  margin-top: 40rpx;
+  letter-spacing: 2rpx;
+}
+.empty-sub {
+  color: #9b8bab;
+  font-size: 26rpx;
+  margin-top: 16rpx;
+  letter-spacing: 1rpx;
+}
+
+/* 待核销 */
+.fly-title {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(45deg, #ff9700, #ed1c24 55%, #ff9700);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 8rpx 22rpx rgba(255, 151, 0, 0.5));
+  font-size: 56rpx;
+  font-weight: 900;
+  letter-spacing: 8rpx;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+.prize-show-img {
+  width: 360rpx;
+  height: 360rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 12rpx 40rpx rgba(74, 43, 107, 0.12);
+}
+.prize-name {
+  color: #4a2b6b;
+  font-size: 40rpx;
+  font-weight: 700;
+  margin: 26rpx 0 30rpx;
+}
+
+/* 会员信息行 */
+.vip-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 30rpx;
+  background: #faf8fd;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+  box-sizing: border-box;
+}
+.vip-label {
+  color: #9b8bab;
+  font-size: 28rpx;
+}
+.vip-value {
+  color: #3d2b52;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+/* 员工核销验证 */
+.staff-box {
+  width: 100%;
+  background: #fff8f0;
+  border: 2rpx solid #ffd9a0;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-top: 20rpx;
+  box-sizing: border-box;
+}
+.staff-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #b8860b;
+  text-align: center;
+  margin-bottom: 28rpx;
+}
+.staff-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+.staff-label {
+  width: 140rpx;
+  color: #4a2b6b;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+.staff-input {
+  flex: 1;
+  height: 76rpx;
+  border: 2rpx solid #e0d5ec;
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  font-size: 30rpx;
+  color: #333;
+  background: #fff;
+  box-sizing: border-box;
+}
+.confirm-btn {
+  margin-top: 20rpx;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(45deg, #ff9700, #ed1c24);
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: 700;
+  letter-spacing: 6rpx;
+  border-radius: 999rpx;
+  padding: 22rpx 0;
+  box-shadow: 0 8rpx 20rpx rgba(237, 28, 36, 0.3);
+}
+
+/* 核销成功 */
+.recv-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.success-img {
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 24rpx;
+  margin-bottom: 20rpx;
+}
+.success-title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #b8860b;
+  margin: 20rpx 0;
+  letter-spacing: 6rpx;
+}
+.recv-prize {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30rpx;
+}
+.recv-prize-img {
+  width: 260rpx;
+  height: 260rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 10rpx 30rpx rgba(74, 43, 107, 0.12);
+}
+.recv-prize-name {
+  color: #4a2b6b;
+  font-size: 34rpx;
+  font-weight: 700;
+  margin-top: 20rpx;
+}
+.recv-card {
+  width: 100%;
+  background: #faf8fd;
+  border-radius: 16rpx;
+  padding: 8rpx 30rpx;
+  margin-top: 30rpx;
+  box-sizing: border-box;
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #efe8f7;
+}
+.info-row:last-child {
+  border-bottom: none;
+}
+.info-label {
+  color: #9b8bab;
+  font-size: 28rpx;
+}
+.info-value {
+  color: #3d2b52;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+/* 保存凭证到相册 */
+.save-btn {
+  margin-top: 30rpx;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(45deg, #07c160, #0aa84f);
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 700;
+  letter-spacing: 4rpx;
+  border-radius: 999rpx;
+  padding: 22rpx 0;
+  box-shadow: 0 8rpx 20rpx rgba(7, 193, 96, 0.3);
+}
+
+/* 隐藏画布（凭证图生成用） */
+.cert-canvas {
+  position: fixed;
+  left: -2000rpx;
+  top: 0;
+  width: 600px;
+  height: 1000px;
+}

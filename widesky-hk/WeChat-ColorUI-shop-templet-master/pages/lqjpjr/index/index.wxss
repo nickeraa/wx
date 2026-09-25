@@ -1,0 +1,516 @@
+/* 领奖页面：参考 home/index/index 风格（渐变导航 + 头部背景水波 + 白色卡片） */
+page {
+  overflow-x: hidden;
+  padding-top: 50px;
+  width: 100%;
+  background: #f1f1f1;
+}
+
+/* 自定义导航栏：渐变橙红（同 home），绝对定位不占文档流 */
+.cu-custom {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.cu-custom .cu-bar {
+  background-image: linear-gradient(45deg, #ff9700, #ed1c24);
+  padding-right: inherit;
+}
+.head-title {
+  margin: 0 auto;
+}
+
+/* 头部背景图 + 水波动画（同 home） */
+.UCenter-bg {
+  align-items: center;
+  background-image: url(https://widesky.work/HKback/upload/bg2.jpg);
+  background-size: cover;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 400rpx;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.UCenter-bg .css-wave {
+  bottom: 0;
+  height: 60rpx;
+  left: 0;
+  mix-blend-mode: screen;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 99;
+}
+.UCenter-bg .css-wave .wave {
+  animation: wave-rotate 10s linear infinite;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 43%;
+  bottom: -930rpx;
+  height: 1000rpx;
+  left: 50%;
+  margin-left: -500rpx;
+  position: absolute;
+  width: 1000rpx;
+}
+.UCenter-bg .css-wave .wave2 {
+  animation-duration: 14s;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 47%;
+}
+.UCenter-bg .css-wave .wave3 {
+  animation-direction: reverse;
+  animation-duration: 7s;
+  background-color: rgba(255, 255, 255, 0.35);
+  border-radius: 40%;
+}
+@keyframes wave-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 内容卡片（白色圆角，居中） */
+.content-card {
+  background: #fff;
+  border-radius: 16rpx;
+  margin: 30rpx;
+  min-height: 860rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 40rpx;
+}
+
+/* 状态提示（领取成功等场景共用） */
+.state-tip {
+  color: #4a2b6b;
+  font-size: 32rpx;
+}
+
+/* 查询中：醒目加载状态（文字放大加粗金色流动 + 进度条加粗发光 + 入场动画） */
+.loading-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: loading-in 0.6s ease-out both;
+}
+/* 查询中文字：放大加粗、紫色、柔光呼吸 */
+.loading-wrap .state-tip {
+  color: #4a2b6b;
+  font-size: 46rpx;
+  font-weight: 800;
+  letter-spacing: 6rpx;
+  text-shadow: 0 0 16rpx rgba(74, 43, 107, 0.35);
+  animation: loading-tip-pulse 1.8s ease-in-out infinite;
+}
+/* 进度条：加宽加粗、高亮金色流动 + 外发光 */
+.loading-bar {
+  width: 340rpx;
+  height: 18rpx;
+  margin-top: 36rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(90deg, #ffe9a8, #ffb300, #ffe9a8);
+  background-size: 200% 100%;
+  box-shadow: 0 0 24rpx rgba(255, 179, 0, 0.55);
+  animation: loading-shimmer 1.1s linear infinite;
+}
+@keyframes loading-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+@keyframes loading-tip-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+@keyframes loading-in {
+  from { opacity: 0; transform: translateY(40rpx) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* 无奖品状态：现代化层次设计 */
+.empty-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* 警告图标徽章（淡橙圆底托底，现代徽章风） */
+.warn-badge {
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fff7e6, #ffeec2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16rpx 60rpx rgba(255, 151, 0, 0.35);
+  margin-bottom: 40rpx;
+  animation: warn-pulse 2s ease-in-out infinite;
+}
+.warn-img {
+  width: 130rpx;
+  height: 130rpx;
+}
+@keyframes warn-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 16rpx 60rpx rgba(255, 151, 0, 0.35); }
+  50% { transform: scale(1.06); box-shadow: 0 20rpx 72rpx rgba(255, 151, 0, 0.5); }
+}
+
+.empty-img {
+  width: 460rpx;
+  height: 460rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 12rpx 40rpx rgba(74, 43, 107, 0.12);
+}
+.empty-title {
+  color: #3d2b52;
+  font-size: 36rpx;
+  font-weight: 700;
+  margin-top: 40rpx;
+  letter-spacing: 2rpx;
+}
+.empty-sub {
+  color: #9b8bab;
+  font-size: 26rpx;
+  margin-top: 16rpx;
+  letter-spacing: 1rpx;
+}
+
+.state-sub {
+  color: #8a6d9b;
+  font-size: 26rpx;
+  margin-top: 16rpx;
+}
+
+/* 恭喜中奖标题（与抽奖页完全一致：入场降落 + 渐变流动 + 脉动缩放） */
+.fly-title {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(45deg, #ff9700, #ed1c24 55%, #ff9700);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 8rpx 22rpx rgba(255, 151, 0, 0.5));
+  animation: fly-title-in 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both, title-slide 5s linear 0.9s infinite, title-pulse 2.6s ease-in-out 1.1s infinite;
+  font-size: 64rpx;
+  font-weight: 900;
+  letter-spacing: 8rpx;
+  padding-left: 28rpx;
+  width: 440rpx;
+  text-align: center;
+  white-space: nowrap;
+  margin-bottom: 30rpx;
+}
+@keyframes fly-title-in {
+  0% { opacity: 0; transform: translateY(-120rpx) scale(0.5); }
+  70% { transform: translateY(10rpx) scale(1.1); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes title-slide {
+  0% { background-position: 0% 0; }
+  100% { background-position: 220% 0; }
+}
+@keyframes title-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+/* 待领取 */
+.prize-show-img {
+  width: 420rpx;
+  height: 420rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 12rpx 40rpx rgba(74, 43, 107, 0.12);
+}
+.prize-name {
+  color: #4a2b6b;
+  font-size: 44rpx;
+  font-weight: 700;
+  margin: 30rpx 0 60rpx;
+}
+.receive-btn {
+  width: 400rpx;
+  text-align: center;
+  background: #b8860b;
+  color: #fff;
+  font-size: 36rpx;
+  font-weight: 700;
+  letter-spacing: 8rpx;
+  border-radius: 999rpx;
+  padding: 24rpx 0;
+  box-shadow: 0 8rpx 20rpx rgba(184, 134, 11, 0.4);
+}
+/* 已领取提示 */
+.received-tip {
+  width: 400rpx;
+  text-align: center;
+  color: #2ee56c;
+  font-size: 36rpx;
+  font-weight: 700;
+  letter-spacing: 8rpx;
+  border-radius: 999rpx;
+  padding: 24rpx 0;
+  border: 2rpx solid #2ee56c;
+}
+
+/* 领取成功 */
+.recv-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.success-img {
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 24rpx;
+  margin-bottom: 20rpx;
+}
+.success-title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #b8860b;
+  margin: 20rpx 0;
+  letter-spacing: 6rpx;
+}
+/* 领取成功：中奖奖品 */
+.recv-prize {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30rpx;
+}
+.recv-prize-img {
+  width: 260rpx;
+  height: 260rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 10rpx 30rpx rgba(74, 43, 107, 0.12);
+}
+.recv-prize-name {
+  color: #4a2b6b;
+  font-size: 34rpx;
+  font-weight: 700;
+  margin-top: 20rpx;
+}
+/* 领取成功：会员/发放员工信息卡片 */
+.recv-card {
+  width: 100%;
+  background: #faf8fd;
+  border-radius: 16rpx;
+  padding: 8rpx 30rpx;
+  margin-top: 30rpx;
+  box-sizing: border-box;
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #efe8f7;
+}
+.info-row:last-child {
+  border-bottom: none;
+}
+.info-label {
+  color: #9b8bab;
+  font-size: 28rpx;
+}
+.info-value {
+  color: #3d2b52;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+/* 奖品图片弹窗（出示给员工核销） */
+.prize-dialog {
+  background: #fff;
+  border-radius: 24rpx;
+  border: 3rpx solid rgba(255, 217, 94, 0.65);
+  padding: 40rpx;
+  width: 600rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.dialog-close {
+  position: absolute;
+  top: 16rpx;
+  right: 24rpx;
+  color: #999;
+  font-size: 40rpx;
+}
+.dialog-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #b8860b;
+  margin-bottom: 24rpx;
+}
+.dialog-img {
+  width: 480rpx;
+  height: 480rpx;
+}
+.dialog-tip {
+  color: #8a6d9b;
+  font-size: 26rpx;
+  margin-top: 24rpx;
+  text-align: center;
+}
+.confirm-btn {
+  margin-top: 24rpx;
+  width: 320rpx;
+  text-align: center;
+  background: #b8860b;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 700;
+  border-radius: 999rpx;
+  padding: 18rpx 0;
+}
+
+/* 领奖核销二维码弹窗 */
+.qrcode-dialog {
+  background: #fff;
+  border-radius: 24rpx;
+  border: 3rpx solid rgba(255, 217, 94, 0.65);
+  padding: 44rpx;
+  width: 600rpx;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  position: relative;
+}
+.qrcode-img {
+  width: 420rpx;
+  height: 420rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 10rpx 30rpx rgba(74, 43, 107, 0.12);
+}
+.qrcode-tip {
+  color: #b8860b;
+  font-size: 32rpx;
+  font-weight: 700;
+  margin-top: 28rpx;
+}
+.qrcode-sub {
+  color: #9b8bab;
+  font-size: 24rpx;
+  margin-top: 12rpx;
+  letter-spacing: 1rpx;
+}
+
+/* 我的奖品列表 */
+.prize-list-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.list-title {
+  color: #4a2b6b;
+  font-size: 40rpx;
+  font-weight: 800;
+  letter-spacing: 4rpx;
+  margin-bottom: 10rpx;
+}
+.list-sub {
+  color: #9b8bab;
+  font-size: 26rpx;
+  margin-bottom: 30rpx;
+}
+.prize-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: #faf8fd;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-sizing: border-box;
+  border: 2rpx solid #efe8f7;
+}
+.prize-item-img {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 16rpx;
+  flex-shrink: 0;
+  background: #fff;
+}
+.prize-item-info {
+  flex: 1;
+  margin-left: 24rpx;
+  display: flex;
+  flex-direction: column;
+}
+.prize-item-name {
+  color: #3d2b52;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+.prize-item-status {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+}
+.status-wait {
+  color: #b8860b;
+}
+.status-done {
+  color: #2ee56c;
+}
+.prize-item-btn {
+  flex-shrink: 0;
+  width: 140rpx;
+  text-align: center;
+  background: linear-gradient(45deg, #ff9700, #ed1c24);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 700;
+  border-radius: 999rpx;
+  padding: 16rpx 0;
+  margin-left: 16rpx;
+  box-shadow: 0 6rpx 16rpx rgba(237, 28, 36, 0.25);
+}
+.prize-item-btn.btn-disabled {
+  background: #e5e1ea;
+  color: #b0a8bb;
+  box-shadow: none;
+}
+
+/* 提示弹窗：与 jiang/index 的 notice-dialog 样式统一（白底金边 + 金色标题 + 紫色内容） */
+.notice-dialog {
+  width: 560rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  border: 3rpx solid rgba(255, 217, 94, 0.65);
+  padding: 44rpx 32rpx 32rpx;
+  position: relative;
+}
+.notice-title {
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #b8860b;
+  letter-spacing: 4rpx;
+  margin-bottom: 24rpx;
+}
+.notice-body {
+  text-align: center;
+  font-size: 30rpx;
+  color: #4a2b6b;
+  line-height: 1.8;
+  margin-bottom: 34rpx;
+}
+.notice-btn {
+  margin: 0 auto;
+  width: 280rpx;
+  text-align: center;
+  background: #b8860b;
+  color: #fff;
+  font-weight: 700;
+  font-size: 30rpx;
+  border-radius: 999rpx;
+  padding: 16rpx 0;
+}

@@ -1,0 +1,553 @@
+/**index.wxss**/
+.frame_view{
+  position: relative;
+  width:690rpx;
+  height:690rpx;
+  padding: 20rpx;
+  background: #fff;
+  border: 6rpx solid #b8860b;
+  border-radius: 32rpx;
+  box-shadow:
+    0 20rpx 40rpx rgba(40, 5, 80, 0.35),
+    0 0 30rpx rgba(184, 134, 11, 0.4),
+    inset 0 4rpx 6rpx rgba(255, 255, 255, 0.4),
+    inset 0 -8rpx 16rpx rgba(180, 134, 11, 0.25);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.frame_row{
+  width:650rpx;
+  height:210rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+} 
+.frame_item{
+  width:210rpx;
+  height:210rpx;
+  border-radius: 20rpx;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+/* 格子内奖品图：填满格子 + 立体阴影（近实远虚双层投影） */
+.frame_img{
+  width:210rpx;
+  height:210rpx;
+  border-radius: 20rpx;
+  box-shadow:
+    0 2rpx 6rpx rgba(0, 0, 0, 0.12),
+    0 10rpx 24rpx rgba(74, 43, 107, 0.2);
+}
+/* 中间抽奖按钮：图片填充 + 呼吸光 */
+.luck_btn{
+  background: transparent;
+  border: none;
+  animation: luckGlow 1.6s ease-in-out infinite;
+}
+.luck_disabled{
+  opacity: 0.55;
+  animation: none;
+}
+@keyframes luckGlow{
+  0%, 100%{ box-shadow: 0 0 12rpx rgba(255, 217, 94, 0.5), 0 6rpx 14rpx rgba(0, 0, 0, 0.3); }
+  50%{ box-shadow: 0 0 32rpx rgba(255, 217, 94, 0.95), 0 6rpx 14rpx rgba(0, 0, 0, 0.3); }
+}
+
+page {
+  padding-top: 50px;
+  padding-bottom: 20rpx;
+}
+
+/* 全屏背景层：image组件fixed定位覆盖整个视口（含底部安全区），置于内容之下 */
+.bg-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+/* 中奖飞入动画层 */
+.fly-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 46%, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.72) 78%);
+}
+
+/* 舞台聚光灯：顶部两侧光锥斜射汇聚到奖品 */
+.fly-spot {
+  position: absolute;
+  top: -5vh;
+  width: 260rpx;
+  height: 62vh;
+  background: linear-gradient(180deg, rgba(255, 236, 170, 0.55), rgba(255, 236, 170, 0));
+  clip-path: polygon(50% 0, 0 100%, 100% 100%);
+  filter: blur(6rpx);
+  opacity: 0;
+  animation: spotIn 0.6s ease-out 0.5s forwards;
+}
+.spot-left {
+  left: 12%;
+  transform-origin: top center;
+  transform: rotate(14deg);
+}
+.spot-right {
+  right: 12%;
+  transform-origin: top center;
+  transform: rotate(-14deg);
+}
+@keyframes spotIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 舞台地面光斑：奖品下方椭圆反光 */
+.fly-glow-floor {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  width: 480rpx;
+  height: 160rpx;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255, 236, 170, 0.55), rgba(255, 236, 170, 0) 70%);
+  opacity: 0;
+  animation: spotIn 0.6s ease-out 0.65s forwards;
+}
+.fly-prize {
+  width: 420rpx;
+  height: 420rpx;
+  border-radius: 32rpx;
+  filter: drop-shadow(0 0 30rpx rgba(255, 217, 94, 0.9));
+  animation: flyIn 0.8s cubic-bezier(0.22, 1.4, 0.36, 1) forwards, flyShake 0.6s ease-in-out 0.85s 3;
+}
+/* 飞入：顶部快速落下，回弹落位 */
+@keyframes flyIn {
+  0% { transform: translateY(-110vh) scale(0.6) rotate(-12deg); opacity: 0; }
+  60% { opacity: 1; }
+  80% { transform: translateY(30rpx) scale(1.05) rotate(3deg); }
+  100% { transform: translateY(0) scale(1) rotate(0); opacity: 1; }
+}
+/* 抖动：落位后左右震动2次 */
+@keyframes flyShake {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  20% { transform: translateX(-16rpx) rotate(-4deg); }
+  40% { transform: translateX(16rpx) rotate(4deg); }
+  60% { transform: translateX(-10rpx) rotate(-3deg); }
+  80% { transform: translateX(10rpx) rotate(2deg); }
+}
+
+/* 旋转光芒：奖品背后放射光束 */
+.fly-rays {
+  position: absolute;
+  width: 760rpx;
+  height: 760rpx;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(255, 217, 94, 0.35) 0deg 12deg, transparent 12deg 30deg);
+  opacity: 0;
+  animation: raysIn 0.5s ease-out 0.55s forwards, raysRotate 2.5s linear 0.55s infinite;
+}
+@keyframes raysIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes raysRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 脉冲光环：落位时金色波纹向外扩散2轮 */
+.fly-pulse {
+  position: absolute;
+  width: 320rpx;
+  height: 320rpx;
+  border-radius: 50%;
+  border: 8rpx solid rgba(255, 217, 94, 0.85);
+  opacity: 0;
+  animation: pulseOut 1.1s ease-out 0.75s 4;
+}
+@keyframes pulseOut {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* 烟花粒子：从中心向外飞散淡出（方向/颜色/延迟由内联变量控制） */
+.spark {
+  position: absolute;
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  background: var(--c, #ffd95e);
+  box-shadow: 0 0 12rpx var(--c, #ffd95e);
+  opacity: 0;
+  animation: sparkFly 1.2s ease-out var(--d, 0.8s) 2;
+}
+@keyframes sparkFly {
+  0% { transform: translate(0, 0) scale(1.2); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translate(var(--x), var(--y)) scale(0.2); opacity: 0; }
+}
+
+/* 彩带飘落：顶部旋转落下的彩色纸屑 */
+.confetti {
+  position: absolute;
+  top: -40rpx;
+  width: 16rpx;
+  height: 30rpx;
+  border-radius: 4rpx;
+  background: var(--c, #ff5a5f);
+  opacity: 0;
+  animation: confettiFall 3s ease-in var(--d, 0.2s) forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg); opacity: 0.7; }
+}
+
+/* 中奖内容容器：标题 + 奖品图 + 关注按钮 */
+.fly-prize-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+/* 恭喜中奖标题：荧光绿粗体 + 近黑衬底，顶部降落后震动，持续脉动膨胀 */
+.fly-title {
+  font-size: 52rpx;
+  font-weight: 900;
+  letter-spacing: 6rpx;
+  padding: 14rpx 40rpx 14rpx 46rpx;
+  text-align: center;
+  color: #ff3b30;
+  background: rgba(18, 18, 18, 0.9);
+  border-radius: 16rpx;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.35);
+  margin-bottom: 30rpx;
+  opacity: 0;
+  animation: titleDrop 0.9s cubic-bezier(0.22, 1.2, 0.36, 1) 0.3s forwards, titleShake 0.5s ease-in-out 1.3s 2, titleBeat 0.9s ease-in-out 2.4s infinite;
+}
+/* 标题脉动膨胀：落位后持续缩放脉动 */
+@keyframes titleBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+/* 标题降落：顶部快速落下，回弹落位 */
+@keyframes titleDrop {
+  0% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+  60% { opacity: 1; }
+  80% { transform: translateY(24rpx); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+/* 标题震动：落位后左右抖动2轮 */
+@keyframes titleShake {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-10rpx) rotate(-3deg); }
+  50% { transform: translateX(10rpx) rotate(3deg); }
+  75% { transform: translateX(-6rpx) rotate(-2deg); }
+}
+@keyframes titlePop {
+  0% { transform: scale(0.3); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+/* 奖品图容器（定位关闭按钮） */
+.fly-img-wrap {
+  position: relative;
+}
+/* 关闭按钮：图片右上角 */
+.fly-close {
+  position: absolute;
+  top: -18rpx;
+  right: -18rpx;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  border: 2rpx solid rgba(255, 255, 255, 0.75);
+  color: #fff;
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  opacity: 0;
+  animation: spotIn 0.4s ease-out 1.1s forwards;
+}
+/* 温馨提醒弹窗：领奖方式提示卡片 */
+.notice-dialog {
+  width: 560rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  border: 3rpx solid rgba(255, 217, 94, 0.65);
+  padding: 44rpx 32rpx 32rpx;
+  position: relative;
+}
+.notice-close {
+  position: absolute;
+  top: 16rpx;
+  right: 20rpx;
+  color: #999;
+  font-size: 32rpx;
+}
+.notice-title {
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #b8860b;
+  letter-spacing: 4rpx;
+  margin-bottom: 22rpx;
+}
+.notice-body {
+  text-align: center;
+  font-size: 28rpx;
+  color: #4a2b6b;
+  line-height: 1.8;
+  margin-bottom: 30rpx;
+}
+.notice-hl {
+  color: #e45c5c;
+  font-weight: 700;
+}
+.notice-btn {
+  margin: 0 auto;
+  width: 280rpx;
+  text-align: center;
+  background: #b8860b;
+  color: #fff;
+  font-weight: 700;
+  font-size: 30rpx;
+  border-radius: 999rpx;
+  padding: 16rpx 0;
+}
+
+/* 进度条动画：等待公众号弹窗交互时展示 */
+.notice-loading {
+  width: 300rpx;
+  height: 12rpx;
+  margin: 70rpx auto 100rpx;
+  border-radius: 999rpx;
+  background: rgba(184, 134, 11, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+.notice-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  border-radius: 999rpx;
+  background: linear-gradient(90deg, #ffd95e, #b8860b);
+  animation: loadingSlide 1s ease-in-out infinite;
+}
+@keyframes loadingSlide {
+  0% { left: -40%; }
+  100% { left: 100%; }
+}
+
+/* 关注公众号按钮：图片下方 */
+.fly-follow {
+  margin-top: 44rpx;
+  background: #b8860b;
+  color: #fff;
+  font-weight: 700;
+  font-size: 36rpx;
+  border-radius: 999rpx;
+  padding: 24rpx 64rpx;
+  box-shadow: 0 8rpx 20rpx rgba(184, 134, 11, 0.45);
+  opacity: 0;
+  animation: titlePop 0.5s cubic-bezier(0.22, 1.4, 0.36, 1) 1.2s forwards;
+}
+
+.head-title {
+  margin: 0 auto;
+}
+
+.cu-custom .cu-bar {
+	background-color: transparent;
+	padding-right: inherit;
+  }
+
+.bg-gradual-green {
+  background-image: linear-gradient(45deg, #ff9700, #ed1c24);
+}
+
+.text-green, .line-green, .lines-green {
+  color: #e45c5c;
+}
+
+.swiperitem {
+  background: #fff;
+  height: 55px;
+}
+
+.canui-video {
+  width: 100%;
+  height: 425rpx;
+}
+
+.nav-list, .nav-li {
+  padding: 0px;
+  z-index: 0;
+}
+
+.canui-yx-url {
+  width: 46% !important;
+  margin: 0 2% 30rpx !important;
+}
+
+.canui-flex-car {
+  padding-top: 10px;
+}
+
+.canui-flex-car .cu-card>.cu-item {
+  margin: 0px;
+  position: relative;
+}
+
+.canui-flex-car .cu-list.menu-avatar>.cu-item {
+  padding-left: 15rpx;
+  height: 100rpx;
+}
+
+.canui-flex-car .cu-card .cu-avatar {
+  position: absolute;
+  right: 10px;
+  bottom: 72rpx;
+}
+
+.canui-flex-car .shadow-warp {
+  box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.1);
+}
+
+.canui-flex-car .cu-list.menu>.cu-item .content {
+  font-size: 26rpx;
+}
+
+.canui-flex-car .text-sm {
+  font-size: 20rpx;
+}
+
+.canui-flex-car .text-grey {
+  color: #000;
+}
+
+.canui-flex-car image {
+  height: 90px !important;
+}
+
+.canui-gps .justify-between {
+  padding: 0 10px;
+}
+
+.content .text-sm {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.canui-fixed {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  z-index: 999999;
+}
+
+.sp {
+ height: 150rpx;
+}
+
+.bgcolor{
+
+background:white;
+}
+
+.up{
+text-transform:Uppercase;
+
+}
+
+
+.gp{
+ margin: 0px 5px 0px 15px;
+color: blue
+}
+
+/* ==================== 中秋抽奖规则卡片 ==================== */
+.rule-card {
+  margin-top: 30rpx;
+  width: 690rpx;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.78);
+  border: 2rpx solid rgba(184, 134, 11, 0.35);
+  border-radius: 20rpx;
+  padding: 24rpx 26rpx 20rpx;
+  box-shadow: 0 8rpx 20rpx rgba(74, 43, 107, 0.10);
+}
+.rule-head {
+  text-align: center;
+  color: #b8860b;
+  font-size: 30rpx;
+  font-weight: 700;
+  letter-spacing: 4rpx;
+  margin-bottom: 18rpx;
+}
+/* 「单笔消费」文字正下方的红色直线提示 */
+.rule-head-em {
+  display: inline-block;
+  padding-bottom: 6rpx;
+  border-bottom: 4rpx solid #ed1c24;
+  line-height: 1;
+}
+.rule-tiers {
+  display: flex;
+  justify-content: space-between;
+}
+.rule-tier {
+  flex: 1;
+  text-align: center;
+  background: rgba(184, 134, 11, 0.08);
+  border-radius: 14rpx;
+  padding: 14rpx 0 16rpx;
+  margin: 0 8rpx;
+}
+.rule-tier-amt {
+  color: #4a2b6b;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+.rule-tier-times {
+  margin-top: 6rpx;
+  color: #ed1c24;
+  font-size: 32rpx;
+  font-weight: 800;
+}
+.rule-foot {
+  margin-top: 16rpx;
+  text-align: center;
+  color: #9b8bab;
+  font-size: 24rpx;
+  letter-spacing: 1rpx;
+}

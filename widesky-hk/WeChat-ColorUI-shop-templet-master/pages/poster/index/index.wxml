@@ -1,8 +1,10 @@
 <!-- 自定义导航栏（渐变橙红，同 home 风格） -->
-<view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <view class="head-title">生成宣传海报</view>
-  </view>
+<view class="cu-custom">
+    <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+        <navigator class="action canui-head-title" hoverClass="none" openType="navigateBack">
+            <text class="icon-back"></text>生成宣传海报
+        </navigator>
+    </view>
 </view>
 
 <!-- 头部背景 + 水波动画（同 home 风格） -->

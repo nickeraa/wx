@@ -1,0 +1,89 @@
+<!-- 自定义导航栏 -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view bindtap="back" class="action canui-head-title">
+      <text class="icon-back"></text>领奖信息查询
+    </view>
+  </view>
+</view>
+<view style="height:{{CustomBar}}px;"></view>
+
+<!-- 查询区 -->
+<view class="search-box">
+  <view class="search-row">
+    <view class="search-label">会员卡号</view>
+    <input class="search-input" type="text" placeholder="请输入会员卡号" placeholder-class="search-ph" value="{{card}}" bindinput="onCardInput" />
+  </view>
+  <view class="search-btn {{querying?'disabled':''}}" bindtap="onQuery">{{querying?'查询中...':'查 询'}}</view>
+</view>
+
+<!-- 未查询：引导 -->
+<view wx:if="{{!searched}}" class="placeholder">
+  <image class="placeholder-img" src="/images/nodata.jpg" mode="aspectFit"></image>
+  <view class="placeholder-text">输入会员卡号，查询该会员的领奖信息</view>
+</view>
+
+<!-- 没有参与抽奖 -->
+<view wx:elif="{{noPrize}}" class="placeholder">
+  <view class="warn-badge">
+    <image class="warn-img" src="https://widesky.work/HKback/images/jg.jpg" mode="aspectFit"></image>
+  </view>
+  <view class="placeholder-title">没有参与抽奖</view>
+  <view class="placeholder-text">该会员没有参与抽奖记录，请核对会员卡号</view>
+  <view class="reset-btn" bindtap="onReset">重新查询</view>
+</view>
+
+<!-- 中奖但尚未领奖 -->
+<view wx:elif="{{notReceived}}" class="placeholder">
+  <view class="notreceived-prize-box">
+    <image class="notreceived-prize-img" src="{{prizeImg}}" mode="aspectFit"></image>
+  </view>
+  <view class="notreceived-prize-name">{{prizeName}}</view>
+  <view class="placeholder-title">恭喜中奖，尚未领取</view>
+  <view class="placeholder-text">该会员已中奖，请尽快到店领取奖品</view>
+  <view class="reset-btn" bindtap="onReset">重新查询</view>
+</view>
+
+<!-- 查询结果：抽奖领奖凭证 -->
+<view wx:else class="cert">
+  <view class="cert-title">抽奖领奖凭证</view>
+  <view class="cert-line"></view>
+
+  <view class="cert-prize-box">
+    <image class="cert-prize-img" src="{{prizeImg}}" mode="aspectFit"></image>
+  </view>
+  <view class="cert-prize-name">{{prizeName}}</view>
+
+  <view class="cert-rows">
+    <view class="cert-row" wx:if="{{memberCard}}">
+      <text class="cert-label">会员卡号：</text>
+      <text class="cert-value">{{memberCard}}</text>
+    </view>
+    <view class="cert-row" wx:if="{{vipName}}">
+      <text class="cert-label">会员姓名：</text>
+      <text class="cert-value">{{vipName}}</text>
+    </view>
+    <view class="cert-row" wx:if="{{vipLevel}}">
+      <text class="cert-label">会员等级：</text>
+      <text class="cert-value">{{vipLevel}}</text>
+    </view>
+    <view class="cert-row" wx:if="{{staffId}}">
+      <text class="cert-label">员工工号：</text>
+      <text class="cert-value">{{staffId}}</text>
+    </view>
+    <view class="cert-row" wx:if="{{staffName}}">
+      <text class="cert-label">员工姓名：</text>
+      <text class="cert-value">{{staffName}}</text>
+    </view>
+    <view class="cert-row" wx:if="{{shopNo}}">
+      <text class="cert-label">店铺号：</text>
+      <text class="cert-value">{{shopNo}}</text>
+    </view>
+    <view class="cert-row" wx:if="{{receivedTime}}">
+      <text class="cert-label">核销时间：</text>
+      <text class="cert-value">{{receivedTime}}</text>
+    </view>
+  </view>
+
+  <view class="cert-tip">请将本凭证附在销售单据后作为领奖依据</view>
+</view>

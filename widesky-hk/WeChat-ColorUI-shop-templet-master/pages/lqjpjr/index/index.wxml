@@ -1,0 +1,75 @@
+<!-- 自定义导航栏（渐变橙红，同 home 风格） -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class="head-title">领取奖品</view>
+  </view>
+</view>
+
+<!-- 头部背景 + 水波动画（同 home 风格） -->
+<view class="UCenter-bg">
+  <view class="css-wave">
+    <view class="wave wave1"></view>
+    <view class="wave wave2"></view>
+    <view class="wave wave3"></view>
+  </view>
+</view>
+
+<!-- 内容卡片 -->
+<view class="content-card shadow-lg">
+
+  <!-- 查询中：文字 + 金色流动进度条 -->
+  <view wx:if="{{!prizeLoaded}}" class="loading-wrap">
+    <view class="state-tip">正在查询奖品</view>
+    <view class="loading-bar"></view>
+  </view>
+
+  <!-- 无中奖记录 -->
+  <view wx:elif="{{prizeList.length === 0}}" class="empty-wrap">
+    <view class="warn-badge">
+      <image class="warn-img" src="https://widesky.work/HKback/images/jg.jpg" mode="aspectFit"></image>
+    </view>
+    <view class="empty-title">{{emptyMsg}}</view>
+    <view class="empty-sub">温馨提醒：每个会员最多可领奖3次喔</view>
+  </view>
+
+  <!-- 我的奖品列表（未领取在前，已领取在后） -->
+  <view wx:else class="prize-list-wrap">
+    <view class="list-title">我的奖品</view>
+    <view class="list-sub" wx:if="{{memberCard}}">会员卡号：{{memberCard}}</view>
+
+    <view class="prize-item" wx:for="{{prizeList}}" wx:key="row_id">
+      <image class="prize-item-img" src="{{item.prizeImg}}" mode="aspectFit"></image>
+      <view class="prize-item-info">
+        <view class="prize-item-name">{{item.prize_name}}</view>
+        <view class="prize-item-status {{item.tags === '1' ? 'status-done' : 'status-wait'}}">
+          {{item.tags === '1' ? '已领取' : '待领取'}}
+        </view>
+      </view>
+      <view wx:if="{{item.tags !== '1'}}" class="prize-item-btn" bindtap="onReceive" data-rowid="{{item.row_id}}" data-pluid="{{item.plu_id}}">领取</view>
+      <view wx:else class="prize-item-btn btn-disabled">已领取</view>
+    </view>
+  </view>
+
+</view>
+
+<!-- 领奖核销二维码弹窗（员工扫码在自己手机上核销） -->
+<view class="cu-modal {{showQrcode?'show':''}}">
+  <view class="qrcode-dialog" catchtap="">
+    <view class="dialog-close" bindtap="onCloseQrcode">×</view>
+    <view class="dialog-title">领奖核销</view>
+    <image class="qrcode-img" src="{{qrcodeImg}}" mode="aspectFit"></image>
+    <view class="qrcode-tip">请员工使用微信扫描二维码</view>
+    <view class="qrcode-sub">核销完成后本页将自动更新结果</view>
+  </view>
+</view>
+
+<!-- 提示弹窗（企微核验失败等错误提示）：与 jiang/index 的 notice-dialog 样式统一 -->
+<view class="cu-modal {{showModal?'show':''}}" style="z-index:99999;">
+  <view class="cu-dialog notice-dialog" catchtap="">
+    <view class="notice-title">提示</view>
+    <view class="notice-body">
+      <view>{{modalMsg}}</view>
+    </view>
+    <view class="notice-btn" bindtap="onCloseModal">知道了</view>
+  </view>
+</view>

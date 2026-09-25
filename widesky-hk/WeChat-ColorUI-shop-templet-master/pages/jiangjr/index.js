@@ -1,6 +1,7 @@
 const app = getApp();
 const API_BIND = 'https://widesky.work/HKback/qywxbind.ashx'; // 新绑定接口（微信/企微双通道）
-const bg = 'https://widesky.work/HKback/images/cjbg.png';
+const bg = 'https://widesky.work/HKback/images/cjbg_day.jpg';
+const cjimgDay = 'https://widesky.work/HKback/cjimages_day/'; // 中秋抽奖奖品图目录（区别于原版 cjimages）
 //计数器
 var interval = null;
 //值越大旋转时间越长 即旋转速度
@@ -12,7 +13,7 @@ Page({
     bg: bg,   // 背景图（注入 data，wxml {{bg}} 绑定，换图只改顶部 const）
     color: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
     //8张奖品图片（位置0-7），图片文件名与礼物表 acj_plu 的 PLU_ID 相同（0.png=PLU0苹果 ... 7.png=PLU7二百券）
-    images: [app.globalData.cjimg + '0.png', app.globalData.cjimg + '1.png', app.globalData.cjimg + '2.png', app.globalData.cjimg + '3.png', app.globalData.cjimg + '4.png', app.globalData.cjimg + '5.png', app.globalData.cjimg + '6.png', app.globalData.cjimg + '7.png'],
+    images: [cjimgDay + '0.png?v=2', cjimgDay + '1.png?v=2', cjimgDay + '2.png?v=2', cjimgDay + '3.png?v=2', cjimgDay + '4.png?v=2', cjimgDay + '5.png?v=2', cjimgDay + '6.png?v=2', cjimgDay + '7.png?v=2'],
 
     btnconfirm: '/images/dianjichoujiang.png',
     clickLuck: 'clickLuck',
@@ -297,7 +298,10 @@ Page({
     unionid: '',
     userid: '',
     env: '', // wxwork=企业微信环境  wx=微信环境
-    bindState: 'pending' // pending | success | fail
+    bindState: 'pending', // pending | success | fail
+    //中秋抽奖：消费次数（单笔满额获抽奖机会，最多3次）
+    totalChances: 0,    // 该会员可抽总次数（后端 wx_cj_lottery_times 计算）
+    remainChances: 0    // 剩余可抽次数（总次数 - 已抽次数）
   },
 
   onLoad: function (options) {
@@ -454,7 +458,7 @@ Page({
       // 合并额外参数（如 vip_code）
       for (let k in (extraData || {})) data[k] = extraData[k];
       wx.request({
-        url: app.globalData.api + 'wx_draw.ashx',
+        url: app.globalData.api + 'wx_draw_day.ashx',
         data: data,
         header: {
           'content-type': 'application/x-www-form-urlencoded'
@@ -500,12 +504,7 @@ Page({
           e.showTipModal('提示', d.errmsg || '无法参与抽奖');
           return;
         }
-        // 已参与过（后端查重拦截 -6）
-        if (d && d.errcode === -6) {
-          e.showTipModal('提示', d.errmsg || '每个会员仅限抽奖1次');
-          return;
-        }
-        // 核验失败（网络等）不阻断，后端抽奖时兜底
+        // 核验通过，弹卡号输入
         e.openCardInput();
       }, delay);
     });
@@ -515,7 +514,7 @@ Page({
   loadPrizes: function () {
     var e = this;
     wx.request({
-      url: app.globalData.api + 'wx_cj_prizes.ashx',
+      url: app.globalData.api + 'wx_cj_prizes_day.ashx',
       dataType: 'json',
       success: function (res) {
         var list = res.data || [];
@@ -523,7 +522,7 @@ Page({
         var t = Date.now();
         var imgs = [];
         for (var i = 0; i < 8; i++) {
-          imgs.push(app.globalData.cjimg + list[i].plu_id + '.png?t=' + t);
+          imgs.push(cjimgDay + list[i].plu_id + '.png?t=' + t);
         }
         e.setData({
           images: imgs
@@ -543,10 +542,10 @@ Page({
 
   //会员卡号输入
   onCardInput: function (e) {
+    // 会员卡号自动转大写（后端也做了 ToUpper，这里同步保证输入显示与提交一致）
     this.setData({
-      member_card: e.detail.value
+      member_card: String(e.detail.value || '').toUpperCase()
     });
-    console.warn(this.data.member_card)
   },
   //关闭卡号弹窗
   closeCardInput: function () {
@@ -556,7 +555,7 @@ Page({
   },
   //确认卡号并开始抽奖
   confirmCard: function () {
-    var card = String(this.data.member_card || '').trim();
+    var card = String(this.data.member_card || '').trim().toUpperCase();
     if (!card) {
       wx.showToast({
         title: '请输入会员卡号',
@@ -598,11 +597,6 @@ Page({
           e.showTipModal('提示', d.errmsg || '无法参与抽奖');
           return;
         }
-        // 已参与过（后端第一顺位查重拦截 -6）
-        if (d && d.errcode === -6) {
-          e.showTipModal('提示', d.errmsg || '每个会员仅限抽奖1次');
-          return;
-        }
         // 卡号不存在（-5）：清空输入框并保持输入界面
         if (d && d.errcode === -5) {
           wx.removeStorageSync('member_card');
@@ -614,12 +608,7 @@ Page({
           e.showTipModal('提示', d.errmsg || '您输入的会员卡号不存在，请您检查后再输入');
           return;
         }
-        // 该卡号已参与过抽奖（-3）
-        if (d && d.errcode === -3) {
-          e.showTipModal('提示', d.errmsg || '此会员卡号已经参与过抽奖');
-          return;
-        }
-        // 卡号有效且未参与过：查询会员卡积分，积分为0则拦截
+        // 卡号有效：查询会员卡积分，积分为0则拦截
         e.checkBonus(card);
       }, delay);
     });
@@ -659,15 +648,79 @@ Page({
           e.showTipModal('提示', '积分为零，暂不能参与抽奖喔');
           return;
         }
-        // 积分正常：继续抽奖
-        e.doDraw();
+        // 积分正常：继续查询中秋抽奖消费次数（新增规则）
+        e.queryChances(card);
       },
       fail: function () {
         // 查询失败不阻断抽奖（后端抽奖时仍会兜底校验），但此处按拦截提示更稳妥
         e.setData({
           showChecking: false
         });
-        e.doDraw();
+        e.queryChances(card);
+      }
+    });
+  },
+
+  // 查询中秋抽奖消费次数（调用后端，后端执行 espos.wx_cj_lottery_times 存储过程）
+  // 规则：单笔消费实付满1000/2000/3000元 -> 1/2/3次，多笔累加封顶3次
+  // 后端返回：total_chances 总次数 / used_chances 已抽次数 / remain_chances 剩余次数
+  queryChances: function (card) {
+    var e = this;
+    e.setData({
+      showChecking: true
+    });
+    wx.request({
+      url: app.globalData.api + 'wx_cj_chances.ashx',
+      data: {
+        vipcode: card
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      success: function (res) {
+        e.setData({
+          showChecking: false
+        });
+        var d = res.data || {};
+        // 后端返回 errcode===0 表示查询成功
+        if (d.errcode === 0) {
+          var total = parseInt(d.total_chances, 10) || 0;
+          var remain = parseInt(d.remain_chances, 10);
+          if (isNaN(remain)) remain = total;
+          e.setData({
+            totalChances: total,
+            remainChances: remain
+          });
+          // 剩余次数为0：区分"未达消费门槛"和"次数用完"
+          if (remain <= 0) {
+            if (total > 0) {
+              // 有总次数但已用完
+              e.showTipModal('提示', '您的抽奖次数已经用完，谢谢参与！');
+            } else {
+              // 未达消费门槛（单笔消费满1000元才有次数）
+              e.showTipModal('提示', '单笔消费满1000元，才能参与中秋抽奖喔');
+            }
+            return;
+          }
+          // 有剩余次数：继续抽奖
+          e.doDraw();
+        } else {
+          // 查询失败：按0次处理并拦截（保守，避免绕过门槛）
+          e.setData({
+            totalChances: 0,
+            remainChances: 0
+          });
+          e.showTipModal('提示', d.errmsg || '单笔消费满1000元，才能参与中秋抽奖喔');
+        }
+      },
+      fail: function () {
+        e.setData({
+          showChecking: false,
+          totalChances: 0,
+          remainChances: 0
+        });
+        e.showTipModal('提示', '网络异常，请稍后重试');
       }
     });
   },
@@ -713,9 +766,9 @@ Page({
 
     //重新登录取新 code：openid/unionid 由后端兑换（防伪造），再执行抽奖
     e.getCode(function (code) {
-      //请求后端执行抽奖（三维查重 + 中奖逻辑 + 写中奖记录）
+      //请求后端执行抽奖（次数校验 + 百分百中奖逻辑 + 写抽奖记录）
       wx.request({
-        url: app.globalData.api + 'wx_cj_draw.ashx',
+        url: app.globalData.api + 'wx_cj_draw_day.ashx',
         data: {
           code: code || '',
           env: e.data.env,
@@ -730,20 +783,6 @@ Page({
         success: function (res) {
           var d = res.data || {};
 
-          //已参与过抽奖（-3）：恢复按钮并提示
-          if (d.errcode === -3) {
-            e.recoverBtn();
-            e.showTipModal('提示', d.errmsg || '此会员卡号已经参与过抽奖');
-            return;
-          }
-
-          //未中奖（-4）：奖品不在内定名单/概率池/礼物表
-          if (d.errcode === -4) {
-            e.recoverBtn();
-            e.showTipModal('提示', d.errmsg || '很遗憾，本次未中奖');
-            return;
-          }
-
           //卡号不存在（-5）
           if (d.errcode === -5) {
             e.recoverBtn();
@@ -755,6 +794,34 @@ Page({
           if (d.errcode === -7) {
             e.recoverBtn();
             e.showTipModal('提示', d.errmsg || '操作太频繁，请稍后再试');
+            return;
+          }
+
+          //抽奖次数已用完（-11）：中秋抽奖新增，活动期间最多3次
+          if (d.errcode === -11) {
+            e.recoverBtn();
+            e.showTipModal('提示', d.errmsg || '您的抽奖次数已经用完，谢谢参与！');
+            return;
+          }
+
+          //企业员工（-9）：后端兜底拦截
+          if (d.errcode === -9) {
+            e.recoverBtn();
+            e.showTipModal('提示', d.errmsg || '企业员工不能参与抽奖');
+            return;
+          }
+
+          //客户核验失败（-10）：没加企微/已删企微，后端兜底拦截
+          if (d.errcode === -10) {
+            e.recoverBtn();
+            e.showTipModal('提示', d.errmsg || '无法参与抽奖');
+            return;
+          }
+
+          //会员积分不足（-12）：后端兜底拦截
+          if (d.errcode === -12) {
+            e.recoverBtn();
+            e.showTipModal('提示', d.errmsg || '积分为零，暂不能参与抽奖喔');
             return;
           }
 
@@ -789,6 +856,8 @@ Page({
           counts: 0,
           drawn: true,
           prizeName: d.prize_name || '',
+          // 抽奖成功：扣减一次剩余次数（后端为准，此处仅本地展示递减）
+          remainChances: Math.max(0, e.data.remainChances - 1)
         })
 
         //启动跑马灯
