@@ -76,7 +76,8 @@ Page({
                 hasPrize: true,
                 pluId: d.plu_id,
                 prizeName: d.prize_name || '',
-                prizeImg: app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now(),
+                //奖品图：优先用后端按"奖品名称"映射表返回的图片，无映射回退旧规则（plu_id.png）
+                prizeImg: d.prize_img || (app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now()),
                 memberCard: d.vip_code || wx.getStorageSync('member_card') || '',
                 tags: d.tags != null ? String(d.tags) : '0'
               });
@@ -223,13 +224,24 @@ Page({
           if (d.errcode === 0 && String(d.tags) === '1') {
             clearInterval(e.data.pollTimer);
             e.data.pollTimer = null;
+            // 核销成功后保持核销前展示的奖品信息，避免后端 prizeinfo 接口返回的
+            // plu_id / prize_img / prize_name 不一致导致“图片和奖品名称不符”
+            var keepPluId = e.data.pluId;
+            var keepPrizeName = e.data.prizeName;
+            var keepPrizeImg = e.data.prizeImg;
+            if (!keepPrizeImg) {
+              keepPrizeImg = d.prize_img || (d.plu_id ? app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now() : '');
+            }
+            if (!keepPrizeName) {
+              keepPrizeName = d.prize_name || '';
+            }
             e.setData({
               showQrcode: false,
               received: true,
               hasPrize: false,
-              pluId: d.plu_id,
-              prizeName: d.prize_name || e.data.prizeName,
-              prizeImg: app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now(),
+              pluId: keepPluId,
+              prizeName: keepPrizeName,
+              prizeImg: keepPrizeImg,
               memberCard: d.vip_code || e.data.memberCard,
               vipName: d.vip_name || '',
               vipLevel: d.vip_level || '',

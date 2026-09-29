@@ -1,12 +1,11 @@
 {
   "pages": [
-    "pages/jiangjr/index",
     "pages/home/index/index",
-
-    "pages/lqjpjr/index/index",
-    "pages/hxjr/index/index",
+    "pages/jiangjr/index",
     "pages/lqjp/index/index",
     "pages/jiang/index",
+    "pages/lqjpjr/index/index",
+    "pages/hxjr/index/index",
     "pages/cxzj/index/index",
     "pages/cxzjjr/index/index",
     "pages/cyjg/index/index",

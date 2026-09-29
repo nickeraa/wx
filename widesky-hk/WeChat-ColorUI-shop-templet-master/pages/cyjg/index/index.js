@@ -42,7 +42,7 @@ Page({
                 hasPrize: true,
                 pluId: d.plu_id,
                 prizeName: d.prize_name || '',
-                prizeImg: app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now(),
+                prizeImg: d.prize_img || (app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now()),
                 tags: d.tags != null ? String(d.tags) : '0'
               });
             } else {

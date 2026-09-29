@@ -48,6 +48,12 @@ Page({
       url: "/pages/scqhdeposit/index/index"
     });
   },
+
+  selectjr: function () {
+    wx.navigateTo({
+      url: "/pages/cxzjjr/index/index"
+    });
+  },
   sqtk: function () {
     wx.navigateTo({
       url: "/pages/sqtkdeposit/index/index"

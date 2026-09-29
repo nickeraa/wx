@@ -574,7 +574,19 @@
             <image src="{{ljimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
         </view>
         <view style="margin-top:-2rem;margin-left:6rem;">
-            <text class="text-black">查询会员领奖信息</text>
+            <text class="text-black">查询企微会员领奖信息</text>
+        </view>
+    </view>
+</view>
+
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg" style="height:5rem;background-color:white;margin-top:0.5rem;">
+    <view bindtap="selectjr" class=" ">
+        <view style="margin-left:1rem;">
+            <image src="{{zyimg}}" style="width:3rem;height:3rem;margin-top:1rem;"></image>
+        </view>
+        <view style="margin-top:-2rem;margin-left:6rem;">
+            <text class="text-black">查询节日会员领奖信息</text>
         </view>
     </view>
 </view>

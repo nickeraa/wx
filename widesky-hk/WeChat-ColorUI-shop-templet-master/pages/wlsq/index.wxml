@@ -73,9 +73,7 @@
             </radio-group>
         </view>
     </view>
-    <view style="margin:5px 5px 5px 5px;">
-        <button bindtap="dr" class="cu-btn round cuIcon-add" style="margin:5px 5px 5px 5px;height:2rem;border-radius: 0.8rem;background-color: white;border:1px solid red;width:95%"> 查询商城客户收货地址</button>
-    </view>
+
     <view class="cu-form-group">
         <view class="title icon-title text-orange">收货人：</view>
         <input bindinput="getshname" class="radius" name="shname" placeholder="请输入收货人" value="{{shname}}"></input>

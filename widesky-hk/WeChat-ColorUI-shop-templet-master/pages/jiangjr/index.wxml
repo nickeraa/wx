@@ -45,9 +45,9 @@
 </view>
 </view>
 </view>
-<!--中秋抽奖规则卡片：三档金额并列 + 底部补充说明-->
+<!--国庆抽奖规则卡片：三档金额并列 + 底部补充说明-->
 <view class="rule-card">
-  <view class="rule-head">中秋抽奖规则 · <text class="rule-head-em">单笔消费</text></view>
+  <view class="rule-head">国庆抽奖规则 · <text class="rule-head-em">当日总消费</text></view>
   <view class="rule-tiers">
     <view class="rule-tier">
       <view class="rule-tier-amt">满1000元</view>

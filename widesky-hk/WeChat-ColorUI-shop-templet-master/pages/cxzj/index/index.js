@@ -52,7 +52,7 @@ Page({
               noPrize: false,
               notReceived: true,
               prizeName: d.prize_name || '',
-              prizeImg: app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now(),
+              prizeImg: d.prize_img || (app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now()),
               memberCard: d.vip_code || card,
               vipName: d.vip_name || '',
               vipLevel: d.vip_level || ''
@@ -65,7 +65,7 @@ Page({
             noPrize: false,
             notReceived: false,
             prizeName: d.prize_name || '',
-            prizeImg: app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now(),
+            prizeImg: d.prize_img || (app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now()),
             memberCard: d.vip_code || card,
             vipName: d.vip_name || '',
             vipLevel: d.vip_level || '',

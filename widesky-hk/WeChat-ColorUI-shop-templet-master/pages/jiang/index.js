@@ -654,9 +654,9 @@ Page({
         }
         // 积分字段为 BONUS（DataTable 序列化列名）
         var bonus = (row && row.BONUS);
-        // 数据集不存在 或 行数为0 或 bonus<=0 → 积分不足，拦截抽奖
-        if (!row || (Array.isArray(rows) && rows.length === 0) || parseFloat(bonus) <= 0 || isNaN(parseFloat(bonus))) {
-          e.showTipModal('提示', '积分为零，暂不能参与抽奖喔');
+        // 数据集不存在 或 行数为0 或 bonus<300 → 积分不足，拦截抽奖
+        if (!row || (Array.isArray(rows) && rows.length === 0) || isNaN(parseFloat(bonus)) || parseFloat(bonus) < 300) {
+          e.showTipModal('提示', '积分满300，才能参与抽奖喔');
           return;
         }
         // 积分正常：继续抽奖

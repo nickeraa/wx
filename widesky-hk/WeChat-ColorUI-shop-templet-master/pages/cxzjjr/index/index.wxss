@@ -212,3 +212,192 @@ page {
   font-size: 24rpx;
   text-align: center;
 }
+
+/* 查询结果：中奖记录列表 */
+.record-vip {
+  width: 100%;
+  padding-bottom: 24rpx;
+  color: #4a2b6b;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.record-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-top: 2rpx solid #f2f2f2;
+}
+.record-img-box {
+  width: 160rpx;
+  height: 160rpx;
+  flex-shrink: 0;
+  border: 4rpx solid #b7d9cf;
+  border-radius: 20rpx;
+  background: #f5fbf9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.record-img {
+  width: 140rpx;
+  height: 140rpx;
+}
+.record-info {
+  flex: 1;
+  margin-left: 24rpx;
+}
+.record-name {
+  color: #333;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+.record-status {
+  display: inline-block;
+  margin-top: 14rpx;
+  padding: 4rpx 20rpx;
+  border-radius: 999rpx;
+  font-size: 24rpx;
+}
+.record-status.todo {
+  color: #ed1c24;
+  background: #fdeceb;
+}
+.record-status.done {
+  color: #0f9d58;
+  background: #e8f7ee;
+}
+.record-time {
+  margin-top: 12rpx;
+  color: #999999;
+  font-size: 24rpx;
+}
+.cert .reset-btn {
+  margin-top: 40rpx;
+}
+/* 记录行内：核销凭证按钮（仅已领取显示） */
+.cert-btn {
+  display: inline-block;
+  margin-top: 16rpx;
+  padding: 8rpx 28rpx;
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 600;
+  background: linear-gradient(45deg, #ff9700, #ed1c24);
+  border-radius: 999rpx;
+  box-shadow: 0 4rpx 12rpx rgba(237, 28, 36, 0.25);
+}
+
+/* 领奖核销凭证弹窗 */
+.cert-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cert-pop {
+  width: 620rpx;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx 36rpx 36rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cert-pop-title {
+  color: #ed1c24;
+  font-size: 40rpx;
+  font-weight: 800;
+  letter-spacing: 4rpx;
+  text-align: center;
+}
+.cert-pop-line {
+  width: 100%;
+  height: 2rpx;
+  background: #eeeeee;
+  margin: 24rpx 0 30rpx;
+}
+.cert-pop-prize-box {
+  width: 280rpx;
+  height: 280rpx;
+  border: 4rpx solid #b7d9cf;
+  border-radius: 24rpx;
+  background: #f5fbf9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cert-pop-prize-img {
+  width: 240rpx;
+  height: 240rpx;
+}
+.cert-pop-prize-name {
+  margin-top: 24rpx;
+  color: #333;
+  font-size: 36rpx;
+  font-weight: 700;
+  text-align: center;
+}
+.cert-pop-rows {
+  width: 100%;
+  margin-top: 10rpx;
+}
+.cert-pop-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 12rpx 0;
+}
+.cert-pop-label {
+  width: 180rpx;
+  flex-shrink: 0;
+  color: #888888;
+  font-size: 28rpx;
+}
+.cert-pop-value {
+  flex: 1;
+  color: #333;
+  font-size: 28rpx;
+  word-break: break-all;
+}
+.cert-pop-tip {
+  margin-top: 30rpx;
+  color: #bbbbbb;
+  font-size: 22rpx;
+  text-align: center;
+}
+.cert-pop-btns {
+  width: 100%;
+  display: flex;
+  margin-top: 36rpx;
+}
+.cert-pop-btn {
+  flex: 1;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 999rpx;
+  padding: 18rpx 0;
+}
+.cert-pop-btn.save {
+  color: #fff;
+  background: linear-gradient(45deg, #ff9700, #ed1c24);
+  margin-right: 20rpx;
+}
+.cert-pop-btn.save.disabled {
+  opacity: 0.6;
+}
+.cert-pop-btn.close {
+  color: #666;
+  border: 2rpx solid #ddd;
+}

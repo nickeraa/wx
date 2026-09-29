@@ -58,7 +58,7 @@ Page({
             alreadyReceived: String(d.tags) === '1',
             pluId: d.plu_id,
             prizeName: d.prize_name || '',
-            prizeImg: app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now(),
+            prizeImg: d.prize_img || (app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now()),
             vipName: d.vip_name || '',
             vipLevel: d.vip_level || ''
           });
