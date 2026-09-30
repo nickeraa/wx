@@ -1,7 +1,7 @@
 const app = getApp();
 const API_BIND = 'https://widesky.work/HKback/qywxbind.ashx'; // 新绑定接口（微信/企微双通道）
 const bg = 'https://widesky.work/HKback/images/cjbg_day.jpg';
-const cjimgDay = 'https://widesky.work/HKback/cjimages_day/'; // 国庆抽奖奖品图目录（区别于原版 cjimages）
+const cjimgDay = 'https://widesky.work/HKback/cjimages_day/'; // 节日抽奖奖品图目录（区别于原版 cjimages）
 //计数器
 var interval = null;
 //值越大旋转时间越长 即旋转速度
@@ -299,7 +299,7 @@ Page({
     userid: '',
     env: '', // wxwork=企业微信环境  wx=微信环境
     bindState: 'pending', // pending | success | fail
-    //国庆抽奖：消费次数（单笔满额获抽奖机会，最多3次）
+    //节日抽奖：消费次数（单笔满额获抽奖机会，最多3次）
     totalChances: 0,    // 该会员可抽总次数（后端 wx_cj_lottery_times 计算）
     remainChances: 0    // 剩余可抽次数（总次数 - 已抽次数）
   },
@@ -492,7 +492,7 @@ Page({
           showChecking: false
         });
         if (d && d.is_expired) {
-          e.showTipModal('提示', d.errmsg || '国庆抽奖活动已结束，谢谢参与！');
+          e.showTipModal('提示', d.errmsg || '节日抽奖活动已结束，谢谢参与！');
           return;
         }
         // 未截止：继续正常核验流程
@@ -681,7 +681,7 @@ Page({
           e.showTipModal('提示', '积分为零，暂不能参与抽奖喔');
           return;
         }
-        // 积分正常：继续查询国庆抽奖消费次数（新增规则）
+        // 积分正常：继续查询节日抽奖消费次数（新增规则）
         e.queryChances(card);
       },
       fail: function () {
@@ -694,7 +694,7 @@ Page({
     });
   },
 
-  // 查询国庆抽奖消费次数（调用后端，后端执行 espos.wx_cj_lottery_times 存储过程）
+  // 查询节日抽奖消费次数（调用后端，后端执行 espos.wx_cj_lottery_times 存储过程）
   // 规则：当日总消费 满1000/2000/3000元 -> 1/2/3次，多笔累加封顶3次
   // 后端返回：total_chances 总次数 / used_chances 已抽次数 / remain_chances 剩余次数
   queryChances: function (card) {
@@ -732,7 +732,7 @@ Page({
               e.showTipModal('提示', '您的抽奖次数已经用完，谢谢参与！');
             } else {
               // 未达消费门槛（当日总消费满1000元才有次数）
-              e.showTipModal('提示', '当日总消费满1000元，才能参与国庆抽奖喔');
+              e.showTipModal('提示', '当日总消费满1000元，才能参与节日抽奖喔');
             }
             return;
           }
@@ -744,7 +744,7 @@ Page({
             totalChances: 0,
             remainChances: 0
           });
-          e.showTipModal('提示', d.errmsg || '当日总消费满1000元，才能参与国庆抽奖喔');
+          e.showTipModal('提示', d.errmsg || '当日总消费满1000元，才能参与节日抽奖喔');
         }
       },
       fail: function () {
@@ -830,7 +830,7 @@ Page({
             return;
           }
 
-          //抽奖次数已用完（-11）：国庆抽奖新增，活动期间最多3次
+          //抽奖次数已用完（-11）：节日抽奖新增，活动期间最多3次
           if (d.errcode === -11) {
             e.recoverBtn();
             e.showTipModal('提示', d.errmsg || '您的抽奖次数已经用完，谢谢参与！');

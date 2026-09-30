@@ -1,5 +1,5 @@
 const app = getApp();
-const cjimgDay = 'https://widesky.work/HKback/cjimages_day/'; // 国庆抽奖奖品图目录
+const cjimgDay = 'https://widesky.work/HKback/cjimages_day/'; // 节日抽奖奖品图目录
 Page({
   data: {
     StatusBar: app.globalData.StatusBar,

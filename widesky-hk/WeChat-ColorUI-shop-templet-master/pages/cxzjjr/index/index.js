@@ -1,5 +1,5 @@
 const app = getApp();
-const cjimgDay = 'https://widesky.work/HKback/cjimages_day/'; // 国庆抽奖奖品图目录
+const cjimgDay = 'https://widesky.work/HKback/cjimages_day/'; // 节日抽奖奖品图目录
 Page({
   data: {
     StatusBar: app.globalData.StatusBar,
@@ -158,7 +158,7 @@ Page({
       ctx.fillStyle = '#ed1c24';
       ctx.font = 'bold 40px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('国庆抽奖领奖凭证', W / 2, 70);
+      ctx.fillText('节日抽奖领奖凭证', W / 2, 70);
 
       // 分隔线
       ctx.strokeStyle = '#eeeeee';

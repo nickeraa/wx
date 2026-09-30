@@ -2,7 +2,7 @@
 <view class="cu-custom" style="height:{{CustomBar}}px;">
   <view class="cu-bar fixed none-bg text-white bg-img" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
     <view bindtap="back" class="action canui-head-title">
-      <text class="icon-back"></text>国庆抽奖领奖查询
+      <text class="icon-back"></text>节日抽奖领奖查询
     </view>
   </view>
 </view>
@@ -20,7 +20,7 @@
 <!-- 未查询：引导 -->
 <view wx:if="{{!searched}}" class="placeholder">
   <image class="placeholder-img" src="/images/nodata.jpg" mode="aspectFit"></image>
-  <view class="placeholder-text">输入会员卡号，查询该会员的国庆抽奖中奖情况</view>
+  <view class="placeholder-text">输入会员卡号，查询该会员的节日抽奖中奖情况</view>
 </view>
 
 <!-- 没有中奖记录 -->
@@ -29,13 +29,13 @@
     <image class="warn-img" src="https://widesky.work/HKback/images/jg.jpg" mode="aspectFit"></image>
   </view>
   <view class="placeholder-title">没有参与抽奖</view>
-  <view class="placeholder-text">该会员没有参与国庆抽奖记录，请核对会员卡号</view>
+  <view class="placeholder-text">该会员没有参与节日抽奖记录，请核对会员卡号</view>
   <view class="reset-btn" bindtap="onReset">重新查询</view>
 </view>
 
 <!-- 查询结果：中奖记录列表 -->
 <view wx:else class="cert">
-  <view class="cert-title">国庆抽奖中奖记录</view>
+  <view class="cert-title">节日抽奖中奖记录</view>
   <view class="cert-line"></view>
 
   <view class="record-vip">
@@ -57,14 +57,14 @@
     </view>
   </view>
 
-  <view class="cert-tip">该会员共 {{records.length}} 条国庆抽奖中奖记录</view>
+  <view class="cert-tip">该会员共 {{records.length}} 条节日抽奖中奖记录</view>
   <view class="reset-btn" bindtap="onReset">重新查询</view>
 </view>
 
 <!-- 领奖核销凭证弹窗 -->
 <view class="cert-mask" wx:if="{{showCert}}" bindtap="onCloseCert">
   <view class="cert-pop" catchtap="">
-    <view class="cert-pop-title">国庆抽奖领奖凭证</view>
+    <view class="cert-pop-title">节日抽奖领奖凭证</view>
     <view class="cert-pop-line"></view>
 
     <view class="cert-pop-prize-box">

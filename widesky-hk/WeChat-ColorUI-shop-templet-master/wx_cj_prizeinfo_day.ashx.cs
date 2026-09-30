@@ -9,7 +9,7 @@ using FineUIPro.EmptyProjectNet40.App_Code;
 namespace FineUIPro.EmptyProjectNet40
 {
     /// <summary>
-    /// 国庆抽奖：按卡号查询中奖信息
+    /// 节日抽奖：按卡号查询中奖信息
     /// 1) 员工查中奖情况（只传卡号，cxzjjr 查询页）：
     ///    wx_cj_prizeinfo_day.ashx?vipcode=卡号
     ///    返回：{"errcode":0,"vip_name":"罗连开","vip_level":"金卡","list":[
