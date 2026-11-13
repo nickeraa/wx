@@ -1,0 +1,6 @@
+.loading-tip {
+  text-align: center;
+  color: #9b8bab;
+  font-size: 28rpx;
+  padding: 80rpx 0;
+}

@@ -1,9 +1,12 @@
 {
   "pages": [
+
     "pages/home/index/index",
-    "pages/jiangjr/index",
-    "pages/lqjp/index/index",
     "pages/jiang/index",
+    
+    "pages/lqjp/index/index",
+  
+    "pages/jiangjr/index",
     "pages/lqjpjr/index/index",
     "pages/hxjr/index/index",
     "pages/cxzj/index/index",
@@ -169,7 +172,11 @@
     "pages/vipsku/index/index",
     "pages/axmcx/index/index",
     "pages/pludetail/index/index",
-    "pages/storedetail/index/index"
+    "pages/storedetail/index/index",
+    "pages/jmjm/create/index",
+    "pages/jmjm/confirm/index",
+    "pages/jmjm/shop/index",
+    "pages/jmjm/webview/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#39b54a",

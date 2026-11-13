@@ -585,22 +585,22 @@ Page({
         });
         // 身份换取异常（-8）
         if (d && d.errcode === -8) {
-          e.showTipModal('提示', d.errmsg || '身份校验异常，请稍后重试');
+          e.showTipModal('提示', '会员卡号 ' + card + '，' + (d.errmsg || '身份校验异常，请稍后重试'));
           return;
         }
         // 员工拦截
         if (d && d.errcode === -9) {
-          e.showTipModal('提示', d.errmsg || '企业员工不能参与抽奖');
+          e.showTipModal('提示', '会员卡号 ' + card + '，' + (d.errmsg || '企业员工不能参与抽奖'));
           return;
         }
         // 客户核验失败
         if (d && d.errcode === -10) {
-          e.showTipModal('提示', d.errmsg || '无法参与抽奖');
+          e.showTipModal('提示', '会员卡号 ' + card + '，' + (d.errmsg || '无法参与抽奖'));
           return;
         }
         // 已参与过（后端第一顺位查重拦截 -6）
         if (d && d.errcode === -6) {
-          e.showTipModal('提示', d.errmsg || '每个会员仅限抽奖1次');
+          e.showTipModal('提示', '会员卡号 ' + card + '，' + (d.errmsg || '每个会员仅限抽奖1次'));
           return;
         }
         // 卡号不存在（-5）：清空输入框并保持输入界面
@@ -611,12 +611,12 @@ Page({
             inputCard: '',
             member_card: ''
           });
-          e.showTipModal('提示', d.errmsg || '您输入的会员卡号不存在，请您检查后再输入');
+          e.showTipModal('提示', '会员卡号 ' + card + '，' + (d.errmsg || '您输入的会员卡号不存在，请您检查后再输入'));
           return;
         }
         // 该卡号已参与过抽奖（-3）
         if (d && d.errcode === -3) {
-          e.showTipModal('提示', d.errmsg || '此会员卡号已经参与过抽奖');
+          e.showTipModal('提示', '会员卡号 ' + card + '，' + (d.errmsg || '此会员卡号已经参与过抽奖'));
           return;
         }
         // 卡号有效且未参与过：查询会员卡积分，积分为0则拦截
@@ -656,7 +656,7 @@ Page({
         var bonus = (row && row.BONUS);
         // 数据集不存在 或 行数为0 或 bonus<300 → 积分不足，拦截抽奖
         if (!row || (Array.isArray(rows) && rows.length === 0) || isNaN(parseFloat(bonus)) || parseFloat(bonus) < 300) {
-          e.showTipModal('提示', '积分满300，才能参与抽奖喔');
+          e.showTipModal('提示', '会员卡号 ' + card + '，积分满300，才能参与抽奖喔');
           return;
         }
         // 积分正常：继续抽奖
@@ -733,35 +733,35 @@ Page({
           //已参与过抽奖（-3）：恢复按钮并提示
           if (d.errcode === -3) {
             e.recoverBtn();
-            e.showTipModal('提示', d.errmsg || '此会员卡号已经参与过抽奖');
+            e.showTipModal('提示', '会员卡号 ' + e.data.member_card + '，' + (d.errmsg || '此会员卡号已经参与过抽奖'));
             return;
           }
 
           //未中奖（-4）：奖品不在内定名单/概率池/礼物表
           if (d.errcode === -4) {
             e.recoverBtn();
-            e.showTipModal('提示', d.errmsg || '很遗憾，本次未中奖');
+            e.showTipModal('提示', '会员卡号 ' + e.data.member_card + '，' + (d.errmsg || '很遗憾，本次未中奖'));
             return;
           }
 
           //卡号不存在（-5）
           if (d.errcode === -5) {
             e.recoverBtn();
-            e.showTipModal('提示', d.errmsg || '会员卡号不存在或输入错误');
+            e.showTipModal('提示', '会员卡号 ' + e.data.member_card + '，' + (d.errmsg || '会员卡号不存在或输入错误'));
             return;
           }
 
           //操作太频繁（-7）：频率限制拦截
           if (d.errcode === -7) {
             e.recoverBtn();
-            e.showTipModal('提示', d.errmsg || '操作太频繁，请稍后再试');
+            e.showTipModal('提示', '会员卡号 ' + e.data.member_card + '，' + (d.errmsg || '操作太频繁，请稍后再试'));
             return;
           }
 
           //其他错误统一拦截（-1缺code/-2缺卡号/-8系统繁忙等）：防止错误响应误入中奖动画
           if (d && d.errcode && d.errcode !== 0) {
             e.recoverBtn();
-            e.showTipModal('提示', d.errmsg || '系统繁忙，请稍后重试');
+            e.showTipModal('提示', '会员卡号 ' + e.data.member_card + '，' + (d.errmsg || '系统繁忙，请稍后重试'));
             return;
           }
 
@@ -770,7 +770,7 @@ Page({
           if (!d || typeof d !== 'object' || d.errcode !== 0 || d.position === undefined || d.position === null || d.position === '') {
             e.reportDrawError('bad_response', res);   //留痕：记录中间层返回的原始内容
             e.recoverBtn();
-            e.showTipModal('提示', '抽奖结果获取异常，请稍后重试');
+            e.showTipModal('提示', '会员卡号 ' + e.data.member_card + '，抽奖结果获取异常，请稍后重试');
             return;
           }
 
@@ -780,7 +780,7 @@ Page({
           //中奖位置非法视为响应异常，不兜底播放动画（原兜底位置5会造成"假中奖"）
           e.reportDrawError('bad_position', res);
           e.recoverBtn();
-          e.showTipModal('提示', '抽奖结果异常，请稍后重试');
+          e.showTipModal('提示', '会员卡号 ' + e.data.member_card + '，抽奖结果异常，请稍后重试');
           return;
         }
         console.warn(luckPosition)

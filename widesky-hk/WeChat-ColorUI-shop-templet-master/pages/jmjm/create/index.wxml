@@ -1,0 +1,114 @@
+<!-- 自定义导航栏（渐变金棕，同抽奖体系） -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="jm-bar fixed" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class="jm-bar-back" bindtap="goBack">‹</view>
+    <view class="jm-bar-title">金银币寄卖</view>
+    <view class="jm-bar-right">{{userid}}</view>
+  </view>
+</view>
+
+<view class="jm-page">
+
+  <!-- 员工店铺信息 -->
+  <view class="shop-info" wx:if="{{shopNo || shopName}}">
+    <text class="shop-info-label">所属店铺</text>
+    <text class="shop-info-value">{{shopNo}} {{shopName}}</text>
+  </view>
+
+  <!-- 货品列表（一单多货品）：仅开单视图显示 -->
+  <block wx:if="{{!onlyList}}">
+  <view class="jm-card" wx:for="{{goodsList}}" wx:key="index" wx:for-item="item" wx:for-index="gi">
+    <view class="goods-head">
+      <view class="jm-card-title no-mb">货品 {{gi + 1}}</view>
+      <view wx:if="{{goodsList.length > 1}}" class="goods-del" data-index="{{gi}}" bindtap="removeGoods">删除</view>
+    </view>
+
+    <!-- 货品信息 -->
+    <view class="form-row">
+      <text class="form-label">货品名称</text>
+      <input class="form-input" placeholder="如：2022年熊猫金币" value="{{item.goodsName}}" data-index="{{gi}}" bindinput="onGoodsName" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">寄售价格</text>
+      <input class="form-input" type="digit" placeholder="0.00" value="{{item.price}}" data-index="{{gi}}" bindinput="onPrice" />
+      <text class="form-unit">元</text>
+    </view>
+    <view class="form-row last">
+      <text class="form-label">寄售数量</text>
+      <view class="stepper">
+        <view class="step-btn" data-index="{{gi}}" bindtap="qtyMinus">−</view>
+        <input class="step-input" type="number" value="{{item.qty}}" data-index="{{gi}}" bindinput="onQty" />
+        <view class="step-btn" data-index="{{gi}}" bindtap="qtyPlus">＋</view>
+      </view>
+    </view>
+
+    <!-- 货品照片（每个货品至少3张） -->
+    <view class="photo-area">
+      <view class="photo-grid">
+        <view class="photo-cell" wx:for="{{item.imgs}}" wx:key="temp" wx:for-item="p" wx:for-index="pi">
+          <image class="photo-img" src="{{p.url || p.temp}}" mode="aspectFill" data-index="{{gi}}" data-pindex="{{pi}}" bindtap="previewPhoto"></image>
+          <view wx:if="{{!p.url}}" class="photo-mask">上传中</view>
+          <view class="photo-del" data-index="{{gi}}" data-pindex="{{pi}}" catchtap="removePhoto">×</view>
+        </view>
+        <view wx:if="{{item.imgs.length < maxPhotos}}" class="photo-cell photo-add" data-index="{{gi}}" bindtap="choosePhoto">
+          <view class="photo-add-icon">＋</view>
+          <view class="photo-add-tip">拍照</view>
+        </view>
+      </view>
+      <view class="photo-tip-line {{item.imgs.length < minPhotos ? 'warn' : ''}}">
+        照片 {{item.imgs.length}}/{{maxPhotos}} 张（{{item.imgs.length >= maxPhotos ? '已满' : '还需 ' + (maxPhotos - item.imgs.length) + ' 张'}}）
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加货品 -->
+  <view class="add-goods" bindtap="addGoods">＋ 添加货品</view>
+
+  <!-- 汇总 + 提交 -->
+  <view class="jm-card">
+    <view class="form-row">
+      <text class="form-label">备注</text>
+      <input class="form-input" placeholder="选填，补充信息" value="{{remark}}" bindinput="onRemark" />
+    </view>
+    <view class="total-row">
+      <text class="total-label">共 {{validCount}} 件货品 · 合计数量 {{totalQty}}</text>
+      <text class="total-price">¥{{totalPrice}}</text>
+    </view>
+    <view class="submit-btn {{submitting ? 'disabled' : ''}}" bindtap="submitOrder">
+      {{submitting ? '正在创建寄卖单...' : '生成寄卖单并出示二维码'}}
+    </view>
+  </view>
+  </block>
+
+  <!-- 我的寄卖单：仅在 ?view=list 入口显示 -->
+  <view class="jm-card" wx:if="{{onlyList}}">
+    <view class="goods-head">
+      <view class="jm-card-title">我的寄卖单</view>
+      <view class="goods-del" bindtap="showCreateView">＋ 新开寄卖单</view>
+    </view>
+    <view wx:if="{{orders.length === 0 && ordersLoaded}}" class="empty-tip">暂无寄卖单</view>
+    <view wx:for="{{orders}}" wx:key="order_no" class="order-item" data-index="{{index}}" bindtap="showOrderQrcode">
+      <image wx:if="{{item.img_url}}" class="order-img" src="{{item.img_url}}" mode="aspectFill"></image>
+      <view wx:else class="order-img order-img-empty">无图</view>
+      <view class="order-info">
+        <view class="order-goods">{{item.goods_name}}</view>
+        <view class="order-meta">合计 ¥{{item.price}} × {{item.qty}}　{{item.create_time}}</view>
+        <view wx:if="{{item.cust_name}}" class="order-meta">客户：{{item.cust_name}}</view>
+        <view wx:if="{{item.remark}}" class="order-meta">备注：{{item.remark}}</view>
+      </view>
+      <view class="order-status {{item.statusClass}}">{{item.statusText}}</view>
+    </view>
+  </view>
+
+</view>
+
+<!-- 二维码弹窗 -->
+<view class="qrcode-mask {{showQrcode ? 'show' : ''}}" bindtap="closeQrcode">
+  <view class="qrcode-dialog" catchtap="noop">
+    <view class="qrcode-title">寄卖单二维码</view>
+    <view class="qrcode-no">{{qrcodeOrderNo}}</view>
+    <image class="qrcode-img" src="{{qrcodeImg}}" mode="aspectFit" bindtap="previewQrcode"></image>
+    <view class="qrcode-tip">请客户使用微信扫码\n确认寄卖信息并签署电子合同</view>
+    <view class="qrcode-close" bindtap="closeQrcode">关闭</view>
+  </view>
+</view>

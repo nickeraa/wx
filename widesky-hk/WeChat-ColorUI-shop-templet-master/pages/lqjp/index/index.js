@@ -14,6 +14,8 @@ Page({
     prizeName: '',
     prizeImg: '',
     tags: '',             // 领取状态：0=待领取 1=已领取
+    expired: false,       // 兑奖已过期：抽奖日距今超过60天（后端 expired=1 或按 cj_time 计算）
+    expireMsg: '',        // 过期提示文案（后端返回，默认"已过期，兑奖有效期为60天"）
     // 会员信息
     vipcode: '',          // 会员卡号（二维码接口返回，轮询核销状态用）
     memberCard: '',       // 会员卡号（展示用）
@@ -71,6 +73,19 @@ Page({
           success: function (res) {
             var d = res.data || {};
             if (d.errcode === 0) {
+              // 兑奖有效期校验：抽奖日（cj_time）起 60 天内才能核销领奖，已领取的记录不做过期判定
+              // 优先用后端 expired 标志；后端未返回时用 cj_time 本地兜底计算
+              var tags = d.tags != null ? String(d.tags) : '0';
+              var isExpired = false;
+              if (tags !== '1') {
+                if (d.expired === 1 || d.expired === true || d.expired === '1') {
+                  isExpired = true;
+                } else if (d.cj_time) {
+                  // iOS 不支持 "yyyy-MM-dd HH:mm:ss"，需转成 "/" 分隔
+                  var cjTs = new Date(String(d.cj_time).replace(/-/g, '/')).getTime();
+                  if (!isNaN(cjTs)) isExpired = (Date.now() - cjTs) > 60 * 24 * 3600 * 1000;
+                }
+              }
               e.setData({
                 prizeLoaded: true,
                 hasPrize: true,
@@ -79,7 +94,9 @@ Page({
                 //奖品图：优先用后端按"奖品名称"映射表返回的图片，无映射回退旧规则（plu_id.png）
                 prizeImg: d.prize_img || (app.globalData.cjimg + d.plu_id + '.png?t=' + Date.now()),
                 memberCard: d.vip_code || wx.getStorageSync('member_card') || '',
-                tags: d.tags != null ? String(d.tags) : '0'
+                tags: tags,
+                expired: isExpired,
+                expireMsg: d.expire_msg || '已过期，兑奖有效期为60天'
               });
             } else {
               e.setData({
@@ -109,6 +126,14 @@ Page({
   // 客户点击立即领取：先做企微好友核验（核销方式不变：客户微信code + 好友验证）→ 核验成功返回卡号 → 生成带卡号参数的核销二维码
   onReceive: function () {
     var e = this;
+    // 兑奖有效期拦截：抽奖日距今超过60天，不允许进入核销领奖流程
+    if (e.data.expired) {
+      e.setData({
+        showModal: true,
+        modalMsg: e.data.expireMsg || '已过期，兑奖有效期为60天'
+      });
+      return;
+    }
     if (e.data.qrcodeLoading) return;
     e.setData({ qrcodeLoading: true });
     wx.login({
@@ -125,6 +150,15 @@ Page({
               // 核验通过，拿到会员卡号，生成二维码
               e.setData({ memberCard: d.vip_code });
               e.genQrcode(d.vip_code);
+            } else if (d.errcode === -14 || d.expired === 1) {
+              // 兑奖已过期（后端 wx_cj_receive.ashx 防绕过拦截）：同步状态，弹窗提示
+              e.setData({
+                showModal: true,
+                modalMsg: d.errmsg || '已过期，兑奖有效期为60天',
+                qrcodeLoading: false,
+                expired: true,
+                expireMsg: d.errmsg || '已过期，兑奖有效期为60天'
+              });
             } else if (d.errcode === -10) {
               // 企微好友核验未通过：弹窗提示，不进入兑奖
               e.setData({

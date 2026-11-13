@@ -963,6 +963,66 @@ cxjpg()
       url: "/pages/acxpech/index/index"
     });
   },
+  // 金银币寄卖开单（需先登录在职员工）
+  goJmjm: function () {
+    var userid = (wx.getStorageSync("userid") || "").trim();
+    if (!userid) {
+      wx.showModal({
+        title: "提示",
+        content: "请您验证用户，必须是在职状态才能操作",
+        showCancel: !1,
+        success: function (e) {
+          e.confirm && wx.navigateTo({
+            url: "/pages/coupon/index/index"
+          });
+        },
+      });
+      return;
+    }
+    wx.navigateTo({
+      url: "/pages/jmjm/create/index"
+    });
+  },
+  // 我的寄卖单（需先登录在职员工）：进入寄卖页并只显示寄卖单列表
+  goJmjmOrders: function () {
+    var userid = (wx.getStorageSync("userid") || "").trim();
+    if (!userid) {
+      wx.showModal({
+        title: "提示",
+        content: "请您验证用户，必须是在职状态才能操作",
+        showCancel: !1,
+        success: function (e) {
+          e.confirm && wx.navigateTo({
+            url: "/pages/coupon/index/index"
+          });
+        },
+      });
+      return;
+    }
+    wx.navigateTo({
+      url: "/pages/jmjm/create/index?view=list"
+    });
+  },
+  // 店铺设定（员工自选归属店铺）
+  goJmjmShop: function () {
+    var userid = (wx.getStorageSync("userid") || "").trim();
+    if (!userid) {
+      wx.showModal({
+        title: "提示",
+        content: "请您验证用户，必须是在职状态才能操作",
+        showCancel: !1,
+        success: function (e) {
+          e.confirm && wx.navigateTo({
+            url: "/pages/coupon/index/index"
+          });
+        },
+      });
+      return;
+    }
+    wx.navigateTo({
+      url: "/pages/jmjm/shop/index"
+    });
+  },
   newvip: function () {
     wx.navigateToMiniProgram({
       appId: "wx187fe5b10e271c63",

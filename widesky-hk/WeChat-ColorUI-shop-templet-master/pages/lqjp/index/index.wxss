@@ -255,6 +255,18 @@ page {
   padding: 24rpx 0;
   border: 2rpx solid #2ee56c;
 }
+/* 兑奖已过期提示（红色，区别于已领取的绿色） */
+.expired-tip {
+  width: 400rpx;
+  text-align: center;
+  color: #e64340;
+  font-size: 36rpx;
+  font-weight: 700;
+  letter-spacing: 4rpx;
+  border-radius: 999rpx;
+  padding: 24rpx 0;
+  border: 2rpx solid #e64340;
+}
 
 /* 领取成功 */
 .recv-wrap {

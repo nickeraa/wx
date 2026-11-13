@@ -1,0 +1,110 @@
+<!-- 自定义导航栏 -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="jm-bar fixed" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class="jm-bar-back"></view>
+    <view class="jm-bar-title">寄卖确认</view>
+    <view class="jm-bar-right">{{orderNo}}</view>
+  </view>
+</view>
+
+<view class="jm-page">
+
+  <!-- 加载中 -->
+  <view wx:if="{{!loaded}}" class="loading-tip">正在加载寄卖信息...</view>
+
+  <!-- 单据不存在 -->
+  <view wx:elif="{{!info}}" class="jm-card">
+    <view class="empty-tip">寄卖单不存在，请核对二维码后重新扫码</view>
+  </view>
+
+  <block wx:else>
+
+    <!-- 已签署成功 -->
+    <block wx:if="{{info.status === 2}}">
+      <view class="jm-card done-card">
+        <view class="done-icon">✓</view>
+        <view class="done-title">电子合同已签署完成</view>
+        <view class="done-sub">{{info.goods_name}} · ¥{{info.price}} × {{info.qty}}</view>
+      </view>
+    </block>
+
+    <!-- 签署失败 -->
+    <block wx:elif="{{info.status === 9}}">
+      <view class="jm-card">
+        <view class="fail-title">签署未完成</view>
+        <view class="fail-sub">{{info.fail_msg || '合同未签署成功，可重新发起'}}</view>
+        <view class="submit-btn" bindtap="reSign">重新填写并签署</view>
+      </view>
+    </block>
+
+    <!-- 待客户填写 / 待签署（均可重新填写提交，提交后重新发起电子签流程）：货品信息 + 客户表单 -->
+    <block wx:else>
+      <!-- 货品信息卡（一单多货品） -->
+      <view class="jm-card">
+        <view class="jm-card-title">寄卖货品（{{info.goods_items.length}} 件）</view>
+
+        <view class="item-card" wx:for="{{info.goods_items}}" wx:key="seq" wx:for-item="g">
+          <view class="item-imgs">
+            <image wx:for="{{g.imgs}}" wx:key="*this" wx:for-item="iu" wx:for-index="ii"
+                   class="item-img-sm" src="{{iu}}" mode="aspectFill"
+                   data-imgs="{{g.imgs}}" data-cur="{{ii}}" bindtap="previewImgs"></image>
+            <view wx:if="{{!g.imgs.length}}" class="item-img-sm item-img-empty">无图</view>
+          </view>
+          <view class="item-info">
+            <view class="item-name">{{g.seq}}. {{g.goods_name}}</view>
+            <view class="item-meta">¥{{g.price}} × {{g.qty}}</view>
+            <view class="item-img-count" wx:if="{{g.imgs.length > 1}}">{{g.imgs.length}} 张照片，点击查看</view>
+          </view>
+        </view>
+
+        <view class="goods-total">
+          <text class="goods-total-label">合计</text>
+          <text class="goods-total-price">¥{{info.price}}</text>
+          <text class="goods-total-qty">共 {{info.qty}} 件</text>
+        </view>
+        <view class="goods-date">开单日期：{{info.create_time}}</view>
+      </view>
+
+      <!-- 客户信息表单 -->
+      <view class="jm-card">
+        <view class="jm-card-title">客户信息</view>
+        <view class="form-row" id="row-name">
+          <text class="form-label">姓名</text>
+          <input class="form-input" placeholder="请输入姓名" value="{{custName}}" bindinput="onName" />
+        </view>
+        <view class="form-row" id="row-phone">
+          <text class="form-label">联系电话</text>
+          <input class="form-input" type="number" maxlength="11" placeholder="请输入11位手机号" value="{{custPhone}}" bindinput="onPhone" />
+        </view>
+        <view class="form-row" id="row-idcard">
+          <text class="form-label">身份证号</text>
+          <input class="form-input" placeholder="请输入身份证号" value="{{custIdcard}}" bindinput="onIdcard" />
+        </view>
+        <view class="form-row" id="row-addr">
+          <text class="form-label">联系地址</text>
+          <input class="form-input" placeholder="请输入联系地址" value="{{custAddr}}" bindinput="onAddr" />
+        </view>
+        <view class="form-section">收款账户（用于收取寄卖货款）</view>
+        <view class="form-row" id="row-bankuser">
+          <text class="form-label">开户人</text>
+          <input class="form-input" placeholder="请输入开户人姓名" value="{{bankUser}}" bindinput="onBankUser" />
+        </view>
+        <view class="form-row" id="row-bankname">
+          <text class="form-label">开户行</text>
+          <input class="form-input" placeholder="如：中国工商银行××支行" value="{{bankName}}" bindinput="onBankName" />
+        </view>
+        <view class="form-row" id="row-bankacct">
+          <text class="form-label">银行卡号</text>
+          <input class="form-input" type="number" maxlength="30" placeholder="请输入银行卡号" value="{{bankAcct}}" bindinput="onBankAcct" />
+        </view>
+        <view wx:if="{{formErr}}" class="form-err">{{formErr}}</view>
+        <view class="submit-btn {{signing ? 'disabled' : ''}}" bindtap="submitSign">
+          {{signing ? '正在发起签署...' : '签署电子合同'}}
+        </view>
+        <view class="sign-note">签署由腾讯电子签提供，信息仅用于本合同</view>
+      </view>
+    </block>
+
+  </block>
+
+</view>

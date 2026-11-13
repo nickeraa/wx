@@ -39,6 +39,7 @@ Page({
       data: { vipcode: card },
       dataType: 'json',
       success: function (res) {
+        console.warn(res.data)
         wx.hideLoading();
         var d = res.data || {};
         if (d.errcode === 0) {

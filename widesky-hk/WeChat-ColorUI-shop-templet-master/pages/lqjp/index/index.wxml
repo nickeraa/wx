@@ -84,7 +84,9 @@
     <view class="fly-title">恭喜您中奖！</view>
     <image class="prize-show-img" src="{{prizeImg}}" mode="aspectFit"></image>
     <view class="prize-name">{{prizeName}}</view>
-    <view class="receive-btn" bindtap="onReceive">{{qrcodeLoading?'正在生成二维码...':'立即领取'}}</view>
+    <!-- 兑奖已过期：抽奖日距今超过60天，隐藏领取按钮并提示 -->
+    <view wx:if="{{expired}}" class="expired-tip">{{expireMsg || '已过期，兑奖有效期为60天'}}</view>
+    <view wx:else class="receive-btn" bindtap="onReceive">{{qrcodeLoading?'正在生成二维码...':'立即领取'}}</view>
   </block>
 
 </view>

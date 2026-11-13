@@ -1,0 +1,422 @@
+/* ============ 金银币寄卖·员工开单页 ============ */
+page {
+  background: #f1f1f1;
+}
+
+/* 顶部导航（渐变金棕） */
+.jm-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  display: flex;
+  align-items: flex-end;
+  background: linear-gradient(45deg, #b8860b, #ff9700);
+  color: #fff;
+  box-shadow: 0 4rpx 16rpx rgba(184, 134, 11, 0.35);
+}
+.jm-bar-back {
+  width: 80rpx;
+  text-align: center;
+  font-size: 44rpx;
+  line-height: 90rpx;
+}
+.jm-bar-title {
+  flex: 1;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 700;
+  line-height: 90rpx;
+}
+.jm-bar-right {
+  width: 110rpx;
+  text-align: center;
+  font-size: 24rpx;
+  opacity: 0.9;
+  line-height: 90rpx;
+}
+
+.jm-page {
+  padding: 24rpx 24rpx 60rpx;
+}
+
+/* 内容卡片 */
+.jm-card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(61, 43, 82, 0.08);
+}
+.jm-card-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #3d2b52;
+  margin-bottom: 24rpx;
+  padding-left: 18rpx;
+  border-left: 6rpx solid #b8860b;
+}
+
+/* 拍照上传区 */
+/* 货品照片网格（每货品至少3张） */
+.photo-area {
+  margin-top: 24rpx;
+}
+.photo-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.photo-cell {
+  position: relative;
+  width: 200rpx;
+  height: 200rpx;
+  margin-right: 16rpx;
+  margin-bottom: 16rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  background: #faf8fd;
+}
+.photo-cell:nth-child(3n) {
+  margin-right: 0;
+}
+.photo-img {
+  width: 100%;
+  height: 100%;
+}
+.photo-add {
+  border: 3rpx dashed #b8860b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.photo-add-icon {
+  font-size: 48rpx;
+  color: #b8860b;
+  line-height: 1;
+}
+.photo-add-tip {
+  font-size: 22rpx;
+  color: #b8860b;
+  margin-top: 8rpx;
+}
+.photo-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo-del {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44rpx;
+  height: 44rpx;
+  line-height: 40rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  border-bottom-left-radius: 16rpx;
+}
+.photo-tip-line {
+  font-size: 24rpx;
+  color: #9b8bab;
+  margin-bottom: 4rpx;
+}
+.photo-tip-line.warn {
+  color: #e64340;
+}
+
+/* 表单 */
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 22rpx 0;
+  border-bottom: 1rpx solid #f0ede8;
+}
+.form-label {
+  width: 170rpx;
+  font-size: 30rpx;
+  color: #3d2b52;
+  font-weight: 600;
+}
+.form-input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #4a2b6b;
+  text-align: right;
+}
+.form-unit {
+  margin-left: 10rpx;
+  font-size: 28rpx;
+  color: #9b8bab;
+}
+
+/* 数量步进器 */
+.stepper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.step-btn {
+  width: 64rpx;
+  height: 64rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 36rpx;
+  color: #b8860b;
+  border: 2rpx solid #b8860b;
+  border-radius: 12rpx;
+  background: #fff;
+}
+.step-input {
+  width: 100rpx;
+  height: 64rpx;
+  text-align: center;
+  font-size: 32rpx;
+  margin: 0 12rpx;
+  border: 1rpx solid #eee;
+  border-radius: 12rpx;
+}
+
+/* 提交按钮 */
+.submit-btn {
+  margin-top: 32rpx;
+  height: 92rpx;
+  line-height: 92rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+  background: linear-gradient(45deg, #b8860b, #ff9700);
+  border-radius: 999rpx;
+  box-shadow: 0 8rpx 20rpx rgba(184, 134, 11, 0.4);
+}
+.submit-btn.disabled {
+  opacity: 0.6;
+}
+
+/* 列表 */
+.empty-tip {
+  text-align: center;
+  color: #9b8bab;
+  font-size: 28rpx;
+  padding: 40rpx 0;
+}
+.order-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0ede8;
+}
+.order-item:last-child {
+  border-bottom: none;
+}
+.order-img {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 12rpx;
+  flex-shrink: 0;
+}
+.order-img-empty {
+  background: #faf8fd;
+  color: #9b8bab;
+  font-size: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.order-info {
+  flex: 1;
+  margin-left: 20rpx;
+  overflow: hidden;
+}
+.order-goods {
+  font-size: 30rpx;
+  color: #3d2b52;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.order-meta {
+  font-size: 24rpx;
+  color: #9b8bab;
+  margin-top: 8rpx;
+}
+.order-status {
+  flex-shrink: 0;
+  margin-left: 16rpx;
+  font-size: 22rpx;
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+}
+.st-wait {
+  color: #b8860b;
+  border: 1rpx solid #b8860b;
+  background: #fffaf0;
+}
+.st-signing {
+  color: #ff9700;
+  border: 1rpx solid #ff9700;
+  background: #fff8ee;
+}
+.st-done {
+  color: #ffffff;
+  border: 1rpx solid #0aab52;
+  background: #0aab52;
+  font-weight: 700;
+  font-size: 30rpx;
+  padding: 14rpx 34rpx;
+}
+.st-fail {
+  color: #e64340;
+  border: 1rpx solid #e64340;
+  background: #fff2f1;
+}
+.st-retry {
+  color: #1aad19;
+  border: 1rpx solid #1aad19;
+  background: #f2fbf2;
+}
+
+/* 二维码弹窗 */
+.qrcode-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.qrcode-mask.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.qrcode-dialog {
+  width: 560rpx;
+  background: #fff;
+  border: 4rpx solid #b8860b;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  text-align: center;
+}
+.qrcode-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #3d2b52;
+}
+.qrcode-no {
+  font-size: 26rpx;
+  color: #b8860b;
+  margin-top: 8rpx;
+  letter-spacing: 2rpx;
+}
+.qrcode-img {
+  width: 400rpx;
+  height: 400rpx;
+  margin: 30rpx auto;
+  display: block;
+}
+.qrcode-tip {
+  font-size: 26rpx;
+  color: #9b8bab;
+  white-space: pre-line;
+  line-height: 1.7;
+}
+.qrcode-close {
+  margin-top: 30rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  color: #b8860b;
+  font-size: 30rpx;
+  border: 2rpx solid #b8860b;
+  border-radius: 999rpx;
+}
+
+/* ============ 多货品相关 ============ */
+.goods-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+.goods-head .jm-card-title {
+  margin-bottom: 0;
+}
+.goods-del {
+  font-size: 24rpx;
+  color: #e64340;
+  padding: 6rpx 20rpx;
+  border: 1rpx solid #e64340;
+  border-radius: 999rpx;
+}
+.form-row.last {
+  border-bottom: none;
+}
+.add-goods {
+  height: 96rpx;
+  line-height: 96rpx;
+  text-align: center;
+  color: #b8860b;
+  font-size: 30rpx;
+  font-weight: 600;
+  border: 3rpx dashed #b8860b;
+  border-radius: 20rpx;
+  background: #fffaf0;
+  margin-bottom: 24rpx;
+}
+.total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rpx 0 8rpx;
+}
+.total-label {
+  font-size: 26rpx;
+  color: #9b8bab;
+}
+.total-price {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #b8860b;
+}
+
+/* 员工店铺信息条 */
+.shop-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+  padding: 18rpx 24rpx;
+  background: #fff7e8;
+  border-radius: 12rpx;
+}
+.shop-info-label {
+  font-size: 26rpx;
+  color: #b8860b;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+.shop-info-value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 700;
+}

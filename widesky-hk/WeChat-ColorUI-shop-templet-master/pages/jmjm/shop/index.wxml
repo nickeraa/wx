@@ -1,0 +1,44 @@
+<!-- 自定义导航栏 -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="jm-bar fixed" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class="jm-bar-back" bindtap="goBack">‹</view>
+    <view class="jm-bar-title">店铺设定</view>
+    <view class="jm-bar-right">{{userid}}</view>
+  </view>
+</view>
+
+<view class="shop-page">
+
+  <!-- 当前归属 -->
+  <view class="shop-current" wx:if="{{currentNo}}">
+    <text class="shop-current-label">当前归属</text>
+    <text class="shop-current-value">{{currentNo}} {{currentName}}</text>
+  </view>
+
+  <!-- 店铺列表 -->
+  <!-- 加载进度条 -->
+  <view class="shop-loading" wx:if="{{loading}}">
+    <view class="shop-loading-bar"></view>
+    <view class="shop-loading-tip">正在加载店铺数据...</view>
+  </view>
+
+  <view class="shop-list" wx:else>
+    <view class="shop-item {{selected === item.shop_no ? 'active' : ''}}"
+          wx:for="{{shops}}" wx:key="shop_no"
+          data-no="{{item.shop_no}}" data-name="{{item.shop_name}}"
+          bindtap="selectShop">
+      <view class="shop-item-main">
+        <text class="shop-item-no">{{item.shop_no}}</text>
+        <text class="shop-item-name">{{item.shop_name}}</text>
+      </view>
+      <text wx:if="{{selected === item.shop_no}}" class="shop-check">✓</text>
+    </view>
+    <view wx:if="{{shops.length === 0 && shopsLoaded}}" class="shop-empty">暂无店铺数据</view>
+  </view>
+
+  <!-- 确认 -->
+  <view class="shop-save {{saving ? 'disabled' : ''}}" bindtap="saveShop">
+    {{saving ? '正在保存...' : '确认设定'}}
+  </view>
+
+</view>

@@ -1,6 +1,6 @@
 {
   "pages": [
-
+    "pages/acxpexl/index/index",
     "pages/home/index/index",
     "pages/userliveyg/index/index",
    
@@ -16,7 +16,7 @@
     "pages/wxloginzbs/index",
     "pages/getuserprofile/index/index",
     "pages/relogin/index",
-    "pages/acxpexl/index/index",
+
     "pages/user/index/index",
     "pages/hofman/goods/index",
     "pages/shopcghfm/goods/index",
