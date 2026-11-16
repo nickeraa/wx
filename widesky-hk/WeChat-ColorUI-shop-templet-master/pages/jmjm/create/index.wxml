@@ -9,8 +9,8 @@
 
 <view class="jm-page">
 
-  <!-- 员工店铺信息 -->
-  <view class="shop-info" wx:if="{{shopNo || shopName}}">
+  <!-- 员工店铺信息（仅开单视图显示） -->
+  <view class="shop-info" wx:if="{{!onlyList && (shopNo || shopName)}}">
     <text class="shop-info-label">所属店铺</text>
     <text class="shop-info-value">{{shopNo}} {{shopName}}</text>
   </view>
@@ -84,7 +84,6 @@
   <view class="jm-card" wx:if="{{onlyList}}">
     <view class="goods-head">
       <view class="jm-card-title">我的寄卖单</view>
-      <view class="goods-del" bindtap="showCreateView">＋ 新开寄卖单</view>
     </view>
     <view wx:if="{{orders.length === 0 && ordersLoaded}}" class="empty-tip">暂无寄卖单</view>
     <view wx:for="{{orders}}" wx:key="order_no" class="order-item" data-index="{{index}}" bindtap="showOrderQrcode">
@@ -96,7 +95,7 @@
         <view wx:if="{{item.cust_name}}" class="order-meta">客户：{{item.cust_name}}</view>
         <view wx:if="{{item.remark}}" class="order-meta">备注：{{item.remark}}</view>
       </view>
-      <view class="order-status {{item.statusClass}}">{{item.statusText}}</view>
+      <view class="order-status {{item.statusClass}}" catchtap="showOrderDetail" data-no="{{item.order_no}}">{{item.statusText}}</view>
     </view>
   </view>
 

@@ -1,0 +1,46 @@
+<view class="detail-page">
+
+  <view wx:if="{{!loaded}}" class="detail-loading">正在查询签署信息...</view>
+
+  <view wx:elif="{{!info}}" class="detail-loading">
+    <view>查询失败，请稍后重试</view>
+    <view class="detail-retry" bindtap="retry">重新查询</view>
+  </view>
+
+  <block wx:elif="{{info}}">
+    <view class="detail-card">
+      <view class="detail-no">{{info.order_no}}</view>
+
+      <view class="detail-cust">
+        <view class="detail-row">
+          <text class="detail-label">客户姓名</text>
+          <text class="detail-value">{{info.cust_name}}</text>
+        </view>
+        <view class="detail-row">
+          <text class="detail-label">联系电话</text>
+          <text class="detail-value">{{info.cust_phone}}</text>
+        </view>
+        <view class="detail-row">
+          <text class="detail-label">签署时间</text>
+          <text class="detail-value">{{info.sign_time}}</text>
+        </view>
+      </view>
+
+      <view class="detail-goods-list">
+        <view class="detail-goods-title">寄卖货品（共 {{info.items.length}} 件）</view>
+        <view class="detail-goods-item" wx:for="{{info.items}}" wx:key="seq">
+          <image wx:if="{{item.img_url}}" class="dg-img" src="{{item.img_url}}" mode="aspectFill"
+                 data-index="{{index}}" bindtap="previewImg"></image>
+          <view class="dg-body">
+            <view class="dg-line1">
+              <text class="dg-name">{{item.goods_name}}</text>
+              <text class="dg-price">¥{{item.price}} × {{item.qty}}</text>
+            </view>
+            <view class="dg-line2">货号：{{item.plu || '未录入'}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+</view>

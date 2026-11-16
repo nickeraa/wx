@@ -86,11 +86,6 @@ Page({
     if (this.data.userid && this.data.onlyList) this.loadOrders();
   },
 
-  // 列表视图切回开单视图
-  showCreateView: function () {
-    this.setData({ onlyList: false });
-  },
-
   // 整单备注
   onRemark: function (ev) {
     this.setData({ remark: ev.detail.value });
@@ -470,6 +465,25 @@ Page({
   },
   closeQrcode: function () {
     this.setData({ showQrcode: false });
+  },
+
+  // ==================== 签署详情 ====================
+  // 点击状态标签：已签署单跳转签署详情页（货号/名称/数量/价格/客户/电话/图片）
+  showOrderDetail: function (ev) {
+    var e = this;
+    var no = ev.currentTarget.dataset.no;
+    var order = null;
+    for (var i = 0; i < e.data.orders.length; i++) {
+      if (e.data.orders[i].order_no === no) { order = e.data.orders[i]; break; }
+    }
+    if (!order) return;
+    if (order.status !== 2) {
+      wx.showToast({ title: '待客户签署完成后可查看', icon: 'none' });
+      return;
+    }
+    wx.navigateTo({
+      url: '/pages/jmjm/detail/index?no=' + no
+    });
   },
 
   // ==================== 我的寄卖单 ====================

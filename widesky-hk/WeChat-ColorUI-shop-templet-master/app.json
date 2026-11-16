@@ -176,6 +176,7 @@
     "pages/jmjm/create/index",
     "pages/jmjm/confirm/index",
     "pages/jmjm/shop/index",
+    "pages/jmjm/detail/index",
     "pages/jmjm/webview/index"
   ],
   "window": {

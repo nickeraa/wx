@@ -74,6 +74,9 @@ namespace FineUIPro.EmptyProjectNet40
                     string bankAcct = ColVal(t, r, "BANK_ACCOUNT");
                     string createTime = t.Columns.Contains("CREATE_TIME") && r["CREATE_TIME"] != DBNull.Value
                         ? Convert.ToDateTime(r["CREATE_TIME"]).ToString("yyyy-MM-dd") : "";
+                    // 签署时间（已签署单显示）
+                    string signTime = t.Columns.Contains("SIGN_TIME") && r["SIGN_TIME"] != DBNull.Value
+                        ? Convert.ToDateTime(r["SIGN_TIME"]).ToString("yyyy-MM-dd HH:mm") : "";
 
                     // 货品明细（一单多货品）
                     string itemsJson = BuildItemsJson(orderNo, t, r);
@@ -86,6 +89,7 @@ namespace FineUIPro.EmptyProjectNet40
                         + ",\"qty\":" + qty
                         + ",\"staff_id\":\"" + JsonEscape(staffId) + "\""
                         + ",\"create_time\":\"" + createTime + "\""
+                        + ",\"sign_time\":\"" + JsonEscape(signTime) + "\""
                         + ",\"status\":" + status
                         + ",\"goods_items\":[" + itemsJson + "]"
                         + ",\"cust_name\":\"" + JsonEscape(custName) + "\""
@@ -147,6 +151,7 @@ namespace FineUIPro.EmptyProjectNet40
                                 sb.Append("\"").Append(JsonEscape(u)).Append("\"");
                             }
                             sb.Append("]")
+                              .Append(",\"plu\":\"").Append(JsonEscape(ColVal(t, r, "PLU"))).Append("\"")
                               .Append(",\"goods_name\":\"").Append(JsonEscape(ColVal(t, r, "GOODS_NAME"))).Append("\"")
                               .Append(",\"price\":").Append(price.ToString("0.##"))
                               .Append(",\"qty\":").Append(qty).Append("}");

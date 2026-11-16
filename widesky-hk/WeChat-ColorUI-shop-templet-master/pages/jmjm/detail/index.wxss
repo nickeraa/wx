@@ -1,0 +1,11 @@
+page { background: #f7f4ee; }
+.detail-page { padding: 24rpx; }
+.detail-loading { text-align: center; color: #9b8bab; font-size: 28rpx; padding: 120rpx 0; }
+.detail-retry { margin: 30rpx auto 0; width: 240rpx; padding: 16rpx 0; text-align: center; background: #d7ab69; color: #fff; border-radius: 44rpx; font-size: 28rpx; }
+.detail-card { background: #fff; border-radius: 20rpx; padding: 40rpx 30rpx 50rpx; box-shadow: 0 6rpx 24rpx rgba(215,171,105,0.18); }
+.detail-no { text-align: center; color: #b8860b; font-size: 30rpx; font-weight: 700; letter-spacing: 2rpx; padding-bottom: 24rpx; border-bottom: 1rpx solid #f0ede6; }
+.detail-cust { padding: 16rpx 10rpx 0; }
+.detail-row { display: flex; justify-content: space-between; padding: 14rpx 0; }
+.detail-label { font-size: 28rpx; color: #9b8bab; }
+.detail-value { font-size: 29rpx; color: #333; font-weight: 700; }
+@import "../create/index.wxss";

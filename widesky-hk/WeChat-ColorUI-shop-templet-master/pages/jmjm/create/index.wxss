@@ -420,3 +420,79 @@ page {
   color: #333;
   font-weight: 700;
 }
+
+/* 签署详情弹窗 */
+.detail-dialog {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.detail-cust {
+  padding: 0 30rpx;
+}
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10rpx 0;
+}
+.detail-label {
+  font-size: 27rpx;
+  color: #9b8bab;
+}
+.detail-value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 700;
+}
+.detail-goods-list {
+  margin: 20rpx 30rpx 0;
+  padding: 16rpx 20rpx;
+  background: #faf8f4;
+  border-radius: 12rpx;
+}
+.detail-goods-title {
+  font-size: 26rpx;
+  color: #b8860b;
+  font-weight: 700;
+  padding-bottom: 10rpx;
+  border-bottom: 1rpx solid #f0ede6;
+}
+.detail-goods-item {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid #f5f2ec;
+}
+.detail-goods-item:last-child {
+  border-bottom: none;
+}
+.dg-img {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 8rpx;
+  border: 1rpx solid #eee7d8;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+.dg-body {
+  flex: 1;
+  min-width: 0;
+}
+.dg-line1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.dg-name {
+  font-size: 28rpx;
+  color: #333;
+}
+.dg-price {
+  font-size: 27rpx;
+  color: #b8860b;
+  font-weight: 700;
+}
+.dg-line2 {
+  margin-top: 6rpx;
+  font-size: 26rpx;
+  color: #9b8bab;
+}
