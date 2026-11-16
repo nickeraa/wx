@@ -49,7 +49,7 @@
                             DataKeyNames="ORDER_NO">
                             <Columns>
                                 <f:RowNumberField />
-                                <f:HyperLinkField DataTextField="ORDER_NO" DataNavigateUrlFields="SIGN_URL" DataNavigateUrlFormatString="{0}" HeaderText="寄卖单号(点击查看合同)" Width="180px" Target="_blank" />
+                                <f:HyperLinkField DataTextField="ORDER_NO" DataNavigateUrlFields="ORDER_NO" DataNavigateUrlFormatString="wx_jmjm_status.ashx?order_no={0}&amp;getfile=1" HeaderText="寄卖单号(点击查看合同)" Width="180px" Target="_blank" />
                                 <f:BoundField DataField="SHOP_NO" HeaderText="店铺编号" Width="80px" />
                                 <f:BoundField DataField="STAFF_ID" HeaderText="开单员工" Width="100px" />
                                 <f:BoundField DataField="CUST_NAME" HeaderText="客户姓名" Width="100px" />

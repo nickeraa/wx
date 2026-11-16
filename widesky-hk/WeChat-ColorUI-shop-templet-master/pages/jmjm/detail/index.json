@@ -1,5 +1,4 @@
 {
-  "navigationBarTitleText": "签署详情",
-  "navigationBarBackgroundColor": "#d7ab69",
+  "navigationStyle": "custom",
   "navigationBarTextStyle": "white"
 }

@@ -81,6 +81,29 @@ namespace FineUIPro.EmptyProjectNet40
                     // 货品明细（一单多货品）
                     string itemsJson = BuildItemsJson(orderNo, t, r);
 
+                    // 店铺编号/名称（espos.jmjm_order_shop：主表关联 xf_store）
+                    string shopNo = "";
+                    string shopName = "";
+                    try
+                    {
+                        OracleParameter[] psShop = {
+                            Cn.Db.MakeParam("mycs", OracleType.Cursor, null, null, "out"),
+                            Cn.Db.MakeParam("v_orderno", OracleType.VarChar, 32, orderNo, "in")
+                        };
+                        DataSet dsShop = Cn.Db.exeSqlForDataSet("espos.jmjm_order_shop", psShop);
+                        if (dsShop != null && dsShop.Tables.Count > 0 && dsShop.Tables[0].Rows.Count > 0)
+                        {
+                            DataRow rs = dsShop.Tables[0].Rows[0];
+                            shopNo = rs.Table.Columns.Contains("SHOP_NO") ? Convert.ToString(rs["SHOP_NO"]) : "";
+                            shopName = rs.Table.Columns.Contains("SHOP_NAME") ? Convert.ToString(rs["SHOP_NAME"]) : "";
+                        }
+                    }
+                    catch (Exception sex)
+                    {
+                        // 店铺查询失败不阻断详情（需先执行 alter_jmjm_order_shop.sql）
+                        Log("店铺查询失败 " + orderNo + " :" + sex.Message);
+                    }
+
                     context.Response.Write("{\"errcode\":0"
                         + ",\"order_no\":\"" + JsonEscape(orderNo) + "\""
                         + ",\"goods_name\":\"" + JsonEscape(goodsName) + "\""
@@ -88,6 +111,8 @@ namespace FineUIPro.EmptyProjectNet40
                         + ",\"price\":" + price.ToString("0.##")
                         + ",\"qty\":" + qty
                         + ",\"staff_id\":\"" + JsonEscape(staffId) + "\""
+                        + ",\"shop_no\":\"" + JsonEscape(shopNo) + "\""
+                        + ",\"shop_name\":\"" + JsonEscape(shopName) + "\""
                         + ",\"create_time\":\"" + createTime + "\""
                         + ",\"sign_time\":\"" + JsonEscape(signTime) + "\""
                         + ",\"status\":" + status

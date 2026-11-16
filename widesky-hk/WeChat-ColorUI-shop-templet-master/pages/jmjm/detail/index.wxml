@@ -1,46 +1,74 @@
-<view class="detail-page">
+<!-- 自定义导航栏（与开单页同款） -->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="jm-bar fixed" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class="jm-bar-back" bindtap="goBack">‹</view>
+    <view class="jm-bar-title">签署信息</view>
+    <view class="jm-bar-right"></view>
+  </view>
+</view>
 
-  <view wx:if="{{!loaded}}" class="detail-loading">正在查询签署信息...</view>
+<view class="dpage">
 
-  <view wx:elif="{{!info}}" class="detail-loading">
+  <!-- 加载中 -->
+  <view wx:if="{{!loaded}}" class="d-empty">正在查询签署信息...</view>
+
+  <!-- 查询失败 -->
+  <view wx:elif="{{!info}}" class="d-empty">
     <view>查询失败，请稍后重试</view>
-    <view class="detail-retry" bindtap="retry">重新查询</view>
+    <view class="d-retry" bindtap="retry">重新查询</view>
   </view>
 
+  <!-- 详情内容 -->
   <block wx:elif="{{info}}">
-    <view class="detail-card">
-      <view class="detail-no">{{info.order_no}}</view>
 
-      <view class="detail-cust">
-        <view class="detail-row">
-          <text class="detail-label">客户姓名</text>
-          <text class="detail-value">{{info.cust_name}}</text>
-        </view>
-        <view class="detail-row">
-          <text class="detail-label">联系电话</text>
-          <text class="detail-value">{{info.cust_phone}}</text>
-        </view>
-        <view class="detail-row">
-          <text class="detail-label">签署时间</text>
-          <text class="detail-value">{{info.sign_time}}</text>
-        </view>
+    <!-- 单号横幅 -->
+    <view class="d-hero">
+      <view class="d-hero-no">{{info.order_no}}</view>
+      <view class="d-hero-tag">已签署</view>
+    </view>
+
+    <!-- 客户信息 -->
+    <view class="d-card">
+      <view class="d-card-title">客户信息</view>
+      <view class="d-row">
+        <text class="d-label">下单店铺</text>
+        <text class="d-value">{{info.shopNo}} {{info.shopName}}</text>
       </view>
+      <view class="d-row">
+        <text class="d-label">客户姓名</text>
+        <text class="d-value">{{info.cust_name}}</text>
+      </view>
+      <view class="d-row">
+        <text class="d-label">跟进员工</text>
+        <text class="d-value">{{info.staffId}}</text>
+      </view>
+      <view class="d-row">
+        <text class="d-label">联系电话</text>
+        <text class="d-value d-phone" bindtap="callPhone">{{info.cust_phone}}</text>
+      </view>
+      <view class="d-row">
+        <text class="d-label">签署时间</text>
+        <text class="d-value">{{info.sign_time}}</text>
+      </view>
+    </view>
 
-      <view class="detail-goods-list">
-        <view class="detail-goods-title">寄卖货品（共 {{info.items.length}} 件）</view>
-        <view class="detail-goods-item" wx:for="{{info.items}}" wx:key="seq">
-          <image wx:if="{{item.img_url}}" class="dg-img" src="{{item.img_url}}" mode="aspectFill"
-                 data-index="{{index}}" bindtap="previewImg"></image>
-          <view class="dg-body">
-            <view class="dg-line1">
-              <text class="dg-name">{{item.goods_name}}</text>
-              <text class="dg-price">¥{{item.price}} × {{item.qty}}</text>
-            </view>
-            <view class="dg-line2">货号：{{item.plu || '未录入'}}</view>
-          </view>
+    <!-- 寄卖货品 -->
+    <view class="d-card">
+      <view class="d-card-title">寄卖货品（共 {{info.items.length}} 件）</view>
+      <view class="d-goods" wx:for="{{info.items}}" wx:for-index="pindex" wx:key="seq">
+        <view class="d-goods-head">
+          <text class="d-goods-name">{{pindex + 1}}. {{item.goods_name}}</text>
+          <text class="d-goods-price">¥{{item.price}} × {{item.qty}}</text>
+        </view>
+        <view class="d-goods-plu">货号：{{item.plu || '未录入'}}</view>
+        <view class="d-imgs" wx:if="{{item.imgs.length > 0}}">
+          <image wx:for="{{item.imgs}}" wx:for-item="img" wx:for-index="iidx" wx:key="*this"
+                 class="d-img" src="{{img}}" mode="aspectFill"
+                 data-p="{{pindex}}" data-i="{{iidx}}" bindtap="previewImg"></image>
         </view>
       </view>
     </view>
+
   </block>
 
 </view>

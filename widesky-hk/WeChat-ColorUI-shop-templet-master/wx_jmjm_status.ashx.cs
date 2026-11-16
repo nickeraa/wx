@@ -121,6 +121,56 @@ namespace FineUIPro.EmptyProjectNet40
                 {
                     Log("未识别的流程状态 order_no=" + orderNo + " flow_id=" + flowId + " essStatus=" + essStatus);
                 }
+
+                // 合同查看中转：getfile=1 且已签署时，实时取文件下载链接并 302 跳转
+                // （jmht.aspx 列表点单号用；SIGN_URL 历史数据是小程序路径不可用，下载链接有时效需实时取）
+                string getfile = (context.Request["getfile"] ?? "").Trim();
+                if (getfile == "1")
+                {
+                    if (status != 2)
+                    {
+                        context.Response.Write("该单未完成签署，无合同可查看");
+                        return;
+                    }
+                    if (flowId.Length == 0)
+                    {
+                        context.Response.Write("该单没有电子签流程号，无合同可查看");
+                        return;
+                    }
+                    try
+                    {
+                        // 官方接口：DescribeFileUrls（查询文件下载URL）
+                        // BusinessType=FLOW 表示按合同流程取文件，BusinessIds 传 FlowId；FileType=PDF；UrlTtl 链接有效期(秒，默认300，最长86400)
+                        JObject fresp = wx_jmjm_sign.InvokeEssApi("DescribeFileUrls",
+                            "{" + wx_jmjm_sign.OperatorJson()
+                            + "\"BusinessType\":\"FLOW\""
+                            + ",\"BusinessIds\":[\"" + flowId + "\"]"
+                            + ",\"FileType\":\"PDF\""
+                            + ",\"UrlTtl\":3600}");
+
+                        string furl = "";
+                        JArray furls = fresp["FileUrls"] as JArray;
+                        if (furls != null && furls.Count > 0 && furls[0] != null && furls[0]["Url"] != null)
+                        {
+                            furl = furls[0]["Url"].ToString().Trim();
+                        }
+                        if (furl.Length > 0)
+                        {
+                            context.Response.Redirect(furl, false);
+                            return;
+                        }
+                        Log("getfile 未取到下载链接 order_no=" + orderNo + " flow_id=" + flowId
+                            + " resp=" + fresp.ToString(Newtonsoft.Json.Formatting.None));
+                        context.Response.Write("获取合同链接失败，请稍后重试（详情见日志）");
+                    }
+                    catch (Exception fex)
+                    {
+                        Log("getfile 异常 order_no=" + orderNo + " :" + fex.Message);
+                        context.Response.Write("获取合同链接异常，请稍后重试");
+                    }
+                    return;
+                }
+
                 context.Response.Write("{\"errcode\":0"
                     + ",\"status\":" + status
                     + ",\"ess_status\":\"" + JsonEscape(essStatus) + "\""

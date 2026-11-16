@@ -5,7 +5,9 @@ Page({
     userid: '',
     orderNo: '',
     info: null,
-    loaded: false
+    loaded: false,
+    StatusBar: app.globalData.StatusBar,
+    CustomBar: app.globalData.CustomBar
   },
 
   onLoad: function (options) {
@@ -50,6 +52,9 @@ Page({
               cust_phone: d.cust_phone || '',
               sign_time: d.sign_time || '',
               status: d.status,
+              shopNo: d.shop_no || '',
+              shopName: d.shop_name || '',
+              staffId: d.staff_id || '',
               items: items
             }
           });
@@ -65,14 +70,25 @@ Page({
     });
   },
 
-  // 点击图片放大（预览该货品全部图片）
+  // 点击图片放大（预览该货品全部照片，从点击那张开始）
   previewImg: function (ev) {
     var e = this;
-    var idx = ev.currentTarget.dataset.index;
-    var item = e.data.info && e.data.info.items ? e.data.info.items[idx] : null;
-    if (!item) return;
-    var urls = item.imgs && item.imgs.length > 0 ? item.imgs : [item.img_url];
-    wx.previewImage({ urls: urls });
+    var p = ev.currentTarget.dataset.p;
+    var i = ev.currentTarget.dataset.i;
+    var item = e.data.info && e.data.info.items ? e.data.info.items[p] : null;
+    if (!item || !item.imgs || item.imgs.length === 0) return;
+    wx.previewImage({ current: item.imgs[i], urls: item.imgs });
+  },
+
+  // 拨打客户电话
+  callPhone: function () {
+    var phone = this.data.info && this.data.info.cust_phone;
+    if (phone) wx.makePhoneCall({ phoneNumber: phone });
+  },
+
+  // 返回
+  goBack: function () {
+    wx.navigateBack();
   },
 
   // 重试
